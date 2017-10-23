@@ -1,5 +1,5 @@
 import React from 'react';
-import { InputGroup, InputGroupAddon, Input } from 'reactstrap';
+import { Input } from 'reactstrap';
 
 export default class Amount extends React.Component{
   constructor(props)
