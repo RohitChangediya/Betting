@@ -1,10 +1,11 @@
 {
-    "name": "Betting",
+  "name": "Betting",
   "version": "0.1.0",
   "private": true,
   "homepage": "https://ethorse.github.io/Betting",
   "dependencies": {
     "bootstrap": "^4.0.0-beta",
+    "fractional": "^1.0.0",
     "gh-pages": "^1.0.0",
     "jquery": "^3.2.1",
     "json-loader": "^0.5.7",
