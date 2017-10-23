@@ -42,7 +42,7 @@ button.betlist.active{
 #copyright{
     text-align: center;
     background-color:#e0e0eb;
-    position: absolute;
+    position: fixed;
     width: 100%;
     overflow:hidden;
     right: 0;
@@ -54,4 +54,7 @@ span{
   vertical-align: middle;
   line-height: normal;
   line-height: 50px;
+}
+center{
+  text-align: center;
 }
