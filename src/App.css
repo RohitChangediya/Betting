@@ -27,9 +27,12 @@
   to { transform: rotate(360deg); }
 }
 
+html{
+    background-color: #003366 ;
+}
 
 nav{
-  background-color:#e0e0eb;
+  background-color:white;
 }
 button.betlist.active{
     background-color: #4CAF50; /* Green */
@@ -39,6 +42,18 @@ button.betlist.active{
     text-decoration: none;
     display: inline-block;
 }
+* {
+ color: white;
+}
+.jumbotron {
+    background-color: #003366!important;
+}
+.header-font
+    {
+        font-family:    Roboto;
+        font-size:      40px;
+        letter-spacing: 3px;
+    }
 #copyright{
     text-align: center;
     background-color:#e0e0eb;

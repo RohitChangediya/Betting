@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import ethorsejson from './ETHorse.json';
-import {makeHref} from 'react-router';
+
 
 
 
@@ -36,17 +36,12 @@ export default class Header extends Component {
     }
     render()
     {
-      var address_link="https://kovan.etherscan.io/address/"+ethorsejson.address;
+      var address_link="https://kovan.etherscan.io/address/"+ethorsejson.address+"#code";
       return(
         <div>
           <Navbar light expand="md">
-            <NavbarBrand href="/"><h3>Ethorse</h3></NavbarBrand>
+            <NavbarBrand href="/"><link rel="shortcut icon" href="%PUBLIC_URL%/horse.ico"/><h3 class="header-font">ethorse</h3></NavbarBrand>
               <Nav className="ml-auto" navbar>
-                <NavItem>
-                  <NavLink>
-                    <Button color="link"><a href={address_link} rel="noopener noreferrer" target="_blank">{ethorsejson.address}</a></Button>
-                  </NavLink>
-                </NavItem>
               <NavItem>
                 <NavLink><Button color="link" onClick={this.toggle}>Information</Button></NavLink>
               </NavItem>
@@ -65,6 +60,7 @@ export default class Header extends Component {
                 <li>Price pulled from Coinmarketcap.com API through Oraclize.it at the beginning and end of the bet period</li>
                 <li>Maximum bet amount 1 ETH and minimum 0.1 ETH Questions and Feedback welcome</li>
               </ul>
+              Link to open source smart contract code: <a href={address_link} rel="noopener noreferrer" target="_blank">{ethorsejson.address}</a>
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={this.toggle}>Ok</Button>

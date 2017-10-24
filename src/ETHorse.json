@@ -22,15 +22,12 @@
 	"stateMutability": "view",
 	"type": "function"
 }, {
-	"constant": true,
+	"constant": false,
 	"inputs": [],
-	"name": "race_start",
-	"outputs": [{
-		"name": "",
-		"type": "bool"
-	}],
+	"name": "reward",
+	"outputs": [],
 	"payable": false,
-	"stateMutability": "view",
+	"stateMutability": "nonpayable",
 	"type": "function"
 }, {
 	"constant": false,
@@ -45,20 +42,6 @@
 	"outputs": [],
 	"payable": false,
 	"stateMutability": "nonpayable",
-	"type": "function"
-}, {
-	"constant": false,
-	"inputs": [{
-		"name": "delay",
-		"type": "uint256"
-	}, {
-		"name": "betting_duration",
-		"type": "uint256"
-	}],
-	"name": "update",
-	"outputs": [],
-	"payable": true,
-	"stateMutability": "payable",
 	"type": "function"
 }, {
 	"constant": false,
@@ -125,6 +108,17 @@
 	"stateMutability": "view",
 	"type": "function"
 }, {
+	"constant": false,
+	"inputs": [{
+		"name": "betting_duration",
+		"type": "uint256"
+	}],
+	"name": "update",
+	"outputs": [],
+	"payable": true,
+	"stateMutability": "payable",
+	"type": "function"
+}, {
 	"constant": true,
 	"inputs": [{
 		"name": "s",
@@ -132,7 +126,7 @@
 	}],
 	"name": "stringToUintNormalize",
 	"outputs": [{
-		"name": "result",
+		"name": "",
 		"type": "uint256"
 	}],
 	"payable": false,
@@ -192,10 +186,21 @@
 }, {
 	"constant": true,
 	"inputs": [],
-	"name": "betting_open",
+	"name": "coin_pointer",
 	"outputs": [{
 		"name": "",
-		"type": "bool"
+		"type": "bytes32"
+	}],
+	"payable": false,
+	"stateMutability": "view",
+	"type": "function"
+}, {
+	"constant": true,
+	"inputs": [],
+	"name": "temp_ID",
+	"outputs": [{
+		"name": "",
+		"type": "bytes32"
 	}],
 	"payable": false,
 	"stateMutability": "view",
@@ -218,6 +223,17 @@
 	"outputs": [],
 	"payable": false,
 	"stateMutability": "nonpayable",
+	"type": "function"
+}, {
+	"constant": true,
+	"inputs": [],
+	"name": "countdown",
+	"outputs": [{
+		"name": "",
+		"type": "uint256"
+	}],
+	"payable": false,
+	"stateMutability": "view",
 	"type": "function"
 }, {
 	"constant": true,
@@ -295,5 +311,5 @@
 	"name": "Withdraw",
 	"type": "event"
 }],
-	"address": "0x3a6794c45d828700c2ff42e9577a447744adfc2e"
+	"address": "0xca77f61dcd6972ac0a46742b73282e5d54894511"
 }
