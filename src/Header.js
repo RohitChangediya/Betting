@@ -2,6 +2,11 @@ import {Navbar,  NavbarBrand, Nav, NavLink, NavItem, Modal, ModalHeader, ModalBo
 import React, { Component } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
+import ethorsejson from './ETHorse.json';
+
+
+
+
 
 export default class Header extends Component {
 
@@ -29,9 +34,9 @@ export default class Header extends Component {
       }
 
     }
-
     render()
     {
+      var address_link="https://kovan.etherscan.io/address/"+ethorsejson.address;
       return(
         <div>
           <Navbar light expand="md">
@@ -42,9 +47,9 @@ export default class Header extends Component {
               </NavItem>
               </Nav>
           </Navbar>
-
+        
         <Modal isOpen={this.state.modal} toggle={this.toggle} >
-          <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
+          <ModalHeader toggle={this.toggle}>Information</ModalHeader>
           <ModalBody>
               Info page Bet on a coin and win against other bettors with ETHORSE Smart Contract
               <ul>
@@ -55,7 +60,7 @@ export default class Header extends Component {
                 <li>Price pulled from Coinmarketcap.com API through Oraclize.it at the beginning and end of the bet period</li>
                 <li>Maximum bet amount 1 ETH and minimum 0.1 ETH Questions and Feedback welcome</li>
               </ul>
-              Link to open source smart contract code: <a href="https://kovan.etherscan.io/address/0x524487e72e0dd214daac9b864e0c6462f3a5290b" rel="noopener noreferrer" target="_blank">0x524487e72e0dd214daac9b864e0c6462f3a5290b</a>
+              Link to open source smart contract code: <a href={address_link} rel="noopener noreferrer" target="_blank">{ethorsejson.address}}</a>
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={this.toggle}>Ok</Button>

@@ -22,6 +22,17 @@
 	"stateMutability": "view",
 	"type": "function"
 }, {
+	"constant": true,
+	"inputs": [],
+	"name": "race_start",
+	"outputs": [{
+		"name": "",
+		"type": "bool"
+	}],
+	"payable": false,
+	"stateMutability": "view",
+	"type": "function"
+}, {
 	"constant": false,
 	"inputs": [],
 	"name": "reward",
@@ -126,7 +137,7 @@
 	}],
 	"name": "stringToUintNormalize",
 	"outputs": [{
-		"name": "",
+		"name": "result",
 		"type": "uint256"
 	}],
 	"payable": false,
@@ -190,6 +201,17 @@
 	"outputs": [{
 		"name": "",
 		"type": "bytes32"
+	}],
+	"payable": false,
+	"stateMutability": "view",
+	"type": "function"
+}, {
+	"constant": true,
+	"inputs": [],
+	"name": "betting_open",
+	"outputs": [{
+		"name": "",
+		"type": "bool"
 	}],
 	"payable": false,
 	"stateMutability": "view",
@@ -311,5 +333,5 @@
 	"name": "Withdraw",
 	"type": "event"
 }],
-	"address": "0xca77f61dcd6972ac0a46742b73282e5d54894511"
+	"address": "0xf423964843726Db6213C85db3990112BfF454D4b"
 }

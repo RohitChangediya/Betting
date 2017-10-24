@@ -1,10 +1,44 @@
 import React from 'react';
-import {  Table, Button} from 'reactstrap';
+import {  Table, Button, Alert} from 'reactstrap';
 import ethorsejson from './ETHorse.json';
 var Web3 = require('web3');
 var contract = require("truffle-contract");
 var Fraction = require('fractional').Fraction
 
+class AlertExample extends React.Component {
+  constructor(props) {
+    super(props);
+    this.onDismiss = this.onDismiss.bind(this);
+  }
+  componentWillMount()
+  {
+    var self=this;
+    var web3 = new Web3(Web3.givenProvider);
+    web3.eth.net.getNetworkType(function(err, netId){
+      console.log(netId,err)
+      if(err!==null)
+      {
+        self.props.onSubmit('Error')
+      }
+      else
+        {
+          self.props.onSubmit('No_Error')
+        }
+
+    })
+  }
+  onDismiss()
+  {
+    this.props.onSubmit('No_Error')
+  }
+  render() {
+    return (
+      <Alert color="info" isOpen={this.props.visible} toggle={this.onDismiss}>
+        Not connected to Metamask
+      </Alert>
+    );
+  }
+}
 
 export default class ETHRadio extends React.Component{
   constructor(props)
@@ -12,6 +46,7 @@ export default class ETHRadio extends React.Component{
     super(props);
     this.handleChange=this.handleChange.bind(this);
     this.getCoinDetails=this.getCoinDetails.bind(this);
+    this.onDismiss = this.onDismiss.bind(this);
     var eth={pool_total:null,odds:null,number_of_bets:null,pre_price:'TBC',post_price:'TBC'}
     var btc={pool_total:null,odds:null,number_of_bets:null,pre_price:'TBC',post_price:'TBC'}
     var ltc={pool_total:null,odds:null,number_of_bets:null,pre_price:'TBC',post_price:'TBC'}
@@ -21,10 +56,21 @@ export default class ETHRadio extends React.Component{
                 metal:'primary',
                 eth_pool:eth,
                 btc_pool:btc,
-                ltc_pool:ltc
+                ltc_pool:ltc,
+                visible:false
                 };
+
   }
-  getCoinDetails(instance)
+  onDismiss(err) {
+    if(err==="Error")
+      {
+      this.setState({ visible: true });
+      }
+    else {
+      this.setState({ visible: false });
+    }
+  }
+  getCoinDetails()
   {
     var self=this;
     var web3 = new Web3(Web3.givenProvider);
@@ -42,17 +88,17 @@ export default class ETHRadio extends React.Component{
           //Input parameter coin type ETH,BTC,LTC
         instance.getCoinIndex("ETH").then(function(value){
           var f = new Fraction(parseFloat(web3.utils.fromWei(value[0].toString(),"ether")),balance)
-          var eth={pool_total:web3.utils.fromWei(value[0].toString(),"ether"),pre_price:(value[1]/100),post_price:(value[2]/100),odds:(f.denominator+':'+f.numerator),number_of_bets:value[4].toString()}
+          var eth={pool_total:web3.utils.fromWei(value[0].toString(),"ether"),pre_price:(value[1]/100),post_price:(value[2]/100),odds:((f.denominator/f.numerator)+':'+1),number_of_bets:value[4].toString()}
           self.setState({eth_pool:eth});
         });
         instance.getCoinIndex("LTC").then(function(value){
           var f = new Fraction(parseFloat(web3.utils.fromWei(value[0].toString(),"ether")),balance)
-          var ltc={pool_total:web3.utils.fromWei(value[0].toString(),"ether"),pre_price:(value[1]/100),post_price:(value[2]/100),odds:(f.denominator+':'+f.numerator),number_of_bets:value[4].toString()}
+          var ltc={pool_total:web3.utils.fromWei(value[0].toString(),"ether"),pre_price:(value[1]/100),post_price:(value[2]/100),odds:((f.denominator/f.numerator)+':'+1),number_of_bets:value[4].toString()}
           self.setState({ltc_pool:ltc});
         });
         instance.getCoinIndex("BTC").then(function(value){
           var f = new Fraction(parseFloat(web3.utils.fromWei(value[0].toString(),"ether")),balance)
-          var btc={pool_total:web3.utils.fromWei(value[0].toString(),"ether"),pre_price:(value[1]/100),post_price:(value[2]/100),odds:(f.denominator+':'+f.numerator),number_of_bets:value[4].toString()}
+          var btc={pool_total:web3.utils.fromWei(value[0].toString(),"ether"),pre_price:(value[1]/100),post_price:(value[2]/100),odds:((f.denominator/f.numerator)+':'+1),number_of_bets:value[4].toString()}
           self.setState({btc_pool:btc});
         });
         });
@@ -71,15 +117,14 @@ export default class ETHRadio extends React.Component{
   }
   componentWillMount()
   {
-
-
-
       this.getCoinDetails();
 
   }
   render()
   {
     return(
+      <div>
+      <AlertExample visible={this.state.visible} onSubmit={this.onDismiss}/>
       <Table bordered>
 
         <thead>
@@ -122,6 +167,7 @@ export default class ETHRadio extends React.Component{
         </tbody>
 
       </Table>
+      </div>
     );
   }
 }
