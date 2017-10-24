@@ -1,7 +1,8 @@
 {
-  "name": "test_ethereum",
-  "version": "0.1.0",
-  "private": true,
+  "name": "Betting",
+    "version": "0.2.0",
+    "private": true,
+    "homepage": "https://ethorse.github.io/Betting",
   "dependencies": {
     "bootstrap": "^4.0.0-beta",
     "fractional": "^1.0.0",
