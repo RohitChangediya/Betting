@@ -34,14 +34,6 @@
 	"type": "function"
 }, {
 	"constant": false,
-	"inputs": [],
-	"name": "reward",
-	"outputs": [],
-	"payable": false,
-	"stateMutability": "nonpayable",
-	"type": "function"
-}, {
-	"constant": false,
 	"inputs": [{
 		"name": "myid",
 		"type": "bytes32"
@@ -53,6 +45,20 @@
 	"outputs": [],
 	"payable": false,
 	"stateMutability": "nonpayable",
+	"type": "function"
+}, {
+	"constant": false,
+	"inputs": [{
+		"name": "delay",
+		"type": "uint256"
+	}, {
+		"name": "betting_duration",
+		"type": "uint256"
+	}],
+	"name": "update",
+	"outputs": [],
+	"payable": true,
+	"stateMutability": "payable",
 	"type": "function"
 }, {
 	"constant": false,
@@ -117,17 +123,6 @@
 	}],
 	"payable": false,
 	"stateMutability": "view",
-	"type": "function"
-}, {
-	"constant": false,
-	"inputs": [{
-		"name": "betting_duration",
-		"type": "uint256"
-	}],
-	"name": "update",
-	"outputs": [],
-	"payable": true,
-	"stateMutability": "payable",
 	"type": "function"
 }, {
 	"constant": true,
@@ -197,32 +192,10 @@
 }, {
 	"constant": true,
 	"inputs": [],
-	"name": "coin_pointer",
-	"outputs": [{
-		"name": "",
-		"type": "bytes32"
-	}],
-	"payable": false,
-	"stateMutability": "view",
-	"type": "function"
-}, {
-	"constant": true,
-	"inputs": [],
 	"name": "betting_open",
 	"outputs": [{
 		"name": "",
 		"type": "bool"
-	}],
-	"payable": false,
-	"stateMutability": "view",
-	"type": "function"
-}, {
-	"constant": true,
-	"inputs": [],
-	"name": "temp_ID",
-	"outputs": [{
-		"name": "",
-		"type": "bytes32"
 	}],
 	"payable": false,
 	"stateMutability": "view",
@@ -245,17 +218,6 @@
 	"outputs": [],
 	"payable": false,
 	"stateMutability": "nonpayable",
-	"type": "function"
-}, {
-	"constant": true,
-	"inputs": [],
-	"name": "countdown",
-	"outputs": [{
-		"name": "",
-		"type": "uint256"
-	}],
-	"payable": false,
-	"stateMutability": "view",
 	"type": "function"
 }, {
 	"constant": true,
@@ -333,5 +295,5 @@
 	"name": "Withdraw",
 	"type": "event"
 }],
-	"address": "0xf423964843726Db6213C85db3990112BfF454D4b"
+	"address": "0x3a6794c45d828700c2ff42e9577a447744adfc2e"
 }
