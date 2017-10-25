@@ -22,12 +22,34 @@
 	"stateMutability": "view",
 	"type": "function"
 }, {
+	"constant": true,
+	"inputs": [],
+	"name": "race_start",
+	"outputs": [{
+		"name": "",
+		"type": "bool"
+	}],
+	"payable": false,
+	"stateMutability": "view",
+	"type": "function"
+}, {
 	"constant": false,
 	"inputs": [],
-	"name": "reward",
+	"name": "treasury_gas",
 	"outputs": [],
+	"payable": true,
+	"stateMutability": "payable",
+	"type": "function"
+}, {
+	"constant": true,
+	"inputs": [],
+	"name": "BTC",
+	"outputs": [{
+		"name": "",
+		"type": "bytes32"
+	}],
 	"payable": false,
-	"stateMutability": "nonpayable",
+	"stateMutability": "view",
 	"type": "function"
 }, {
 	"constant": false,
@@ -42,6 +64,20 @@
 	"outputs": [],
 	"payable": false,
 	"stateMutability": "nonpayable",
+	"type": "function"
+}, {
+	"constant": false,
+	"inputs": [{
+		"name": "delay",
+		"type": "uint256"
+	}, {
+		"name": "betting_duration",
+		"type": "uint256"
+	}],
+	"name": "update",
+	"outputs": [],
+	"payable": true,
+	"stateMutability": "payable",
 	"type": "function"
 }, {
 	"constant": false,
@@ -56,6 +92,14 @@
 		"type": "bytes"
 	}],
 	"name": "__callback",
+	"outputs": [],
+	"payable": false,
+	"stateMutability": "nonpayable",
+	"type": "function"
+}, {
+	"constant": false,
+	"inputs": [],
+	"name": "claim",
 	"outputs": [],
 	"payable": false,
 	"stateMutability": "nonpayable",
@@ -99,6 +143,17 @@
 }, {
 	"constant": true,
 	"inputs": [],
+	"name": "check_reward",
+	"outputs": [{
+		"name": "",
+		"type": "uint256"
+	}],
+	"payable": false,
+	"stateMutability": "view",
+	"type": "function"
+}, {
+	"constant": true,
+	"inputs": [],
 	"name": "winner_horse",
 	"outputs": [{
 		"name": "",
@@ -108,17 +163,6 @@
 	"stateMutability": "view",
 	"type": "function"
 }, {
-	"constant": false,
-	"inputs": [{
-		"name": "betting_duration",
-		"type": "uint256"
-	}],
-	"name": "update",
-	"outputs": [],
-	"payable": true,
-	"stateMutability": "payable",
-	"type": "function"
-}, {
 	"constant": true,
 	"inputs": [{
 		"name": "s",
@@ -126,7 +170,7 @@
 	}],
 	"name": "stringToUintNormalize",
 	"outputs": [{
-		"name": "",
+		"name": "result",
 		"type": "uint256"
 	}],
 	"payable": false,
@@ -186,21 +230,10 @@
 }, {
 	"constant": true,
 	"inputs": [],
-	"name": "coin_pointer",
+	"name": "betting_open",
 	"outputs": [{
 		"name": "",
-		"type": "bytes32"
-	}],
-	"payable": false,
-	"stateMutability": "view",
-	"type": "function"
-}, {
-	"constant": true,
-	"inputs": [],
-	"name": "temp_ID",
-	"outputs": [{
-		"name": "",
-		"type": "bytes32"
+		"type": "bool"
 	}],
 	"payable": false,
 	"stateMutability": "view",
@@ -227,17 +260,6 @@
 }, {
 	"constant": true,
 	"inputs": [],
-	"name": "countdown",
-	"outputs": [{
-		"name": "",
-		"type": "uint256"
-	}],
-	"payable": false,
-	"stateMutability": "view",
-	"type": "function"
-}, {
-	"constant": true,
-	"inputs": [],
 	"name": "total_reward",
 	"outputs": [{
 		"name": "",
@@ -253,6 +275,17 @@
 	"outputs": [{
 		"name": "",
 		"type": "int256"
+	}],
+	"payable": false,
+	"stateMutability": "view",
+	"type": "function"
+}, {
+	"constant": true,
+	"inputs": [],
+	"name": "race_end",
+	"outputs": [{
+		"name": "",
+		"type": "bool"
 	}],
 	"payable": false,
 	"stateMutability": "view",
@@ -311,5 +344,5 @@
 	"name": "Withdraw",
 	"type": "event"
 }],
-	"address": "0xca77f61dcd6972ac0a46742b73282e5d54894511"
+	"address": "0xd38fb3bb99e5c5e2398743b005d2dbf25abae47b"
 }

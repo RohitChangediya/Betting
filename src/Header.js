@@ -36,14 +36,14 @@ export default class Header extends Component {
     }
     render()
     {
-      var address_link="https://kovan.etherscan.io/address/"+ethorsejson.address+"#code";
+      var address_link="https://ropsten.etherscan.io/address/"+ethorsejson.address+"#code";
       return(
         <div>
           <Navbar light expand="md">
-            <NavbarBrand href="/"><link rel="shortcut icon" href="%PUBLIC_URL%/horse.ico"/><h3 class="header-font">ethorse</h3></NavbarBrand>
+            <NavbarBrand href="/"><h3 class="header-font"><img width="10%" height="auto" src={"https://raw.githubusercontent.com/ethorse/Betting/gh-pages/horse.ico"}/>&nbsp;ethorse</h3></NavbarBrand>
               <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink><Button color="link" onClick={this.toggle}>Information</Button></NavLink>
+                <NavLink><Button color="link" style={{textDecoration: 'none'}} onClick={this.toggle}><h4>Information</h4></Button></NavLink>
               </NavItem>
               </Nav>
           </Navbar>

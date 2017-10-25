@@ -1,11 +1,12 @@
 {
   "name": "Betting",
-    "version": "0.2.0",
-    "private": true,
-    "homepage": "https://ethorse.github.io/Betting",
+  "version": "0.2.0",
+  "private": true,
+  "homepage": "https://ethorse.github.io/Betting",
   "dependencies": {
     "bootstrap": "^4.0.0-beta",
     "fractional": "^1.0.0",
+    "gh-pages": "^1.0.0",
     "jquery": "^3.2.1",
     "json-loader": "^0.5.7",
     "react": "^16.0.0",
@@ -22,7 +23,9 @@
     "web3": "^1.0.0-beta.22"
   },
   "scripts": {
-    "start": "PORT=4000 react-scripts start",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"

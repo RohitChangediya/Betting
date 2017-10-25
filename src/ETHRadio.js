@@ -62,6 +62,7 @@ export default class ETHRadio extends React.Component{
           //getCoinIndex result is an array
           //0:pool_total 1:pre_price(Bet open price) 2:post_price(Bet closing price) 3:Bet_lock(Open price set(boolean)) 4:Number of voters of coin
           //Input parameter coin type ETH,BTC,LTC
+          
         instance.getCoinIndex("ETH").then(function(value){
           var f = new Fraction(parseFloat(web3.utils.fromWei(value[0].toString(),"ether")),balance)
           var profit=0
