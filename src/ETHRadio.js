@@ -3,7 +3,11 @@ import {  Table, Button} from 'reactstrap';
 import ethorsejson from './ETHorse.json';
 var Web3 = require('web3');
 var contract = require("truffle-contract");
-var Fraction = require('fractional').Fraction
+
+var web3 = new Web3(Web3.givenProvider);
+
+var myContract = contract(ethorsejson);
+myContract.setProvider(web3.currentProvider);
 
 
 export default class ETHRadio extends React.Component{
@@ -14,6 +18,7 @@ export default class ETHRadio extends React.Component{
     this.getCoinDetails=this.getCoinDetails.bind(this);
     this.onDismiss = this.onDismiss.bind(this);
     this.checkValue=this.checkValue.bind(this);
+    this.getOddsDetails=this.getOddsDetails.bind(this);
     var eth={pool_total:null,odds:null,number_of_bets:null,pre_price:'TBC',post_price:'TBC'}
     var btc={pool_total:null,odds:null,number_of_bets:null,pre_price:'TBC',post_price:'TBC'}
     var ltc={pool_total:null,odds:null,number_of_bets:null,pre_price:'TBC',post_price:'TBC'}
@@ -28,79 +33,66 @@ export default class ETHRadio extends React.Component{
                 };
 
   }
-  onDismiss(err) {
+  onDismiss(err)
+    {
     if(err==="Error")
       {
       this.setState({ visible: true });
       }
-    else {
+    else
+      {
       this.setState({ visible: false });
-    }
-  }
-  checkValue(value)
-  {
-  if(value===0)
-  {
-    return 'TBC';
-  }
-  else {
-    return '$ '+value;
-  }
-  }
-  getCoinDetails()
-  {
-    var self=this;
-    var web3 = new Web3(Web3.givenProvider);
-
-    var myContract = contract(ethorsejson);
-    myContract.setProvider(web3.currentProvider);
-    web3.eth.getBalance(ethorsejson.address).then(function(balance){
-      balance=parseFloat(web3.utils.fromWei(balance.toString(),"ether"))
-
-        myContract.at(ethorsejson.address).then(function(instance)
-        {
-          //getCoinIndex result is an array
-          //0:pool_total 1:pre_price(Bet open price) 2:post_price(Bet closing price) 3:Bet_lock(Open price set(boolean)) 4:Number of voters of coin
-          //Input parameter coin type ETH,BTC,LTC
-          
-        instance.getCoinIndex("ETH").then(function(value){
-          var f = new Fraction(parseFloat(web3.utils.fromWei(value[0].toString(),"ether")),balance)
-          var profit=0
-          if(f.numerator>0)
-            profit= Math.round((f.denominator/f.numerator)*100-100)/100;
-          var eth={pool_total:web3.utils.fromWei(value[0].toString(),"ether"),pre_price:(value[1]/100),post_price:(value[2]/100),odds:(profit),number_of_bets:value[4].toString()}
-          eth.pre_price=self.checkValue(eth.pre_price);
-          eth.post_price=self.checkValue(eth.post_price);
-          self.setState({eth_pool:eth});
-        });
-        instance.getCoinIndex("LTC").then(function(value){
-          var f = new Fraction(parseFloat(web3.utils.fromWei(value[0].toString(),"ether")),balance)
-          var profit=0
-          if(f.numerator>0)
-            profit= Math.round((f.denominator/f.numerator)*100-100)/100;
-          var ltc={pool_total:web3.utils.fromWei(value[0].toString(),"ether"),pre_price:(value[1]/100),post_price:(value[2]/100),odds:(profit),number_of_bets:value[4].toString()}
-          ltc.pre_price=self.checkValue(ltc.pre_price);
-          ltc.post_price=self.checkValue(ltc.post_price);
-          self.setState({ltc_pool:ltc});
-        });
-        instance.getCoinIndex("BTC").then(function(value){
-          var f = new Fraction(parseFloat(web3.utils.fromWei(value[0].toString(),"ether")),balance)
-          var profit=0
-          //Math.round to round to 2 decimal place
-          if(f.numerator>0)
-            profit= Math.round((f.denominator/f.numerator)*100-100)/100;
-          var btc={pool_total:web3.utils.fromWei(value[0].toString(),"ether"),pre_price:(value[1]/100),post_price:(value[2]/100),odds:(profit),number_of_bets:value[4].toString()}
-          btc.pre_price=self.checkValue(btc.pre_price);
-          btc.post_price=self.checkValue(btc.post_price);
-          self.setState({btc_pool:btc});
-        });
-        });
       }
-    )
+    }
+  checkValue(value)
+    {
+    if(value===0)
+      {
+        return 'TBC';
+      }
+      else
+        {
+        return '$ '+value;
+        }
+    }
+  getOddsDetails(value,reward)
+    {
+    //getCoinIndex result is an array
+    //0:pool_total 1:pre_price(Bet open price) 2:post_price(Bet closing price) 3:Bet_lock(Open price set(boolean)) 4:Number of voters of coin
+    //Input parameter coin type ETH,BTC,LTC
+    var profit=0
+    var coin_bet=parseFloat(web3.utils.fromWei(value[0],"ether"))
+    if(coin_bet>0)
+      profit= Math.round((reward/coin_bet)*100-100)/100;
+    var coin_details={pool_total:web3.utils.fromWei(value[0].toString(),"ether"),pre_price:(value[1]/100),post_price:(value[2]/100),odds:(profit),number_of_bets:value[4].toString()}
+    coin_details.pre_price=this.checkValue(coin_details.pre_price);
+    coin_details.post_price=this.checkValue(coin_details.post_price);
+    return coin_details;
+    }
+  getCoinDetails()
+    {
+    var self=this;
+    myContract.at(ethorsejson.address).then(function(instance)
+          {
+          instance.reward_total().then(function(reward){
+                reward=web3.utils.fromWei(reward,"ether")
+                console.log(reward);
+                instance.getCoinIndex("ETH").then(function(value){
+                  var eth=self.getOddsDetails(value,reward);
+                  self.setState({eth_pool:eth});
+                });
+                instance.getCoinIndex("LTC").then(function(value){
+                  var ltc=self.getOddsDetails(value,reward);
+                  self.setState({ltc_pool:ltc});
+                });
+                instance.getCoinIndex("BTC").then(function(value){
+                  var btc=self.getOddsDetails(value,reward);
+                  self.setState({btc_pool:btc});
+                });
+              });
+          });
 
-
-
-  }
+    }
   handleChange(rSelected)
   {
     this.setState({ rSelected });

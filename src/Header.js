@@ -40,16 +40,16 @@ export default class Header extends Component {
       return(
         <div>
           <Navbar light expand="md">
-            <NavbarBrand href="/"><h3 class="header-font"><img width="10%" height="auto" src={"https://raw.githubusercontent.com/ethorse/Betting/gh-pages/horse.ico"}/>&nbsp;ethorse</h3></NavbarBrand>
+            <NavbarBrand href="/"><h3 className="header-font"><img width="10%" height="auto" src={"https://raw.githubusercontent.com/ethorse/Betting/gh-pages/horse.ico"} alt="ETHorse icon"/>&nbsp;ethorse</h3></NavbarBrand>
               <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink><Button color="link" style={{textDecoration: 'none'}} onClick={this.toggle}><h4>Information</h4></Button></NavLink>
+                <NavLink><Button color="link" style={{textDecoration:'none'}} onClick={this.toggle}><h4>Information</h4></Button></NavLink>
               </NavItem>
               </Nav>
           </Navbar>
 
         <Modal isOpen={this.state.modal} toggle={this.toggle} >
-          <ModalHeader toggle={this.toggle}>Information</ModalHeader>
+          <ModalHeader toggle={this.toggle}><h4>Information</h4></ModalHeader>
           <ModalBody>
               Bet on a coin and win against other bettors with ETHORSE Smart Contract
               <ul>

@@ -48,6 +48,16 @@ button.betlist.active{
 .jumbotron {
     background-color: #003366!important;
 }
+.modal-header{
+  color:black;
+}
+.modal-body{
+  color:black;
+}
+ul > li{
+  color:black
+}
+
 .header-font
     {
         font-family:    Roboto;

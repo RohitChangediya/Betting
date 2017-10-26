@@ -11,6 +11,14 @@
 	"stateMutability": "payable",
 	"type": "function"
 }, {
+	"constant": false,
+	"inputs": [],
+	"name": "claim_reward",
+	"outputs": [],
+	"payable": false,
+	"stateMutability": "nonpayable",
+	"type": "function"
+}, {
 	"constant": true,
 	"inputs": [],
 	"name": "BTC_delta",
@@ -97,31 +105,9 @@
 	"stateMutability": "nonpayable",
 	"type": "function"
 }, {
-	"constant": false,
-	"inputs": [],
-	"name": "claim",
-	"outputs": [],
-	"payable": false,
-	"stateMutability": "nonpayable",
-	"type": "function"
-}, {
 	"constant": true,
 	"inputs": [],
 	"name": "winner_reward",
-	"outputs": [{
-		"name": "",
-		"type": "uint256"
-	}],
-	"payable": false,
-	"stateMutability": "view",
-	"type": "function"
-}, {
-	"constant": true,
-	"inputs": [{
-		"name": "index",
-		"type": "bytes32"
-	}],
-	"name": "getPoolValue",
 	"outputs": [{
 		"name": "",
 		"type": "uint256"
@@ -153,8 +139,41 @@
 	"type": "function"
 }, {
 	"constant": true,
+	"inputs": [{
+		"name": "candidate",
+		"type": "address"
+	}],
+	"name": "calculate_reward_test",
+	"outputs": [],
+	"payable": false,
+	"stateMutability": "view",
+	"type": "function"
+}, {
+	"constant": true,
+	"inputs": [],
+	"name": "LTC",
+	"outputs": [{
+		"name": "",
+		"type": "bytes32"
+	}],
+	"payable": false,
+	"stateMutability": "view",
+	"type": "function"
+}, {
+	"constant": true,
 	"inputs": [],
 	"name": "winner_horse",
+	"outputs": [{
+		"name": "",
+		"type": "bytes32"
+	}],
+	"payable": false,
+	"stateMutability": "view",
+	"type": "function"
+}, {
+	"constant": true,
+	"inputs": [],
+	"name": "ETH",
 	"outputs": [{
 		"name": "",
 		"type": "bytes32"
@@ -215,11 +234,8 @@
 	"type": "function"
 }, {
 	"constant": true,
-	"inputs": [{
-		"name": "index",
-		"type": "bytes32"
-	}],
-	"name": "getUserCount",
+	"inputs": [],
+	"name": "reward_total",
 	"outputs": [{
 		"name": "",
 		"type": "uint256"
@@ -235,6 +251,17 @@
 		"name": "",
 		"type": "bool"
 	}],
+	"payable": false,
+	"stateMutability": "view",
+	"type": "function"
+}, {
+	"constant": true,
+	"inputs": [{
+		"name": "candidate",
+		"type": "address"
+	}],
+	"name": "calculate_reward",
+	"outputs": [],
 	"payable": false,
 	"stateMutability": "view",
 	"type": "function"
@@ -343,6 +370,23 @@
 	}],
 	"name": "Withdraw",
 	"type": "event"
+}, {
+	"anonymous": false,
+	"inputs": [{
+		"indexed": false,
+		"name": "_candidate",
+		"type": "address"
+	}, {
+		"indexed": false,
+		"name": "_local",
+		"type": "uint256"
+	}, {
+		"indexed": false,
+		"name": "_total",
+		"type": "uint256"
+	}],
+	"name": "RewardCheck",
+	"type": "event"
 }],
-	"address": "0xd38fb3bb99e5c5e2398743b005d2dbf25abae47b"
+	"address": "0x58ab3c513eb2d73572d15f16f98187b15e6e149f"
 }

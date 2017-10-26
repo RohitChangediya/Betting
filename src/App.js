@@ -5,12 +5,13 @@ import './App.css';
 import ETHRadio from './ETHRadio'
 import Amount from './Amount.js'
 import {Jumbotron, Container, Button, InputGroup, InputGroupButton, InputGroupAddon, Input} from 'reactstrap'
-import $ from 'jquery'
 var Web3 = require('web3');
 var contract = require("truffle-contract");
 
+var web3 = new Web3(Web3.givenProvider);
 
-
+var myContract = contract(ethorsejson);
+myContract.setProvider(web3.currentProvider);
 
 class App extends Component {
 
@@ -30,7 +31,8 @@ class App extends Component {
                 m:null,
                 s:null,
                 coinChoice:'',
-                coinChosen:false
+                coinChosen:false,
+                reward:0
                 };
     this.invokeContract=this.invokeContract.bind(this);
     this.convertMS=this.convertMS.bind(this);
@@ -65,21 +67,9 @@ class App extends Component {
     {
 
     var self=this;
-    var web3 = new Web3(Web3.givenProvider);
-
-    var myContract = contract(ethorsejson);
-    myContract.setProvider(web3.currentProvider);
     this.setState({value:null},function(){
       myContract.at(ethorsejson.address).then(function(instance){
         var ethAccount='';
-        /*instance.getUserCount("ETH").then(function(response){
-          console.log(response);
-        });
-        instance.userCountUpdate().watch(
-          function(response){
-            console.log(response);
-          }
-        )*/
         web3.eth.getAccounts(function(err, accounts){
           ethAccount=accounts[0]
           }).then(function()
@@ -98,7 +88,6 @@ class App extends Component {
                     }).catch(function(e){
                       if(e.message==="MetaMask Tx Signature: User denied transaction signature.")
                       {
-                        $('Button[name=Radio]').attr('checked',false);
                         self.setState({value:null,transactionid:null})
 
                       }
@@ -108,9 +97,9 @@ class App extends Component {
                     {
                       self.setState({coinChosen:true});
                     }
-                  instance.Deposit({}, {fromBlock: 0, toBlock: 'latest'}).get(function(error,result){
+                  /*instance.Deposit({}, {fromBlock: 0, toBlock: 'latest'}).get(function(error,result){
                   //console.log(result)
-                });
+                });*/
 
               });
           })
@@ -142,18 +131,58 @@ class App extends Component {
     }
 
   checkRewards()
-  {
-
-  }
+    {
+    var self=this;
+    myContract.at(ethorsejson.address).then(function(instance)
+          {
+            var ethAccount;
+            web3.eth.getAccounts(function(err, accounts){
+              ethAccount=accounts[0]
+            }).then(function(){
+                const txo = {
+                  from: ethAccount
+                };
+            instance.check_reward.call(txo).then(function(reward)
+              {
+              reward=web3.utils.fromWei(reward,"ether");
+              self.setState({reward});
+              });
+              });
+        });
+    }
   claim()
-  {
-    
-  }
+    {
+
+    myContract.at(ethorsejson.address).then(function(instance)
+          {
+
+            var ethAccount;
+            web3.eth.getAccounts(function(err, accounts){
+              ethAccount=accounts[0]
+            }).then(function(){
+              const txo = {
+                from: ethAccount
+              };
+                instance.claim_reward.estimateGas(txo).then(function(gas)
+              {
+                txo.gas=gas;
+                instance.claim_reward(txo).then(function(res,error)
+                  {
+                    console.log(res,error)
+                  });
+              })
+
+                /**/
+
+              });
+
+          });
+    }
   render()
     {
     return (
             <div>
-            <Jumbotron style={{ 'textAlign': 'center'}} >
+            <Jumbotron style={{ 'textAlign': 'center'}} fluid>
             <Container>
               <ETHRadio onSubmit={this.coinValue.bind(this)} name="Radio"/>
               <InputGroup>
@@ -166,11 +195,11 @@ class App extends Component {
               <br/>
               <InputGroup >
               <InputGroupButton>
-              <Button type="button"  color="info" size="lg">Check result</Button>
+              <Button type="button"  color="info" size="lg" onClick={this.checkRewards}>Check result</Button>
               </InputGroupButton>
-              <Input disabled={true}/>
+              <Input disabled={true} value={this.state.reward}/>
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <Button type="button"  color="danger" size="lg">Claim</Button>
+              <Button type="button"  color="danger" size="lg" onClick={this.claim}>Claim</Button>
               </InputGroup>
               <AlertMsg visible={this.state.coinChosen} onSubmit={this.onDismiss} msg='Please choose a coin'/>
               <br/>
