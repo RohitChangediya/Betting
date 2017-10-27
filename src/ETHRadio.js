@@ -76,7 +76,6 @@ export default class ETHRadio extends React.Component{
           {
           instance.reward_total().then(function(reward){
                 reward=web3.utils.fromWei(reward,"ether")
-                console.log(reward);
                 instance.getCoinIndex("ETH").then(function(value){
                   var eth=self.getOddsDetails(value,reward);
                   self.setState({eth_pool:eth});
@@ -120,15 +119,15 @@ export default class ETHRadio extends React.Component{
   {
     return(
       <div>
-      <Table bordered>
+      <Table inverse striped hover size="md">
 
         <thead>
           <tr>
             <th>Select a coin</th>
             <th><center>Pool Total</center></th>
-            <th><center>Odds(Profit per Ether)</center></th>
+            <th><center>Odds(Profit for 1 ETH)</center></th>
             <th><center>Number of bets</center></th>
-            <th><center>Bet Open Price</center></th>
+            <th><center>Bet Lock Price</center></th>
             <th><center>Bet Close Price</center></th>
           </tr>
         </thead>

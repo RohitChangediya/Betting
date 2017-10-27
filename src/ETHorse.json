@@ -139,17 +139,6 @@
 	"type": "function"
 }, {
 	"constant": true,
-	"inputs": [{
-		"name": "candidate",
-		"type": "address"
-	}],
-	"name": "calculate_reward_test",
-	"outputs": [],
-	"payable": false,
-	"stateMutability": "view",
-	"type": "function"
-}, {
-	"constant": true,
 	"inputs": [],
 	"name": "LTC",
 	"outputs": [{
@@ -370,23 +359,6 @@
 	}],
 	"name": "Withdraw",
 	"type": "event"
-}, {
-	"anonymous": false,
-	"inputs": [{
-		"indexed": false,
-		"name": "_candidate",
-		"type": "address"
-	}, {
-		"indexed": false,
-		"name": "_local",
-		"type": "uint256"
-	}, {
-		"indexed": false,
-		"name": "_total",
-		"type": "uint256"
-	}],
-	"name": "RewardCheck",
-	"type": "event"
 }],
-	"address": "0x4C630644Fb28Fd219ff53d7041D3EdBd77C04818"
+	"address": "0xc183960d62A3db3e3eC9e85fA89Da9C2E8F313B1"
 }

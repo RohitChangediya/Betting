@@ -14,7 +14,6 @@ var myContract = contract(ethorsejson);
 myContract.setProvider(web3.currentProvider);
 
 class App extends Component {
-
   constructor(props)
     {
     super(props);
@@ -32,20 +31,70 @@ class App extends Component {
                 s:null,
                 coinChoice:'',
                 coinChosen:false,
-                reward:0
+                reward:'',
+                stopTime:1509007840000,
+                resultTime:null,
+                timeInterval:null,
+                clearTimeInterval:null,
+                resultTimeInterval:null,
+                claim:false
                 };
     this.invokeContract=this.invokeContract.bind(this);
     this.convertMS=this.convertMS.bind(this);
     this.onDismiss = this.onDismiss.bind(this);
     this.checkRewards=this.checkRewards.bind(this);
     this.claim=this.claim.bind(this);
+    this.findTime=this.findTime.bind(this);
+    this.resetTimer=this.resetTimer.bind(this);
+    this.findResultTime=this.findResultTime.bind(this);
     }
 
-
+  findTime()
+    {
+    var milliseconds = (new Date()).getTime();
+    this.convertMS(this.state.stopTime-milliseconds);
+    }
+  resetTimer()
+    {
+      var milliseconds = (new Date()).getTime();
+      if(parseInt(this.state.stopTime-milliseconds,10)<=0)
+        {
+        var new_time=this.state.stopTime+86400000;
+        clearInterval(this.state.timeInterval)
+        clearInterval(this.state.clearTimeInterval)
+        this.setState({stopTime:new_time});
+        }
+    }
+  findResultTime()
+    {
+      var milliseconds = (new Date()).getTime();
+      this.convertMS(this.state.resultTime-milliseconds);
+    }
   componentWillMount()
     {
-    var sec=5000000;
-    this.convertMS(sec);
+      //var ft = setInterval(this.findTime, 1000)
+      //var ct =setInterval(this.resetTimer, 10000)
+      var rt = setInterval(this.findResultTime,950)
+      var resultTime = new Date()
+      if(resultTime.getHours()>=5)
+        resultTime.setDate(new Date().getDate()+1)
+      resultTime.setHours(5);
+      resultTime.setMinutes(0);
+      resultTime.setSeconds(0);
+      var stopTime = new Date();
+      if(stopTime.getHours()>=17)
+        stopTime.setDate(new Date().getDate()+1)
+      stopTime.setHours(17)
+      stopTime.setMinutes(0);
+      stopTime.setSeconds(0);
+      var self=this;
+      myContract.at(ethorsejson.address).then(function(instance){
+        instance.race_end().then(function(state){
+            self.setState({claim:state})
+        })
+      })
+      //this.setState({timeInterval:ft,clearTimeInterval:ct,stopTime:Date.parse(stopTime),resultTime:resultTime,resultTimeInterval:rt})
+      this.setState({stopTime:Date.parse(stopTime),resultTime:resultTime,resultTimeInterval:rt})
     }
 
 
@@ -83,8 +132,8 @@ class App extends Component {
                     {
                     self.setState({transactionid:'Placing Bet...'},function(){
                     instance.placeBet(self.state.coin,txo).then(function(res,error){
-                      console.log(res)
-                      self.setState({transactionid:res.tx,value:self.state.coin});
+
+                      self.setState({transactionid:('Transaction ID: '+res.tx),value:self.state.coin});
                     }).catch(function(e){
                       if(e.message==="MetaMask Tx Signature: User denied transaction signature.")
                       {
@@ -144,7 +193,8 @@ class App extends Component {
                 };
             instance.check_reward.call(txo).then(function(reward)
               {
-              reward=web3.utils.fromWei(reward,"ether");
+              reward='You have won '+web3.utils.fromWei(reward,"ether")+' ETH';
+
               self.setState({reward});
               });
               });
@@ -168,11 +218,9 @@ class App extends Component {
                 txo.gas=gas;
                 instance.claim_reward(txo).then(function(res,error)
                   {
-                    console.log(res,error)
+
                   });
               })
-
-                /**/
 
               });
 
@@ -195,11 +243,11 @@ class App extends Component {
               <br/>
               <InputGroup >
               <InputGroupButton>
-              <Button type="button"  color="info" size="lg" onClick={this.checkRewards}>Check result</Button>
+              <Button type="button"  color="info" size="lg" onClick={this.checkRewards} disabled={!this.state.claim}>Check result</Button>
               </InputGroupButton>
               <Input disabled={true} value={this.state.reward}/>
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <Button type="button"  color="danger" size="lg" onClick={this.claim}>Claim</Button>
+              <Button type="button" size="lg" onClick={this.claim} id="claim" disabled={!this.state.claim}>Claim</Button>
               </InputGroup>
               <AlertMsg visible={this.state.coinChosen} onSubmit={this.onDismiss} msg='Please choose a coin'/>
               <br/>
@@ -208,7 +256,7 @@ class App extends Component {
               <br/>
               <br/>
               <br/>
-              {this.state.d} days, {this.state.h} hours , {this.state.m} minutes, {this.state.s} seconds left.
+              Result in {this.state.d} days, {this.state.h} hours , {this.state.m} minutes, {this.state.s} seconds.
             </Container>
             </Jumbotron>
             </div>

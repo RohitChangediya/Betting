@@ -43,7 +43,7 @@ export default class Header extends Component {
             <NavbarBrand href="/"><h3 className="header-font"><img width="10%" height="auto" src={"https://raw.githubusercontent.com/ethorse/Betting/gh-pages/horse.ico"} alt="ETHorse icon"/>&nbsp;ethorse</h3></NavbarBrand>
               <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink><Button color="link" style={{textDecoration:'none'}} onClick={this.toggle}><h4>Information</h4></Button></NavLink>
+                <NavLink><Button color="link" style={{textDecoration:'none', color:'black'}} onClick={this.toggle}><h5>Information</h5></Button></NavLink>
               </NavItem>
               </Nav>
           </Navbar>
@@ -51,15 +51,16 @@ export default class Header extends Component {
         <Modal isOpen={this.state.modal} toggle={this.toggle} >
           <ModalHeader toggle={this.toggle}><h4>Information</h4></ModalHeader>
           <ModalBody>
-              Bet on a coin and win against other bettors with ETHORSE Smart Contract
+              Bet on a cryptocurrency and win against other bettors with Ethorse Smart Contract
               <ul>
-                <li>Simply choose a winner for the next three days among BTC, ETH and LTC.</li>
+                <li>Simply choose a winner among BTC, ETH and LTC for a fixed 24 hour period.</li>
                 <li>Enter the amount you are willing to bet (only Ether) from a browser with Metamask extension, Geth or Mist.</li>
-                <li>An open source Ethereum smart contract will control the funds and settle payout automatically. We never have control to your funds.</li>
-                <li>Winning pool takes everything from total pool after fee (15%)</li>
-                <li>Price pulled from Coinmarketcap.com API through Oraclize.it at the beginning and end of the bet period</li>
-                <li>Maximum bet amount 1 ETH and minimum 0.1 ETH Questions and Feedback welcome</li>
+                <li>A deployed open source Ethereum smart contract will control the funds, calculate the best performing Cryptocurrency (with bet open and bet close prices) and prepare reward for the winning users to collect.</li>
+                <li>Parimutuel Betting: Winning pool takes everything from the total pool after a fee (5%)</li>
+                <li>Price pulled from <a href="https://coinmarketcap.com/" rel="noopener noreferrer" target="_blank">Coinmarketcap.com API</a> through <a href="https://coinmarketcap.com/" rel="noopener noreferrer" target="_blank">Oraclize.it</a> at the beginning and end of the bet period</li>
               </ul>
+              Bet on a favorite to easily win a small payout because it only needs to beat lesser opponents. Alternatively, bet on an underdog and win a huge payout. Tip: Use the Odds.
+              Questions and feedback are welcome.
               Link to open source smart contract code: <a href={address_link} rel="noopener noreferrer" target="_blank">{ethorsejson.address}</a>
           </ModalBody>
           <ModalFooter>

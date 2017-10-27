@@ -28,14 +28,14 @@
 }
 
 html{
-    background-color: #003366 ;
+    background-color: #36454f ;
 }
 
 nav{
   background-color:white;
 }
 button.betlist.active{
-    background-color: #4CAF50; /* Green */
+    background-color: #047bff; /* Green */
     border: none;
     color: white;
     text-align: center;
@@ -46,7 +46,7 @@ button.betlist.active{
  color: white;
 }
 .jumbotron {
-    background-color: #003366!important;
+    background-color: #36454f!important;
 }
 .modal-header{
   color:black;
@@ -57,7 +57,9 @@ button.betlist.active{
 ul > li{
   color:black
 }
-
+#claim{
+  background-color: #32CD32;
+}
 .header-font
     {
         font-family:    Roboto;
