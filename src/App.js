@@ -21,7 +21,7 @@ class App extends Component {
                 contractJSON:ethorsejson,
                 price:null,
                 invokePrice:null,
-                amount:0.05,
+                amount:0.1,
                 coin:null,
                 value: null,
                 transactionid:null,
@@ -114,7 +114,16 @@ class App extends Component {
 
   invokeContract()
     {
-
+    if(this.state.amount<0.1)
+    {
+      alert('Please bet a larger amount');
+      return;
+    }
+    else if(this.state.amount>1)
+    {
+      alert('Please bet a smaller amount');
+      return;
+    }
     var self=this;
     this.setState({value:null},function(){
       myContract.at(ethorsejson.address).then(function(instance){
@@ -123,29 +132,35 @@ class App extends Component {
           ethAccount=accounts[0]
           }).then(function()
                   {
-                  const txo = {
-                    from: ethAccount,
-                    value: web3.utils.toWei(self.state.amount),
-                    data:self.state.coin
-                  };
-                  if(txo.data!==null)
-                    {
-                    self.setState({transactionid:'Placing Bet...'},function(){
-                    instance.placeBet(self.state.coin,txo).then(function(res,error){
+                    instance.race_end().then(function(state){
+                        if(state===false)
+                        {
+                          const txo = {
+                            from: ethAccount,
+                            value: web3.utils.toWei(self.state.amount),
+                            data:self.state.coin
+                          };
+                          if(txo.data!==null)
+                            {
+                            self.setState({transactionid:'Placing Bet...'},function(){
+                            instance.placeBet(self.state.coin,txo).then(function(res,error){
 
-                      self.setState({transactionid:('Transaction ID: '+res.tx),value:self.state.coin});
-                    }).catch(function(e){
-                      if(e.message==="MetaMask Tx Signature: User denied transaction signature.")
-                      {
-                        self.setState({value:null,transactionid:null})
+                              self.setState({transactionid:('Transaction ID: '+res.tx),value:self.state.coin});
+                            }).catch(function(e){
+                              if(e.message==="MetaMask Tx Signature: User denied transaction signature.")
+                              {
+                                self.setState({value:null,transactionid:null})
 
-                      }
-                    })})
-                    }
-                  else
-                    {
-                      self.setState({coinChosen:true});
-                    }
+                              }
+                            })})
+                            }
+                          else
+                            {
+                              self.setState({coinChosen:true});
+                            }
+                        }
+                    })
+
                   /*instance.Deposit({}, {fromBlock: 0, toBlock: 'latest'}).get(function(error,result){
                   //console.log(result)
                 });*/
@@ -166,7 +181,15 @@ class App extends Component {
 
   coinValue(coin)
     {
-    this.setState({coin:coin,value:coin});
+      var self=this;
+      myContract.at(ethorsejson.address).then(function(instance){
+        instance.race_end().then(function(state){
+          if(state===false)
+          {
+          self.setState({coin:coin,value:coin});
+          }
+        });
+      })
     }
 
   onDismiss(err) {

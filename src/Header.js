@@ -57,7 +57,7 @@ export default class Header extends Component {
                 <li>Enter the amount you are willing to bet (only Ether) from a browser with Metamask extension, Geth or Mist.</li>
                 <li>A deployed open source Ethereum smart contract will control the funds, calculate the best performing Cryptocurrency (with bet open and bet close prices) and prepare reward for the winning users to collect.</li>
                 <li>Parimutuel Betting: Winning pool takes everything from the total pool after a fee (5%)</li>
-                <li>Price pulled from <a href="https://coinmarketcap.com/" rel="noopener noreferrer" target="_blank">Coinmarketcap.com API</a> through <a href="https://coinmarketcap.com/" rel="noopener noreferrer" target="_blank">Oraclize.it</a> at the beginning and end of the bet period</li>
+                <li>Price pulled from <a href="https://coinmarketcap.com/" rel="noopener noreferrer" target="_blank">Coinmarketcap.com API</a> through <a href="http://www.oraclize.it/" rel="noopener noreferrer" target="_blank">Oraclize.it</a> at the beginning and end of the bet period</li>
               </ul>
               Bet on a favorite to easily win a small payout because it only needs to beat lesser opponents. Alternatively, bet on an underdog and win a huge payout. Tip: Use the Odds.
               Questions and feedback are welcome.

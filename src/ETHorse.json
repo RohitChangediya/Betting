@@ -116,12 +116,31 @@
 	"stateMutability": "view",
 	"type": "function"
 }, {
+	"constant": false,
+	"inputs": [],
+	"name": "kill_refund",
+	"outputs": [],
+	"payable": false,
+	"stateMutability": "nonpayable",
+	"type": "function"
+}, {
 	"constant": true,
 	"inputs": [],
 	"name": "LTC_delta",
 	"outputs": [{
 		"name": "",
 		"type": "int256"
+	}],
+	"payable": false,
+	"stateMutability": "view",
+	"type": "function"
+}, {
+	"constant": true,
+	"inputs": [],
+	"name": "voided_bet",
+	"outputs": [{
+		"name": "",
+		"type": "bool"
 	}],
 	"payable": false,
 	"stateMutability": "view",
@@ -220,6 +239,14 @@
 	}],
 	"payable": false,
 	"stateMutability": "view",
+	"type": "function"
+}, {
+	"constant": false,
+	"inputs": [],
+	"name": "get_treasure",
+	"outputs": [],
+	"payable": true,
+	"stateMutability": "payable",
 	"type": "function"
 }, {
 	"constant": true,
@@ -360,5 +387,5 @@
 	"name": "Withdraw",
 	"type": "event"
 }],
-	"address": "0xc183960d62A3db3e3eC9e85fA89Da9C2E8F313B1"
+	"address": "0x789c1824ffeaaf97f1bd2c8de976926a245a02ec"
 }
