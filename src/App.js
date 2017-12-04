@@ -11,7 +11,19 @@ var contract = require("truffle-contract");
 var web3 = new Web3(Web3.givenProvider);
 
 var myContract = contract(ethorsejson);
+if(web3.currentProvider==null)
+{
+  var isChrome = !!window.chrome && !!window.chrome.webstore;
+  console.log(isChrome)
+  if(isChrome){
+  alert("Compatible only with Chrome browser (with Metamask extension), Mist or Geth")
+  }else{
+    alert("Compatible only with Metamask browser extension for Chrome or Mist browser from Ethereum")
+  }
+}
+else{
 myContract.setProvider(web3.currentProvider);
+}
 
 class App extends Component {
   constructor(props)
@@ -33,11 +45,13 @@ class App extends Component {
                 coinChosen:false,
                 reward:'',
                 stopTime:1509007840000,
+                startTime:null,
+                lockTime:null,
                 resultTime:null,
                 timeInterval:null,
-                clearTimeInterval:null,
-                resultTimeInterval:null,
-                claim:false
+                claim:false,
+                betPhase:'',
+                contractInstance:null
                 };
     this.invokeContract=this.invokeContract.bind(this);
     this.convertMS=this.convertMS.bind(this);
@@ -46,7 +60,12 @@ class App extends Component {
     this.claim=this.claim.bind(this);
     this.findTime=this.findTime.bind(this);
     this.resetTimer=this.resetTimer.bind(this);
+
+    //Find betting phase
+    this.findStartTime=this.findStartTime.bind(this);
+    this.findLockTime=this.findLockTime.bind(this);
     this.findResultTime=this.findResultTime.bind(this);
+
     }
 
   findTime()
@@ -65,36 +84,79 @@ class App extends Component {
         this.setState({stopTime:new_time});
         }
     }
+  findStartTime()
+    {
+      var milliseconds = (new Date()).getTime();
+      this.convertMS(this.state.startTime-milliseconds);
+    }
+  findLockTime()
+    {
+      var milliseconds = (new Date()).getTime();
+      this.convertMS(this.state.lockTime-milliseconds);
+    }
   findResultTime()
     {
       var milliseconds = (new Date()).getTime();
       this.convertMS(this.state.resultTime-milliseconds);
     }
+
   componentWillMount()
     {
-      //var ft = setInterval(this.findTime, 1000)
-      //var ct =setInterval(this.resetTimer, 10000)
-      var rt = setInterval(this.findResultTime,950)
-      var resultTime = new Date()
-      if(resultTime.getHours()>=5)
-        resultTime.setDate(new Date().getDate()+1)
-      resultTime.setHours(5);
-      resultTime.setMinutes(0);
-      resultTime.setSeconds(0);
-      var stopTime = new Date();
-      if(stopTime.getHours()>=17)
-        stopTime.setDate(new Date().getDate()+1)
-      stopTime.setHours(17)
-      stopTime.setMinutes(0);
-      stopTime.setSeconds(0);
+
+      var ct = null;
+      var currentTime = new Date()
+      currentTime=currentTime.getTime()
       var self=this;
+      if(web3.currentProvider!=null)
+      {
+      myContract.at(ethorsejson.address).then(function(instance){
+        self.setState({contractInstance:instance})
+        instance.starting_time().then(function(start_time){
+          //Check if the bet has started
+          start_time=parseInt(start_time,10)
+          console.log(currentTime+' , '+start_time*1000)
+            if(currentTime<(start_time*1000))
+            {
+              ct=setInterval(self.findStartTime,950)
+              self.setState({timeInterval:ct,betPhase:'Bet Open in ',startTime:start_time*1000})
+            }
+            else
+            {
+              //Check if the bet has locked
+              instance.betting_duration().then(function(betting_duration){
+                betting_duration=parseInt(betting_duration,10)
+                console.log(currentTime+' , '+start_time+' ,'+((start_time+betting_duration)*1000)+' '+betting_duration)
+                if(currentTime>=(start_time*1000) && currentTime<((start_time+betting_duration)*1000))
+                {
+                  ct=setInterval(self.findLockTime,950)
+                  self.setState({timeInterval:ct,betPhase:'Bet Lock in ',lockTime:((start_time+betting_duration)*1000)})
+                }
+                else{
+                  instance.race_duration().then(function(race_duration){
+                    race_duration=parseInt(race_duration,10)
+                    console.log(currentTime+' , '+start_time+' ,'+((start_time+betting_duration)*1000)+' ,'+((start_time+race_duration)*1000))
+                    //Check if the results are out.
+                    if(currentTime<((start_time+race_duration)*1000) && currentTime>=((start_time+betting_duration)*1000))
+                      {
+                      ct=setInterval(self.findResultTime,950)
+                      self.setState({timeInterval:ct,betPhase:'Results in ',resultTime:((start_time+race_duration)*1000)})
+                      }
+                    else {
+                      self.setState({betPhase:'Check result to see your winnings.'})
+                    }
+
+                  })
+                }
+              })
+            }
+        })
+      })
       myContract.at(ethorsejson.address).then(function(instance){
         instance.race_end().then(function(state){
             self.setState({claim:state})
         })
       })
-      //this.setState({timeInterval:ft,clearTimeInterval:ct,stopTime:Date.parse(stopTime),resultTime:resultTime,resultTimeInterval:rt})
-      this.setState({stopTime:Date.parse(stopTime),resultTime:resultTime,resultTimeInterval:rt})
+    }
     }
 
 
@@ -108,20 +170,19 @@ class App extends Component {
     m = m % 60;
     d = Math.floor(h / 24);
     h = h % 24;
+    d=d+' days,'
+    h=h+' hours,'
+    m=m+' minutes,'
+    s=s+' seconds.'
     this.setState({ d: d, h: h, m: m, s: s });
     }
 
 
   invokeContract()
     {
-    if(this.state.amount<0.1)
+    if(this.state.amount<0.1 || this.state.amount>1)
     {
-      alert('Please bet a larger amount');
-      return;
-    }
-    else if(this.state.amount>1)
-    {
-      alert('Please bet a smaller amount');
+      alert('Bet minimum 0.1 ETH and a maximum of 1 ETH');
       return;
     }
     var self=this;
@@ -182,14 +243,13 @@ class App extends Component {
   coinValue(coin)
     {
       var self=this;
-      myContract.at(ethorsejson.address).then(function(instance){
-        instance.race_end().then(function(state){
+        console.log(self.state.contractInstance)
+        self.state.contractInstance.race_end().then(function(state){
           if(state===false)
           {
           self.setState({coin:coin,value:coin});
           }
         });
-      })
     }
 
   onDismiss(err) {
@@ -251,16 +311,20 @@ class App extends Component {
     }
   render()
     {
+    if(web3.currentProvider!=null)
+    {
     return (
             <div>
             <Jumbotron style={{ 'textAlign': 'center'}} fluid>
             <Container>
+              <h3 id="containerHeading">Bet on a coin and win ETH from those who bet against you.</h3>
+              <hr/>
               <ETHRadio onSubmit={this.coinValue.bind(this)} name="Radio"/>
               <InputGroup>
                 <InputGroupAddon>&Xi;</InputGroupAddon>
                 <Amount field="Amount" onValueSubmit={this.onValueSubmit.bind(this)}/>
                 <InputGroupButton>
-                <Button type="button" onClick={this.invokeContract.bind(this)} color="primary" disabled={!this.state.value} size="lg">Place bet</Button>
+                <Button type="button" onClick={this.invokeContract.bind(this)} color="primary" disabled={true} size="lg">Place bet</Button>
                 </InputGroupButton>
               </InputGroup>
               <br/>
@@ -268,7 +332,7 @@ class App extends Component {
               <InputGroupButton>
               <Button type="button"  color="info" size="lg" onClick={this.checkRewards} disabled={!this.state.claim}>Check result</Button>
               </InputGroupButton>
-              <Input disabled={true} value={this.state.reward}/>
+              <Input disabled={true} value={"You have won 33.72 ETH."}/>
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               <Button type="button" size="lg" onClick={this.claim} id="claim" disabled={!this.state.claim}>Claim</Button>
               </InputGroup>
@@ -279,11 +343,14 @@ class App extends Component {
               <br/>
               <br/>
               <br/>
-              Result in {this.state.d} days, {this.state.h} hours , {this.state.m} minutes, {this.state.s} seconds.
+              {/* {this.state.betPhase} {this.state.d}  {this.state.h} {this.state.m}  {this.state.s} */}
+              Currently no race in progress. Join <a href="https://discord.gg/vdTXRmT)" rel="noopener noreferrer" target="_blank"> Discord </a> to stay tuned.
             </Container>
             </Jumbotron>
             </div>
             );
+          }
+          return <div/>;
     }
 }
 
