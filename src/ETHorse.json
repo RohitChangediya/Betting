@@ -41,14 +41,6 @@
 	"stateMutability": "view",
 	"type": "function"
 }, {
-	"constant": false,
-	"inputs": [],
-	"name": "treasury_gas",
-	"outputs": [],
-	"payable": true,
-	"stateMutability": "payable",
-	"type": "function"
-}, {
 	"constant": true,
 	"inputs": [],
 	"name": "BTC",
@@ -74,12 +66,23 @@
 	"stateMutability": "nonpayable",
 	"type": "function"
 }, {
+	"constant": true,
+	"inputs": [],
+	"name": "starting_time",
+	"outputs": [{
+		"name": "",
+		"type": "uint256"
+	}],
+	"payable": false,
+	"stateMutability": "view",
+	"type": "function"
+}, {
 	"constant": false,
 	"inputs": [{
 		"name": "delay",
 		"type": "uint256"
 	}, {
-		"name": "betting_duration",
+		"name": "locking_duration",
 		"type": "uint256"
 	}],
 	"name": "update",
@@ -103,17 +106,6 @@
 	"outputs": [],
 	"payable": false,
 	"stateMutability": "nonpayable",
-	"type": "function"
-}, {
-	"constant": true,
-	"inputs": [],
-	"name": "winner_reward",
-	"outputs": [{
-		"name": "",
-		"type": "uint256"
-	}],
-	"payable": false,
-	"stateMutability": "view",
 	"type": "function"
 }, {
 	"constant": false,
@@ -241,14 +233,6 @@
 	"stateMutability": "view",
 	"type": "function"
 }, {
-	"constant": false,
-	"inputs": [],
-	"name": "get_treasure",
-	"outputs": [],
-	"payable": true,
-	"stateMutability": "payable",
-	"type": "function"
-}, {
 	"constant": true,
 	"inputs": [],
 	"name": "reward_total",
@@ -271,6 +255,14 @@
 	"stateMutability": "view",
 	"type": "function"
 }, {
+	"constant": false,
+	"inputs": [],
+	"name": "choke_gas",
+	"outputs": [],
+	"payable": true,
+	"stateMutability": "payable",
+	"type": "function"
+}, {
 	"constant": true,
 	"inputs": [{
 		"name": "candidate",
@@ -278,6 +270,17 @@
 	}],
 	"name": "calculate_reward",
 	"outputs": [],
+	"payable": false,
+	"stateMutability": "view",
+	"type": "function"
+}, {
+	"constant": true,
+	"inputs": [],
+	"name": "betting_duration",
+	"outputs": [{
+		"name": "",
+		"type": "uint256"
+	}],
 	"payable": false,
 	"stateMutability": "view",
 	"type": "function"
@@ -293,12 +296,15 @@
 	"stateMutability": "view",
 	"type": "function"
 }, {
-	"constant": false,
+	"constant": true,
 	"inputs": [],
-	"name": "suicide",
-	"outputs": [],
+	"name": "race_duration",
+	"outputs": [{
+		"name": "",
+		"type": "uint256"
+	}],
 	"payable": false,
-	"stateMutability": "nonpayable",
+	"stateMutability": "view",
 	"type": "function"
 }, {
 	"constant": true,
@@ -310,6 +316,14 @@
 	}],
 	"payable": false,
 	"stateMutability": "view",
+	"type": "function"
+}, {
+	"constant": false,
+	"inputs": [],
+	"name": "recovery",
+	"outputs": [],
+	"payable": false,
+	"stateMutability": "nonpayable",
 	"type": "function"
 }, {
 	"constant": true,
@@ -387,5 +401,5 @@
 	"name": "Withdraw",
 	"type": "event"
 }],
-	"address": "0x789c1824ffeaaf97f1bd2c8de976926a245a02ec"
+	"address": "0x4524e8425760AF95DA970A066bd74092b36f6DB0"
 }

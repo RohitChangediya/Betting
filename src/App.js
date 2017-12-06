@@ -109,6 +109,7 @@ class App extends Component {
       var self=this;
       if(web3.currentProvider!=null)
       {
+        console.log(ethorsejson.address)
       myContract.at(ethorsejson.address).then(function(instance){
         self.setState({contractInstance:instance})
         instance.starting_time().then(function(start_time){
@@ -332,7 +333,7 @@ class App extends Component {
               <InputGroupButton>
               <Button type="button"  color="info" size="lg" onClick={this.checkRewards} disabled={!this.state.claim}>Check result</Button>
               </InputGroupButton>
-              <Input disabled={true} value={"You have won 33.72 ETH."}/>
+              <Input disabled={true} value={this.state.reward}/>
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               <Button type="button" size="lg" onClick={this.claim} id="claim" disabled={!this.state.claim}>Claim</Button>
               </InputGroup>
