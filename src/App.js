@@ -109,13 +109,11 @@ class App extends Component {
       var self=this;
       if(web3.currentProvider!=null)
       {
-        console.log(ethorsejson.address)
       myContract.at(ethorsejson.address).then(function(instance){
         self.setState({contractInstance:instance})
         instance.starting_time().then(function(start_time){
           //Check if the bet has started
           start_time=parseInt(start_time,10)
-          console.log(currentTime+' , '+start_time*1000)
             if(currentTime<(start_time*1000))
             {
               ct=setInterval(self.findStartTime,950)
@@ -126,7 +124,6 @@ class App extends Component {
               //Check if the bet has locked
               instance.betting_duration().then(function(betting_duration){
                 betting_duration=parseInt(betting_duration,10)
-                console.log(currentTime+' , '+start_time+' ,'+((start_time+betting_duration)*1000)+' '+betting_duration)
                 if(currentTime>=(start_time*1000) && currentTime<((start_time+betting_duration)*1000))
                 {
                   ct=setInterval(self.findLockTime,950)
@@ -135,7 +132,6 @@ class App extends Component {
                 else{
                   instance.race_duration().then(function(race_duration){
                     race_duration=parseInt(race_duration,10)
-                    console.log(currentTime+' , '+start_time+' ,'+((start_time+betting_duration)*1000)+' ,'+((start_time+race_duration)*1000))
                     //Check if the results are out.
                     if(currentTime<((start_time+race_duration)*1000) && currentTime>=((start_time+betting_duration)*1000))
                       {
