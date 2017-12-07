@@ -314,8 +314,6 @@ class App extends Component {
             <div>
             <Jumbotron style={{ 'textAlign': 'center'}} fluid>
             <Container>
-              <h3 id="containerHeading">Bet on a coin and win ETH from those who bet against you.</h3>
-              <hr/>
               <ETHRadio onSubmit={this.coinValue.bind(this)} name="Radio"/>
               <InputGroup>
                 <InputGroupAddon>&Xi;</InputGroupAddon>
@@ -341,7 +339,11 @@ class App extends Component {
               <br/>
               <br/>
               {/* {this.state.betPhase} {this.state.d}  {this.state.h} {this.state.m}  {this.state.s} */}
-              Currently no race in progress. Join <a href="https://discord.gg/vdTXRmT)" rel="noopener noreferrer" target="_blank"> Discord </a> to stay tuned.
+              Currently no race in progress. Mainnet release coming soon. Be ready to bet with real money! Join <a href="https://discord.gg/vdTXRmT)" rel="noopener noreferrer" target="_blank"> Discord </a> to stay tuned.
+              <br/>
+              <br/>
+              <br/>
+              <a href="https://www.reddit.com/r/ethdev/comments/7asfml/bounty_open_for_ethorse_dapp_smart_contract/ ">Public Bug Bounty</a>
             </Container>
             </Jumbotron>
             </div>

@@ -62,9 +62,10 @@ ul > li{
 }
 .header-font
     {
-        font-family:    Roboto;
+        font-family: 'Cinzel', serif;
         font-size:      40px;
         letter-spacing: 3px;
+        font-weight: 400;
     }
 #copyright{
     text-align: center;
