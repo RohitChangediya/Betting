@@ -22,6 +22,11 @@
   font-size: large;
 }
 
+@font-face {
+    font-family: "prometheus";
+    src: url("https://ethorse.com/fonts/prometheus.ttf") format("truetype");
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
@@ -62,7 +67,7 @@ ul > li{
 }
 .header-font
     {
-        font-family:    Roboto;
+        font-family:    prometheus;
         font-size:      40px;
         letter-spacing: 3px;
     }
