@@ -77,12 +77,19 @@ ul > li{
     bottom: 0;
     left: 0;
 }
+
 span{
   display: inline-block;
   vertical-align: middle;
   line-height: normal;
   line-height: 50px;
+  color:black;
 }
 center{
   text-align: center;
+}
+
+@font-face {
+    font-family: "prometheus";
+    src: url("https://ethorse.com/fonts/prometheus.ttf") format("truetype");
 }

@@ -13,13 +13,13 @@ var web3 = new Web3(Web3.givenProvider);
 var myContract = contract(ethorsejson);
 if(web3.currentProvider==null)
 {
-  var isChrome = !!window.chrome && !!window.chrome.webstore;
-  console.log(isChrome)
-  if(isChrome){
-  alert("Compatible only with Chrome browser (with Metamask extension), Mist or Geth")
-  }else{
-    alert("Compatible only with Metamask browser extension for Chrome or Mist browser from Ethereum")
-  }
+  // var isChrome = !!window.chrome && !!window.chrome.webstore;
+  // console.log(isChrome)
+  // if(isChrome){
+  // alert("Compatible only with Chrome browser (with Metamask extension), Mist or Geth")
+  // }else{
+  //   alert("Compatible only with Metamask browser extension for Chrome or Mist browser from Ethereum")
+  // }
 }
 else{
 myContract.setProvider(web3.currentProvider);
@@ -100,14 +100,23 @@ class App extends Component {
       this.convertMS(this.state.resultTime-milliseconds);
     }
 
+    checkNetwork(){
+      var self=this;
+      web3.eth.net.getNetworkType((err, netId) => {
+      self.setState({network:netId})
+    })
+
+    }
+
   componentWillMount()
     {
 
       var ct = null;
+      this.checkNetwork();
       var currentTime = new Date()
       currentTime=currentTime.getTime()
       var self=this;
-      if(web3.currentProvider!=null)
+      if(web3.currentProvider!=null && this.state.network==="ropsten")
       {
       myContract.at(ethorsejson.address).then(function(instance){
         self.setState({contractInstance:instance})
@@ -190,6 +199,7 @@ class App extends Component {
           ethAccount=accounts[0]
           }).then(function()
                   {
+                    web3.eth.getBalance(ethAccount).then(console.log)
                     instance.race_end().then(function(state){
                         if(state===false)
                         {
@@ -308,7 +318,7 @@ class App extends Component {
     }
   render()
     {
-    if(web3.currentProvider!=null)
+    if(web3.currentProvider!=null && this.state.network==="ropsten")
     {
     return (
             <div>
@@ -319,7 +329,7 @@ class App extends Component {
                 <InputGroupAddon>&Xi;</InputGroupAddon>
                 <Amount field="Amount" onValueSubmit={this.onValueSubmit.bind(this)}/>
                 <InputGroupButton>
-                <Button type="button" onClick={this.invokeContract.bind(this)} color="primary" disabled={true} size="lg">Place bet</Button>
+                <Button type="button" onClick={this.invokeContract.bind(this)} color="primary" disabled={!this.state.value} size="lg">Place bet</Button>
                 </InputGroupButton>
               </InputGroup>
               <br/>
@@ -349,7 +359,10 @@ class App extends Component {
             </div>
             );
           }
-          return <div/>;
+          return(<Jumbotron style={{ 'textAlign': 'center'}} fluid>
+          <Container><h3>You are on {this.state.network} network. Please connect to Ropsten Testnet.</h3>
+        </Container>
+        </Jumbotron>)
     }
 }
 
