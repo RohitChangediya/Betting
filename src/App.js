@@ -11,18 +11,19 @@ var contract = require("truffle-contract");
 var web3 = new Web3(Web3.givenProvider);
 
 var myContract = contract(ethorsejson);
-if(web3.currentProvider==null)
+if(web3.currentProvider!=null)
 {
-  var isChrome = !!window.chrome && !!window.chrome.webstore;
-  console.log(isChrome)
-  if(isChrome){
-  alert("Compatible only with Chrome browser (with Metamask extension), Mist or Geth")
-  }else{
-    alert("Compatible only with Metamask browser extension for Chrome or Mist browser from Ethereum")
-  }
+  myContract.setProvider(web3.currentProvider);
+
 }
 else{
-myContract.setProvider(web3.currentProvider);
+  // var isChrome = !!window.chrome && !!window.chrome.webstore;
+  // console.log(isChrome)
+  // if(isChrome){
+  // alert("Compatible only with Chrome browser (with Metamask extension), Mist or Geth")
+  // }else{
+  //   alert("Compatible only with Metamask browser extension for Chrome or Mist browser from Ethereum")
+  // }
 }
 
 class App extends Component {
@@ -30,6 +31,8 @@ class App extends Component {
     {
     super(props);
     this.state={contractState:null,
+                network:null,
+                nettimer:null,
                 contractJSON:ethorsejson,
                 price:null,
                 invokePrice:null,
@@ -99,15 +102,23 @@ class App extends Component {
       var milliseconds = (new Date()).getTime();
       this.convertMS(this.state.resultTime-milliseconds);
     }
+  checkNetwork(){
+      var self=this;
+      web3.eth.net.getNetworkType((err, netId) => {
+      self.setState({network:netId})
+    })
+
+    }
 
   componentWillMount()
     {
 
       var ct = null;
       var currentTime = new Date()
+      this.checkNetwork()
       currentTime=currentTime.getTime()
       var self=this;
-      if(web3.currentProvider!=null)
+      if(web3.currentProvider!=null  && this.state.network==="ropsten")
       {
       myContract.at(ethorsejson.address).then(function(instance){
         self.setState({contractInstance:instance})
@@ -311,7 +322,7 @@ class App extends Component {
     }
   render()
     {
-    if(web3.currentProvider!=null)
+    if(web3.currentProvider!=null  && this.state.network==="ropsten")
     {
     return (
             <div>
@@ -350,7 +361,10 @@ class App extends Component {
             </div>
             );
           }
-          return <div/>;
+          return(<Jumbotron style={{ 'textAlign': 'center'}} fluid>
+          <Container><h1>You are on {this.state.network} network. Please connect to Ropsten Testnet.</h1>
+        </Container>
+        </Jumbotron>)
     }
 }
 

@@ -7,7 +7,10 @@ var contract = require("truffle-contract");
 var web3 = new Web3(Web3.givenProvider);
 
 var myContract = contract(ethorsejson);
+if(web3.currentProvider!=null)
+{
 myContract.setProvider(web3.currentProvider);
+}
 
 
 export default class ETHRadio extends React.Component{
