@@ -24,7 +24,7 @@
 
 @font-face {
     font-family: "prometheus";
-    src: url("https://ethorse.com/fonts/prometheus.ttf") format("truetype");
+    src: url("./PROMETHEUS.ttf") format("truetype");
 }
 
 @keyframes App-logo-spin {
@@ -69,7 +69,7 @@ ul > li{
     {
         font-family:    prometheus;
         font-size:      40px;
-        letter-spacing: 3px;
+        font-weight: 500;
     }
 #copyright{
     text-align: center;
@@ -86,6 +86,7 @@ span{
   vertical-align: middle;
   line-height: normal;
   line-height: 50px;
+  color: black;
 }
 center{
   text-align: center;

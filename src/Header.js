@@ -40,7 +40,7 @@ export default class Header extends Component {
       return(
         <div>
           <Navbar light expand="md">
-            <NavbarBrand href="/"><h3 className="header-font"><img width="10%" height="auto" src={"https://raw.githubusercontent.com/ethorse/Betting/gh-pages/horse.ico"} alt="ETHorse icon"/>&nbsp;ethorse</h3></NavbarBrand>
+            <NavbarBrand href="/"><h3 className="header-font"><img width="10%" height="auto" src={"https://ethorse.com/images/ethorse-logo.png"} alt="ETHorse icon"/>&nbsp;ethorse</h3></NavbarBrand>
               <Nav className="ml-auto" navbar>
               <NavItem>
                 <NavLink><Button color="link" style={{textDecoration:'none', color:'black'}} onClick={this.toggle}><h5>Info</h5></Button></NavLink>
