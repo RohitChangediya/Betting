@@ -333,7 +333,7 @@ class App extends Component {
                 <InputGroupAddon>&Xi;</InputGroupAddon>
                 <Amount field="Amount" onValueSubmit={this.onValueSubmit.bind(this)}/>
                 <InputGroupButton>
-                <Button type="button" onClick={this.invokeContract.bind(this)} color="primary" disabled={true} size="lg">Place bet</Button>
+                <Button type="button" onClick={this.invokeContract.bind(this)} color="primary" disabled={!this.state.value} size="lg">Place bet</Button>
                 </InputGroupButton>
               </InputGroup>
               <br/>
