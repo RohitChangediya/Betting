@@ -328,8 +328,6 @@ class App extends Component {
             <div>
             <Jumbotron style={{ 'textAlign': 'center'}} fluid>
             <Container>
-              <h3 id="containerHeading">Bet on a coin and win ETH from those who bet against you.</h3>
-              <hr/>
               <ETHRadio onSubmit={this.coinValue.bind(this)} name="Radio"/>
               <InputGroup>
                 <InputGroupAddon>&Xi;</InputGroupAddon>
