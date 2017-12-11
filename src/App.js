@@ -140,7 +140,7 @@ class App extends Component {
                 if(currentTime>=(start_time*1000) && currentTime<((start_time+betting_duration)*1000))
                 {
                   ct=setInterval(self.findLockTime,950)
-                  self.setState({timeInterval:ct,betPhase:'Bet locks in ',lockTime:((start_time+betting_duration)*1000)})
+                  self.setState({timeInterval:ct,betPhase:'Bet locks and race starts in ',lockTime:((start_time+betting_duration)*1000)})
                 }
                 else{
                   instance.race_duration().then(function(race_duration){
@@ -207,7 +207,7 @@ class App extends Component {
         web3.eth.getAccounts(function(err, accounts){
           ethAccount=accounts[0]
           }).then(function()
-                  {
+                  {console.log(ethAccount)
                     instance.race_end().then(function(state){
                         if(state===false)
                         {
@@ -356,6 +356,9 @@ class App extends Component {
               <br/>
               <br/>
               {this.state.betPhase} {this.state.d}  {this.state.h} {this.state.m}  {this.state.s}
+              <br/>
+              <br/>
+              Race duration: 7 days
               <br/>
               <br/>
               Currently on Ropsten Testnet. Mainnet release coming soon. Be ready to bet with real money!
