@@ -362,7 +362,7 @@ class App extends Component {
               <br/>
               Join <a href="https://discord.gg/vdTXRmT)" rel="noopener noreferrer" target="_blank"> Discord </a> to stay tuned.
               <br/>
-              <a href="https://www.reddit.com/r/ethdev/comments/7asfml/bounty_open_for_ethorse_dapp_smart_contract/">Public bug bounty</a>
+              <a href="https://www.reddit.com/r/ethdev/comments/7asfml/bounty_open_for_ethorse_dapp_smart_contract/"  rel="noopener noreferrer" target="_blank">Public bug bounty</a>
             </Container>
             </Jumbotron>
             </div>
