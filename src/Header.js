@@ -43,7 +43,7 @@ export default class Header extends Component {
             <NavbarBrand href="/"><h3 className="header-font"><img width="10%" height="auto" src={"https://ethorse.com/images/ethorse-logo.png"} alt="ETHorse icon"/>&nbsp;ethorse</h3></NavbarBrand>
               <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink href="https://ethorse.com/" target="_blank"><Button color="link" style={{textDecoration:'none', color:'black'}}><h5>Crowd Sale</h5></Button></NavLink>
+                <NavLink href="https://ethorse.com/" target="_blank"><Button color="link" style={{textDecoration:'none', color:'black'}}><h5>Crowdsale</h5></Button></NavLink>
               </NavItem>
               <NavItem>
                 <NavLink><Button color="link" style={{textDecoration:'none', color:'black'}} onClick={this.toggle}><h5>Info</h5></Button></NavLink>
@@ -56,7 +56,7 @@ export default class Header extends Component {
           <ModalBody>
               Bet on a cryptocurrency and win against other bettors with Ethorse Smart Contract
               <ul>
-                <li>Simply choose a winner among BTC, ETH and LTC for a fixed 24 hour period -09:00 Nov 5 to 09:00 Nov 6, 2017 UTC.</li>
+                <li>Simply choose a winner among BTC, ETH and LTC for a fixed time period.</li>
                 <li>"Place bet" after entering an amount you are willing to bet (0.1-1 Ropsten ETH) from a browser with Metamask extension, or Mist.</li>
                 <li>A deployed open source Ethereum smart contract will control the funds, calculate the best performing Cryptocurrency (with displayed bet lock and bet close prices from Coinmarketcap API) and prepare reward for the winning users to collect WITHOUT OUR INPUT or CONTROL</li>
                 <li>Parimutuel Betting: Winner takes all (Ethorse takeout 5%)</li>
