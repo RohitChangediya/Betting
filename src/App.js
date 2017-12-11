@@ -140,7 +140,7 @@ class App extends Component {
                 if(currentTime>=(start_time*1000) && currentTime<((start_time+betting_duration)*1000))
                 {
                   ct=setInterval(self.findLockTime,950)
-                  self.setState({timeInterval:ct,betPhase:'Bet lock in ',lockTime:((start_time+betting_duration)*1000)})
+                  self.setState({timeInterval:ct,betPhase:'Bet locks in ',lockTime:((start_time+betting_duration)*1000)})
                 }
                 else{
                   instance.race_duration().then(function(race_duration){
