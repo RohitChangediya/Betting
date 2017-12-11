@@ -118,7 +118,7 @@ class App extends Component {
       this.checkNetwork()
       currentTime=currentTime.getTime()
       var self=this;
-      if(web3.currentProvider!=null  && this.state.network==="ropsten")
+      if(web3.currentProvider!=null)
       {
       myContract.at(ethorsejson.address).then(function(instance){
         self.setState({contractInstance:instance})
@@ -352,7 +352,10 @@ class App extends Component {
               <br/>
               <br/>
               <br/>
-              {/* {this.state.betPhase} {this.state.d}  {this.state.h} {this.state.m}  {this.state.s} */}
+              {this.state.betPhase} {this.state.d}  {this.state.h} {this.state.m}  {this.state.s}
+              <br/>
+              <br/>
+              <br/>
               Currently no race in progress. Join <a href="https://discord.gg/vdTXRmT)" rel="noopener noreferrer" target="_blank"> Discord </a> to stay tuned.
             </Container>
             </Jumbotron>
