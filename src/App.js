@@ -355,12 +355,14 @@ class App extends Component {
               {this.state.transactionid}
               <br/>
               <br/>
-              <br/>
               {this.state.betPhase} {this.state.d}  {this.state.h} {this.state.m}  {this.state.s}
               <br/>
               <br/>
+              Currently on Ropsten Testnet. Mainnet release coming soon. Be ready to bet with real money!
               <br/>
-              {/* Currently no race in progress. Join <a href="https://discord.gg/vdTXRmT)" rel="noopener noreferrer" target="_blank"> Discord </a> to stay tuned. */}
+              Join <a href="https://discord.gg/vdTXRmT)" rel="noopener noreferrer" target="_blank"> Discord </a> to stay tuned.
+              <br/>
+              <a href="https://www.reddit.com/r/ethdev/comments/7asfml/bounty_open_for_ethorse_dapp_smart_contract/">Public bug bounty</a>
             </Container>
             </Jumbotron>
             </div>
