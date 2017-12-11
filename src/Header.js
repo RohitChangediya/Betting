@@ -43,6 +43,9 @@ export default class Header extends Component {
             <NavbarBrand href="/"><h3 className="header-font"><img width="10%" height="auto" src={"https://ethorse.com/images/ethorse-logo.png"} alt="ETHorse icon"/>&nbsp;ethorse</h3></NavbarBrand>
               <Nav className="ml-auto" navbar>
               <NavItem>
+                <NavLink href="https://ethorse.com/" target="_blank"><Button color="link" style={{textDecoration:'none', color:'black'}}><h5>Ethorse</h5></Button></NavLink>
+              </NavItem>
+              <NavItem>
                 <NavLink><Button color="link" style={{textDecoration:'none', color:'black'}} onClick={this.toggle}><h5>Info</h5></Button></NavLink>
               </NavItem>
               </Nav>
