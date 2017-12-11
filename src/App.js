@@ -207,7 +207,7 @@ class App extends Component {
         web3.eth.getAccounts(function(err, accounts){
           ethAccount=accounts[0]
           }).then(function()
-                  {console.log(ethAccount)
+                  {
                     instance.race_end().then(function(state){
                         if(state===false)
                         {
@@ -216,7 +216,7 @@ class App extends Component {
                             value: web3.utils.toWei(self.state.amount),
                             data:self.state.coin
                           };
-                          if(txo.data!==null)
+                          if(txo.data!==null && ethAccount!==undefined)
                             {
                             self.setState({transactionid:'Placing Bet...'},function(){
                             instance.placeBet(self.state.coin,txo).then(function(res,error){
@@ -229,6 +229,9 @@ class App extends Component {
 
                               }
                             })})
+                            }
+                          else if(ethAccount===undefined){
+                              alert('Your Metamask seems to be locked. Please unlock to place a bet.')
                             }
                           else
                             {
