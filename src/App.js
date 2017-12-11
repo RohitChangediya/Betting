@@ -152,8 +152,12 @@ class App extends Component {
                       ct=setInterval(self.findResultTime,950)
                       self.setState({timeInterval:ct,betPhase:'Results in ',resultTime:((start_time+race_duration)*1000)})
                       }
-                    else {
+                    else if(start_time>0){
+
                       self.setState({betPhase:'Check result to see your winnings.'})
+                    }
+                    else{
+                      self.setState({betPhase:"Currently no race in progress."})
                     }
 
                   })
@@ -254,7 +258,7 @@ class App extends Component {
   coinValue(coin)
     {
       var self=this;
-        console.log(self.state.contractInstance)
+
         self.state.contractInstance.race_end().then(function(state){
           if(state===false)
           {
@@ -356,7 +360,7 @@ class App extends Component {
               <br/>
               <br/>
               <br/>
-              Currently no race in progress. Join <a href="https://discord.gg/vdTXRmT)" rel="noopener noreferrer" target="_blank"> Discord </a> to stay tuned.
+              {/* Currently no race in progress. Join <a href="https://discord.gg/vdTXRmT)" rel="noopener noreferrer" target="_blank"> Discord </a> to stay tuned. */}
             </Container>
             </Jumbotron>
             </div>

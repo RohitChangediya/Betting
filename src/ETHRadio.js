@@ -81,6 +81,7 @@ export default class ETHRadio extends React.Component{
                 reward=web3.utils.fromWei(reward,"ether")
                 instance.getCoinIndex("ETH").then(function(value){
                   var eth=self.getOddsDetails(value,reward);
+                  
                   self.setState({eth_pool:eth});
                 });
                 instance.getCoinIndex("LTC").then(function(value){
