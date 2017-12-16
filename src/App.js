@@ -185,7 +185,7 @@ class App extends Component {
                 {
                 if(ethAccount!==undefined){
                 web3.eth.getBalance(ethAccount).then(function(balance){
-                  
+
                     if(web3.utils.fromWei(balance)==="0"){
                       let faucet= document.getElementById('faucet')
                       faucet.classList.remove("hidden");
@@ -412,7 +412,11 @@ class App extends Component {
             );
           }
           return(<Jumbotron style={{ 'textAlign': 'center'}} fluid>
-          <Container><h1>You are on {this.state.network} network. Please connect to Ropsten Testnet.</h1>
+          <Container>
+              <h3>You are on {this.state.network} network.<br/>
+          Please use metamask to switch to Ropsten Testnet.</h3>
+          <br/>
+          <img src="https://github.com/MetaMask/faq/raw/master/images/click-the-test-network.png" alt="switch to ropsten"/>
         </Container>
         </Jumbotron>)
     }
