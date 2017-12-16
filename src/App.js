@@ -172,24 +172,28 @@ class App extends Component {
         })
       })
 
-      myContract.at(ethorsejson.address).then(function(instance){
-        var ethAccount='';
-        web3.eth.getAccounts(function(err, accounts){
-          ethAccount=accounts[0]
-          }).then(function()
-                  {
-                  if(ethAccount!==undefined){
-                  console.log(web3.eth.getBalance(ethAccount).then(function(balance){
-                      if(web3.utils.fromWei(balance)===0){
-                        let faucet= document.getElementById('faucet')
-                        faucet.classList.remove("hidden");
-                      }
-                      return web3.utils.fromWei(balance);
-                  }));
-                }})});
+
 
     }
     }
+  componentDidMount(){
+    myContract.at(ethorsejson.address).then(function(instance){
+      var ethAccount='';
+      web3.eth.getAccounts(function(err, accounts){
+        ethAccount=accounts[0]
+        }).then(function()
+                {
+                if(ethAccount!==undefined){
+                web3.eth.getBalance(ethAccount).then(function(balance){
+                  
+                    if(web3.utils.fromWei(balance)==="0"){
+                      let faucet= document.getElementById('faucet')
+                      faucet.classList.remove("hidden");
+                    }
+                    return web3.utils.fromWei(balance);
+                });
+              }})});
+  }
 
 
   convertMS(ms)
@@ -395,7 +399,7 @@ class App extends Component {
               <br/>
               Currently on Ropsten Testnet. Mainnet release coming soon. Be ready to bet with real money!
               <br/>
-              Join <a href="https://discord.gg/vdTXRmT)" rel="noopener noreferrer" target="_blank"> Discord </a> to stay tuned.
+              Join <a href="https://discord.gg/vdTXRmT" rel="noopener noreferrer" target="_blank"> Discord </a> to stay tuned.
               <br/>
               <a href="https://www.reddit.com/r/ethdev/comments/7asfml/bounty_open_for_ethorse_dapp_smart_contract/"  rel="noopener noreferrer" target="_blank">Public bug bounty</a>
             </div>
