@@ -53,6 +53,20 @@ button.betlist.active{
 .jumbotron {
     background-color: #36454f!important;
 }
+.container{
+  margin-top: 2%;
+}
+.navbar-brand{
+  width: 20%;
+}
+#faucet.hidden {
+    visibility: hidden;
+}
+body{
+  background-color: #36454f!important;
+  text-align: center;
+
+}
 .modal-header{
   color:black;
 }
