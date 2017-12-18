@@ -80,17 +80,17 @@ ul > li{
   background-color: #32CD32;
 }
 .header-font
-    {
-        font-family:    prometheus;
-        font-size:      40px;
-        font-weight: 500;
-    }
+{
+    font-family:    prometheus;
+    font-size:      40px;
+    font-weight: 500;
+}
 #copyright{
     text-align: center;
     background-color:#e0e0eb;
-    position: fixed;
+    position: absolute;
     width: 100%;
-    overflow:hidden;
+    /*overflow:hidden;*/
     right: 0;
     bottom: 0;
     left: 0;

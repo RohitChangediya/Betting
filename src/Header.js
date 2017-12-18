@@ -51,7 +51,7 @@ export default class Header extends Component {
               </Nav>
           </Navbar>
 
-        <Modal isOpen={this.state.modal} toggle={this.toggle} size="lg">
+        <Modal isOpen={this.state.modal} toggle={this.toggle} size="lg" style={{textAlign:'left'}}>
           <ModalHeader toggle={this.toggle}><h4>Information</h4></ModalHeader>
           <ModalBody>
               Bet on a cryptocurrency and win against other bettors with Ethorse Smart Contract
