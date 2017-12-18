@@ -361,9 +361,9 @@ class App extends Component {
             <Container>
               <div className="row">
                 <div className="col-md-10 mx-auto">
-                <h2 className="hidden" id="faucet">
-                  Get ropsten ethers at <a href="https://faucet.metamask.io/">faucet.metamask.io</a>
-                </h2>
+                <h5 className="hidden" id="faucet">
+                  Get some ropsten ethers to try the dapp. <a href="https://faucet.metamask.io/" style={{  'color':'orange' }}>Metamask Faucet</a>
+                </h5>
                 </div>
               </div>
               <div className="row">
@@ -413,10 +413,10 @@ class App extends Component {
           }
           return(<Jumbotron style={{ 'textAlign': 'center'}} fluid>
           <Container>
-              <h3>You are on {this.state.network} network.<br/>
-          Please use metamask to switch to Ropsten Testnet.</h3>
+              <h3>Your Metamask is on {this.state.network} network.<br/>
+          Please switch to Ropsten Testnet as shown below.</h3>
           <br/>
-          <img src="https://github.com/MetaMask/faq/raw/master/images/click-the-test-network.png" alt="switch to ropsten"/>
+          <img src="https://github.com/MetaMask/faq/raw/master/images/click-the-test-network.png" target="_blank" alt="switch to ropsten"/>
         </Container>
         </Jumbotron>)
     }
