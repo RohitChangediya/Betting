@@ -185,7 +185,7 @@ class App extends Component {
                 {
                 if(ethAccount!==undefined){
                 web3.eth.getBalance(ethAccount).then(function(balance){
-                  
+
                     if(web3.utils.fromWei(balance)==="0"){
                       let faucet= document.getElementById('faucet')
                       faucet.classList.remove("hidden");
@@ -229,7 +229,7 @@ class App extends Component {
           ethAccount=accounts[0]
           }).then(function()
                   {
-                  console.log(web3.fromWei(web3.eth.getBalance(ethAccount)));
+                  // console.log(web3.fromWei(web3.eth.getBalance(ethAccount)));
 
 
                     instance.race_end().then(function(state){
