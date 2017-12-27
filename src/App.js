@@ -376,7 +376,7 @@ class App extends Component {
               <div className="col-md-12 mx-auto">
               {this.state.flashmessage}
               <ETHRadio onSubmit={this.coinValue.bind(this)} name="Radio"/>
-              <InputGroup data-toggle="tooltip" data-placement="left" title="Tooltip on left" data-container="body">
+              <InputGroup>
                 <InputGroupAddon>&Xi;</InputGroupAddon>
                 <Amount field="Amount" onValueSubmit={this.onValueSubmit.bind(this)} className="amount"/>
 
