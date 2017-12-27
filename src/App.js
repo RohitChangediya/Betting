@@ -41,6 +41,7 @@ class App extends Component {
                 coin:null,
                 value: null,
                 transactionid:null,
+                transactionidmsg:null,
                 d:null,
                 h:null,
                 m:null,
@@ -249,7 +250,7 @@ class App extends Component {
                             self.setState({transactionid:'Placing Bet...'},function(){
                             instance.placeBet(self.state.coin,txo).then(function(res,error){
 
-                              self.setState({transactionid:('Transaction ID: '+res.tx+'. Good luck. You can use "Check result" and "Claim" after the race is over.'),value:self.state.coin});
+                              self.setState({transactionid:('Transaction ID: '+res.tx+'. '),transactionidmsg:"Good luck. You can use \"Check result\" and \"Claim\" after the race is over.",value:self.state.coin});
                             }).catch(function(e){
                               if(e.message==="MetaMask Tx Signature: User denied transaction signature.")
                               {
@@ -406,7 +407,9 @@ class App extends Component {
 
               <br/>
               <br/>
-              {this.state.transactionid}
+              <div>{this.state.transactionid}
+                <br/>
+              {this.state.transactionidmsg}</div>
               <br/>
               <br/>
               {this.state.betPhase} {this.state.d}  {this.state.h} {this.state.m}  {this.state.s}
