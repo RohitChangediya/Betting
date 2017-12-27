@@ -14,7 +14,7 @@ export default class Amount extends React.Component{
   render()
   {
     return(
-        <Input placeholdername="Amount" type="number" step="0.01" defaultValue="0.1" max="1" min="0.1" id={this.props.field}  onChange={this.handleChange}/>
+        <Input placeholdername="Amount" type="number" step="0.01" defaultValue="0.1" max="1" min="0.1" id={this.props.field} title="Enter the amount to bet in ether" data-toggle="tooltip" data-placement="top" onChange={this.handleChange}/>
     );
   }
 }

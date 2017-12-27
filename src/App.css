@@ -105,3 +105,37 @@ span{
 center{
   text-align: center;
 }
+
+.tool-tip[disabled] {
+  pointer-events: none;
+}
+
+.tooltip{
+  display: none;
+  padding: 10px;
+}
+
+Amount:hover .tooltip {
+  background: blue;
+  border-radius: 3px;
+  bottom: -60px;
+  color: white;
+  display: inline;
+  height: 30px;
+  left: 0;
+  line-height: 30px;
+  position: absolute;
+}
+
+Amount:hover .tooltip:before {
+  display: block;
+  content: "";
+  position: absolute;
+  top: -5px;
+  width: 0;
+height: 0;
+border-left: 5px solid transparent;
+border-right: 5px solid transparent;
+
+border-bottom: 5px solid blue;
+}

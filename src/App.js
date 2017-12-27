@@ -4,7 +4,8 @@ import AlertMsg from './AlertMsg'
 import './App.css';
 import ETHRadio from './ETHRadio'
 import Amount from './Amount.js'
-import {Jumbotron, Container, Button, InputGroup, InputGroupButton, InputGroupAddon, Input} from 'reactstrap'
+import {Jumbotron, Container, Button, InputGroup, InputGroupButton, InputGroupAddon, Input, UncontrolledTooltip} from 'reactstrap'
+
 var Web3 = require('web3');
 var contract = require("truffle-contract");
 
@@ -54,7 +55,8 @@ class App extends Component {
                 timeInterval:null,
                 claim:false,
                 betPhase:'',
-                contractInstance:null
+                contractInstance:null,
+                flashmessage:null
                 };
     this.invokeContract=this.invokeContract.bind(this);
     this.convertMS=this.convertMS.bind(this);
@@ -125,7 +127,7 @@ class App extends Component {
         instance.starting_time().then(function(start_time){
           //Check if the bet has started
           start_time=parseInt(start_time,10)
-          console.log(currentTime+' , '+start_time*1000)
+          // console.log(currentTime+' , '+start_time*1000)
             if(currentTime<(start_time*1000))
             {
               ct=setInterval(self.findStartTime,950)
@@ -136,7 +138,7 @@ class App extends Component {
               //Check if the bet has locked
               instance.betting_duration().then(function(betting_duration){
                 betting_duration=parseInt(betting_duration,10)
-                console.log(currentTime+' , '+start_time+' ,'+((start_time+betting_duration)*1000)+' '+betting_duration)
+                // console.log(currentTime+' , '+start_time+' ,'+((start_time+betting_duration)*1000)+' '+betting_duration)
                 if(currentTime>=(start_time*1000) && currentTime<((start_time+betting_duration)*1000))
                 {
                   ct=setInterval(self.findLockTime,950)
@@ -145,7 +147,7 @@ class App extends Component {
                 else{
                   instance.race_duration().then(function(race_duration){
                     race_duration=parseInt(race_duration,10)
-                    console.log(currentTime+' , '+start_time+' ,'+((start_time+betting_duration)*1000)+' ,'+((start_time+race_duration)*1000))
+                    // console.log(currentTime+' , '+start_time+' ,'+((start_time+betting_duration)*1000)+' ,'+((start_time+race_duration)*1000))
                     //Check if the results are out.
                     if(currentTime<((start_time+race_duration)*1000) && currentTime>=((start_time+betting_duration)*1000))
                       {
@@ -193,6 +195,8 @@ class App extends Component {
                     return web3.utils.fromWei(balance);
                 });
               }})});
+              // $('.amount').tooltip({show: {effect:"none", delay:0}});
+
   }
 
 
@@ -245,10 +249,11 @@ class App extends Component {
                             self.setState({transactionid:'Placing Bet...'},function(){
                             instance.placeBet(self.state.coin,txo).then(function(res,error){
 
-                              self.setState({transactionid:('Transaction ID: '+res.tx),value:self.state.coin});
+                              self.setState({transactionid:('Transaction ID: '+res.tx+'. Good luck. You can use "Check result" and "Claim" after the race is over.'),value:self.state.coin});
                             }).catch(function(e){
                               if(e.message==="MetaMask Tx Signature: User denied transaction signature.")
                               {
+
                                 self.setState({value:null,transactionid:null})
 
                               }
@@ -355,6 +360,7 @@ class App extends Component {
     {
     if(web3.currentProvider!=null  && this.state.network==="ropsten")
     {
+
     return (
             <div>
             {/* <Jumbotron style={{ 'textAlign': 'center'}} fluid> */}
@@ -368,24 +374,36 @@ class App extends Component {
               </div>
               <div className="row">
               <div className="col-md-12 mx-auto">
+              {this.state.flashmessage}
               <ETHRadio onSubmit={this.coinValue.bind(this)} name="Radio"/>
-              <InputGroup>
+              <InputGroup data-toggle="tooltip" data-placement="left" title="Tooltip on left" data-container="body">
                 <InputGroupAddon>&Xi;</InputGroupAddon>
-                <Amount field="Amount" onValueSubmit={this.onValueSubmit.bind(this)}/>
+                <Amount field="Amount" onValueSubmit={this.onValueSubmit.bind(this)} className="amount"/>
+
                 <InputGroupButton>
-                <Button type="button" onClick={this.invokeContract.bind(this)} color="primary" disabled={!this.state.value} size="lg">Place bet</Button>
+                {/* <a href="#" id="PlaceBetTooltip"><Button type="button" onClick={this.invokeContract.bind(this)} color="primary" disabled={!this.state.value} size="lg">Place bet</Button></a> */}
+                <a href="#" id="PlaceBetTooltip"><Button type="button" onClick={this.invokeContract.bind(this)} color="primary" size="lg">Place bet</Button></a>
+                <UncontrolledTooltip placement="right" target="PlaceBetTooltip">
+                  Place your bet after choosing your coin. The coin can be chosen by clicking on one of the 3 options under the Select a Coin column.
+                </UncontrolledTooltip>
                 </InputGroupButton>
               </InputGroup>
               <br/>
               <InputGroup >
               <InputGroupButton>
-              <Button type="button"  color="info" size="lg" onClick={this.checkRewards} disabled={!this.state.claim}>Check result</Button>
+              <a href="#" id="CheckResultTooltip"><Button type="button"  color="info" size="lg" className="tool-tip" onClick={this.checkRewards} disabled={!this.state.claim}>Check result</Button></a>
+              <UncontrolledTooltip placement="left" target="CheckResultTooltip">
+                Click to check the bet result after the results are announced for this race. Enabled only after the race is completed.
+              </UncontrolledTooltip>
               </InputGroupButton>
               <Input disabled={true} value={this.state.reward}/>
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <Button type="button" size="lg" onClick={this.claim} id="claim" disabled={!this.state.claim}>Claim</Button>
+              <a href="#" id="ClaimTooltip"><Button type="button" size="lg" onClick={this.claim} id="claim" className="tool-tip" disabled={!this.state.claim}>Claim</Button></a>
+              <UncontrolledTooltip placement="right" target="ClaimTooltip">
+                Click to claim reward if you win. This opens a Metamask window to send an empty traction. Submitting that will get your winnings deposited to your wallet.
+              </UncontrolledTooltip>
               </InputGroup>
-              <AlertMsg visible={this.state.coinChosen} onSubmit={this.onDismiss} msg='Please choose a coin'/>
+
               <br/>
               <br/>
               {this.state.transactionid}
@@ -408,6 +426,13 @@ class App extends Component {
             </div>
             </Container>
             {/* </Jumbotron> */}
+            {/* <div>
+              <UncontrolledTooltip placement="right" target="PlaceBetTooltip">
+                Hello world!
+              </UncontrolledTooltip>
+
+            </div> */}
+
             </div>
             );
           }
