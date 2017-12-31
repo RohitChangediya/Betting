@@ -19,6 +19,7 @@
     "react-timer-mixin": "^0.13.3",
     "react-timestamp": "^4.2.1",
     "react-tooltip": "^3.4.0",
+    "react-transition-group": "^2.3.0-beta.0",
     "reactstrap": "^5.0.0-alpha.3",
     "rgbcolor": "^1.0.1",
     "truffle-contract": "^3.0.0",

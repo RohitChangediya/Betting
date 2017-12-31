@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import ethorsejson from './ETHorse.json';
-import AlertMsg from './AlertMsg'
+// import AlertMsg from './AlertMsg'
 import './App.css';
 import ETHRadio from './ETHRadio'
 import Amount from './Amount.js'
+import Header from './Header'
+import Contract from './Contract'
 import {Jumbotron, Container, Button, InputGroup, InputGroupButton, InputGroupAddon, Input, UncontrolledTooltip} from 'reactstrap'
 
 var Web3 = require('web3');
@@ -57,7 +59,8 @@ class App extends Component {
                 claim:false,
                 betPhase:'',
                 contractInstance:null,
-                flashmessage:null
+                flashmessage:null,
+                contract:null
                 };
     this.invokeContract=this.invokeContract.bind(this);
     this.convertMS=this.convertMS.bind(this);
@@ -66,6 +69,8 @@ class App extends Component {
     this.claim=this.claim.bind(this);
     this.findTime=this.findTime.bind(this);
     this.resetTimer=this.resetTimer.bind(this);
+    this.componentLoad=this.componentLoad.bind(this);
+    this.componentMounted=this.componentMounted.bind(this);
 
     //Find betting phase
     this.findStartTime=this.findStartTime.bind(this);
@@ -112,75 +117,81 @@ class App extends Component {
     })
 
     }
-
-  componentWillMount()
+  componentLoad()
+  {
+    var ct = null;
+    var currentTime = new Date()
+    this.checkNetwork()
+    currentTime=currentTime.getTime()
+    var self=this;
+    if(this.state.timeInterval!=null)
     {
-
-      var ct = null;
-      var currentTime = new Date()
-      this.checkNetwork()
-      currentTime=currentTime.getTime()
-      var self=this;
-      if(web3.currentProvider!=null)
-      {
-      myContract.at(ethorsejson.address).then(function(instance){
-        self.setState({contractInstance:instance})
-        instance.starting_time().then(function(start_time){
-          //Check if the bet has started
-          start_time=parseInt(start_time,10)
-          // console.log(currentTime+' , '+start_time*1000)
-            if(currentTime<(start_time*1000))
-            {
-              ct=setInterval(self.findStartTime,950)
-              self.setState({timeInterval:ct,betPhase:'Bet Open in ',startTime:start_time*1000})
-            }
-            else
-            {
-              //Check if the bet has locked
-              instance.betting_duration().then(function(betting_duration){
-                betting_duration=parseInt(betting_duration,10)
-                // console.log(currentTime+' , '+start_time+' ,'+((start_time+betting_duration)*1000)+' '+betting_duration)
-                if(currentTime>=(start_time*1000) && currentTime<((start_time+betting_duration)*1000))
-                {
-                  ct=setInterval(self.findLockTime,950)
-                  self.setState({timeInterval:ct,betPhase:'Bet locks and race starts in ',lockTime:((start_time+betting_duration)*1000)})
-                }
-                else{
-                  instance.race_duration().then(function(race_duration){
-                    race_duration=parseInt(race_duration,10)
-                    // console.log(currentTime+' , '+start_time+' ,'+((start_time+betting_duration)*1000)+' ,'+((start_time+race_duration)*1000))
-                    //Check if the results are out.
-                    if(currentTime<((start_time+race_duration)*1000) && currentTime>=((start_time+betting_duration)*1000))
-                      {
-                      ct=setInterval(self.findResultTime,950)
-                      self.setState({timeInterval:ct,betPhase:'Results in ',resultTime:((start_time+race_duration)*1000)})
-                      }
-                    else if(start_time>0){
-
-                      self.setState({betPhase:'Check result to see your winnings.'})
-                    }
-                    else{
-                      self.setState({betPhase:"Currently no race in progress."})
-                    }
-
-                  })
-                }
-              })
-            }
-        })
-      })
-      myContract.at(ethorsejson.address).then(function(instance){
-        instance.race_end().then(function(state){
-            self.setState({claim:state})
-        })
-      })
-
-
-
+      clearInterval(this.state.timeInterval);
+      this.setState({"h":null,"d":null,"m":null,"s":null})
+      // console.log(this.state.contract)
     }
-    }
-  componentDidMount(){
-    myContract.at(ethorsejson.address).then(function(instance){
+    if(web3.currentProvider!=null)
+    {
+    myContract.at(this.state.contract).then(function(instance){
+      self.setState({contractInstance:instance})
+      instance.starting_time().then(function(start_time){
+        //Check if the bet has started
+        start_time=parseInt(start_time,10)
+        // console.log(currentTime+' , '+start_time*1000)
+          if(currentTime<(start_time*1000))
+          {
+            ct=setInterval(self.findStartTime,950)
+            self.setState({timeInterval:ct,betPhase:'Bet Open in ',startTime:start_time*1000})
+          }
+          else
+          {
+            //Check if the bet has locked
+            instance.betting_duration().then(function(betting_duration){
+              betting_duration=parseInt(betting_duration,10)
+              // console.log(currentTime+' , '+start_time+' ,'+((start_time+betting_duration)*1000)+' '+betting_duration)
+              if(currentTime>=(start_time*1000) && currentTime<((start_time+betting_duration)*1000))
+              {
+                ct=setInterval(self.findLockTime,950)
+                self.setState({timeInterval:ct,betPhase:'Bet locks and race starts in ',lockTime:((start_time+betting_duration)*1000)})
+              }
+              else{
+                instance.race_duration().then(function(race_duration){
+                  race_duration=parseInt(race_duration,10)
+                  // console.log(currentTime+' , '+start_time+' ,'+((start_time+betting_duration)*1000)+' ,'+((start_time+race_duration)*1000))
+                  //Check if the results are out.
+                  if(currentTime<((start_time+race_duration)*1000) && currentTime>=((start_time+betting_duration)*1000))
+                    {
+                    ct=setInterval(self.findResultTime,950)
+                    self.setState({timeInterval:ct,betPhase:'Results in ',resultTime:((start_time+race_duration)*1000)})
+                    }
+                  else if(start_time>0){
+
+                    self.setState({betPhase:'Check result to see your winnings.'})
+                  }
+                  else{
+                    self.setState({betPhase:"Currently no race in progress."})
+                  }
+
+                })
+              }
+            })
+          }
+      })
+    })
+    myContract.at(this.state.contract).then(function(instance){
+      instance.race_end().then(function(state){
+          self.setState({claim:state})
+      })
+    })
+
+
+
+  }
+  }
+  componentMounted()
+  {
+    if(this.state.contract!==null)
+    myContract.at(this.state.contract).then(function(instance){
       var ethAccount='';
       web3.eth.getAccounts(function(err, accounts){
         ethAccount=accounts[0]
@@ -196,6 +207,19 @@ class App extends Component {
                     return web3.utils.fromWei(balance);
                 });
               }})});
+      this.checkRewards()
+  }
+  componentWillMount()
+    {
+    if(this.state.contract!==null)
+    {
+    this.componentLoad();
+
+  }
+    }
+  componentDidMount(){
+    if(this.state.contract!==null)
+    this.componentMounted();
               // $('.amount').tooltip({show: {effect:"none", delay:0}});
 
   }
@@ -228,7 +252,7 @@ class App extends Component {
     }
     var self=this;
     this.setState({value:null},function(){
-      myContract.at(ethorsejson.address).then(function(instance){
+      myContract.at(this.state.contract).then(function(instance){
         var ethAccount='';
         web3.eth.getAccounts(function(err, accounts){
           ethAccount=accounts[0]
@@ -313,7 +337,7 @@ class App extends Component {
   checkRewards()
     {
     var self=this;
-    myContract.at(ethorsejson.address).then(function(instance)
+    myContract.at(this.state.contract).then(function(instance)
           {
             var ethAccount;
             web3.eth.getAccounts(function(err, accounts){
@@ -331,10 +355,19 @@ class App extends Component {
               });
         });
     }
+  contractUpdate(contract)
+  {
+    let self=this;
+
+    this.setState({contract},function(){
+      self.componentLoad();
+      self.componentMounted();
+    })
+  }
   claim()
     {
-
-    myContract.at(ethorsejson.address).then(function(instance)
+    console.log('claim')
+    myContract.at(this.state.contract).then(function(instance)
           {
 
             var ethAccount;
@@ -359,13 +392,20 @@ class App extends Component {
     }
   render()
     {
-    if(web3.currentProvider!=null  && this.state.network==="ropsten")
+    if(web3.currentProvider!=null  && this.state.network==="ropsten" && this.state.contract!==null)
     {
 
     return (
             <div>
+            <Header/>
+            <div>
             {/* <Jumbotron style={{ 'textAlign': 'center'}} fluid> */}
             <Container>
+              <div className="row">
+
+                <Contract className="float-right" onContractSubmit={this.contractUpdate.bind(this)} style={{  'padding-left':'1500px','position':'absolute' }}/>
+
+              </div>
               <div className="row">
                 <div className="col-md-10 mx-auto">
                 <h5 className="hidden" id="faucet">
@@ -376,14 +416,14 @@ class App extends Component {
               <div className="row">
               <div className="col-md-12 mx-auto">
               {this.state.flashmessage}
-              <ETHRadio onSubmit={this.coinValue.bind(this)} name="Radio"/>
+              <ETHRadio onSubmit={this.coinValue.bind(this)} name="Radio" currentContract={this.state.contract}/>
               <InputGroup>
                 <InputGroupAddon>&Xi;</InputGroupAddon>
                 <Amount field="Amount" onValueSubmit={this.onValueSubmit.bind(this)} className="amount"/>
 
                 <InputGroupButton>
                 {/* <a href="#" id="PlaceBetTooltip"><Button type="button" onClick={this.invokeContract.bind(this)} color="primary" disabled={!this.state.value} size="lg">Place bet</Button></a> */}
-                <a href="#" id="PlaceBetTooltip"><Button type="button" onClick={this.invokeContract.bind(this)} color="primary" size="lg">Place bet</Button></a>
+                <a  id="PlaceBetTooltip"><Button type="button" onClick={this.invokeContract.bind(this)} color="primary" size="lg">Place bet</Button></a>
                 <UncontrolledTooltip placement="right" target="PlaceBetTooltip">
                   Place your bet after choosing your coin. The coin can be chosen by clicking on one of the 3 options under the Select a Coin column.
                 </UncontrolledTooltip>
@@ -392,14 +432,14 @@ class App extends Component {
               <br/>
               <InputGroup >
               <InputGroupButton>
-              <a href="#" id="CheckResultTooltip"><Button type="button"  color="info" size="lg" className="tool-tip" onClick={this.checkRewards} disabled={!this.state.claim}>Check result</Button></a>
+              <a id="CheckResultTooltip"><Button type="button"  color="info" size="lg" className="tool-tip" onClick={this.checkRewards} disabled={!this.state.claim}>Check result</Button></a>
               <UncontrolledTooltip placement="left" target="CheckResultTooltip">
                 Click to check the bet result after the results are announced for this race. Enabled only after the race is completed.
               </UncontrolledTooltip>
               </InputGroupButton>
               <Input disabled={true} value={this.state.reward}/>
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <a href="#" id="ClaimTooltip"><Button type="button" size="lg" onClick={this.claim} id="claim" className="tool-tip" disabled={!this.state.claim}>Claim</Button></a>
+              <a id="ClaimTooltip"><Button type="button" size="lg" onClick={this.claim} id="claim" className="tool-tip" disabled={!this.state.claim}>Claim</Button></a>
               <UncontrolledTooltip placement="right" target="ClaimTooltip">
                 Click to claim reward if you win. This opens a Metamask window to send an empty traction. Submitting that will get your winnings deposited to your wallet.
               </UncontrolledTooltip>
@@ -437,7 +477,16 @@ class App extends Component {
             </div> */}
 
             </div>
+            </div>
             );
+          }
+          else if(this.state.contract===null)
+          {
+            return(<div>
+                    <Header contractUpdate={this.contractUpdate.bind(this)}/>
+                    <Contract onContractSubmit={this.contractUpdate.bind(this)}/>
+                  </div>
+                  )
           }
           return(<Jumbotron style={{ 'textAlign': 'center'}} fluid>
           <Container>
