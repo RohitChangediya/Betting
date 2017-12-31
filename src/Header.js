@@ -46,7 +46,7 @@ export default class Header extends Component {
                 <NavLink href="https://ethorse.com/" target="_blank"><Button color="link" style={{textDecoration:'none', color:'black'}}><h5>Crowdsale</h5></Button></NavLink>
               </NavItem>
               <NavItem>
-                <NavLink><Button color="link" style={{textDecoration:'none', color:'black'}} onClick={this.toggle}><h5>Info</h5></Button></NavLink>
+                <NavLink><Button color="link" style={{textDecoration:'none', color:'black'}} onClick={this.toggle}><h5>Help</h5></Button></NavLink>
               </NavItem>
               </Nav>
           </Navbar>
