@@ -27,10 +27,16 @@
     src: url("./PROMETHEUS.ttf") format("truetype");
 }
 
+@font-face {
+    font-family: "bebas-neue";
+    src: url("./BebasNeue.otf") format("truetype");
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
 
 html{
     background-color: #36454f ;
@@ -49,6 +55,7 @@ button.betlist.active{
 }
 * {
  color: white;
+ font-family: bebas-neue;
 }
 .jumbotron {
     background-color: #36454f!important;

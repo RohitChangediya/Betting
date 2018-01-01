@@ -32,7 +32,8 @@ export default class ETHRadio extends React.Component{
                 eth_pool:eth,
                 btc_pool:btc,
                 ltc_pool:ltc,
-                visible:false
+                visible:false,
+                contract:this.props.currentContract
                 };
 
   }
@@ -75,7 +76,7 @@ export default class ETHRadio extends React.Component{
   getCoinDetails()
     {
     var self=this;
-    myContract.at(ethorsejson.address).then(function(instance)
+    myContract.at(this.props.currentContract).then(function(instance)
           {
           instance.reward_total().then(function(reward){
                 reward=web3.utils.fromWei(reward,"ether")
@@ -94,6 +95,7 @@ export default class ETHRadio extends React.Component{
                 });
               });
           });
+    this.contractChange(this.props.currentContract);
 
     }
   handleChange(rSelected)
@@ -119,8 +121,18 @@ export default class ETHRadio extends React.Component{
       this.getCoinDetails();
 
   }
+  contractChange(contract){
+    this.setState({contract})
+  }
+  componentDidUpdate(){
+    if(this.state.contract!==this.props.currentContract)
+    {
+    this.getCoinDetails();
+    }
+  }
   render()
   {
+
     return(
       <div>
       <Table inverse striped hover size="md">

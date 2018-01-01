@@ -1,6 +1,7 @@
 import {Navbar,  NavbarBrand, Nav, NavLink, NavItem, Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap'
 import React, { Component } from 'react';
 import './App.css';
+
 import 'bootstrap/dist/css/bootstrap.css';
 import ethorsejson from './ETHorse.json';
 
@@ -34,6 +35,10 @@ export default class Header extends Component {
       }
 
     }
+    onContractSubmit(contract)
+    {
+      this.props.contractUpdate(contract)
+    }
     render()
     {
       var address_link="https://ropsten.etherscan.io/address/"+ethorsejson.address+"#code";
@@ -42,17 +47,21 @@ export default class Header extends Component {
           <Navbar light expand="md">
             <NavbarBrand href="/"><h3 className="header-font"><img width="10%" height="auto" src={"https://ethorse.com/images/ethorse-logo.png"} alt="ETHorse icon"/>&nbsp;ethorse</h3></NavbarBrand>
               <Nav className="ml-auto" navbar>
+
               <NavItem>
                 <NavLink href="https://ethorse.com/" target="_blank"><Button color="link" style={{textDecoration:'none', color:'black'}}><h5>Crowdsale</h5></Button></NavLink>
               </NavItem>
               <NavItem>
                 <NavLink><Button color="link" style={{textDecoration:'none', color:'black'}} onClick={this.toggle}><h5>Help</h5></Button></NavLink>
               </NavItem>
+
+
+
               </Nav>
           </Navbar>
 
         <Modal isOpen={this.state.modal} toggle={this.toggle} size="lg" style={{textAlign:'left'}}>
-          <ModalHeader toggle={this.toggle}><h4>Information</h4></ModalHeader>
+          <ModalHeader toggle={this.toggle}><h4>Help</h4></ModalHeader>
           <ModalBody>
               Bet on a cryptocurrency and win against other bettors with Ethorse Smart Contract
               <ul>
