@@ -32,6 +32,11 @@
     src: url("./BebasNeue.otf") format("truetype");
 }
 
+@font-face {
+    font-family: "sansation";
+    src: url("./Sansation_Regular.ttf") format("truetype");
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
@@ -53,10 +58,12 @@ button.betlist.active{
     text-decoration: none;
     display: inline-block;
 }
+
 * {
  color: white;
- font-family: bebas-neue;
+
 }
+
 .jumbotron {
     background-color: #36454f!important;
 }
@@ -71,6 +78,7 @@ button.betlist.active{
 }
 body{
   background-color: #36454f!important;
+  font-family: sansation!important;
   text-align: center;
 
 }
@@ -104,15 +112,18 @@ ul > li{
 }
 span{
   display: inline-block;
-  vertical-align: middle;
+  /*vertical-align: middle;*/
   line-height: normal;
-  line-height: 50px;
-  color: black;
+  /*line-height: 50px;*/
+  /*color: black;*/
 }
 center{
   text-align: center;
 }
-
+nav h3{
+  font-family: bebas-neue;
+  /*font-size: 30px;*/
+}
 .tool-tip[disabled] {
   pointer-events: none;
 }
@@ -145,4 +156,11 @@ border-left: 5px solid transparent;
 border-right: 5px solid transparent;
 
 border-bottom: 5px solid blue;
+}
+
+.reload { font-family: Lucida Sans Unicode }
+
+.contract{
+  margin-left: 100%;
+  margin-right: 0;
 }

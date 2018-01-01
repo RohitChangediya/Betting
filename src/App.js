@@ -124,14 +124,19 @@ class App extends Component {
     this.checkNetwork()
     currentTime=currentTime.getTime()
     var self=this;
+
     if(this.state.timeInterval!=null)
     {
-      clearInterval(this.state.timeInterval);
+      console.log(this.state.timeInterval)
+      for (var i = 1; i <= this.state.timeInterval; i++)
+        clearInterval(i);
+
       this.setState({"h":null,"d":null,"m":null,"s":null})
       // console.log(this.state.contract)
     }
     if(web3.currentProvider!=null)
     {
+      console.log('called')
     myContract.at(this.state.contract).then(function(instance){
       self.setState({contractInstance:instance})
       instance.starting_time().then(function(start_time){
@@ -152,7 +157,9 @@ class App extends Component {
               if(currentTime>=(start_time*1000) && currentTime<((start_time+betting_duration)*1000))
               {
                 ct=setInterval(self.findLockTime,950)
+
                 self.setState({timeInterval:ct,betPhase:'Bet locks and race starts in ',lockTime:((start_time+betting_duration)*1000)})
+
               }
               else{
                 instance.race_duration().then(function(race_duration){
@@ -162,6 +169,7 @@ class App extends Component {
                   if(currentTime<((start_time+race_duration)*1000) && currentTime>=((start_time+betting_duration)*1000))
                     {
                     ct=setInterval(self.findResultTime,950)
+                    console.log(ct)
                     self.setState({timeInterval:ct,betPhase:'Results in ',resultTime:((start_time+race_duration)*1000)})
                     }
                   else if(start_time>0){
@@ -211,11 +219,11 @@ class App extends Component {
   }
   componentWillMount()
     {
-    if(this.state.contract!==null)
-    {
-    this.componentLoad();
-
-  }
+    // if(this.state.contract!==null)
+    // {
+    // this.componentLoad();
+    //
+    // }
     }
   componentDidMount(){
     if(this.state.contract!==null)
@@ -360,6 +368,7 @@ class App extends Component {
     let self=this;
 
     this.setState({contract},function(){
+      console.log(contract)
       self.componentLoad();
       self.componentMounted();
     })
@@ -403,7 +412,7 @@ class App extends Component {
             <Container>
               <div className="row">
 
-                <Contract className="float-right" onContractSubmit={this.contractUpdate.bind(this)} style={{  'padding-left':'1500px','position':'absolute' }}/>
+                <Contract className="contract" onContractSubmit={this.contractUpdate.bind(this)}/>
 
               </div>
               <div className="row">
@@ -432,7 +441,7 @@ class App extends Component {
               <br/>
               <InputGroup >
               <InputGroupButton>
-              <a id="CheckResultTooltip"><Button type="button"  color="info" size="lg" className="tool-tip" onClick={this.checkRewards} disabled={!this.state.claim}>Check result</Button></a>
+              <a id="CheckResultTooltip"><Button type="button"  color="info" size="lg" className="tool-tip" onClick={this.checkRewards} disabled={!this.state.claim}><span className="reload">&#x21bb;</span>&nbsp;Result</Button></a>
               <UncontrolledTooltip placement="left" target="CheckResultTooltip">
                 Click to check the bet result after the results are announced for this race. Enabled only after the race is completed.
               </UncontrolledTooltip>
