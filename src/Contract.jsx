@@ -29,7 +29,8 @@ export default class Contract extends Component{
   }
   componentWillMount()
   {
-    this.handleChange(addressjson.addresses[0].address)
+    if(this.state.timejson.length!==addressjson.addresses.length)
+      this.handleChange(addressjson.addresses[0].address)
   }
   getDate(address)
   {
@@ -60,7 +61,7 @@ export default class Contract extends Component{
   }
   handleChange(rSelected)
   {
-    // console.log(rSelected.target.value)
+    console.log(rSelected,' ',addressjson.addresses[0].address)
     // this.setState({ rSelected });
      this.props.onContractSubmit(rSelected);
   }
@@ -75,11 +76,11 @@ export default class Contract extends Component{
                   <DropdownToggle nav caret>
                     Contracts
                   </DropdownToggle>
-                  <DropdownMenu >
+                  <DropdownMenu className="contract">
                     {timejson.map(row =>
                     <DropdownItem onClick={() => this.handleChange(row.address)} key={row.address}>
 
-                      {row.start_time} to {row.end_time}
+                      {row.start_time}
                     </DropdownItem>
                   )}
 
