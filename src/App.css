@@ -160,7 +160,12 @@ border-bottom: 5px solid blue;
 
 .reload { font-family: Lucida Sans Unicode }
 
-.contract{
+/* .contract{
   margin-left: 100%;
   margin-right: 0;
 }
+
+.dropdown-controller {
+  position: absolute;
+  right: 0;
+} */

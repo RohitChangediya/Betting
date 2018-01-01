@@ -72,7 +72,7 @@ export default class Contract extends Component{
       let timejson=this.state.timejson;
 
       return(
-        <UncontrolledDropdown >
+        <UncontrolledDropdown className="dropdown-controller" style={{'position': 'absolute', 'right': '20vw', 'font-size':'20px'}}>
                   <DropdownToggle nav caret>
                     Contracts
                   </DropdownToggle>

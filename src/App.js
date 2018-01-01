@@ -410,11 +410,7 @@ class App extends Component {
             <div>
             {/* <Jumbotron style={{ 'textAlign': 'center'}} fluid> */}
             <Container>
-              <div className="row">
 
-                <Contract className="contract" onContractSubmit={this.contractUpdate.bind(this)}/>
-
-              </div>
               <div className="row">
                 <div className="col-md-10 mx-auto">
                 <h5 className="hidden" id="faucet">
@@ -422,6 +418,11 @@ class App extends Component {
                 </h5>
                 </div>
               </div>
+              {/* <div className="row" style={{'margin-bottom':'3em'}}>
+
+                <Contract className="contract" onContractSubmit={this.contractUpdate.bind(this)}/>
+
+              </div> */}
               <div className="row">
               <div className="col-md-12 mx-auto">
               {this.state.flashmessage}
