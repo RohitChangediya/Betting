@@ -37,6 +37,7 @@ export default class Contract extends Component{
     let self=this;
     var start_time_utc = null;
     var result_time_utc=null;
+    console.log(address)
     myContract.at(address).then(function(instance){
       // self.setState({contractInstance:instance})
       instance.starting_time().then(function(start_time){
@@ -61,7 +62,7 @@ export default class Contract extends Component{
   }
   handleChange(rSelected)
   {
-    console.log(rSelected,' ',addressjson.addresses[0].address)
+    
     // this.setState({ rSelected });
      this.props.onContractSubmit(rSelected);
   }

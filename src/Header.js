@@ -80,7 +80,7 @@ export default class Header extends Component {
 
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" onClick={this.toggle}>Ok</Button>
+            <Button color="primary" onClick={this.toggle}>OK</Button>
           </ModalFooter>
         </Modal>
         </div>
