@@ -61,7 +61,7 @@ class App extends Component {
                 betPhase:'',
                 contractInstance:null,
                 flashmessage:null,
-                contract:null
+                contract:null,
                 };
     this.invokeContract=this.invokeContract.bind(this);
     this.convertMS=this.convertMS.bind(this);

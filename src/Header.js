@@ -75,6 +75,8 @@ export default class Header extends Component {
               Link to open source smart contract code: <a href={address_link} rel="noopener noreferrer" target="_blank">{ethorsejson.address}</a>
               <br/>
               Code Audit: <a href="https://www.reddit.com/r/ethdev/comments/7asfml/bounty_open_for_ethorse_dapp_smart_contract/"  rel="noopener noreferrer" target="_blank">Public Developer Bug Bounty</a>
+              <br/><br/>
+              <p style={{fontSize:'12px',color:'gray'}}>By clicking OK or interacting with Ethorse beyond these terms of use, you confirm that you are at least 18 years of age and you represent, warrant and agree to ensure that your use of our services will comply with all applicable laws, statutes and regulations. Ethorse does not intend to enable you to contravene applicable law. Ethorse is not responsible for any illegal or unauthorized use of our services by you.</p>
 
           </ModalBody>
           <ModalFooter>
