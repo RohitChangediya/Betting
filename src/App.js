@@ -441,15 +441,19 @@ class App extends Component {
                 </div>
               </div>
               <div className="row" >
-                
-                <div className="col-md-2 mx-auto">
-                <Result contract={this.state.contract}/>
-              </div>
-              <div className="col-md-10 mx-auto">
-                <Container>
-                  <Contract className="contract" onContractSubmit={this.contractUpdate.bind(this)}/>
-                </Container>
-              </div>
+                {/* <div className="col-md-2 mx-auto">
+                  <div className="row">
+                  <Container>
+                    <Result contract={this.state.contract}/>
+                  </Container>
+                  </div>
+                </div> */}
+                {/* <div className="col-md-10 mx-auto"> */}
+                  <Container>
+                    <Result contract={this.state.contract}/>
+                    <Contract className="contract" onContractSubmit={this.contractUpdate.bind(this)}/>
+                  </Container>
+                {/* </div> */}
               </div>
               <div className="row">
               <div className="col-md-12 mx-auto">

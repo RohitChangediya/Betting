@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import ethorsejson from './ETHorse.json';
+import {Card} from 'reactstrap' ;
 
 
 var Web3 = require('web3');
@@ -28,6 +29,11 @@ export default class Result extends Component{
   }
   render()
   {
-    return(<span style={{"display":"inline-block","margin-top":"20%"}}><span style={{"font-size":"30px"}}>Live&nbsp;</span><i class="fa fa-circle" aria-hidden="true" style={{"color":"green","vertical-align": "middle","margin-bottom":"20%"}}></i></span>);
+    return(
+      <span style={{position:'relative',fontSize:'30px'}} className="float-left">
+          Live&nbsp;
+        <i class="fa fa-circle" aria-hidden="true" style={{"color":"green"}}></i>
+      </span>
+    );
   }
 }
