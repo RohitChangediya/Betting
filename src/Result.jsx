@@ -30,7 +30,7 @@ export default class Result extends Component{
   render()
   {
     return(
-      <span style={{position:'relative',fontSize:'30px'}} className="float-left">
+      <span style={{position:'relative',fontSize:'20px'}} className="float-left">
           Live&nbsp;
         <i class="fa fa-circle" aria-hidden="true" style={{"color":"green"}}></i>
       </span>
