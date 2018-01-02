@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {DropdownToggle,
   DropdownMenu,
   DropdownItem,
-UncontrolledDropdown} from 'reactstrap';
+UncontrolledDropdown,  Button } from 'reactstrap';
 import ethorsejson from './ETHorse.json';
 import addressjson from './Address.json'
 
@@ -72,11 +72,13 @@ export default class Contract extends Component{
       let timejson=this.state.timejson;
 
       return(
-        <UncontrolledDropdown className="dropdown-controller" style={{'position': 'absolute', 'right': '20vw', 'font-size':'20px'}}>
-                  <DropdownToggle nav caret>
-                    Contracts
-                  </DropdownToggle>
-                  <DropdownMenu className="contract">
+        <UncontrolledDropdown className="dropdown-controller float-right" style={{'position': 'relative', 'right': '0', 'fontSize':'20px' }}>
+                  <Button>
+                    <DropdownToggle nav caret style={{'color':'white','textDecoration':'none'}}>
+                      View Races
+                    </DropdownToggle>
+                  </Button>
+                  <DropdownMenu className="contract" right>
                     {timejson.map(row =>
                     <DropdownItem onClick={() => this.handleChange(row.address)} key={row.address}>
 

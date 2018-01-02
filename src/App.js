@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+// import ethorsejson from './ETHorse.json';
 import ethorsejson from './ETHorse.json';
 // import AlertMsg from './AlertMsg'
 import './App.css';
@@ -158,7 +159,7 @@ class App extends Component {
               {
                 ct=setInterval(self.findLockTime,950)
 
-                self.setState({timeInterval:ct,betPhase:'Bet locks and race starts in ',lockTime:((start_time+betting_duration)*1000)})
+                self.setState({timeInterval:ct,betPhase:'Betting closes and Race starts in ',lockTime:((start_time+betting_duration)*1000)})
 
               }
               else{
@@ -356,7 +357,22 @@ class App extends Component {
                 };
             instance.check_reward.call(txo).then(function(reward)
               {
-              reward='You have won '+web3.utils.fromWei(reward,"ether")+' ETH';
+                instance.race_end.call().then(function(isRaceEnd){
+
+                    if( isRaceEnd){
+                      console.log('race end ',isRaceEnd);
+                        reward='You have won '+web3.utils.fromWei(reward,"ether")+' ETH';
+                        self.setState({reward});
+                    } else if(!isRaceEnd){
+                      reward = 'Available after race ends'
+                      self.setState({reward});
+                    } else {
+                      reward = ''
+                      self.setState({reward});
+                    }
+                });
+
+              // reward='You have won '+web3.utils.fromWei(reward,"ether")+' ETH';
 
               self.setState({reward});
               });
@@ -383,19 +399,23 @@ class App extends Component {
             web3.eth.getAccounts(function(err, accounts){
               ethAccount=accounts[0]
             }).then(function(){
-              const txo = {
-                from: ethAccount
-              };
-                instance.claim_reward.estimateGas(txo).then(function(gas)
-              {
-                txo.gas=gas;
-                instance.claim_reward(txo).then(function(res,error)
-                  {
+              if(ethAccount===undefined){
+                  alert('Your Metamask seems to be locked. Please unlock to place a bet.')
+              } else {
+                const txo = {
+                  from: ethAccount
+                };
+                  instance.claim_reward.estimateGas(txo).then(function(gas)
+                {
+                  txo.gas=gas;
+                  instance.claim_reward(txo).then(function(res,error)
+                    {
 
-                  });
-              })
+                    });
+                })
+              }
 
-              });
+            });
 
           });
     }
@@ -418,11 +438,11 @@ class App extends Component {
                 </h5>
                 </div>
               </div>
-              {/* <div className="row" style={{'margin-bottom':'3em'}}>
-
-                <Contract className="contract" onContractSubmit={this.contractUpdate.bind(this)}/>
-
-              </div> */}
+              <div className="row" >
+                <Container>
+                  <Contract className="contract" onContractSubmit={this.contractUpdate.bind(this)}/>
+                </Container>
+              </div>
               <div className="row">
               <div className="col-md-12 mx-auto">
               {this.state.flashmessage}
@@ -465,14 +485,18 @@ class App extends Component {
               {this.state.betPhase} {this.state.d}  {this.state.h} {this.state.m}  {this.state.s}
               <br/>
               <br/>
-              Race duration: 7 days
+              Race duration: 12 hours
               <br/>
               <br/>
               Currently on Ropsten Testnet. Mainnet release coming soon. Be ready to bet with real money!
               <br/>
-              Join <a href="https://discord.gg/vdTXRmT" rel="noopener noreferrer" target="_blank"> Discord </a> to stay tuned.
+              {/* Join <a href="https://discord.gg/vdTXRmT" rel="noopener noreferrer" target="_blank"> Discord </a> to stay tuned. */}
               <br/>
-              <a href="https://www.reddit.com/r/ethdev/comments/7asfml/bounty_open_for_ethorse_dapp_smart_contract/"  rel="noopener noreferrer" target="_blank">Public bug bounty</a>
+              <p>Join our community to stay tuned.<br/>
+                <a style={{'marginRight':'3%'}} target="_blank" rel="noopener noreferrer" href="https://telegram.me/ethorse" ><img alt="telegram" src="https://png.icons8.com/windows/50/ffffff/telegram-app.png"/></a>
+                <a style={{'marginRight':'3%'}} target="_blank" rel="noopener noreferrer" href="https://discord.gg/vdTXRmT" ><img alt="discord" src="https://png.icons8.com/ios/50/ffffff/discord-logo.png"/></a>
+                <a href="https://github.com/ethorse" target="_blank" rel="noopener noreferrer" ><img alt="github" src="https://png.icons8.com/windows/50/ffffff/github.png"/></a>
+              </p>
             </div>
 
 

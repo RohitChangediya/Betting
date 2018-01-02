@@ -6,9 +6,6 @@ import 'bootstrap/dist/css/bootstrap.css';
 import ethorsejson from './ETHorse.json';
 
 
-
-
-
 export default class Header extends Component {
 
     constructor(props) {
@@ -68,16 +65,17 @@ export default class Header extends Component {
                 <li>Simply choose a winner among BTC, ETH and LTC for a fixed time period.</li>
                 <li>"Place bet" after entering an amount you are willing to bet (0.1-1 Ropsten ETH) from a browser with Metamask extension, or Mist.</li>
                 <li>A deployed open source Ethereum smart contract will control the funds, calculate the best performing Cryptocurrency (with displayed bet lock and bet close prices from Coinmarketcap API) and prepare reward for the winning users to collect WITHOUT OUR INPUT or CONTROL</li>
-                <li>Parimutuel Betting: Winner takes all (Ethorse takeout 5%)</li>
+                <li>Parimutuel Betting: Winner takes all (HORSE holders takeout 5%)</li>
                 <li>Price pulled from <a href="https://coinmarketcap.com/api/" rel="noopener noreferrer" target="_blank">Coinmarketcap.com API</a> through <a href="http://www.oraclize.it/" rel="noopener noreferrer" target="_blank">Oraclize.it</a> at the beginning and end of the bet period</li>
-                <li>After bet closes, click “Check result” to see your winnings and “Claim” to submit a 0 ETH transaction that in turn sends your winnings.</li>
+                <li>After race ends, refresh “Result” to see your winnings and “Claim” to submit a 0 ETH transaction that in turn sends your winnings.</li>
               </ul>
               Bet on a favorite to easily win a small payout because it only needs to beat lesser opponents. Alternatively, bet on an underdog and win a huge payout. Tip: Use the Odds.
               Questions and feedback are welcome.
               <br/>
               Link to open source smart contract code: <a href={address_link} rel="noopener noreferrer" target="_blank">{ethorsejson.address}</a>
               <br/>
-              Reddit Link: <a href="https://www.reddit.com/r/Ethorse/" rel="noopener noreferrer" target="_blank">https://www.reddit.com/r/Ethorse/</a>
+              Code Audit: <a href="https://www.reddit.com/r/ethdev/comments/7asfml/bounty_open_for_ethorse_dapp_smart_contract/"  rel="noopener noreferrer" target="_blank">Public Developer Bug Bounty</a>
+
           </ModalBody>
           <ModalFooter>
             <Button color="primary" onClick={this.toggle}>Ok</Button>

@@ -140,11 +140,11 @@ export default class ETHRadio extends React.Component{
         <thead>
           <tr>
             <th>Select a coin</th>
-            <th><center>Pool Total(ETH)</center></th>
-            <th><center>Odds(Profit for 1 ETH)</center></th>
+            <th><center>Pool Total (ETH)</center></th>
+            <th><center>Odds (Profit for 1 ETH)</center></th>
             <th><center>Number of bets</center></th>
-            <th><center>Bet Lock Price</center></th>
-            <th><center>Bet Close Price</center></th>
+            <th><center>Race start price</center></th>
+            <th><center>Race end price</center></th>
           </tr>
         </thead>
         <tbody>
