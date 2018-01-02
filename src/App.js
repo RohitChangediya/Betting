@@ -138,7 +138,7 @@ class App extends Component {
     }
     if(web3.currentProvider!=null)
     {
-      console.log('called')
+
     myContract.at(this.state.contract).then(function(instance){
       self.setState({contractInstance:instance})
       instance.starting_time().then(function(start_time){
@@ -171,7 +171,7 @@ class App extends Component {
                   if(currentTime<((start_time+race_duration)*1000) && currentTime>=((start_time+betting_duration)*1000))
                     {
                     ct=setInterval(self.findResultTime,950)
-                    console.log(ct)
+
                     self.setState({timeInterval:ct,betPhase:'Results in ',resultTime:((start_time+race_duration)*1000)})
                     }
                   else if(start_time>0){
@@ -385,7 +385,7 @@ class App extends Component {
     let self=this;
 
     this.setState({contract},function(){
-      console.log(contract)
+      
       self.componentLoad();
       self.componentMounted();
     })

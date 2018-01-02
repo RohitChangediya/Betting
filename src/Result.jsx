@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import ethorsejson from './ETHorse.json';
-import {Card} from 'reactstrap' ;
+
 
 
 var Web3 = require('web3');
@@ -19,21 +19,66 @@ if(web3.currentProvider!=null)
 export default class Result extends Component{
   constructor(props){
     super(props);
-    this.state={timejson:[]}
+    this.state={contract:this.props.contract,winner:""}
   this.checkWinner=this.checkWinner.bind(this);
 
   }
   checkWinner()
   {
-    // let self=this;
+     let self=this;
+    myContract.at(this.props.contract).then(function(instance)
+          {
+            instance.race_end().then(function(state){
+              if(state===false)
+              {
+              self.setState({winner:""})
+              }
+              else{
+                instance.winner_horse().then(function(winner){
+                    self.setState({winner:web3.utils.toAscii(winner)})
+                });
+              }
+            });
+          });
+  }
+  componentWillMount()
+  {
+    this.checkWinner();
+  }
+  componentDidUpdate()
+  {
+    if(this.props.contract!==this.state.contract)
+    {
+      let self=this;
+    myContract.at(this.props.contract).then(function(instance)
+          {
+            instance.race_end().then(function(state){
+              if(state===false)
+              {
+              self.setState({winner:""})
+              }
+              else{
+                instance.winner_horse().then(function(winner){
+                    self.setState({winner:web3.utils.toAscii(winner)})
+                });
+              }
+            });
+
+          });
+    this.setState({contract:this.props.contract})
+    }
   }
   render()
   {
+    if(this.state.winner==="")
     return(
       <span style={{position:'relative',fontSize:'20px'}} className="float-left">
           Live&nbsp;
-        <i class="fa fa-circle" aria-hidden="true" style={{"color":"green"}}></i>
+        <sup ><i className="fa fa-circle" aria-hidden="true" style={{"color":"green","fontSize":"15px"}}></i></sup>
       </span>
     );
+    else {
+      return(<span style={{fontSize:'30px','position':'relative'}} className="float-left"><span style={{"font-size":"30px"}}>The winner is {this.state.winner}</span></span>);
+    }
   }
 }
