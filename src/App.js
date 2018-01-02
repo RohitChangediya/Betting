@@ -441,11 +441,11 @@ class App extends Component {
                 </div>
               </div>
               <div className="row" >
-                
-                <div className="col-md-2 mx-auto">
+
+                <div className="col-md-4" style={{"padding-left":"0","margin-left":" 0","position":"relative"}}>
                 <Result contract={this.state.contract}/>
               </div>
-              <div className="col-md-10 mx-auto">
+              <div className="col-md-8 mx-auto">
                 <Container>
                   <Contract className="contract" onContractSubmit={this.contractUpdate.bind(this)}/>
                 </Container>

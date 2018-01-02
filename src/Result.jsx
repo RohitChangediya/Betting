@@ -18,16 +18,61 @@ if(web3.currentProvider!=null)
 export default class Result extends Component{
   constructor(props){
     super(props);
-    this.state={timejson:[]}
+    this.state={contract:this.props.contract,winner:""}
   this.checkWinner=this.checkWinner.bind(this);
 
   }
   checkWinner()
   {
-    // let self=this;
+     let self=this;
+    myContract.at(this.props.contract).then(function(instance)
+          {
+            instance.race_end().then(function(state){
+              if(state===false)
+              {
+              self.setState({winner:""})
+              }
+              else{
+                instance.winner_horse().then(function(winner){
+                    self.setState({winner:web3.utils.toAscii(winner)})
+                });
+              }
+            });
+          });
+  }
+  componentWillMount()
+  {
+    this.checkWinner();
+  }
+  componentDidUpdate()
+  {
+    if(this.props.contract!==this.state.contract)
+    {
+      let self=this;
+    myContract.at(this.props.contract).then(function(instance)
+          {
+            instance.race_end().then(function(state){
+              if(state===false)
+              {
+              self.setState({winner:""})
+              }
+              else{
+                instance.winner_horse().then(function(winner){
+                    self.setState({winner:web3.utils.toAscii(winner)})
+                });
+              }
+            });
+
+          });
+    this.setState({contract:this.props.contract})
+    }
   }
   render()
   {
-    return(<span style={{"display":"inline-block","margin-top":"20%"}}><span style={{"font-size":"30px"}}>Live&nbsp;</span><i class="fa fa-circle" aria-hidden="true" style={{"color":"green","vertical-align": "middle","margin-bottom":"20%"}}></i></span>);
+    if(this.state.winner==="")
+      return(<span style={{"margin-top":"10%","padding-left":"0"}}><span style={{"font-size":"30px"}}>Live&nbsp;</span><i class="fa fa-circle" aria-hidden="true" style={{"color":"green","vertical-align": "middle","margin-bottom":"20%"}}></i></span>);
+    else {
+      return(<span style={{"display":"inline-block","margin-top":"10%"}}><span style={{"font-size":"30px"}}>The winner is {this.state.winner}</span></span>);
+    }
   }
 }
