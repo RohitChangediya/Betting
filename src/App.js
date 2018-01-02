@@ -7,6 +7,7 @@ import ETHRadio from './ETHRadio'
 import Amount from './Amount.js'
 import Header from './Header'
 import Contract from './Contract'
+import Result from './Result'
 import {Jumbotron, Container, Button, InputGroup, InputGroupButton, InputGroupAddon, Input, UncontrolledTooltip} from 'reactstrap'
 
 var Web3 = require('web3');
@@ -399,6 +400,7 @@ class App extends Component {
             web3.eth.getAccounts(function(err, accounts){
               ethAccount=accounts[0]
             }).then(function(){
+              console.log(ethAccount)
               if(ethAccount===undefined){
                   alert('Your Metamask seems to be locked. Please unlock to place a bet.')
               } else {
@@ -426,7 +428,7 @@ class App extends Component {
 
     return (
             <div>
-            <Header/>
+            <Header contract={this.state.contract}/>
             <div>
             {/* <Jumbotron style={{ 'textAlign': 'center'}} fluid> */}
             <Container>
@@ -439,9 +441,15 @@ class App extends Component {
                 </div>
               </div>
               <div className="row" >
+                
+                <div className="col-md-2 mx-auto">
+                <Result contract={this.state.contract}/>
+              </div>
+              <div className="col-md-10 mx-auto">
                 <Container>
                   <Contract className="contract" onContractSubmit={this.contractUpdate.bind(this)}/>
                 </Container>
+              </div>
               </div>
               <div className="row">
               <div className="col-md-12 mx-auto">
@@ -492,7 +500,7 @@ class App extends Component {
               <br/>
               {/* Join <a href="https://discord.gg/vdTXRmT" rel="noopener noreferrer" target="_blank"> Discord </a> to stay tuned. */}
               <br/>
-              <p>Join our community to stay tuned.<br/>
+              <p>Join our community to stay tuned. <br/>
                 <a style={{'marginRight':'3%'}} target="_blank" rel="noopener noreferrer" href="https://telegram.me/ethorse" ><img alt="telegram" src="https://png.icons8.com/windows/50/ffffff/telegram-app.png"/></a>
                 <a style={{'marginRight':'3%'}} target="_blank" rel="noopener noreferrer" href="https://discord.gg/vdTXRmT" ><img alt="discord" src="https://png.icons8.com/ios/50/ffffff/discord-logo.png"/></a>
                 <a href="https://github.com/ethorse" target="_blank" rel="noopener noreferrer" ><img alt="github" src="https://png.icons8.com/windows/50/ffffff/github.png"/></a>
@@ -522,6 +530,8 @@ class App extends Component {
                   </div>
                   )
           }
+          else if(this.state.network!=="ropsten")
+          {
           return(<Jumbotron style={{ 'textAlign': 'center'}} fluid>
           <Container>
               <h3>Your Metamask is on {this.state.network} network.<br/>
@@ -530,6 +540,10 @@ class App extends Component {
           <img src="https://github.com/MetaMask/faq/raw/master/images/click-the-test-network.png" target="_blank" alt="switch to ropsten"/>
         </Container>
         </Jumbotron>)
+      }
+      else{
+        return (<div/>);
+      }
     }
 }
 

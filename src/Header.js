@@ -38,7 +38,7 @@ export default class Header extends Component {
     }
     render()
     {
-      var address_link="https://ropsten.etherscan.io/address/"+ethorsejson.address+"#code";
+      var address_link="https://ropsten.etherscan.io/address/"+this.props.contract+"#code";
       return(
         <div>
           <Navbar light expand="md">
@@ -72,7 +72,7 @@ export default class Header extends Component {
               Bet on a favorite to easily win a small payout because it only needs to beat lesser opponents. Alternatively, bet on an underdog and win a huge payout. Tip: Use the Odds.
               Questions and feedback are welcome.
               <br/>
-              Link to open source smart contract code: <a href={address_link} rel="noopener noreferrer" target="_blank">{ethorsejson.address}</a>
+              Link to open source smart contract code: <a href={address_link} rel="noopener noreferrer" target="_blank">{this.props.contract}</a>
               <br/>
               Code Audit: <a href="https://www.reddit.com/r/ethdev/comments/7asfml/bounty_open_for_ethorse_dapp_smart_contract/"  rel="noopener noreferrer" target="_blank">Public Developer Bug Bounty</a>
 
