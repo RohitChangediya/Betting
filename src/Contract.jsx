@@ -62,7 +62,7 @@ export default class Contract extends Component{
   }
   handleChange(rSelected)
   {
-    
+
     // this.setState({ rSelected });
      this.props.onContractSubmit(rSelected);
   }
@@ -76,7 +76,7 @@ export default class Contract extends Component{
         <UncontrolledDropdown className="dropdown-controller float-right" style={{'position': 'relative', 'right': '0', 'fontSize':'20px' }}>
                   <Button>
                     <DropdownToggle nav caret style={{'color':'white','textDecoration':'none'}}>
-                      View Races
+                      Change Race
                     </DropdownToggle>
                   </Button>
                   <DropdownMenu className="contract" right>

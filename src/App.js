@@ -63,6 +63,7 @@ class App extends Component {
                 contractInstance:null,
                 flashmessage:null,
                 contract:null,
+                bettingStatus:false
                 };
     this.invokeContract=this.invokeContract.bind(this);
     this.convertMS=this.convertMS.bind(this);
@@ -252,7 +253,6 @@ class App extends Component {
     this.setState({ d: d, h: h, m: m, s: s });
     }
 
-
   invokeContract()
     {
     if(this.state.amount<0.1 || this.state.amount>1)
@@ -385,10 +385,16 @@ class App extends Component {
     let self=this;
 
     this.setState({contract},function(){
-      
+
       self.componentLoad();
       self.componentMounted();
     })
+
+    myContract.at(contract).then(function(instance){
+      instance.betting_open.call().then(function (status) {
+        self.setState({bettingStatus: status})
+      });
+    });
   }
   claim()
     {
@@ -465,7 +471,7 @@ class App extends Component {
 
                 <InputGroupButton>
                 {/* <a href="#" id="PlaceBetTooltip"><Button type="button" onClick={this.invokeContract.bind(this)} color="primary" disabled={!this.state.value} size="lg">Place bet</Button></a> */}
-                <a  id="PlaceBetTooltip"><Button type="button" onClick={this.invokeContract.bind(this)} color="primary" size="lg">Place bet</Button></a>
+                <a  id="PlaceBetTooltip"><Button type="button" onClick={this.invokeContract.bind(this)} disabled={!this.state.bettingStatus} color="primary" size="lg">Place bet</Button></a>
                 <UncontrolledTooltip placement="right" target="PlaceBetTooltip">
                   Place your bet after choosing your coin. The coin can be chosen by clicking on one of the 3 options under the Select a Coin column.
                 </UncontrolledTooltip>
