@@ -503,7 +503,7 @@ class App extends Component {
               {this.state.betPhase} {this.state.d}  {this.state.h} {this.state.m}  {this.state.s}
               <br/>
               <br/>
-              Race duration: 12 hours
+              Race duration: 24 hours
               <br/>
               <br/>
               Currently on Ropsten Testnet. Mainnet release coming soon. Be ready to bet with real money!
