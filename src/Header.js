@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import './App.css';
 
 import 'bootstrap/dist/css/bootstrap.css';
-import ethorsejson from './ETHorse.json';
+
 
 
 export default class Header extends Component {
