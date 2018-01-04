@@ -190,24 +190,31 @@ class App extends Component {
             })
           }
           instance.race_duration().then(function(race_duration){
-            race_duration=parseInt(race_duration,10)
-              let race_duration_utc=new Date(race_duration)
-              let ms=race_duration*1000
-              let d, h, m, s;
-              s = Math.floor(ms / 1000);
-              m = Math.floor(s / 60);
-              s = s % 60;
-              h = Math.floor(m / 60);
-              m = m % 60;
-              d = Math.floor(h / 24);
-              h = h % 24;
-              d=d+' days,'
-              h=h+' hours,'
-              m=m+' minutes,'
-              s=s+' seconds.'
-              race_duration_utc=d+h+m+s;
-              console.log(race_duration/60)
-              self.setState({duration:race_duration_utc.toString()})
+
+            instance.betting_duration().then(function(betting_duration){
+              race_duration=parseInt(race_duration,10)
+              betting_duration=parseInt(betting_duration,10)
+                let race_duration_utc=new Date(race_duration-betting_duration)
+                let ms=(race_duration-betting_duration)*1000
+                let  h, m, s;
+                s = Math.floor(ms / 1000);
+                m = Math.floor(s / 60);
+                s = s % 60;
+                h = Math.floor(m / 60);
+                m = m % 60;
+                // d = Math.floor(h / 24);
+                // h = h % 24;
+
+                h=h+' hours'
+                // m=m+' minutes,'
+                // s=s+' seconds.'
+                race_duration_utc=h;
+                console.log(race_duration/60)
+                self.setState({duration:race_duration_utc.toString()})
+
+            });
+
+
           })
       })
     })
