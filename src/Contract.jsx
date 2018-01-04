@@ -98,7 +98,8 @@ export default class Contract extends Component{
         <UncontrolledDropdown className="dropdown-controller float-right" style={{'position': 'relative', 'right': '0', 'fontSize':'20px' }}>
                   <Button>
                     <DropdownToggle nav caret style={{'color':'white','textDecoration':'none'}}>
-                      {this.state.currentTime}
+                      {/* {this.state.currentTime} */}
+                      Change Race
                     </DropdownToggle>
                   </Button>
                   <DropdownMenu className="contract" right>
