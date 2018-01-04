@@ -63,6 +63,7 @@ class App extends Component {
                 contractInstance:null,
                 flashmessage:null,
                 contract:null,
+                duration:"",
                 bettingStatus:false
                 };
     this.invokeContract=this.invokeContract.bind(this);
@@ -172,15 +173,16 @@ class App extends Component {
                   if(currentTime<((start_time+race_duration)*1000) && currentTime>=((start_time+betting_duration)*1000))
                     {
                     ct=setInterval(self.findResultTime,950)
-
-                    self.setState({timeInterval:ct,betPhase:'Results in ',resultTime:((start_time+race_duration)*1000)})
+                    let race_duration_utc=new Date(race_duration)
+                    console.log(race_duration_utc)
+                    self.setState({timeInterval:ct,betPhase:'Results in ',resultTime:((start_time+race_duration)*1000),duration:race_duration_utc.toString()})
                     }
                   else if(start_time>0){
 
-                    self.setState({betPhase:'Check result to see your winnings.'})
+                    self.setState({betPhase:'Check result to see your winnings.',duration:'Race completed'})
                   }
                   else{
-                    self.setState({betPhase:"Currently no race in progress."})
+                    self.setState({betPhase:"Currently no race in progress.",duration:'Race not active yet'})
                   }
 
                 })
@@ -503,7 +505,7 @@ class App extends Component {
               {this.state.betPhase} {this.state.d}  {this.state.h} {this.state.m}  {this.state.s}
               <br/>
               <br/>
-              Race duration: 24 hours
+              Race duration: {this.state.duration}
               <br/>
               <br/>
               Currently on Ropsten Testnet. Mainnet release coming soon. Be ready to bet with real money!

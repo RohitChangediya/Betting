@@ -72,7 +72,7 @@ export default class Contract extends Component{
 
     setTimeout(function(){
       self.state.timejson.sort(function (x,y) {
-        return ((x.start_time == y.start_time) ? 0 : ((x.start_time < y.start_time) ? 1 : -1 ));
+        return ((x.start_time === y.start_time) ? 0 : ((x.start_time < y.start_time) ? 1 : -1 ));
       })
 
 
@@ -95,10 +95,11 @@ export default class Contract extends Component{
       let timejson=this.state.timejson;
 
       return(
+        <div>
+
         <UncontrolledDropdown className="dropdown-controller float-right" style={{'position': 'relative', 'right': '0', 'fontSize':'20px' }}>
                   <Button>
                     <DropdownToggle nav caret style={{'color':'white','textDecoration':'none'}}>
-                      {/* {this.state.currentTime} */}
                       Change Race
                     </DropdownToggle>
                   </Button>
@@ -112,6 +113,8 @@ export default class Contract extends Component{
 
                   </DropdownMenu>
                 </UncontrolledDropdown>
+        {/* <span className="float-right" style={{'position': 'relative', 'right': '5px', 'fontSize':'25px' ,'top':'10px'}}>Change Race:</span> */}
+        </div>
       );
 
 
