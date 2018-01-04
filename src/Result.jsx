@@ -19,7 +19,7 @@ if(web3.currentProvider!=null)
 export default class Result extends Component{
   constructor(props){
     super(props);
-    this.state={contract:this.props.contract,winner:""}
+    this.state={contract:this.props.contract,winner:"",start_time:""}
   this.checkWinner=this.checkWinner.bind(this);
 
   }
@@ -37,6 +37,18 @@ export default class Result extends Component{
                 instance.winner_horse().then(function(winner){
                     self.setState({winner:web3.utils.toAscii(winner)})
                 });
+                instance.starting_time().then(function(start_time){
+                  start_time=parseInt(start_time,10)
+                  console.log(start_time)
+                  let start_time_utc=new Date(start_time*1000);
+
+                  Date.prototype.getMonthName = function() {
+    var monthNames = [ "January", "February", "March", "April", "May", "June",
+                       "July", "August", "September", "October", "November", "December" ];
+    return monthNames[this.getMonth()];
+};                 console.log(start_time_utc.getDate())
+                  self.setState({start_time:start_time_utc.getDate()+" "+start_time_utc.getMonthName()});
+                })
               }
             });
           });
@@ -60,6 +72,18 @@ export default class Result extends Component{
               else{
                 instance.winner_horse().then(function(winner){
                     self.setState({winner:web3.utils.toAscii(winner)})
+                  instance.starting_time().then(function(start_time){
+                    start_time=parseInt(start_time,10)
+                    console.log(start_time)
+                    let start_time_utc=new Date(start_time*1000);
+                    Date.prototype.getMonthName = function() {
+      var monthNames = [ "January", "February", "March", "April", "May", "June",
+                         "July", "August", "September", "October", "November", "December" ];
+      return monthNames[this.getMonth()];
+  };                 console.log(start_time_utc.getDate())
+                    self.setState({start_time:start_time_utc.getDate()+" "+start_time_utc.getMonthName()});
+                  })
+
                 });
               }
             });
@@ -78,7 +102,7 @@ export default class Result extends Component{
       </span>
     );
     else {
-      return(<span style={{fontSize:'30px','position':'relative'}} className="float-left"><span style={{"font-size":"30px"}}>The winner is {this.state.winner}</span></span>);
+      return(<span style={{fontSize:'30px','position':'relative'}} className="float-left"><span style={{"font-size":"15px"}}>The winner for race on {this.state.start_time} is {this.state.winner}</span></span>);
     }
   }
 }
