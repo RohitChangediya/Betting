@@ -102,7 +102,15 @@ export default class Result extends Component{
       </span>
     );
     else {
-      return(<span style={{fontSize:'30px','position':'relative'}} className="float-left"><span style={{"font-size":"15px"}}>The winner for race on {this.state.start_time} is {this.state.winner}</span></span>);
+      return(<span style={{fontSize:'25px','position':'relative'}} className="float-left">
+              <span style={{"font-size":"25px" }}>
+                {/* The winner for race on {this.state.start_time} is {this.state.winner} */}
+                <p><img src="https://png.icons8.com/ios-glyphs/40/ffffff/trophy.png"/>
+                {this.state.winner}&nbsp;&nbsp;&nbsp;&nbsp;
+                <img src="https://png.icons8.com/windows/40/ffffff/planner.png"/>
+                {this.state.start_time}</p>
+              </span>
+            </span>);
     }
   }
 }
