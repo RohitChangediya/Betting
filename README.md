@@ -1,4 +1,4 @@
-# Ethorse Core
+# Ethorse Betting
 
 ## How to use
 
