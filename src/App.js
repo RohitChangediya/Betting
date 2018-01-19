@@ -175,7 +175,7 @@ class App extends Component {
                     ct=setInterval(self.findResultTime,950)
                     let race_duration_utc=new Date(race_duration)
                     console.log(race_duration_utc)
-                    self.setState({timeInterval:ct,betPhase:'Results in ',resultTime:((start_time+race_duration)*1000),duration:race_duration_utc.toString()})
+                    self.setState({timeInterval:ct,betPhase:'Results in ',resultTime:((start_time+race_duration)*1000)})
                     }
                   else if(start_time>0){
 
