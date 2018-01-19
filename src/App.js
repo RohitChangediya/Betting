@@ -192,6 +192,7 @@ class App extends Component {
           instance.race_duration().then(function(race_duration){
 
             instance.betting_duration().then(function(betting_duration){
+              var race_duration_final;
               race_duration=parseInt(race_duration,10)
               betting_duration=parseInt(betting_duration,10)
                 let race_duration_utc=new Date(race_duration-betting_duration)
@@ -209,8 +210,8 @@ class App extends Component {
                 // m=m+' minutes,'
                 // s=s+' seconds.'
                 race_duration_utc=h;
-                console.log(race_duration/60)
-                self.setState({duration:race_duration_utc.toString()})
+                console.log('race duration: ',race_duration/60);
+                self.setState({duration:race_duration_utc})
 
             });
 
@@ -391,12 +392,39 @@ class App extends Component {
                 instance.race_end.call().then(function(isRaceEnd){
 
                     if( isRaceEnd){
-                      console.log('race end ',isRaceEnd);
-                        reward='You have won '+web3.utils.fromWei(reward,"ether")+' ETH';
-                        self.setState({reward});
+                      instance.starting_time.call().then(function(startTime){
+                        instance.race_duration.call().then(function(raceDuration){
+                          startTime = startTime.toNumber();
+                          raceDuration = raceDuration.toNumber();
+                          if(startTime+raceDuration < (Math.round((new Date()).getTime() / 1000)) ) {
+                            reward='Refund amount: '+web3.utils.fromWei(reward,"ether")+' ETH';
+                            self.setState({reward});
+                            self.setState({claim:true});
+                          } else {
+                            console.log('race end ',isRaceEnd);
+                            reward='You have won '+web3.utils.fromWei(reward,"ether")+' ETH';
+                            self.setState({reward});
+                          }
+                        });
+                      });
                     } else if(!isRaceEnd){
-                      reward = 'Available after race ends'
-                      self.setState({reward});
+                      instance.starting_time.call().then(function(startTime){
+                        instance.race_duration.call().then(function(raceDuration){
+                          startTime = startTime.toNumber();
+                          raceDuration = raceDuration.toNumber();
+                          // console.log('Race End Time: ',startTime+raceDuration);
+                          // console.log('Time now: ',Math.round((new Date()).getTime() / 1000));
+                          // console.log(startTime+raceDuration < (Math.round((new Date()).getTime() / 1000)) );
+                          if(startTime+raceDuration < (Math.round((new Date()).getTime() / 1000)) ) {
+                            reward='Refund amount: '+web3.utils.fromWei(reward,"ether")+' ETH';
+                            self.setState({reward});
+                            self.setState({claim:true});
+                          } else {
+                            reward = 'Available after race ends';
+                            self.setState({reward});
+                          }
+                        });
+                      });
                     } else {
                       reward = ''
                       self.setState({reward});
@@ -533,7 +561,7 @@ class App extends Component {
               {this.state.betPhase} {this.state.d}  {this.state.h} {this.state.m}  {this.state.s}
               <br/>
               <br/>
-              Race duration: {this.state.duration}
+              <div ref='raceDurationRef' >Race duration: {this.state.duration}</div>
               <br/>
               <br/>
               Currently on Ropsten Testnet. Mainnet release coming soon. Be ready to bet with real money!
