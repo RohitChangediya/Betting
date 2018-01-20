@@ -392,20 +392,16 @@ class App extends Component {
                 instance.race_end.call().then(function(isRaceEnd){
 
                     if( isRaceEnd){
-                      instance.starting_time.call().then(function(startTime){
-                        instance.race_duration.call().then(function(raceDuration){
-                          startTime = startTime.toNumber();
-                          raceDuration = raceDuration.toNumber();
-                          if(startTime+raceDuration < (Math.round((new Date()).getTime() / 1000)) ) {
-                            reward='Refund amount: '+web3.utils.fromWei(reward,"ether")+' ETH';
-                            self.setState({reward});
-                            self.setState({claim:true});
-                          } else {
-                            console.log('race end ',isRaceEnd);
-                            reward='You have won '+web3.utils.fromWei(reward,"ether")+' ETH';
-                            self.setState({reward});
-                          }
-                        });
+                      instance.voided_bet.call().then(function(voidedBet){
+                        if(voidedBet) {
+                          reward='Refund amount: '+web3.utils.fromWei(reward,"ether")+' ETH';
+                          self.setState({reward});
+                          self.setState({claim:true});
+                        } else {
+                          console.log('race end ',isRaceEnd);
+                          reward='You have won '+web3.utils.fromWei(reward,"ether")+' ETH';
+                          self.setState({reward});
+                        }
                       });
                     } else if(!isRaceEnd){
                       instance.starting_time.call().then(function(startTime){
