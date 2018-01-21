@@ -8,6 +8,7 @@ import Amount from './Amount.js'
 import Header from './Header'
 import Contract from './Contract'
 import Result from './Result'
+import ContractSidebar from './ContractSidebar'
 import {Jumbotron, Container, Button, InputGroup, InputGroupButton, InputGroupAddon, Input, UncontrolledTooltip} from 'reactstrap'
 
 var Web3 = require('web3');
@@ -131,7 +132,7 @@ class App extends Component {
 
     if(this.state.timeInterval!=null)
     {
-      console.log(this.state.timeInterval)
+      // console.log(this.state.timeInterval)
       for (var i = 1; i <= this.state.timeInterval; i++)
         clearInterval(i);
 
@@ -173,9 +174,10 @@ class App extends Component {
                   if(currentTime<((start_time+race_duration)*1000) && currentTime>=((start_time+betting_duration)*1000))
                     {
                     ct=setInterval(self.findResultTime,950)
+                    // console.log(race_duration);
                     let race_duration_utc=new Date(race_duration)
-                    console.log(race_duration_utc)
-                    self.setState({timeInterval:ct,betPhase:'Results in ',resultTime:((start_time+race_duration)*1000),duration:race_duration_utc.toString()})
+                    // console.log('Dur ',race_duration_utc);
+                    self.setState({timeInterval:ct,betPhase:'Results in ',resultTime:((start_time+race_duration)*1000)})
                     }
                   else if(start_time>0){
 
@@ -210,7 +212,7 @@ class App extends Component {
                 // m=m+' minutes,'
                 // s=s+' seconds.'
                 race_duration_utc=h;
-                console.log('race duration: ',race_duration/60);
+                // console.log('race duration: ',race_duration/60);
                 self.setState({duration:race_duration_utc})
 
             });
@@ -489,106 +491,118 @@ class App extends Component {
     {
     if(web3.currentProvider!=null  && this.state.network==="ropsten" && this.state.contract!==null)
     {
+    var renderContent=(<div>
 
-    return (
-            <div>
-            <Header contract={this.state.contract}/>
-            <div>
-            {/* <Jumbotron style={{ 'textAlign': 'center'}} fluid> */}
-            <Container>
+    <div>
+    <Header contract={this.state.contract}/>
+    <div>
+    {/* <Jumbotron style={{ 'textAlign': 'center'}} fluid> */}
+    <Container fluid>
+      <div className="row">
+      <div className="col-md-2 mx-auto">
+        <Container fluid>
+          <ContractSidebar onContractSubmit={this.contractUpdate.bind(this)}/>
+        </Container>
+      </div>
+      <div className="col-md-8 mx-auto">
+      <div className="row">
 
-              <div className="row">
-                <div className="col-md-10 mx-auto">
-                <h5 className="hidden" id="faucet">
-                  Get some ropsten ethers to try the dapp. <a href="https://faucet.metamask.io/" style={{  'color':'orange' }}>Metamask Faucet</a>
-                </h5>
-                </div>
-              </div>
-              <div className="row" >
-                {/* <div className="col-md-2 mx-auto">
-                  <div className="row">
-                  <Container>
-                    <Result contract={this.state.contract}/>
-                  </Container>
-                  </div>
-                </div> */}
-                {/* <div className="col-md-10 mx-auto"> */}
-                  <Container>
-                    <Result contract={this.state.contract}/>
-                    <Contract className="contract" onContractSubmit={this.contractUpdate.bind(this)}/>
-                  </Container>
-                {/* </div> */}
-              </div>
-              <div className="row">
-              <div className="col-md-12 mx-auto">
-              {this.state.flashmessage}
-              <ETHRadio onSubmit={this.coinValue.bind(this)} name="Radio" currentContract={this.state.contract}/>
-              <InputGroup>
-                <InputGroupAddon>&Xi;</InputGroupAddon>
-                <Amount field="Amount" onValueSubmit={this.onValueSubmit.bind(this)} className="amount"/>
+        <div className="col-md-10 mx-auto">
+        <h5 className="hidden" id="faucet">
+          Get some ropsten ethers to try the dapp. <a href="https://faucet.metamask.io/" style={{  'color':'orange' }}>Metamask Faucet</a>
+        </h5>
+        </div>
+      </div>
+      <div className="row" >
+        {/* <div className="col-md-2 mx-auto">
+          <div className="row">
+          <Container>
+            <Result contract={this.state.contract}/>
+          </Container>
+          </div>
+        </div> */}
+        {/* <div className="col-md-10 mx-auto"> */}
+          <Container>
+            <Result contract={this.state.contract}/>
+            <Contract className="contract" onContractSubmit={this.contractUpdate.bind(this)}/>
+          </Container>
+        {/* </div> */}
+      </div>
+      <div className="row">
+      <div className="col-md-12 mx-auto">
+      {this.state.flashmessage}
+      <ETHRadio onSubmit={this.coinValue.bind(this)} name="Radio" currentContract={this.state.contract}/>
+      <InputGroup>
+        <InputGroupAddon>&Xi;</InputGroupAddon>
+        <Amount field="Amount" onValueSubmit={this.onValueSubmit.bind(this)} className="amount"/>
 
-                <InputGroupButton>
-                {/* <a href="#" id="PlaceBetTooltip"><Button type="button" onClick={this.invokeContract.bind(this)} color="primary" disabled={!this.state.value} size="lg">Place bet</Button></a> */}
-                <a  id="PlaceBetTooltip"><Button type="button" onClick={this.invokeContract.bind(this)} disabled={!this.state.bettingStatus} color="primary" size="lg">Place bet</Button></a>
-                <UncontrolledTooltip placement="right" target="PlaceBetTooltip">
-                  Place your bet after choosing your coin. The coin can be chosen by clicking on one of the 3 options under the Select a Coin column.
-                </UncontrolledTooltip>
-                </InputGroupButton>
-              </InputGroup>
-              <br/>
-              <InputGroup >
-              <InputGroupButton>
-              <a id="CheckResultTooltip"><Button type="button"  color="info" size="lg" className="tool-tip" onClick={this.checkRewards} disabled={!this.state.claim}><span className="reload">&#x21bb;</span>&nbsp;Result</Button></a>
-              <UncontrolledTooltip placement="left" target="CheckResultTooltip">
-                Click to check the bet result after the results are announced for this race. Enabled only after the race is completed.
-              </UncontrolledTooltip>
-              </InputGroupButton>
-              <Input disabled={true} value={this.state.reward}/>
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <a id="ClaimTooltip"><Button type="button" size="lg" onClick={this.claim} id="claim" className="tool-tip" disabled={!this.state.claim}>Claim</Button></a>
-              <UncontrolledTooltip placement="right" target="ClaimTooltip">
-                Click to claim reward if you win. This opens a Metamask window to send an empty traction. Submitting that will get your winnings deposited to your wallet.
-              </UncontrolledTooltip>
-              </InputGroup>
+        <InputGroupButton>
+        {/* <a href="#" id="PlaceBetTooltip"><Button type="button" onClick={this.invokeContract.bind(this)} color="primary" disabled={!this.state.value} size="lg">Place bet</Button></a> */}
+        <a  id="PlaceBetTooltip"><Button type="button" onClick={this.invokeContract.bind(this)} disabled={!this.state.bettingStatus} color="primary" size="lg">Place bet</Button></a>
+        <UncontrolledTooltip placement="right" target="PlaceBetTooltip">
+          Place your bet after choosing your coin. The coin can be chosen by clicking on one of the 3 options under the Select a Coin column.
+        </UncontrolledTooltip>
+        </InputGroupButton>
+      </InputGroup>
+      <br/>
+      <InputGroup >
+      <InputGroupButton>
+      <a id="CheckResultTooltip"><Button type="button"  color="info" size="lg" className="tool-tip" onClick={this.checkRewards} disabled={!this.state.claim}><span className="reload">&#x21bb;</span>&nbsp;Result</Button></a>
+      <UncontrolledTooltip placement="left" target="CheckResultTooltip">
+        Click to check the bet result after the results are announced for this race. Enabled only after the race is completed.
+      </UncontrolledTooltip>
+      </InputGroupButton>
+      <Input disabled={true} value={this.state.reward}/>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <a id="ClaimTooltip"><Button type="button" size="lg" onClick={this.claim} id="claim" className="tool-tip" disabled={!this.state.claim}>Claim</Button></a>
+      <UncontrolledTooltip placement="right" target="ClaimTooltip">
+        Click to claim reward if you win. This opens a Metamask window to send an empty traction. Submitting that will get your winnings deposited to your wallet.
+      </UncontrolledTooltip>
+      </InputGroup>
 
-              <br/>
-              <br/>
-              <div>{this.state.transactionid}
-                <br/>
-              {this.state.transactionidmsg}</div>
-              <br/>
-              <br/>
-              {this.state.betPhase} {this.state.d}  {this.state.h} {this.state.m}  {this.state.s}
-              <br/>
-              <br/>
-              <div ref='raceDurationRef' >Race duration: {this.state.duration}</div>
-              <br/>
-              <br/>
-              Currently on Ropsten Testnet. Mainnet release coming soon. Be ready to bet with real money!
-              <br/>
-              {/* Join <a href="https://discord.gg/vdTXRmT" rel="noopener noreferrer" target="_blank"> Discord </a> to stay tuned. */}
-              <br/>
-              <p>Join our community to stay tuned. <br/>
-                <a style={{'marginRight':'3%'}} target="_blank" rel="noopener noreferrer" href="https://telegram.me/ethorse" ><img alt="telegram" src="https://png.icons8.com/windows/50/ffffff/telegram-app.png"/></a>
-                <a style={{'marginRight':'3%'}} target="_blank" rel="noopener noreferrer" href="https://discord.gg/vdTXRmT" ><img alt="discord" src="https://png.icons8.com/ios/50/ffffff/discord-logo.png"/></a>
-                <a href="https://github.com/ethorse" target="_blank" rel="noopener noreferrer" ><img alt="github" src="https://png.icons8.com/windows/50/ffffff/github.png"/></a>
-              </p>
-            </div>
+      <br/>
+      <br/>
+      <div>{this.state.transactionid}
+        <br/>
+      {this.state.transactionidmsg}</div>
+      <br/>
+      <br/>
+      {this.state.betPhase} {this.state.d}  {this.state.h} {this.state.m}  {this.state.s}
+      <br/>
+      <br/>
+      <div ref='raceDurationRef' >Race duration: {this.state.duration}</div>
+      <br/>
+      <br/>
+      Currently on Ropsten Testnet. Mainnet release coming soon. Be ready to bet with real money!
+      <br/>
+      {/* Join <a href="https://discord.gg/vdTXRmT" rel="noopener noreferrer" target="_blank"> Discord </a> to stay tuned. */}
+      <br/>
+      <p>Join our community to stay tuned. <br/>
+        <a style={{'marginRight':'3%'}} target="_blank" rel="noopener noreferrer" href="https://telegram.me/ethorse" ><img alt="telegram" src="https://png.icons8.com/windows/50/ffffff/telegram-app.png"/></a>
+        <a style={{'marginRight':'3%'}} target="_blank" rel="noopener noreferrer" href="https://discord.gg/vdTXRmT" ><img alt="discord" src="https://png.icons8.com/ios/50/ffffff/discord-logo.png"/></a>
+        <a href="https://github.com/ethorse" target="_blank" rel="noopener noreferrer" ><img alt="github" src="https://png.icons8.com/windows/50/ffffff/github.png"/></a>
+      </p>
+    </div>
 
+    </div>
+    </div>
+    <div className="col-md-2 mx-auto">
+    </div>
+    </div>
+    </Container>
+    {/* </Jumbotron> */}
+    {/* <div>
+      <UncontrolledTooltip placement="right" target="PlaceBetTooltip">
+        Hello world!
+      </UncontrolledTooltip>
 
-            </div>
-            </Container>
-            {/* </Jumbotron> */}
-            {/* <div>
-              <UncontrolledTooltip placement="right" target="PlaceBetTooltip">
-                Hello world!
-              </UncontrolledTooltip>
+    </div> */}
 
-            </div> */}
+    </div>
+    </div>
+    </div>);
 
-            </div>
-            </div>
-            );
+    return (renderContent);
           }
           else if(this.state.contract===null)
           {

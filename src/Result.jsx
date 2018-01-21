@@ -74,13 +74,12 @@ export default class Result extends Component{
                     self.setState({winner:web3.utils.toAscii(winner)})
                   instance.starting_time().then(function(start_time){
                     start_time=parseInt(start_time,10)
-                    console.log(start_time)
                     let start_time_utc=new Date(start_time*1000);
                     Date.prototype.getMonthName = function() {
       var monthNames = [ "January", "February", "March", "April", "May", "June",
                          "July", "August", "September", "October", "November", "December" ];
       return monthNames[this.getMonth()];
-  };                 console.log(start_time_utc.getDate())
+  };
                     self.setState({start_time:start_time_utc.getDate()+" "+start_time_utc.getMonthName()});
                   })
 
