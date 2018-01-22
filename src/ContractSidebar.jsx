@@ -99,9 +99,9 @@ export default class ContractSidebar extends Component {
       })
       let timejson=this.state.timejson;
     return (
-      <div>
+      <div style={{ height:'100%',overflow:'scroll'}}>
 
-          <ListGroup className="top" striped>
+          <ListGroup className="top" >
             {timejson.map(row =>
             <ListGroupItem tag="button" onClick={() => this.handleChange(row.address)} key={row.address} name={row.address}>
 

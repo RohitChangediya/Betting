@@ -489,18 +489,19 @@ class App extends Component {
     {
     var renderContent=(<div class="full-height">
 
-    <div class="full-height">
+    <div class="full-height" >
     <Header contract={this.state.contract}/>
-    <div>
+    <div >
     {/* <Jumbotron style={{ 'textAlign': 'center'}} fluid> */}
     {/* <Container fluid  style={{ 'height': '100%'}}> */}
-      <div className="row">
-      <div className="col-md-2 mx-auto left-sidebar">
-        <Container>
+      <div className="row" >
+      <div className="col-md-2 mx-auto left-sidebar" style={{ 'margin-top': '5%',position:'fixed'}}>
+        {/* <Container> */}
           <ContractSidebar onContractSubmit={this.contractUpdate.bind(this)}/>
-        </Container>
+        {/* </Container> */}
       </div>
-      <div className="col-md-8 mx-auto">
+      <div className="col-md-3 mx-auto"></div>
+      <div className="col-md-8 mx-auto"  style={{ 'margin-top': '5%'}}>
       <div className="row">
 
         <div className="col-md-10 mx-auto">
@@ -582,7 +583,7 @@ class App extends Component {
 
     </div>
     </div>
-    <div className="col-md-2 mx-auto">
+    <div className="col-md-1 mx-auto">
     </div>
     </div>
     {/* </Container> */}
