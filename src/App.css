@@ -70,6 +70,39 @@ button.betlist.active{
 .container{
   margin-top: 2%;
 }
+.top{
+  margin-top: 40%;
+
+
+}
+/*.list-group{
+  min-height: 100%;
+}*/
+.root{
+  flex: 0 1;
+}
+
+.left-sidebar{
+  min-height: 150%;
+  background-color: black!important;
+  padding: 0;
+  border-radius: 5px;
+}
+.list-group{
+  width: 100%;
+}
+.list-group-item{
+  background-color: black!important;
+  width: 100%;
+}
+.list-group-item:hover{
+  background-color: #212529!important;
+}
+
+ul{
+  min-height: 100%;
+}
+
 .navbar-brand{
   width: 20%;
 }
@@ -159,6 +192,13 @@ border-bottom: 5px solid blue;
 }
 
 .reload { font-family: Lucida Sans Unicode }
+
+.sidebar{
+  position:relative;
+  padding-top: 5%;
+}
+
+
 
 /* .contract{
   margin-left: 100%;

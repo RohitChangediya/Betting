@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 
 import { Sidebar, Segment, Button, Menu, Image, Icon, Header, List } from 'semantic-ui-react'
 import ethorsejson from './ETHorse.json';
-import addressjson from './Address.json'
+import addressjson from './Address.json';
+import {ListGroup, ListGroupItem} from 'reactstrap';
 
 var Web3 = require('web3');
 var contract = require("truffle-contract");
@@ -76,14 +77,14 @@ export default class ContractSidebar extends Component {
     addressjson.addresses.map(row => this.getDate(row.address))
     let self=this;
 
-    setTimeout(function(){
-      self.state.timejson.sort(function (x,y) {
-        return ((x.start_time === y.start_time) ? 0 : ((x.start_time < y.start_time) ? 1 : -1 ));
-      })
-
-
-      // self.setState({'timejson':res})
-},3000)
+//     setTimeout(function(){
+//       self.state.timejson.sort(function (x,y) {
+//         return ((x.start_time === y.start_time) ? 0 : ((x.start_time < y.start_time) ? 1 : -1 ));
+//       })
+//
+//
+//       // self.setState({'timejson':res})
+// },3000)
 
   }
 
@@ -92,27 +93,23 @@ export default class ContractSidebar extends Component {
   render() {
     if(this.state.timejson.length===addressjson.addresses.length)
     {
+      this.state.timejson.sort(function (x,y) {
+        console.log("sort");
+        return ((x.start_time === y.start_time) ? 0 : ((x.start_time < y.start_time) ? 1 : -1 ));
+      })
       let timejson=this.state.timejson;
     return (
       <div>
 
-          <Sidebar as={Menu} animation='overlay' width='thin' visible={this.state.visible} icon='labeled' vertical inverted>
+          <ListGroup className="top" striped>
             {timejson.map(row =>
-            <Menu.Item onClick={() => this.handleChange(row.address)} key={row.address} name={row.address}>
+            <ListGroupItem tag="button" onClick={() => this.handleChange(row.address)} key={row.address} name={row.address}>
 
               {row.start_time.toString()}
-            </Menu.Item>
+            </ListGroupItem>
           )}
-            {/* <Menu.Item name='home'>
+          </ListGroup>
 
-            </Menu.Item>
-            <Menu.Item name='gamepad'>
-
-            </Menu.Item>
-            <Menu.Item name='camera'>
-
-            </Menu.Item> */}
-          </Sidebar>
       </div>
       )
 

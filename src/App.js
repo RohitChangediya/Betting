@@ -495,8 +495,8 @@ class App extends Component {
     {/* <Jumbotron style={{ 'textAlign': 'center'}} fluid> */}
     <Container fluid>
       <div className="row">
-      <div className="col-md-2 mx-auto">
-        <Container fluid>
+      <div className="col-md-2 mx-auto left-sidebar">
+        <Container>
           <ContractSidebar onContractSubmit={this.contractUpdate.bind(this)}/>
         </Container>
       </div>
