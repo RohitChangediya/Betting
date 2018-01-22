@@ -487,13 +487,13 @@ class App extends Component {
     {
     if(web3.currentProvider!=null  && this.state.network==="ropsten" && this.state.contract!==null)
     {
-    var renderContent=(<div>
+    var renderContent=(<div class="full-height">
 
-    <div>
+    <div class="full-height">
     <Header contract={this.state.contract}/>
     <div>
     {/* <Jumbotron style={{ 'textAlign': 'center'}} fluid> */}
-    <Container fluid>
+    {/* <Container fluid  style={{ 'height': '100%'}}> */}
       <div className="row">
       <div className="col-md-2 mx-auto left-sidebar">
         <Container>
@@ -585,7 +585,7 @@ class App extends Component {
     <div className="col-md-2 mx-auto">
     </div>
     </div>
-    </Container>
+    {/* </Container> */}
     {/* </Jumbotron> */}
     {/* <div>
       <UncontrolledTooltip placement="right" target="PlaceBetTooltip">

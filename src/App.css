@@ -45,6 +45,25 @@
 
 html{
     background-color: #36454f ;
+    height: 100%;
+}
+
+body{
+  background-color: #36454f!important;
+  font-family: sansation!important;
+  text-align: center;
+  height: 100%;
+
+}
+.fill-height {
+    min-height: 100%;
+    height:auto !important; /* cross-browser */
+    height: 100%; /* cross-browser */
+}
+
+.container-fluid {
+    height: 100%;
+    overflow-y: hidden; /* don't show content that exceeds my height */
 }
 
 nav{
@@ -78,15 +97,25 @@ button.betlist.active{
 /*.list-group{
   min-height: 100%;
 }*/
-.root{
-  flex: 0 1;
+#root{
+  min-height: 100%;
+
+}
+
+.full-height
+{
+  /*min-height: 100%;*/
+  /*height: inherit;*/
+  /*height: 100vh;*/
 }
 
 .left-sidebar{
-  min-height: 150%;
+  /*min-height: 150%;*/
   background-color: black!important;
   padding: 0;
+  height: 90vh;
   border-radius: 5px;
+  overflow: hidden;
 }
 .list-group{
   width: 100%;
@@ -109,12 +138,7 @@ ul{
 #faucet.hidden {
     visibility: hidden;
 }
-body{
-  background-color: #36454f!important;
-  font-family: sansation!important;
-  text-align: center;
 
-}
 .modal-header{
   color:black;
 }
