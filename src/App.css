@@ -117,15 +117,22 @@ button.betlist.active{
 .left-sidebar{
   /*min-height: 150%;*/
   background-color: black!important;
+  z-index: 3;
   padding: 0;
   height: 100%;
   border-radius: 5px;
   position: fixed ;
   top: 0;
   bottom: 0;
-  overflow-y: scroll;
+  overflow-y: hidden;
   -webkit-overflow-scrolling: touch
+
 }
+
+::-webkit-scrollbar {
+    display: none;
+}
+
 .list-group{
   width: 100%;
   overflow-y: scroll;
