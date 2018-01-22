@@ -42,14 +42,15 @@
   to { transform: rotate(360deg); }
 }
 
+html, body {
+  background-color: #2d2d2d!important;
+}
 
 html{
-    background-color: #36454f ;
     height: 100%;
 }
 
 body{
-  background-color: #36454f!important;
   font-family: sansation!important;
   text-align: center;
   height: 100%;
@@ -67,7 +68,7 @@ body{
 }
 
 nav{
-  background-color:white;
+  background-color: #141414!important;
 }
 button.betlist.active{
     background-color: #047bff; /* Green */
@@ -113,6 +114,12 @@ button.betlist.active{
   position: fixed!important;
   z-index: 5;
   width: 100%;
+  /* -webkit-box-shadow: 0 8px 6px -6px #000;
+  -moz-box-shadow: 0 8px 6px -6px #000;
+  box-shadow: 0 8px 6px -6px #000; */
+  -webkit-box-shadow: 0px 7px 11px -1px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 7px 11px -1px rgba(0,0,0,0.75);
+  box-shadow: 0px 7px 11px -1px rgba(0,0,0,0.75);
 }
 .left-sidebar{
   /*min-height: 150%;*/
@@ -125,10 +132,29 @@ button.betlist.active{
   top: 0;
   bottom: 0;
   overflow-y: hidden;
-  -webkit-overflow-scrolling: touch
-
+  -webkit-box-shadow: 5px 0px 24px -1px rgba(0,0,0,0.75);
+  -moz-box-shadow: 5px 0px 24px -1px rgba(0,0,0,0.75);
+  box-shadow: 5px 0px 24px -1px rgba(0,0,0,0.75);
 }
 
+.right-sidebar{
+  /*min-height: 150%;*/
+  background-color: #23252b!important;
+  z-index: 3;
+  padding: 0;
+  height: 100%;
+  border-radius: 5px;
+  position: fixed ;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  -webkit-box-shadow: -5px 0px 24px -1px rgba(0,0,0,0.75);
+  -moz-box-shadow: -5px 0px 24px -1px rgba(0,0,0,0.75);
+  box-shadow: -5px 0px 24px -1px rgba(0,0,0,0.75);
+
+}
 ::-webkit-scrollbar {
     display: none;
 }
@@ -136,16 +162,18 @@ button.betlist.active{
 .list-group{
   width: 100%;
   overflow-y: scroll;
-  background-color: #22252a!important;
+  /* background-color: #242323!important; */
+  background-color: #23252b!important;
 }
 .list-group-item{
   /* background-color: black!important; */
-  background-color: #22252a!important;
+  /* background-color: #242323!important; */
+  background-color: #23252b!important;
   width: 100%;
 }
 .list-group-item:hover{
   /* background-color: #212529!important; */
-  background-color: #2d3035!important;
+  background-color: #2e2e2e!important;
 }
 
 ul{
@@ -178,6 +206,7 @@ ul > li{
     font-weight: 500;
     padding: 0;
     margin: 0;
+    color: white;
 }
 #copyright{
     text-align: center;
@@ -202,6 +231,7 @@ center{
 nav h3{
   font-family: bebas-neue;
   /*font-size: 30px;*/
+  color: white;
 }
 .tool-tip[disabled] {
   pointer-events: none;
