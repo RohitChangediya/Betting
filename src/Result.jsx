@@ -35,7 +35,7 @@ export default class Result extends Component{
               }
               else{
                 instance.winner_horse().then(function(winner){
-                    self.setState({winner:web3.utils.toAscii(winner)})
+                    self.setState({winner:web3.utils.toAscii(winner).replace(/\u0000/g,'')})
                 });
                 instance.starting_time().then(function(start_time){
                   start_time=parseInt(start_time,10)
@@ -71,7 +71,7 @@ export default class Result extends Component{
               }
               else{
                 instance.winner_horse().then(function(winner){
-                    self.setState({winner:web3.utils.toAscii(winner)})
+                    self.setState({winner:web3.utils.toAscii(winner).replace(/\u0000/g,'')})
                   instance.starting_time().then(function(start_time){
                     start_time=parseInt(start_time,10)
                     let start_time_utc=new Date(start_time*1000);
@@ -104,11 +104,11 @@ export default class Result extends Component{
       return(<span style={{fontSize:'25px','position':'relative'}} className="float-left">
               <span style={{"font-size":"25px" }}>
                 {/* The winner for race on {this.state.start_time} is {this.state.winner} */}
-                The winner is {this.state.winner}
-                {/* <p><img src="https://png.icons8.com/ios-glyphs/40/ffffff/trophy.png"/>
+                {/* The winner is {this.state.winner} */}
+                <p><img src="https://png.icons8.com/ios-glyphs/40/ffffff/trophy.png"/>
                 {this.state.winner}&nbsp;&nbsp;&nbsp;&nbsp;
                 <img src="https://png.icons8.com/windows/40/ffffff/planner.png"/>
-                {this.state.start_time}</p> */}
+                {this.state.start_time}</p>
               </span>
             </span>);
     }

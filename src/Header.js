@@ -41,11 +41,11 @@ export default class Header extends Component {
       var address_link="https://ropsten.etherscan.io/address/"+this.props.contract+"#code";
       return(
         <div>
-          <Navbar light expand="md" >
+          <Navbar light expand="md" style={{padding:0,margin:0}}>
             <NavbarBrand href="/"><h3 className="header-font"><img width="45vh" height="auto" src={"https://ethorse.com/images/ethorse-logo.png"} alt="ETHorse icon"/>&nbsp;ethorse</h3></NavbarBrand>
               <Nav className="ml-auto" navbar>
 
-              <NavItem className="float-right">
+              <NavItem className="float-right" style={{padding:0,margin:0}}>
                 <NavLink href="https://ethorse.com/" target="_blank" ><Button color="link" style={{textDecoration:'none', color:'black'}}><h3>Crowdsale</h3></Button></NavLink>
               </NavItem>
               <NavItem className="float-right">

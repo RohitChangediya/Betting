@@ -176,6 +176,8 @@ ul > li{
     font-family:    prometheus;
     font-size:      40px;
     font-weight: 500;
+    padding: 0;
+    margin: 0;
 }
 #copyright{
     text-align: center;
