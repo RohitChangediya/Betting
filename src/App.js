@@ -495,13 +495,13 @@ class App extends Component {
     {/* <Jumbotron style={{ 'textAlign': 'center'}} fluid> */}
     {/* <Container fluid  style={{ 'height': '100%'}}> */}
       <div className="row" >
-      <div className="col-md-2 mx-auto left-sidebar" style={{ 'margin-top': '5%',position:'fixed'}}>
+      <div className="col-md-2 mx-auto left-sidebar" style={{ 'margin-top': '5vh',position:'fixed'}}>
         {/* <Container> */}
           <ContractSidebar onContractSubmit={this.contractUpdate.bind(this)}/>
         {/* </Container> */}
       </div>
-      <div className="col-md-3 mx-auto"></div>
-      <div className="col-md-8 mx-auto"  style={{ 'margin-top': '5%'}}>
+      <div className="col-md-2 mx-auto"></div>
+      <div className="col-md-8 mx-auto"  style={{ 'margin-top': '10vh'}}>
       <div className="row">
 
         <div className="col-md-10 mx-auto">
@@ -521,7 +521,7 @@ class App extends Component {
         {/* <div className="col-md-10 mx-auto"> */}
           <Container>
             <Result contract={this.state.contract}/>
-            <Contract className="contract" onContractSubmit={this.contractUpdate.bind(this)}/>
+            {/* <Contract className="contract" onContractSubmit={this.contractUpdate.bind(this)}/> */}
           </Container>
         {/* </div> */}
       </div>
