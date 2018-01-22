@@ -501,7 +501,7 @@ class App extends Component {
         {/* </Container> */}
       </div>
       {/* <div className="col-md-2 mx-auto"></div> */}
-      <div className="col-md-6 mx-auto"  style={{ 'margin-top': '10vh'}}>
+      <div className="col-md-7 mx-auto"  style={{ 'margin-top': '10vh'}}>
         <div className="row">
 
           <div className="col-md-10 mx-auto">
