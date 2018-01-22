@@ -46,7 +46,7 @@ export default class Header extends Component {
               <Nav className="ml-auto" navbar>
 
               <NavItem className="float-right" style={{padding:0,margin:0}}>
-                <NavLink href="https://ethorse.com/" target="_blank" ><Button color="link" style={{textDecoration:'none', color:'black'}}><h3>Crowdsale</h3></Button></NavLink>
+                <NavLink href="https://www.youtube.com/watch?v=JS2uo7pSkn4" target="_blank" ><Button color="link" style={{textDecoration:'none', color:'black'}}><h3>Demo Video</h3></Button></NavLink>
               </NavItem>
               <NavItem className="float-right">
                 <NavLink><Button color="link" style={{textDecoration:'none', color:'black'}} onClick={this.toggle}><h3>Help</h3></Button></NavLink>
