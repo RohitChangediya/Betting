@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import { Sidebar, Segment, Button, Menu, Image, Icon, Header, List } from 'semantic-ui-react'
 import ethorsejson from './ETHorse.json';
 import addressjson from './Address.json';
 import {ListGroup, ListGroupItem} from 'reactstrap';

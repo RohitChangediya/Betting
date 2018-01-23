@@ -33,7 +33,8 @@ export default class ETHRadio extends React.Component{
                 btc_pool:btc,
                 ltc_pool:ltc,
                 visible:false,
-                contract:this.props.currentContract
+                contract:this.props.currentContract,
+                totalBets:0
                 };
 
   }
@@ -71,6 +72,9 @@ export default class ETHRadio extends React.Component{
     var coin_details={pool_total:web3.utils.fromWei(value[0].toString(),"ether"),pre_price:(value[1]/100),post_price:(value[2]/100),odds:(profit),number_of_bets:value[4].toString()}
     coin_details.pre_price=this.checkValue(coin_details.pre_price);
     coin_details.post_price=this.checkValue(coin_details.post_price);
+    let bets=this.state.totalBets;
+    this.setState({totalBets:bets+value[4]})
+    console.log(parseInt(bets)+parseInt(value[4]))
     return coin_details;
     }
   getCoinDetails()
@@ -102,6 +106,7 @@ export default class ETHRadio extends React.Component{
   {
     this.setState({ rSelected });
     this.props.onSubmit(rSelected);
+    this.props.totalBets(this.state.totalBets);
   }
   componentWillMount()
   {

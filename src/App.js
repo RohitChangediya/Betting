@@ -9,7 +9,10 @@ import Header from './Header'
 import Contract from './Contract'
 import Result from './Result'
 import ContractSidebar from './ContractSidebar'
-import {Jumbotron, Container, Button, InputGroup, InputGroupButton, InputGroupAddon, Input, UncontrolledTooltip} from 'reactstrap'
+import $ from 'jquery'
+import jQuery from 'jquery'
+import FlipClock from './FlipClock-master/compiled/flipclock.js'
+import {Jumbotron, Container, Button, InputGroup, InputGroupButton, InputGroupAddon, Input, UncontrolledTooltip, Table } from 'reactstrap'
 
 var Web3 = require('web3');
 var contract = require("truffle-contract");
@@ -65,7 +68,9 @@ class App extends Component {
                 flashmessage:null,
                 contract:null,
                 duration:"",
-                bettingStatus:false
+                bettingStatus:false,
+                clock:null,
+                t_bets:0
                 };
     this.invokeContract=this.invokeContract.bind(this);
     this.convertMS=this.convertMS.bind(this);
@@ -76,6 +81,7 @@ class App extends Component {
     this.resetTimer=this.resetTimer.bind(this);
     this.componentLoad=this.componentLoad.bind(this);
     this.componentMounted=this.componentMounted.bind(this);
+    this.startFlipClock=this.startFlipClock.bind(this);
 
     //Find betting phase
     this.findStartTime=this.findStartTime.bind(this);
@@ -118,10 +124,32 @@ class App extends Component {
   checkNetwork(){
       var self=this;
       web3.eth.net.getNetworkType((err, netId) => {
+        netId=netId[0].toUpperCase()+netId.substring(1);
       self.setState({network:netId})
     })
 
     }
+  startFlipClock(time)
+    {
+      let self=this;
+      $(document).ready(function () {
+        console.log('ready')
+      var clock = $('.flipclock').FlipClock(time, {
+      // clockFace: 'DailyCounter',
+      countdown: true,
+      autoStart: true,
+      callbacks: {
+        start: function() {
+          console.log('started')
+          $('.message').html('The clock has started!');
+        }
+      }
+    });
+    self.setState({clock})
+  // $('.flipclock').addClass('twoDayDigits');
+  //   clock.start();
+    });
+  }
   componentLoad()
   {
     var ct = null;
@@ -139,6 +167,11 @@ class App extends Component {
       this.setState({"h":null,"d":null,"m":null,"s":null})
       // console.log(this.state.contract)
     }
+    if(this.state.clock!=null)
+    {
+      this.state.clock.stop();
+      $('.flipclock').html('')
+    }
     if(web3.currentProvider!=null)
     {
 
@@ -150,8 +183,9 @@ class App extends Component {
         // console.log(currentTime+' , '+start_time*1000)
           if(currentTime<(start_time*1000))
           {
-            ct=setInterval(self.findStartTime,950)
+            // ct=setInterval(self.findStartTime,950)
             self.setState({timeInterval:ct,betPhase:'Bet Open in ',startTime:start_time*1000})
+            self.startFlipClock(start_time-new Date()/1000)
           }
           else
           {
@@ -161,10 +195,10 @@ class App extends Component {
               // console.log(currentTime+' , '+start_time+' ,'+((start_time+betting_duration)*1000)+' '+betting_duration)
               if(currentTime>=(start_time*1000) && currentTime<((start_time+betting_duration)*1000))
               {
-                ct=setInterval(self.findLockTime,950)
+                // ct=setInterval(self.findLockTime,950)
 
                 self.setState({timeInterval:ct,betPhase:'Betting closes and Race starts in ',lockTime:((start_time+betting_duration)*1000)})
-
+                self.startFlipClock(start_time+betting_duration-new Date()/1000)
               }
               else{
                 instance.race_duration().then(function(race_duration){
@@ -173,11 +207,14 @@ class App extends Component {
                   //Check if the results are out.
                   if(currentTime<((start_time+race_duration)*1000) && currentTime>=((start_time+betting_duration)*1000))
                     {
-                    ct=setInterval(self.findResultTime,950)
+                    // ct=setInterval(self.findResultTime,950)
                     // console.log(race_duration);
                     let race_duration_utc=new Date(race_duration)
                     // console.log('Dur ',race_duration_utc);
                     self.setState({timeInterval:ct,betPhase:'Results in ',resultTime:((start_time+race_duration)*1000)})
+                    let time=parseInt(start_time)+parseInt(race_duration)-new Date()/1000
+                    console.log(time-new Date()/1000)
+                    self.startFlipClock(time)
                     }
                   else if(start_time>0){
 
@@ -483,9 +520,13 @@ class App extends Component {
 
           });
     }
+  totalBets(bets)
+  {
+    this.setState({t_bets:bets})
+  }
   render()
     {
-    if(web3.currentProvider!=null  && this.state.network==="ropsten" && this.state.contract!==null)
+    if(web3.currentProvider!=null  && this.state.network==="Ropsten" && this.state.contract!==null)
     {
     var renderContent=(<div class="full-height">
 
@@ -528,7 +569,7 @@ class App extends Component {
         <div className="row">
           <div className="col-md-12 mx-auto">
           {this.state.flashmessage}
-          <ETHRadio onSubmit={this.coinValue.bind(this)} name="Radio" currentContract={this.state.contract}/>
+          <ETHRadio onSubmit={this.coinValue.bind(this)} name="Radio" currentContract={this.state.contract} totalBets={this.totalBets.bind(this)}/>
           <InputGroup>
             <InputGroupAddon>&Xi;</InputGroupAddon>
             <Amount field="Amount" onValueSubmit={this.onValueSubmit.bind(this)} className="amount"/>
@@ -564,26 +605,56 @@ class App extends Component {
           {this.state.transactionidmsg}</div>
           <br/>
           <br/>
-          {this.state.betPhase} {this.state.d}  {this.state.h} {this.state.m}  {this.state.s}
+
+          {/* {this.state.betPhase} {this.state.d}  {this.state.h} {this.state.m}  {this.state.s} */}
           <br/>
           <br/>
-          <div ref='raceDurationRef' >Race duration: {this.state.duration}</div>
-          <br/>
-          <br/>
-          Currently on Ropsten Testnet. Mainnet release coming soon.
+
+
           <br/>
           {/* Join <a href="https://discord.gg/vdTXRmT" rel="noopener noreferrer" target="_blank"> Discord </a> to stay tuned. */}
           <br/>
-          <p>Join our community to stay tuned. <br/>
-            <a style={{'marginRight':'3%'}} target="_blank" rel="noopener noreferrer" href="https://telegram.me/ethorse" ><img alt="telegram" src="https://png.icons8.com/windows/50/ffffff/telegram-app.png"/></a>
-            <a style={{'marginRight':'3%'}} target="_blank" rel="noopener noreferrer" href="https://discord.gg/vdTXRmT" ><img alt="discord" src="https://png.icons8.com/ios/50/ffffff/discord-logo.png"/></a>
-            <a href="https://github.com/ethorse" target="_blank" rel="noopener noreferrer" ><img alt="github" src="https://png.icons8.com/windows/50/ffffff/github.png"/></a>
-          </p>
+
         </div>
 
     </div>
     </div>
     <div className="col-md-2 mx-auto right-sidebar" style={{ 'margin-top': '5vh',position:'fixed'}}>
+      <Table style={{top:'10%',position:'relative'}}>
+        <tbody>
+          <tr>
+            <th >Network:</th>
+            <td>{this.state.network}</td>
+          </tr>
+          <tr>
+            <th>Version:</th>
+            <td>0</td>
+          </tr>
+         <tr>
+           <th >Race Duration:</th>
+           <td>{this.state.duration}</td>
+         </tr>
+         <tr>
+           <th >#Bets:</th>
+           <td>{this.state.t_bets}</td>
+         </tr>
+         <tr>
+           <th >Total pool amount:</th>
+           <td>{this.state.t_bets}</td>
+         </tr>
+       </tbody>
+      </Table>
+      <div className="betDetails" style={{top:'15%',position:'relative',textAlign:'center'}}>
+        {this.state.betPhase}
+        <div className="flipclock" style={{width:'auto',display:'inline-block'}}/>
+      </div>
+      <div style={{bottom:'5%',position:'absolute'}}>
+      <p >Join our community to stay tuned. <br/>
+        <a style={{'marginRight':'3%'}} target="_blank" rel="noopener noreferrer" href="https://telegram.me/ethorse" ><img alt="telegram" src="https://png.icons8.com/windows/50/ffffff/telegram-app.png"/></a>
+        <a style={{'marginRight':'3%'}} target="_blank" rel="noopener noreferrer" href="https://discord.gg/vdTXRmT" ><img alt="discord" src="https://png.icons8.com/ios/50/ffffff/discord-logo.png"/></a>
+        <a href="https://github.com/ethorse" target="_blank" rel="noopener noreferrer" ><img alt="github" src="https://png.icons8.com/windows/50/ffffff/github.png"/></a>
+      </p>
+    </div>
       {/* <Container> */}
         {/* <ContractSidebar onContractSubmit={this.contractUpdate.bind(this)}/> */}
       {/* </Container> */}
@@ -612,7 +683,7 @@ class App extends Component {
                   </div>
                   )
           }
-          else if(this.state.network!=="ropsten")
+          else if(this.state.network!=="Ropsten")
           {
           return(<Jumbotron style={{ 'textAlign': 'center'}} fluid>
           <Container>

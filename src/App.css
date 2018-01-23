@@ -275,14 +275,10 @@ border-bottom: 5px solid blue;
   padding-top: 5%;
 }
 
+.flipclock{
+    width:auto;
+    text-align: center;
+    zoom: 0.40;
+    -moz-transform: scale(0.25);
 
-
-/* .contract{
-  margin-left: 100%;
-  margin-right: 0;
 }
-
-.dropdown-controller {
-  position: absolute;
-  right: 0;
-} */
