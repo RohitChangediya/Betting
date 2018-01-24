@@ -52,11 +52,14 @@ html{
 }
 
 body{
-  font-family: sansation!important;
+  font-family: 'Open Sans','PingFangTC','Arial','Heiti TC','Microsoft Jhenghei',sans-serif;
+  letter-spacing: 1px;
   text-align: center;
   height: 100%;
-
 }
+
+.flip-clock-label{ display: none !important; }
+
 .fill-height {
     min-height: 100%;
     height:auto !important; /* cross-browser */
@@ -86,7 +89,7 @@ button.betlist.active{
 }
 
 .jumbotron {
-    background-color: #36454f!important;
+    background-color: #2e2e2e!important;
 }
 .container{
   margin-top: 2%;
@@ -177,6 +180,17 @@ button.betlist.active{
   background-color: #2e2e2e!important;
 }
 
+.li.active{
+  /* background-color: #212529!important; */
+  background-color: white!important;
+}
+
+.bet-components {
+  -webkit-box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.75);
+  box-shadow: 0px 0px 30px 0px rgba(0,0,0,0.75);
+}
+
 ul{
   min-height: 100%;
 }
@@ -231,6 +245,12 @@ center{
 }
 nav h3{
   font-family: bebas-neue;
+  letter-spacing: 2px;
+  display: inline-block;
+  font-size: 30px;
+  /* transform: scaleY(0.5); */
+  /* transform-origin: 0 0; */
+  margin-bottom: -50%;
   /*font-size: 30px;*/
   color: white;
 }
@@ -278,7 +298,7 @@ border-bottom: 5px solid blue;
 .flipclock{
     width:auto;
     text-align: center;
-    zoom: 0.40;
-    -moz-transform: scale(0.25);
+    zoom: 0.35;
+    -moz-transform: scale(0.35);
 
 }

@@ -622,6 +622,7 @@ class App extends Component {
     <div className="col-md-2 mx-auto right-sidebar" style={{ 'margin-top': '5vh',position:'fixed'}}>
       <Table style={{top:'10%',position:'relative'}}>
         <tbody>
+          <p style={{color:'#868e96', left:0}}><h3>Status</h3></p>
           <tr>
             <th >Network:</th>
             <td>{this.state.network}</td>
@@ -635,17 +636,17 @@ class App extends Component {
            <td>{this.state.duration}</td>
          </tr>
          <tr>
-           <th >#Bets:</th>
+           <th >#&nbsp;Bets:</th>
            <td>{this.state.t_bets}</td>
          </tr>
          <tr>
-           <th >Total pool amount:</th>
+           <th >Volume:</th>
            <td>{this.state.t_bets}</td>
          </tr>
        </tbody>
       </Table>
       <div className="betDetails" style={{top:'15%',position:'relative',textAlign:'center'}}>
-        {this.state.betPhase}
+        {this.state.betPhase}<br></br>
         <div className="flipclock" style={{width:'auto',display:'inline-block'}}/>
       </div>
       <div style={{bottom:'5%',position:'absolute'}}>

@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import ethorsejson from './ETHorse.json';
 import addressjson from './Address.json';
 import {ListGroup, ListGroupItem} from 'reactstrap';
+import Moment from 'react-moment';
 
 var Web3 = require('web3');
 var contract = require("truffle-contract");
@@ -101,10 +102,11 @@ export default class ContractSidebar extends Component {
       <div style={{ height:'100%',overflow:'scroll'}}>
 
           <ListGroup className="top" >
+            <span style={{color:'#868e96'}}><h3>Change Race</h3></span>
+          <br></br>
             {timejson.map(row =>
             <ListGroupItem tag="button" onClick={() => this.handleChange(row.address)} key={row.address} name={row.address}>
-
-              {row.start_time.toString()}
+              <Moment format="ddd, DD MMM YYYY, HH:SS">{row.start_time.toString()}</Moment>
             </ListGroupItem>
           )}
           </ListGroup>

@@ -140,7 +140,7 @@ export default class ETHRadio extends React.Component{
 
     return(
       <div>
-      <Table inverse striped hover size="md">
+      <Table inverse striped hover size="md" className="bet-components">
 
         <thead>
           <tr>
