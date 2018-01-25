@@ -102,7 +102,7 @@ export default class Result extends Component{
     );
     else {
       return(<span style={{fontSize:'25px','position':'relative'}} className="float-left">
-              <span style={{"font-size":"25px" }}>
+              <span style={{"fontSize":"25px" }}>
                 {/* The winner for race on {this.state.start_time} is {this.state.winner} */}
                 {/* The winner is {this.state.winner} */}
                 <p><img src="https://png.icons8.com/ios-glyphs/40/ffffff/trophy.png"/>

@@ -4,6 +4,7 @@ import ethorsejson from './ETHorse.json';
 import addressjson from './Address.json';
 import {ListGroup, ListGroupItem} from 'reactstrap';
 import Moment from 'react-moment';
+var moment = require('moment');
 
 var Web3 = require('web3');
 var contract = require("truffle-contract");
@@ -22,22 +23,42 @@ export default class ContractSidebar extends Component {
   constructor(props)
   {
     super(props);
-    this.state={timejson:[],currentTime:"Change Races",duplicatejson:{},visible: true};
+    this.state={timejson:[],currentTime:"Change Races",duplicatejson:{},prevActive:null,classActive:false};
     this.handleChange=this.handleChange.bind(this);
+    this.initiate=this.initiate.bind(this);
   }
 
-  handleChange(rSelected)
+  handleChange(event)
   {
-
-    // console.log(rSelected);
-    this.setState({ currentTime:this.state.duplicatejson[rSelected] });
-     this.props.onContractSubmit(rSelected);
+    if(this.state.prevActive!=null)
+      {
+      this.state.prevActive.className="list-group-item";
+      }
+    if(this.state.classActive===false)
+    {
+      document.getElementById(addressjson.addresses[0].address).classList.remove('active');
+      this.setState({classActive:true});
+    }
+    // console.log(this.state.prevActive);
+    // console.log('Event:',event.target);
+    // console.log('Event Name:',event.target.name);
+    this.setState({prevActive:event.target});
+    event.target.className="list-group-item active";
+    this.setState({ currentTime:this.state.duplicatejson[event.target.id] });
+     this.props.onContractSubmit(event.target.id);
   }
 
+  initiate(rSelected)
+  {
+    // console.log(this.refs[rSelected])
+
+    // this.refs[rSelected].className="list-group-item active";
+    this.props.onContractSubmit(rSelected);
+  }
   componentWillMount()
   {
     if(this.state.timejson.length!==addressjson.addresses.length)
-      this.handleChange(addressjson.addresses[0].address)
+      this.initiate(addressjson.addresses[0].address)
 
   }
 
@@ -57,7 +78,8 @@ export default class ContractSidebar extends Component {
                 instance.race_duration().then(function(race_duration){
                   race_duration=parseInt(race_duration,10)
                   result_time_utc=new Date((start_time+race_duration)*1000)
-                  var temp_json={"address":address,"start_time":start_time_utc,"end_time":result_time_utc}
+                  let start_time_utc_display=moment(start_time_utc).format('ddd, DD MMM YYYY, HH:SS')
+                  var temp_json={"address":address,"start_time":start_time_utc_display,"start_time_sort":start_time_utc,"end_time":result_time_utc}
                   self.state.timejson.push(temp_json)
                   self.state.duplicatejson[address]=start_time_utc.toString()
                 })
@@ -70,12 +92,19 @@ export default class ContractSidebar extends Component {
 
 
   }
-
+componentDidUpdate(){
+  console.log('Change');
+  if(this.state.classActive===false && this.state.timejson.length===addressjson.addresses.length)
+  {
+    document.getElementById(addressjson.addresses[0].address).classList.add('active');
+  }
+}
   componentDidMount()
   {
 
     addressjson.addresses.map(row => this.getDate(row.address))
     let self=this;
+
 
 //     setTimeout(function(){
 //       self.state.timejson.sort(function (x,y) {
@@ -91,11 +120,12 @@ export default class ContractSidebar extends Component {
   toggleVisibility = () => this.setState({ visible: !this.state.visible })
 
   render() {
+
     if(this.state.timejson.length===addressjson.addresses.length)
     {
+
       this.state.timejson.sort(function (x,y) {
-        console.log("sort");
-        return ((x.start_time === y.start_time) ? 0 : ((x.start_time < y.start_time) ? 1 : -1 ));
+        return ((x.start_time_sort === y.start_time_sort) ? 0 : ((x.start_time_sort < y.start_time_sort) ? 1 : -1 ));
       })
       let timejson=this.state.timejson;
     return (
@@ -105,8 +135,9 @@ export default class ContractSidebar extends Component {
             <span style={{color:'#868e96'}}><h3>Change Race</h3></span>
           <br></br>
             {timejson.map(row =>
-            <ListGroupItem tag="button" onClick={() => this.handleChange(row.address)} key={row.address} name={row.address}>
-              <Moment format="ddd, DD MMM YYYY, HH:SS">{row.start_time.toString()}</Moment>
+            <ListGroupItem tag="button" onClick={(event) => this.handleChange(event)} key={row.address} id={row.address}>
+              {/* <Moment format="ddd, DD MMM YYYY, HH:SS" name={row.address}>{row.start_time.toString()}</Moment> */}
+              {row.start_time.toString()}
             </ListGroupItem>
           )}
           </ListGroup>

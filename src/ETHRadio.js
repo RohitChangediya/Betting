@@ -74,7 +74,6 @@ export default class ETHRadio extends React.Component{
     coin_details.post_price=this.checkValue(coin_details.post_price);
     let bets=this.state.totalBets;
     this.setState({totalBets:bets+value[4]})
-    console.log(parseInt(bets)+parseInt(value[4]))
     return coin_details;
     }
   getCoinDetails()

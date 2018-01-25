@@ -437,7 +437,7 @@ class App extends Component {
                           self.setState({reward});
                           self.setState({claim:true});
                         } else {
-                          console.log('race end ',isRaceEnd);
+                          // console.log('race end ',isRaceEnd);
                           reward='You have won '+web3.utils.fromWei(reward,"ether")+' ETH';
                           self.setState({reward});
                         }
@@ -528,9 +528,9 @@ class App extends Component {
     {
     if(web3.currentProvider!=null  && this.state.network==="Ropsten" && this.state.contract!==null)
     {
-    var renderContent=(<div class="full-height">
+    var renderContent=(<div className="full-height">
 
-    <div class="full-height" >
+    <div className="full-height" >
     <Header contract={this.state.contract}/>
     <div >
     {/* <Jumbotron style={{ 'textAlign': 'center'}} fluid> */}
