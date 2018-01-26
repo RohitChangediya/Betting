@@ -42,13 +42,17 @@ export default class ContractSidebar extends Component {
     addressjson.addresses.map(row => this.getDate(row.address))
     let self=this;
     }
-  componentDidUpdate(){
-    // console.log('Change');
-    if(this.state.classActive===false && this.state.timejson.length===addressjson.addresses.length)
+  componentDidUpdate()
     {
+    if(this.state.classActive===false && this.state.timejson.length===addressjson.addresses.length)
+      {
       document.getElementById(addressjson.addresses[0].address).classList.add('active');
+      }
     }
-  }
+  contractList()
+    {
+    
+    }
   getDate(address)
     {
     let self=this;
@@ -56,12 +60,9 @@ export default class ContractSidebar extends Component {
     var result_time_utc=null;
 
     myContract.at(address).then(function(instance){
-      // self.setState({contractInstance:instance})
       instance.starting_time().then(function(start_time){
-        //Check if the bet has started
         start_time=parseInt(start_time,10)
             start_time_utc=new Date(start_time*1000);
-            //Check if the bet has locked
                 instance.race_duration().then(function(race_duration){
                   race_duration=parseInt(race_duration,10)
                   result_time_utc=new Date((start_time+race_duration)*1000)
