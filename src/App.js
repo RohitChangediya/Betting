@@ -13,6 +13,7 @@ import $ from 'jquery'
 import jQuery from 'jquery'
 import FlipClock from './FlipClock-master/compiled/flipclock.js'
 import {Jumbotron, Container, Button, InputGroup, InputGroupButton, InputGroupAddon, Input, UncontrolledTooltip, Table } from 'reactstrap'
+import { Message, Icon } from 'semantic-ui-react'
 
 var Web3 = require('web3');
 var contract = require("truffle-contract");
@@ -140,8 +141,8 @@ class App extends Component {
       autoStart: true,
       callbacks: {
         start: function() {
-          console.log('started')
-          $('.message').html('The clock has started!');
+          // console.log('started')
+          // $('.message').html('The clock has started!');
         }
       }
     });
@@ -352,14 +353,20 @@ class App extends Component {
                           if(txo.data!==null && ethAccount!==undefined)
                             {
                             self.setState({transactionid:'Placing Bet...'},function(){
+                              document.getElementById("transaction_id").classList.remove('disable-el');
+                              document.getElementById("loading-icon").classList.remove('disable-el');
                             instance.placeBet(self.state.coin,txo).then(function(res,error){
 
-                              self.setState({transactionid:('Transaction ID: '+res.tx+'. '),transactionidmsg:"Good luck. You can use \"Check result\" and \"Claim\" after the race is over.",value:self.state.coin});
+                              self.setState({transactionid:('Transaction ID: '+res.tx+'. '),transactionidmsg:"Good luck. You can use \"Check result\" and \"Claim\" after the race is over.",value:self.state.coin},function()
+                            {
+                              document.getElementById("loading-icon").classList.add('disable-el');
+                            });
                             }).catch(function(e){
                               if(e.message==="MetaMask Tx Signature: User denied transaction signature.")
                               {
 
                                 self.setState({value:null,transactionid:null})
+                                document.getElementById("transaction_id").classList.add('disable-el');
 
                               }
                             })})
@@ -522,6 +529,7 @@ class App extends Component {
     }
   totalBets(bets)
   {
+    // console.log('Bets: ',bets)
     this.setState({t_bets:bets})
   }
   render()
@@ -600,9 +608,16 @@ class App extends Component {
 
           <br/>
           <br/>
-          <div>{this.state.transactionid}
+          <div>
+            <Message icon id="transaction_id" className="disable-el" >
+              <Icon name='circle notched' id="loading-icon" loading style={{'color':'black'}} />
+              <Message.Content style={{'color':'black'}}>
+                <Message.Header style={{'color':'black'}}>{this.state.transactionidmsg}</Message.Header>
+                {this.state.transactionid}
+              </Message.Content>
+            </Message>
             <br/>
-          {this.state.transactionidmsg}</div>
+          </div>
           <br/>
           <br/>
 
@@ -624,6 +639,14 @@ class App extends Component {
         <tbody>
           <p style={{color:'#868e96', left:0}}><h3>Status</h3></p>
           <tr>
+            <th >Volume:</th>
+            <td>{this.state.t_bets}</td>
+          </tr>
+          <tr>
+            <th >Race Duration:</th>
+            <td>{this.state.duration}</td>
+          </tr>
+          <tr>
             <th >Network:</th>
             <td>{this.state.network}</td>
           </tr>
@@ -631,18 +654,8 @@ class App extends Component {
             <th>Version:</th>
             <td>0</td>
           </tr>
-         <tr>
-           <th >Race Duration:</th>
-           <td>{this.state.duration}</td>
-         </tr>
-         <tr>
-           <th >#&nbsp;Bets:</th>
-           <td>{this.state.t_bets}</td>
-         </tr>
-         <tr>
-           <th >Volume:</th>
-           <td>{this.state.t_bets}</td>
-         </tr>
+
+
        </tbody>
       </Table>
       <div className="betDetails" style={{top:'15%',position:'relative',textAlign:'center'}}>

@@ -22,9 +22,9 @@ export default class ETHRadio extends React.Component{
     this.onDismiss = this.onDismiss.bind(this);
     this.checkValue=this.checkValue.bind(this);
     this.getOddsDetails=this.getOddsDetails.bind(this);
-    var eth={pool_total:null,odds:null,number_of_bets:null,pre_price:'TBC',post_price:'TBC'}
-    var btc={pool_total:null,odds:null,number_of_bets:null,pre_price:'TBC',post_price:'TBC'}
-    var ltc={pool_total:null,odds:null,number_of_bets:null,pre_price:'TBC',post_price:'TBC'}
+    var eth={pool_total:null,odds:null,number_of_bets:null,pre_price:'TBC',post_price:'TBC',gain:'TBC',name:'ethereum'}
+    var btc={pool_total:null,odds:null,number_of_bets:null,pre_price:'TBC',post_price:'TBC',gain:'TBC',name:'bitcoin'}
+    var ltc={pool_total:null,odds:null,number_of_bets:null,pre_price:'TBC',post_price:'TBC',gain:'TBC',name:'litecoin'}
     this.state={rSelected:'',
                 eth:'primary',
                 btc:'primary',
@@ -34,7 +34,8 @@ export default class ETHRadio extends React.Component{
                 ltc_pool:ltc,
                 visible:false,
                 contract:this.props.currentContract,
-                totalBets:0
+                totalAmountBet:0,
+                totalCoins:0
                 };
 
   }
@@ -57,7 +58,7 @@ export default class ETHRadio extends React.Component{
       }
       else
         {
-        return '$ '+value;
+        return value;
         }
     }
   getOddsDetails(value,reward)
@@ -69,11 +70,18 @@ export default class ETHRadio extends React.Component{
     var coin_bet=parseFloat(web3.utils.fromWei(value[0],"ether"))
     if(coin_bet>0)
       profit= Math.round((reward/coin_bet)*100-100)/100;
+    // let name=this.state
     var coin_details={pool_total:web3.utils.fromWei(value[0].toString(),"ether"),pre_price:(value[1]/100),post_price:(value[2]/100),odds:(profit),number_of_bets:value[4].toString()}
     coin_details.pre_price=this.checkValue(coin_details.pre_price);
     coin_details.post_price=this.checkValue(coin_details.post_price);
-    let bets=this.state.totalBets;
-    this.setState({totalBets:bets+value[4]})
+    let bets=parseFloat(this.state.totalAmountBet)+parseFloat(web3.utils.fromWei(value[0].toString(),"ether"))
+    bets=Math.round(bets*100)/100;
+    let coins=parseInt(this.state.totalCoins)
+    coins=coins+1;
+    // let url="https://api.coinmarketcap.com/v1/ticker/"+
+    // fetch('https://api.coinmarketcap.com/v1/ticker/')
+    this.setState({totalAmountBet:bets,totalCoins:coins})
+    // console.log(this.state.totalAmountBet)
     return coin_details;
     }
   getCoinDetails()
@@ -85,16 +93,85 @@ export default class ETHRadio extends React.Component{
                 reward=web3.utils.fromWei(reward,"ether")
                 instance.getCoinIndex("ETH").then(function(value){
                   var eth=self.getOddsDetails(value,reward);
-
-                  self.setState({eth_pool:eth});
+                  if(eth.pre_price!=="TBC")
+                      {
+                      let val=fetch("https://api.coinmarketcap.com/v1/ticker/ethereum/")
+                      .then(function(details){
+                        // console.log(details.json().then());
+                        return details.json().then(
+                          function(value){
+                            let inc=Math.round(((value[0].price_usd-eth.pre_price)/eth.pre_price)*10000)/100;
+                            eth['percentage']=inc+" %";
+                            if(eth["post_price"]!=="TBC")
+                              {
+                              inc=Math.round(((eth.post_price-eth.pre_price)/eth.pre_price)*10000)/100;
+                              eth['percentage']=inc+" %";
+                              eth["post_price"]="$ "+eth["post_price"];
+                              }
+                            eth["pre_price"]="$ "+eth["pre_price"];
+                            console.log(eth)
+                            self.setState({eth_pool:eth});
+                          })
+                      })
+                      // console.log(val)
+                      }
+                  else {
+                    self.setState({eth_pool:eth});
+                  }
                 });
                 instance.getCoinIndex("LTC").then(function(value){
                   var ltc=self.getOddsDetails(value,reward);
-                  self.setState({ltc_pool:ltc});
+                  if(ltc.pre_price!=="TBC")
+                    {
+                    let val=fetch("https://api.coinmarketcap.com/v1/ticker/litecoin/")
+                    .then(function(details){
+                      // console.log(details.json().then());
+                      return details.json()
+                        .then(function(value){
+                          let inc=Math.round(((value[0].price_usd-ltc.pre_price)/ltc.pre_price)*10000)/100;
+                          ltc['percentage']=inc+" %";
+                          if(ltc["post_price"]!=="TBC")
+                            {
+                            inc=Math.round(((ltc.post_price-ltc.pre_price)/ltc.pre_price)*10000)/100;
+                            ltc['percentage']=inc+" %";
+                            ltc["post_price"]="$ "+ltc["post_price"];
+                            }
+                          ltc["pre_price"]="$ "+ltc["pre_price"];
+                          console.log(ltc)
+                          self.setState({ltc_pool:ltc});
+                        })
+                    })
+                  }
+                  else{
+                    self.setState({ltc_pool:ltc});
+                  }
                 });
                 instance.getCoinIndex("BTC").then(function(value){
                   var btc=self.getOddsDetails(value,reward);
+                  if(btc.pre_price!=="TBC")
+                    {
+                  let val=fetch("https://api.coinmarketcap.com/v1/ticker/bitcoin/")
+                  .then(function(details){
+                    // console.log(details.json().then());
+                    return details.json()
+                    .then(function(value){
+                      let inc=Math.round(((value[0].price_usd-btc.pre_price)/btc.pre_price)*10000)/100;
+                      btc['percentage']=inc+" %";
+                      if(btc["post_price"]!=="TBC")
+                        {
+                        inc=Math.round(((btc.post_price-btc.pre_price)/btc.pre_price)*10000)/100;
+                        btc['percentage']=inc+" %";
+                        btc["post_price"]="$ "+btc["post_price"];
+                        }
+                      btc["pre_price"]="$ "+btc["pre_price"];
+                      console.log(btc)
+                      self.setState({btc_pool:btc});
+                    })
+                  })
+                }
+                else {
                   self.setState({btc_pool:btc});
+                }
                 });
               });
           });
@@ -105,7 +182,7 @@ export default class ETHRadio extends React.Component{
   {
     this.setState({ rSelected });
     this.props.onSubmit(rSelected);
-    this.props.totalBets(this.state.totalBets);
+    // this.props.totalBets(this.state.totalBets);
   }
   componentWillMount()
   {
@@ -131,8 +208,15 @@ export default class ETHRadio extends React.Component{
   componentDidUpdate(){
     if(this.state.contract!==this.props.currentContract)
     {
+    this.setState({totalCoins:0,totalAmountBet:0})
     this.getCoinDetails();
     }
+    if(this.state.totalCoins===3)
+      {
+      // console.log('Accesed')
+      this.props.totalBets(this.state.totalAmountBet);
+      this.setState({totalCoins:4})
+      }
   }
   render()
   {
@@ -149,6 +233,7 @@ export default class ETHRadio extends React.Component{
             <th><center>Number of bets</center></th>
             <th><center>Race start price</center></th>
             <th><center>Race end price</center></th>
+            <th><center>Percentage Gain</center></th>
           </tr>
         </thead>
         <tbody>
@@ -159,6 +244,7 @@ export default class ETHRadio extends React.Component{
             <td>{this.state.btc_pool.number_of_bets}</td>
             <td>{this.state.btc_pool.pre_price}</td>
             <td>{this.state.btc_pool.post_price}</td>
+            <td>{this.state.btc_pool.percentage}</td>
           </tr>
           <tr>
             <th scope="row"> <Button className="betlist" onClick={() => this.handleChange("ETH")} active={this.state.rSelected === "ETH"} type="radio" name={this.props.name}>ETH</Button></th>
@@ -167,6 +253,7 @@ export default class ETHRadio extends React.Component{
             <td>{this.state.eth_pool.number_of_bets}</td>
             <td>{this.state.eth_pool.pre_price}</td>
             <td>{this.state.eth_pool.post_price}</td>
+            <td>{this.state.eth_pool.percentage}</td>
           </tr>
 
           <tr>
@@ -176,6 +263,7 @@ export default class ETHRadio extends React.Component{
             <td>{this.state.ltc_pool.number_of_bets}</td>
             <td>{this.state.ltc_pool.pre_price}</td>
             <td>{this.state.ltc_pool.post_price}</td>
+            <td>{this.state.ltc_pool.percentage}</td>
           </tr>
 
         </tbody>

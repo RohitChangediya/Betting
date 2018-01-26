@@ -306,6 +306,8 @@ border-bottom: 5px solid blue;
 .active{
   background-color: green;
 }
-
+.disable-el{
+  display: none!important;
+}
 
 ul li.active  { color: #f4ba51 ; }

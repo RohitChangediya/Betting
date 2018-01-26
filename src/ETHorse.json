@@ -401,5 +401,6 @@
 	"name": "Withdraw",
 	"type": "event"
 }],
-	"address": "0x64318483Bca15dDb9335987eb91b5a9C39AA55A5"
+	"address": "0x64318483Bca15dDb9335987eb91b5a9C39AA55A5",
+	"controllerAddress":"0x164f38736e38d07e64d2f3a9238db94d8a232a57"
 }
