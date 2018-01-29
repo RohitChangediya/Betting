@@ -78,8 +78,6 @@ export default class ETHRadio extends React.Component{
     bets=Math.round(bets*100)/100;
     let coins=parseInt(this.state.totalCoins)
     coins=coins+1;
-    // let url="https://api.coinmarketcap.com/v1/ticker/"+
-    // fetch('https://api.coinmarketcap.com/v1/ticker/')
     this.setState({totalAmountBet:bets,totalCoins:coins})
     // console.log(this.state.totalAmountBet)
     return coin_details;
@@ -95,7 +93,7 @@ export default class ETHRadio extends React.Component{
                   var eth=self.getOddsDetails(value,reward);
                   if(eth.pre_price!=="TBC")
                       {
-                      let val=fetch("https://api.coinmarketcap.com/v1/ticker/ethereum/")
+                      fetch("https://api.coinmarketcap.com/v1/ticker/ethereum/")
                       .then(function(details){
                         // console.log(details.json().then());
                         return details.json().then(
@@ -109,7 +107,7 @@ export default class ETHRadio extends React.Component{
                               eth["post_price"]="$ "+eth["post_price"];
                               }
                             eth["pre_price"]="$ "+eth["pre_price"];
-                            console.log(eth)
+                            // console.log(eth)
                             self.setState({eth_pool:eth});
                           })
                       })
@@ -123,7 +121,7 @@ export default class ETHRadio extends React.Component{
                   var ltc=self.getOddsDetails(value,reward);
                   if(ltc.pre_price!=="TBC")
                     {
-                    let val=fetch("https://api.coinmarketcap.com/v1/ticker/litecoin/")
+                    fetch("https://api.coinmarketcap.com/v1/ticker/litecoin/")
                     .then(function(details){
                       // console.log(details.json().then());
                       return details.json()
@@ -137,7 +135,7 @@ export default class ETHRadio extends React.Component{
                             ltc["post_price"]="$ "+ltc["post_price"];
                             }
                           ltc["pre_price"]="$ "+ltc["pre_price"];
-                          console.log(ltc)
+                          // console.log(ltc)
                           self.setState({ltc_pool:ltc});
                         })
                     })
@@ -150,7 +148,7 @@ export default class ETHRadio extends React.Component{
                   var btc=self.getOddsDetails(value,reward);
                   if(btc.pre_price!=="TBC")
                     {
-                  let val=fetch("https://api.coinmarketcap.com/v1/ticker/bitcoin/")
+                  fetch("https://api.coinmarketcap.com/v1/ticker/bitcoin/")
                   .then(function(details){
                     // console.log(details.json().then());
                     return details.json()
@@ -164,7 +162,7 @@ export default class ETHRadio extends React.Component{
                         btc["post_price"]="$ "+btc["post_price"];
                         }
                       btc["pre_price"]="$ "+btc["pre_price"];
-                      console.log(btc)
+                      // console.log(btc)
                       self.setState({btc_pool:btc});
                     })
                   })

@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 
 import ethorsejson from './ETHorse.json';
-import controllerjson from './BettingControllerABI.json'
 import addressjson from './Address.json';
+import WeekList from './WeekList'
+import {Accordion} from 'semantic-ui-react'
 
-import {ListGroup, ListGroupItem} from 'reactstrap';
-import Moment from 'react-moment';
 var moment = require('moment');
 
 var Web3 = require('web3');
@@ -15,7 +14,6 @@ var web3 = new Web3(Web3.givenProvider);
 
 var myContract = contract(ethorsejson);
 
-var bettingController = contract(controllerjson);
 
 if(web3.currentProvider!=null)
 {
@@ -27,10 +25,10 @@ export default class ContractSidebar extends Component {
   constructor(props)
     {
     super(props);
-    this.state={timejson:[],currentTime:"Change Races",duplicatejson:{},prevActive:null,classActive:false};
+    this.state={timejson:[],currentTime:"Change Races",duplicatejson:{},prevActive:null,classActive:false,activeIndex:0};
     this.handleChange=this.handleChange.bind(this);
     this.initiate=this.initiate.bind(this);
-    this.contractList=this.contractList.bind(this);
+    this.updateContract=this.updateContract.bind(this);
     }
   componentWillMount()
     {
@@ -40,19 +38,16 @@ export default class ContractSidebar extends Component {
   componentDidMount()
     {
     addressjson.addresses.map(row => this.getDate(row.address))
-    let self=this;
     }
   componentDidUpdate()
     {
     if(this.state.classActive===false && this.state.timejson.length===addressjson.addresses.length)
       {
-      document.getElementById(addressjson.addresses[0].address).classList.add('active');
+      // document.getElementById(addressjson.addresses[0].address).classList.add('active');
       }
     }
-  contractList()
-    {
-    
-    }
+
+
   getDate(address)
     {
     let self=this;
@@ -87,7 +82,7 @@ export default class ContractSidebar extends Component {
       }
     if(this.state.classActive===false)
     {
-      document.getElementById(addressjson.addresses[0].address).classList.remove('active');
+      // document.getElementById(addressjson.addresses[0].address).classList.remove('active');
       this.setState({classActive:true});
     }
     // console.log(this.state.prevActive);
@@ -107,6 +102,12 @@ export default class ContractSidebar extends Component {
     this.props.onContractSubmit(rSelected);
   }
 
+  updateContract(contract)
+  {
+      console.log('Contract')
+      console.log(contract);
+  }
+
 
   render() {
 
@@ -116,21 +117,15 @@ export default class ContractSidebar extends Component {
       this.state.timejson.sort(function (x,y) {
         return ((x.start_time_sort === y.start_time_sort) ? 0 : ((x.start_time_sort < y.start_time_sort) ? 1 : -1 ));
       })
-      let timejson=this.state.timejson;
     return (
       <div style={{ height:'100%',overflow:'scroll'}}>
-
-          <ListGroup className="top" >
-            <span style={{color:'#868e96'}}><h3>Change Race</h3></span>
-          <br></br>
-            {timejson.map(row =>
-            <ListGroupItem tag="button" onClick={(event) => this.handleChange(event)} key={row.address} id={row.address}>
-              {/* <Moment format="ddd, DD MMM YYYY, HH:SS" name={row.address}>{row.start_time.toString()}</Moment> */}
-              {row.start_time.toString()}
-            </ListGroupItem>
-          )}
-          </ListGroup>
-
+          <span style={{color:'#868e96'}}><h3>Change Race</h3></span>
+          <Accordion style={{ marginTop:'20%'}}>
+              <WeekList title="Week 1" number={0} date={parseInt((new Date).getTime()/1000)} contractUpdate={(event) => this.handleChange(event)} parentState={this}/>
+              <WeekList title="Week 2" number={1} date={parseInt((new Date).getTime()/1000)-604800} contractUpdate={(event) => this.handleChange(event)} parentState={this}/>
+              <WeekList title="Week 3" number={2} date={parseInt((new Date).getTime()/1000)-604800*2} contractUpdate={(event) => this.handleChange(event)} parentState={this}/>
+              <WeekList title="Week 4" number={3} date={parseInt((new Date).getTime()/1000)-604800*3} contractUpdate={(event) => this.handleChange(event)} parentState={this}/>
+          </Accordion>
       </div>
       )
 

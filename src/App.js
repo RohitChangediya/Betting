@@ -18,6 +18,8 @@ import { Message, Icon } from 'semantic-ui-react'
 var Web3 = require('web3');
 var contract = require("truffle-contract");
 
+// var web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/fiU7lUVCRq4v4seGf8XN"));
+
 var web3 = new Web3(Web3.givenProvider);
 
 var myContract = contract(ethorsejson);
@@ -210,7 +212,7 @@ class App extends Component {
                     {
                     // ct=setInterval(self.findResultTime,950)
                     // console.log(race_duration);
-                    let race_duration_utc=new Date(race_duration)
+                    // let race_duration_utc=new Date(race_duration)
                     // console.log('Dur ',race_duration_utc);
                     self.setState({timeInterval:ct,betPhase:'Results in ',resultTime:((start_time+race_duration)*1000)})
                     let time=parseInt(start_time)+parseInt(race_duration)-new Date()/1000
@@ -232,7 +234,7 @@ class App extends Component {
           instance.race_duration().then(function(race_duration){
 
             instance.betting_duration().then(function(betting_duration){
-              var race_duration_final;
+              // var race_duration_final;
               race_duration=parseInt(race_duration,10)
               betting_duration=parseInt(betting_duration,10)
                 let race_duration_utc=new Date(race_duration-betting_duration)
@@ -544,13 +546,13 @@ class App extends Component {
     {/* <Jumbotron style={{ 'textAlign': 'center'}} fluid> */}
     {/* <Container fluid  style={{ 'height': '100%'}}> */}
       <div className="row" >
-      <div className="col-md-2 mx-auto left-sidebar" style={{ 'margin-top': '5vh',position:'fixed'}}>
+      <div className="col-md-2 mx-auto left-sidebar" style={{ 'marginTop': '5vh',position:'fixed'}}>
         {/* <Container> */}
           <ContractSidebar onContractSubmit={this.contractUpdate.bind(this)}/>
         {/* </Container> */}
       </div>
       {/* <div className="col-md-2 mx-auto"></div> */}
-      <div className="col-md-7 mx-auto"  style={{ 'margin-top': '10vh'}}>
+      <div className="col-md-7 mx-auto"  style={{ 'marginTop': '10vh'}}>
         <div className="row">
 
           <div className="col-md-10 mx-auto">
@@ -634,7 +636,7 @@ class App extends Component {
 
     </div>
     </div>
-    <div className="col-md-2 mx-auto right-sidebar" style={{ 'margin-top': '5vh',position:'fixed'}}>
+    <div className="col-md-2 mx-auto right-sidebar" style={{ 'marginTop': '5vh',position:'fixed'}}>
       <Table style={{top:'10%',position:'relative'}}>
         <tbody>
           <p style={{color:'#868e96', left:0}}><h3>Status</h3></p>
