@@ -22,8 +22,11 @@ export default class  WeekList extends Component{
           }
       }).then(function(contracts){
           contracts.json().then(function(value){
-              console.log(value)
               self.setState({contract:value})
+              if(value.length>0 && self.props.number===0)
+                {
+                self.props.initiate(value[0].contractid)
+                }
           })
       })
       return val;

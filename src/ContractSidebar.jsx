@@ -27,14 +27,14 @@ export default class ContractSidebar extends Component {
     super(props);
     this.state={timejson:[],currentTime:"Change Races",duplicatejson:{},prevActive:null,classActive:false,activeIndex:0};
     this.handleChange=this.handleChange.bind(this);
-    this.initiate=this.initiate.bind(this);
+    // this.initiate=this.initiate.bind(this);
     this.updateContract=this.updateContract.bind(this);
     }
-  componentWillMount()
-    {
-    if(this.state.timejson.length!==addressjson.addresses.length)
-      this.initiate(addressjson.addresses[0].address)
-    }
+  // componentWillMount()
+  //   {
+  //   if(this.state.timejson.length!==addressjson.addresses.length)
+  //     this.initiate(addressjson.addresses[0].address)
+  //   }
   componentDidMount()
     {
     addressjson.addresses.map(row => this.getDate(row.address))
@@ -96,9 +96,6 @@ export default class ContractSidebar extends Component {
 
   initiate(rSelected)
   {
-    // console.log(this.refs[rSelected])
-
-    // this.refs[rSelected].className="list-group-item active";
     this.props.onContractSubmit(rSelected);
   }
 
@@ -111,17 +108,12 @@ export default class ContractSidebar extends Component {
 
   render() {
 
-    if(this.state.timejson.length===addressjson.addresses.length)
-    {
 
-      this.state.timejson.sort(function (x,y) {
-        return ((x.start_time_sort === y.start_time_sort) ? 0 : ((x.start_time_sort < y.start_time_sort) ? 1 : -1 ));
-      })
     return (
       <div style={{ height:'100%',overflow:'scroll'}}>
           <span style={{color:'#868e96'}}><h3>Change Race</h3></span>
           <Accordion style={{ marginTop:'20%'}}>
-              <WeekList title="Week 1" number={0} date={parseInt((new Date).getTime()/1000)} contractUpdate={(event) => this.handleChange(event)} parentState={this}/>
+              <WeekList title="Week 1" number={0} date={parseInt((new Date).getTime()/1000)} contractUpdate={(event) => this.handleChange(event)} parentState={this} initiate={this.initiate.bind(this)}/>
               <WeekList title="Week 2" number={1} date={parseInt((new Date).getTime()/1000)-604800} contractUpdate={(event) => this.handleChange(event)} parentState={this}/>
               <WeekList title="Week 3" number={2} date={parseInt((new Date).getTime()/1000)-604800*2} contractUpdate={(event) => this.handleChange(event)} parentState={this}/>
               <WeekList title="Week 4" number={3} date={parseInt((new Date).getTime()/1000)-604800*3} contractUpdate={(event) => this.handleChange(event)} parentState={this}/>
@@ -129,7 +121,5 @@ export default class ContractSidebar extends Component {
       </div>
       )
 
-        }
-        return(<div/>)
   }
 }

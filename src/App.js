@@ -15,6 +15,7 @@ import FlipClock from './FlipClock-master/compiled/flipclock.js'
 import {Jumbotron, Container, Button, InputGroup, InputGroupButton, InputGroupAddon, Input, UncontrolledTooltip, Table } from 'reactstrap'
 import { Message, Icon } from 'semantic-ui-react'
 
+
 var Web3 = require('web3');
 var contract = require("truffle-contract");
 
@@ -695,7 +696,7 @@ class App extends Component {
           {
             return(<div>
                     <Header contractUpdate={this.contractUpdate.bind(this)}/>
-                    <Contract onContractSubmit={this.contractUpdate.bind(this)}/>
+                    <ContractSidebar onContractSubmit={this.contractUpdate.bind(this)}/>
                   </div>
                   )
           }
