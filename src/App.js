@@ -14,6 +14,7 @@ import jQuery from 'jquery'
 import FlipClock from './FlipClock-master/compiled/flipclock.js'
 import {Jumbotron, Container, Button, InputGroup, InputGroupButton, InputGroupAddon, Input, UncontrolledTooltip, Table } from 'reactstrap'
 import { Message, Icon } from 'semantic-ui-react'
+var moment = require('moment');
 
 
 var Web3 = require('web3');
@@ -74,7 +75,8 @@ class App extends Component {
                 duration:"",
                 bettingStatus:false,
                 clock:null,
-                t_bets:0
+                t_bets:0,
+                nextRace:''
                 };
     this.invokeContract=this.invokeContract.bind(this);
     this.convertMS=this.convertMS.bind(this);
@@ -295,11 +297,7 @@ class App extends Component {
   }
   componentWillMount()
     {
-    // if(this.state.contract!==null)
-    // {
-    // this.componentLoad();
-    //
-    // }
+    this.getNextRace();
     }
   componentDidMount(){
     if(this.state.contract!==null)
@@ -414,15 +412,7 @@ class App extends Component {
         });
     }
 
-  onDismiss(err) {
-      if(err==="Error")
-        {
-        this.setState({ visible: true });
-        }
-      else {
-        this.setState({ visible: false });
-      }
-    }
+
 
   checkRewards()
     {
@@ -483,6 +473,37 @@ class App extends Component {
               });
         });
     }
+    claim()
+      {
+      console.log('claim')
+      myContract.at(this.state.contract).then(function(instance)
+            {
+
+              var ethAccount;
+              web3.eth.getAccounts(function(err, accounts){
+                ethAccount=accounts[0]
+              }).then(function(){
+                console.log(ethAccount)
+                if(ethAccount===undefined){
+                    alert('Your Metamask seems to be locked. Please unlock to place a bet.')
+                } else {
+                  const txo = {
+                    from: ethAccount
+                  };
+                    instance.claim_reward.estimateGas(txo).then(function(gas)
+                  {
+                    txo.gas=gas;
+                    instance.claim_reward(txo).then(function(res,error)
+                      {
+
+                      });
+                  })
+                }
+
+              });
+
+            });
+      }
   contractUpdate(contract)
   {
     let self=this;
@@ -499,36 +520,29 @@ class App extends Component {
       });
     });
   }
-  claim()
+  getNextRace()
     {
-    console.log('claim')
-    myContract.at(this.state.contract).then(function(instance)
-          {
+    let self=this;
+    fetch("http://localhost:3000/contract/getNextRace",{
+        method:'GET',
+    }).then(function(contracts){
 
-            var ethAccount;
-            web3.eth.getAccounts(function(err, accounts){
-              ethAccount=accounts[0]
-            }).then(function(){
-              console.log(ethAccount)
-              if(ethAccount===undefined){
-                  alert('Your Metamask seems to be locked. Please unlock to place a bet.')
-              } else {
-                const txo = {
-                  from: ethAccount
-                };
-                  instance.claim_reward.estimateGas(txo).then(function(gas)
-                {
-                  txo.gas=gas;
-                  instance.claim_reward(txo).then(function(res,error)
-                    {
+        contracts.json().then(function(value){
+            console.log(value.date)
+            // self.setState({contract:value})
+              self.setState({nextRace:(moment(parseInt(value.date)*1000).format('ddd, DD MMM YYYY, HH:SS')).toString()})
+        })
+    })
+    }
 
-                    });
-                })
-              }
-
-            });
-
-          });
+  onDismiss(err) {
+      if(err==="Error")
+        {
+        this.setState({ visible: true });
+        }
+      else {
+        this.setState({ visible: false });
+      }
     }
   totalBets(bets)
   {
@@ -665,6 +679,9 @@ class App extends Component {
         {this.state.betPhase}<br></br>
         <div className="flipclock" style={{width:'auto',display:'inline-block'}}/>
       </div>
+      <div className="nextRace"style={{top:'15%',position:'relative',textAlign:'center'}}>
+          Next Race begins at: {this.state.nextRace}
+      </div>
       <div style={{bottom:'5%',position:'absolute'}}>
       <p >Join our community to stay tuned. <br/>
         <a style={{'marginRight':'3%'}} target="_blank" rel="noopener noreferrer" href="https://telegram.me/ethorse" ><img alt="telegram" src="https://png.icons8.com/windows/50/ffffff/telegram-app.png"/></a>
@@ -677,14 +694,7 @@ class App extends Component {
       {/* </Container> */}
     </div>
     </div>
-    {/* </Container> */}
-    {/* </Jumbotron> */}
-    {/* <div>
-      <UncontrolledTooltip placement="right" target="PlaceBetTooltip">
-        Hello world!
-      </UncontrolledTooltip>
 
-    </div> */}
 
     </div>
     </div>

@@ -18,7 +18,8 @@ export default class  WeekList extends Component{
           method:'GET',
           headers:{
               to:this.props.date,
-              from:this.props.date-604800
+              from:this.props.date-604800,
+              currentTime:this.props.currentTime
           }
       }).then(function(contracts){
           contracts.json().then(function(value){

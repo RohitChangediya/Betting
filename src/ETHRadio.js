@@ -22,9 +22,9 @@ export default class ETHRadio extends React.Component{
     this.onDismiss = this.onDismiss.bind(this);
     this.checkValue=this.checkValue.bind(this);
     this.getOddsDetails=this.getOddsDetails.bind(this);
-    var eth={pool_total:null,odds:null,number_of_bets:null,pre_price:'TBC',post_price:'TBC',gain:'TBC',name:'ethereum'}
-    var btc={pool_total:null,odds:null,number_of_bets:null,pre_price:'TBC',post_price:'TBC',gain:'TBC',name:'bitcoin'}
-    var ltc={pool_total:null,odds:null,number_of_bets:null,pre_price:'TBC',post_price:'TBC',gain:'TBC',name:'litecoin'}
+    var eth={pool_total:null,odds:null,number_of_bets:null,pre_price:'TBC',post_price:'TBC',gain:'TBC',name:'ethereum',percentage:'TBC'}
+    var btc={pool_total:null,odds:null,number_of_bets:null,pre_price:'TBC',post_price:'TBC',gain:'TBC',name:'bitcoin',percentage:'TBC'}
+    var ltc={pool_total:null,odds:null,number_of_bets:null,pre_price:'TBC',post_price:'TBC',gain:'TBC',name:'litecoin',percentage:'TBC'}
     this.state={rSelected:'',
                 eth:'primary',
                 btc:'primary',
