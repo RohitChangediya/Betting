@@ -1,0 +1,96 @@
+body{
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	background: #262F4A !important;
+}
+.top-bar, .minified-bar{
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100px;
+	padding-top: 30px !important;
+	background: #28324f !important;
+	-webkit-box-shadow: 0px 6px 18px rgba(0,0,0,0.12);
+	box-shadow: 0px 6px 18px rgba(0,0,0,0.12);
+	z-index: 99;
+}
+.minified-bar{
+	display: none;
+}
+@media screen and (max-width: 1250px){
+	.top-bar{
+		display: none;
+	}
+	.minified-bar{
+		display: block;
+	}
+}
+.hamburger-icon{
+	position: relative;
+	display: inline-block;
+	width: 32px;
+	height: 32px;
+	margin-top: 4px;
+	margin-left: 20px;
+	cursor: pointer;
+	transition: opacity 0.5s ease-out;
+}
+.hamburger-icon:hover{
+	opacity: 0.54;
+}
+.logo{
+	display: inline-block;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}
+.minified-bar-logo{
+	display: inline-block;
+	position: absolute;
+	top: 0;
+	left: 50%;
+	margin-left: -100px;
+}
+.logo-img{
+	display: block;
+	width: 200px;
+	height: 100px;
+}
+.menu-items{
+	margin: 0;
+	margin-top: 7px;
+	padding: 0;
+	list-style: none;
+}
+.menu-items li{
+	display: inline;
+	margin-left: 2%;
+}
+.menu-items li a{
+	text-decoration: none;
+	font-family: Ubuntu, sans-serif;
+	font-weight: 300;
+	color: #ffffff;
+	font-size: 90%;
+	display: inline-block;
+}
+.social-icons{
+	margin: 0;
+	margin-top: -21px;
+	margin-right: 30px;
+	padding: 0;
+	list-style: none;
+}
+.social-icons li{
+	display: inline;
+	margin-left: 15px;
+}
+.social-icons li a{
+	display: inline-block;
+}
+.social-icons li a img{
+	display: block;
+	width: 20px;
+	height: 20px;
+}

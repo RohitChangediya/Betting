@@ -20,7 +20,7 @@ var moment = require('moment');
 var Web3 = require('web3');
 var contract = require("truffle-contract");
 
-// var web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/fiU7lUVCRq4v4seGf8XN"));
+// var web3 = new Web3(new Web3.providers.HttpProvider("https://kovan.infura.io/fiU7lUVCRq4v4seGf8XN"));
 
 var web3 = new Web3(Web3.givenProvider);
 
@@ -76,7 +76,8 @@ class App extends Component {
                 bettingStatus:false,
                 clock:null,
                 t_bets:0,
-                nextRace:''
+                nextRace:'',
+                targetNetwork:'kovan'
                 };
     this.invokeContract=this.invokeContract.bind(this);
     this.convertMS=this.convertMS.bind(this);
@@ -403,7 +404,7 @@ class App extends Component {
   coinValue(coin)
     {
       var self=this;
-
+      
         self.state.contractInstance.race_end().then(function(state){
           if(state===false)
           {
@@ -475,7 +476,7 @@ class App extends Component {
     }
     claim()
       {
-      console.log('claim')
+      // console.log('claim')
       myContract.at(this.state.contract).then(function(instance)
             {
 
@@ -483,7 +484,7 @@ class App extends Component {
               web3.eth.getAccounts(function(err, accounts){
                 ethAccount=accounts[0]
               }).then(function(){
-                console.log(ethAccount)
+                // console.log(ethAccount)
                 if(ethAccount===undefined){
                     alert('Your Metamask seems to be locked. Please unlock to place a bet.')
                 } else {
@@ -528,7 +529,7 @@ class App extends Component {
     }).then(function(contracts){
 
         contracts.json().then(function(value){
-            console.log(value.date)
+            // console.log(value.date)
             // self.setState({contract:value})
               self.setState({nextRace:(moment(parseInt(value.date)*1000).format('ddd, DD MMM YYYY, HH:SS')).toString()})
         })
@@ -551,7 +552,7 @@ class App extends Component {
   }
   render()
     {
-    if(web3.currentProvider!=null  && this.state.network==="Ropsten" && this.state.contract!==null)
+    if(web3.currentProvider!=null  && this.state.network==="Kovan" && this.state.contract!==null)
     {
     var renderContent=(<div className="full-height">
 
@@ -572,7 +573,7 @@ class App extends Component {
 
           <div className="col-md-10 mx-auto">
           <h5 className="hidden" id="faucet">
-            Get some ropsten ethers to try the dapp. <a href="https://faucet.metamask.io/" style={{  'color':'orange' }}>Metamask Faucet</a>
+            Get some kovan ethers to try the dapp. <a href="https://faucet.metamask.io/" style={{  'color':'orange' }}>Metamask Faucet</a>
           </h5>
           </div>
         </div>
@@ -608,21 +609,11 @@ class App extends Component {
             </InputGroupButton>
           </InputGroup>
           <br/>
-          <InputGroup >
-          <InputGroupButton>
-          <a id="CheckResultTooltip"><Button type="button"  color="info" size="lg" className="tool-tip" onClick={this.checkRewards} disabled={!this.state.claim}><span className="reload">&#x21bb;</span>&nbsp;Result</Button></a>
-          <UncontrolledTooltip placement="left" target="CheckResultTooltip">
-            Click to check the bet result after the results are announced for this race. Enabled only after the race is completed.
-          </UncontrolledTooltip>
-          </InputGroupButton>
-          <Input disabled={true} value={this.state.reward}/>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <a id="ClaimTooltip"><Button type="button" size="lg" onClick={this.claim} id="claim" className="tool-tip" disabled={!this.state.claim}>Claim</Button></a>
-          <UncontrolledTooltip placement="right" target="ClaimTooltip">
-            Click to claim reward if you win. This opens a Metamask window to send an empty traction. Submitting that will get your winnings deposited to your wallet.
-          </UncontrolledTooltip>
-          </InputGroup>
-
+          <div class="result text-center"><img class="img-responsive speaker-icon" src={require("./assets/Orion_champion.png")}/>{this.state.reward.toString()}</div>
+  		  <div class="text-center">
+      			<button type="button" class="btn check-result-button text-center" onClick={this.checkRewards} disabled={!this.state.claim}><img class="refresh img-responsive" src={require("./assets/Orion_restart.png")}/>Check Results</button>
+      			<button type="button" class="btn claim-button" onClick={this.claim} disabled={!this.state.claim}><img class="megaphone img-responsive" src={require("./assets/Orion_megaphone.png")}/>Claim</button>
+  		  </div>
           <br/>
           <br/>
           <div>
@@ -683,11 +674,6 @@ class App extends Component {
           Next Race begins at: {this.state.nextRace}
       </div>
       <div style={{bottom:'5%',position:'absolute'}}>
-      <p >Join our community to stay tuned. <br/>
-        <a style={{'marginRight':'3%'}} target="_blank" rel="noopener noreferrer" href="https://telegram.me/ethorse" ><img alt="telegram" src="https://png.icons8.com/windows/50/ffffff/telegram-app.png"/></a>
-        <a style={{'marginRight':'3%'}} target="_blank" rel="noopener noreferrer" href="https://discord.gg/vdTXRmT" ><img alt="discord" src="https://png.icons8.com/ios/50/ffffff/discord-logo.png"/></a>
-        <a href="https://github.com/ethorse" target="_blank" rel="noopener noreferrer" ><img alt="github" src="https://png.icons8.com/windows/50/ffffff/github.png"/></a>
-      </p>
     </div>
       {/* <Container> */}
         {/* <ContractSidebar onContractSubmit={this.contractUpdate.bind(this)}/> */}
@@ -710,14 +696,14 @@ class App extends Component {
                   </div>
                   )
           }
-          else if(this.state.network!=="Ropsten")
+          else if(this.state.network!=="kovan")
           {
           return(<Jumbotron style={{ 'textAlign': 'center'}} fluid>
           <Container>
               <h3>Your Metamask is on {this.state.network} network.<br/>
-          Please switch to Ropsten Testnet as shown below.</h3>
+          Please switch to kovan Testnet as shown below.</h3>
           <br/>
-          <img src="https://github.com/MetaMask/faq/raw/master/images/click-the-test-network.png" target="_blank" alt="switch to ropsten"/>
+          <img src="https://github.com/MetaMask/faq/raw/master/images/click-the-test-network.png" target="_blank" alt="switch to kovan"/>
         </Container>
         </Jumbotron>)
       }

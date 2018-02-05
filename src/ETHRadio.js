@@ -70,16 +70,18 @@ export default class ETHRadio extends React.Component{
     var coin_bet=parseFloat(web3.utils.fromWei(value[0],"ether"))
     if(coin_bet>0)
       profit= Math.round((reward/coin_bet)*100-100)/100;
-    // let name=this.state
     var coin_details={pool_total:web3.utils.fromWei(value[0].toString(),"ether"),pre_price:(value[1]/100),post_price:(value[2]/100),odds:(profit),number_of_bets:value[4].toString()}
     coin_details.pre_price=this.checkValue(coin_details.pre_price);
+    if(coin_details.pre_price==='TBC')
+        {
+        coin_details.percentage='TBC';
+        }
     coin_details.post_price=this.checkValue(coin_details.post_price);
     let bets=parseFloat(this.state.totalAmountBet)+parseFloat(web3.utils.fromWei(value[0].toString(),"ether"))
     bets=Math.round(bets*100)/100;
     let coins=parseInt(this.state.totalCoins)
     coins=coins+1;
     this.setState({totalAmountBet:bets,totalCoins:coins})
-    // console.log(this.state.totalAmountBet)
     return coin_details;
     }
   getCoinDetails()
@@ -107,11 +109,9 @@ export default class ETHRadio extends React.Component{
                               eth["post_price"]="$ "+eth["post_price"];
                               }
                             eth["pre_price"]="$ "+eth["pre_price"];
-                            // console.log(eth)
                             self.setState({eth_pool:eth});
                           })
                       })
-                      // console.log(val)
                       }
                   else {
                     self.setState({eth_pool:eth});
@@ -178,6 +178,7 @@ export default class ETHRadio extends React.Component{
     }
   handleChange(rSelected)
   {
+     console.log(rSelected);
     this.setState({ rSelected });
     this.props.onSubmit(rSelected);
     // this.props.totalBets(this.state.totalBets);
@@ -221,52 +222,120 @@ export default class ETHRadio extends React.Component{
 
     return(
       <div>
-      <Table inverse striped hover size="md" className="bet-components">
-
-        <thead>
-          <tr>
-            <th>Select a coin</th>
-            <th><center>Pool Total (ETH)</center></th>
-            <th><center>Odds (Profit for 1 ETH)</center></th>
-            <th><center>Number of bets</center></th>
-            <th><center>Race start price</center></th>
-            <th><center>Race end price</center></th>
-            <th><center>Percentage Gain</center></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row"> <Button className="betlist" onClick={() => this.handleChange("BTC")} active={this.state.rSelected === "BTC"} type="radio" name={this.props.name}>BTC</Button></th>
-            <td>{this.state.btc_pool.pool_total}</td>
-            <td>{this.state.btc_pool.odds}</td>
-            <td>{this.state.btc_pool.number_of_bets}</td>
-            <td>{this.state.btc_pool.pre_price}</td>
-            <td>{this.state.btc_pool.post_price}</td>
-            <td>{this.state.btc_pool.percentage}</td>
-          </tr>
-          <tr>
-            <th scope="row"> <Button className="betlist" onClick={() => this.handleChange("ETH")} active={this.state.rSelected === "ETH"} type="radio" name={this.props.name}>ETH</Button></th>
-            <td>{this.state.eth_pool.pool_total}</td>
-            <td>{this.state.eth_pool.odds}</td>
-            <td>{this.state.eth_pool.number_of_bets}</td>
-            <td>{this.state.eth_pool.pre_price}</td>
-            <td>{this.state.eth_pool.post_price}</td>
-            <td>{this.state.eth_pool.percentage}</td>
-          </tr>
-
-          <tr>
-            <th scope="row"> <Button className="betlist" onClick={() => this.handleChange("LTC")} active={this.state.rSelected === "LTC"} name={this.props.name}>LTC</Button></th>
-            <td>{this.state.ltc_pool.pool_total}</td>
-            <td>{this.state.ltc_pool.odds}</td>
-            <td>{this.state.ltc_pool.number_of_bets}</td>
-            <td>{this.state.ltc_pool.pre_price}</td>
-            <td>{this.state.ltc_pool.post_price}</td>
-            <td>{this.state.ltc_pool.percentage}</td>
-          </tr>
-
-        </tbody>
-
-      </Table>
+      <div class="container crypto-container btc-container">
+			<div class="row">
+				<div class="col-lg-2">
+					<div class="select_coin text-left">Select a Coin</div>
+					<div class="btc-radio-button text-center" onClick={() => this.handleChange("BTC")}><i class="fa fa-circle-o" aria-hidden="true"></i></div>
+					<img class="img-responsive crypto-logo text-center" src={require("./assets/bitcoin.png")}/>
+					<div class="crypto_name">BTC</div>
+				</div>
+                <div class="col-lg-10">
+                    <div class="row">
+        				<div class="col-lg-2">
+        					<div class="pool_total text-center">Pool Total(ETH)</div>
+        					<div class="pool_total_value text-center">{this.state.btc_pool.pool_total}</div>
+        				</div>
+        				<div class="col-lg-2">
+        					<div class="odds text-center">Odds(Profits for 1 ETH)</div>
+        					<div class="odds_value text-center">{this.state.btc_pool.odds}</div>
+        				</div>
+        				<div class="col-lg-2">
+        					<div class="bets_number text-center">Number of Bets</div>
+        					<div class="bets_number_value text-center">{this.state.btc_pool.number_of_bets}</div>
+        				</div>
+        				<div class="col-lg-2">
+        					<div class="race_start_price text-center">Race Start Price</div>
+        					<div class="race_start_price_value text-center">{this.state.btc_pool.pre_price}</div>
+        				</div>
+        				<div class="col-lg-2">
+        					<div class="race_end_price text-center">Race End Price</div>
+        					<div class="race_start_price_value text-center">{this.state.btc_pool.post_price}</div>
+        				</div>
+                        <div class="col-lg-2">
+        					<div class="race_end_price text-center">Percentage Gain</div>
+        					<div class="race_start_price_value text-center">{this.state.btc_pool.percentage}</div>
+        				</div>
+                    </div>
+                </div>
+			</div>
+		</div>
+        <div class="container crypto-container eth-container">
+  			<div class="row">
+  				<div class="col-lg-2">
+  					<div class="select_coin text-left">Select a Coin</div>
+  					<div class="btc-radio-button text-center" onClick={() => this.handleChange("ETH")}><i class="fa fa-circle-o" aria-hidden="true"></i></div>
+  					<img class="img-responsive crypto-logo text-center" src={require('./assets/ethereum.png')}/>
+  					<div class="crypto_name">ETH</div>
+  				</div>
+                  <div class="col-lg-10">
+                      <div class="row">
+          				<div class="col-lg-2">
+          					<div class="pool_total text-center">Pool Total(ETH)</div>
+          					<div class="pool_total_value text-center">{this.state.eth_pool.pool_total}</div>
+          				</div>
+          				<div class="col-lg-2">
+          					<div class="odds text-center">Odds(Profits for 1 ETH)</div>
+          					<div class="odds_value text-center">{this.state.eth_pool.odds}</div>
+          				</div>
+          				<div class="col-lg-2">
+          					<div class="bets_number text-center">Number of Bets</div>
+          					<div class="bets_number_value text-center">{this.state.eth_pool.number_of_bets}</div>
+          				</div>
+          				<div class="col-lg-2">
+          					<div class="race_start_price text-center">Race Start Price</div>
+          					<div class="race_start_price_value text-center">{this.state.eth_pool.pre_price}</div>
+          				</div>
+          				<div class="col-lg-2">
+          					<div class="race_end_price text-center">Race End Price</div>
+          					<div class="race_start_price_value text-center">{this.state.eth_pool.post_price}</div>
+          				</div>
+                          <div class="col-lg-2">
+          					<div class="race_end_price text-center">Percentage Gain</div>
+          					<div class="race_start_price_value text-center">{this.state.eth_pool.percentage}</div>
+          				</div>
+                      </div>
+                  </div>
+  			</div>
+  		</div>
+        <div class="container crypto-container ltc-container">
+  			<div class="row">
+  				<div class="col-lg-2">
+  					<div class="select_coin text-left">Select a Coin</div>
+  					<div class="btc-radio-button text-center" onClick={() => this.handleChange("LTC")}><i class="fa fa-circle-o" aria-hidden="true"></i></div>
+  					<img class="img-responsive crypto-logo text-center" src={require("./assets/litecoin.png")}/>
+  					<div class="crypto_name">LTC</div>
+  				</div>
+                  <div class="col-lg-10">
+                      <div class="row">
+          				<div class="col-lg-2">
+          					<div class="pool_total text-center">Pool Total(ETH)</div>
+          					<div class="pool_total_value text-center">{this.state.ltc_pool.pool_total}</div>
+          				</div>
+          				<div class="col-lg-2">
+          					<div class="odds text-center">Odds(Profits for 1 ETH)</div>
+          					<div class="odds_value text-center">{this.state.ltc_pool.odds}</div>
+          				</div>
+          				<div class="col-lg-2">
+          					<div class="bets_number text-center">Number of Bets</div>
+          					<div class="bets_number_value text-center">{this.state.ltc_pool.number_of_bets}</div>
+          				</div>
+          				<div class="col-lg-2">
+          					<div class="race_start_price text-center">Race Start Price</div>
+          					<div class="race_start_price_value text-center">{this.state.ltc_pool.pre_price}</div>
+          				</div>
+          				<div class="col-lg-2">
+          					<div class="race_end_price text-center">Race End Price</div>
+          					<div class="race_start_price_value text-center">{this.state.ltc_pool.post_price}</div>
+          				</div>
+                          <div class="col-lg-2">
+          					<div class="race_end_price text-center">Percentage Gain</div>
+          					<div class="race_start_price_value text-center">{this.state.ltc_pool.percentage}</div>
+          				</div>
+                      </div>
+                  </div>
+  			</div>
+  		</div>
       </div>
     );
   }

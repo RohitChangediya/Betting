@@ -113,7 +113,6 @@ export default class Contract extends Component{
 
                   </DropdownMenu>
                 </UncontrolledDropdown>
-        {/* <span className="float-right" style={{'position': 'relative', 'right': '5px', 'fontSize':'25px' ,'top':'10px'}}>Change Race:</span> */}
         </div>
       );
 
