@@ -404,7 +404,7 @@ class App extends Component {
   coinValue(coin)
     {
       var self=this;
-      
+
         self.state.contractInstance.race_end().then(function(state){
           if(state===false)
           {

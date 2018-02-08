@@ -38,7 +38,6 @@ export default class WeekList extends Component {
         const {index} = titleProps
         const {activeIndex} = this.props.parentState
         const newIndex = this.props.parentState.state.activeIndex === index? -1: index
-
         this.props.parentState.setState({activeIndex: newIndex})
     }
     updateContract(contract) {
@@ -48,9 +47,20 @@ export default class WeekList extends Component {
 
         if (this.state.contract !== null && this.state.contract.length !== 0) {
             var contractjson = this.state.contract;
-            const Buttons = (contractjson.map(row => <Button id={row.contractid} color="link" key={row.contractid} onClick={(event) => this.updateContract(event)}>
-                {(moment(parseInt(row.date) * 1000).format('ddd, DD MMM YYYY, HH:SS')).toString()}
-            </Button>))
+            const Buttons = (contractjson.map(row => <div class={"race " + row.contractid} id={row.contractid} key={row.contractid} onClick={(event) => this.updateContract(event)}>
+                <ul>
+                    <li class={"days_number " + row.contractid}>
+                        <span class={row.contractid}>{(moment(parseInt(row.date) * 1000).format('DD')).toString()}</span>
+                    </li>
+                    <li class={"date " + row.contractid}>{(moment(parseInt(row.date) * 1000).format('dddd, MMM YYYY')).toString()}
+                        <br/>
+                        <span class={"hour  " + row.contractid}>{(moment(parseInt(row.date) * 1000).format('HH:SS')).toString()}</span>
+                    </li>
+                </ul>
+                <div class={"status-race-sidebar " + row.contractid}>Status
+                    <span class="status_race_value upcoming">{row.active}</span>
+                </div>
+            </div>))
 
             return (<div>
                 <Accordion.Title active={this.props.parentState.state.activeIndex === this.props.number} index={this.props.number} style={{

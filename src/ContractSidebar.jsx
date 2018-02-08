@@ -61,18 +61,21 @@ export default class ContractSidebar extends Component {
     }
 
     handleChange(event) {
-        if (this.state.prevActive != null) {
-            this.state.prevActive.className = "btn btn-link";
-        }
-        if (this.state.classActive === false) {
-            this.setState({classActive: true});
-        }
+        // if (this.state.prevActive != null) {
+        //     this.state.prevActive.className = "btn btn-link";
+        // }
+        // if (this.state.classActive === false) {
+        //     this.setState({classActive: true});
+        // }
+        console.log(event.target.className.split(' ').slice(-1)[0].startsWith("0x"))
+        console.log(event.target.name)
+        if(event.target.className.split(' ').slice(-1)[0].startsWith("0x")){
         this.setState({prevActive: event.target});
-        event.target.className = "btn btn-link btn-active";
+        // event.target.className = "btn btn-link btn-active";
         this.setState({
-            currentTime: this.state.duplicatejson[event.target.id]
+            currentTime: this.state.duplicatejson[event.target.className.split(' ').slice(-1)[0]]
         });
-        this.props.onContractSubmit(event.target.id);
+        this.props.onContractSubmit(event.target.className.split(' ').slice(-1)[0]);}
     }
 
     initiate(rSelected) {
@@ -81,24 +84,21 @@ export default class ContractSidebar extends Component {
 
     render() {
 
-        return (<div style={{
+        return (<div class="left-panel"><div style={{
                 height: '100%',
                 overflow: 'scroll'
             }}>
-            <span style={{
-                    color: '#868e96'
-                }}>
-                <h3>Change Race</h3>
-            </span>
-            <Accordion style={{
-                    marginTop: '20%'
+            <Accordion className="float-left" style={{
+                    marginTop: '0'
                 }}>
                 <WeekList title="Week 1" number={0} date={parseInt((new Date).getTime() / 1000)} contractUpdate={(event) => this.handleChange(event)} parentState={this} initiate={this.initiate.bind(this)} currentTime={parseInt((new Date).getTime() / 1000)}/>
                 <WeekList title="Week 2" number={1} date={parseInt((new Date).getTime() / 1000) - 604800} contractUpdate={(event) => this.handleChange(event)} parentState={this} currentTime={parseInt((new Date).getTime() / 1000)}/>
                 <WeekList title="Week 3" number={2} date={parseInt((new Date).getTime() / 1000) - 604800 * 2} contractUpdate={(event) => this.handleChange(event)} parentState={this} currentTime={parseInt((new Date).getTime() / 1000)}/>
                 <WeekList title="Week 4" number={3} date={parseInt((new Date).getTime() / 1000) - 604800 * 3} contractUpdate={(event) => this.handleChange(event)} parentState={this} currentTime={parseInt((new Date).getTime() / 1000)}/>
             </Accordion>
-        </div>)
+        </div>
+        </div>
+        )
 
     }
 }
