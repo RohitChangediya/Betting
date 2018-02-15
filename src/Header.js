@@ -46,50 +46,31 @@ export default class Header extends Component {
         var address_link = "https://ropsten.etherscan.io/address/" + this.props.contract + "#code";
         return (<div>
 
-            <div class="container-fluid top-bar" style={{
-                    height: '10%'
-                }}>
-                <a class="logo" href="#"><img class="logo-img" src={require("./assets/logo.png")}/></a>
-                <ul class="menu-items text-center">
+            <div class="container-fluid top-bar">
+            	<ul class="menu-items text-left">
                     <li>
                         <a href="https://www.youtube.com/watch?v=JS2uo7pSkn4" target="_blank">Demo Video</a>
                     </li>
                     <li>
                         <a href="#" onClick={this.toggle}>Help</a>
                     </li>
-                </ul>
-                <ul class="social-icons text-right" style={{
-                        marginTop: '-60px'
-                    }}>
-                    <li>
-                        <a target="_blank" rel="noopener noreferrer" href="https://telegram.me/ethorse" ><img src={require("./assets/telegram.png")}/></a>
-                    </li>
-                    <li>
-                        <a href="#"><img src={require("./assets/reddit.png")}/></a>
-                    </li>
-                    <li>
-                        <a href="https://github.com/ethorse" target="_blank" rel="noopener noreferrer" ><img src={require("./assets/github.png")}/></a>
-                    </li>
-                </ul>
+            	</ul>
+            	<a class="logo" href="#"><img class="logo-img" src={require("./assets/logo.png")}/></a>
+            	<ul class="social-icons text-right">
+            		<li><a target="_blank" rel="noopener noreferrer" href="https://telegram.me/ethorse" ><img src={require("./assets/telegram.png")}/></a></li>
+            		<li><a href="#"><img src={require("./assets/reddit.png")}/></a></li>
+            		<li><a href="https://github.com/ethorse" target="_blank" rel="noopener noreferrer" ><img src={require("./assets/github.png")}/></a></li>
+            	</ul>
             </div>
-            <div class="container-fluid minified-bar" style={{
-                    height: '10%'
-                }}>
-                {/* <img class="hamburger-icon" src={require("./assets/Orion_menu-hamburger.png")}/> */}
-                <a class="minified-bar-logo" href="#"><img class="logo-img" src={require("./assets/logo.png")}/></a>
-                <ul class="social-icons text-right" style={{
-                        top: '-60px'
-                    }}>
-                    <li>
-                        <a target="_blank" rel="noopener noreferrer" href="https://telegram.me/ethorse" ><img src={require("./assets/telegram.png")}/></a>
-                    </li>
-                    <li>
-                        <a href="#"><img src={require("./assets/reddit.png")}/></a>
-                    </li>
-                    <li>
-                        <a href="https://github.com/ethorse" target="_blank" rel="noopener noreferrer" ><img src={require("./assets/github.png")}/></a>
-                    </li>
-                </ul>
+
+            <div class="container-fluid minified-bar">
+            	<img class="close-icon" src={require("./assets/Orion_close.png")}/>
+            	<a class="minified-bar-logo" href="#"><img class="logo-img" src={require("./assets/logo.png")}/></a>
+            	<ul class="social-icons text-right">
+            		<li><a target="_blank" rel="noopener noreferrer" href="https://telegram.me/ethorse" ><img src={require("./assets/telegram.png")}/></a></li>
+            		<li><a href="#"><img src={require("./assets/reddit.png")}/></a></li>
+            		<li><a href="https://github.com/ethorse" target="_blank" rel="noopener noreferrer" ><img src={require("./assets/github.png")}/></a></li>
+            	</ul>
             </div>
 
             <Modal isOpen={this.state.modal} toggle={this.toggle} size="lg" style={{

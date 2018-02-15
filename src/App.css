@@ -22,26 +22,15 @@
   font-size: large;
 }
 
-@font-face {
-    font-family: "prometheus";
-    src: url("./PROMETHEUS.ttf") format("truetype");
-}
-
-@font-face {
-    font-family: "bebas-neue";
-    src: url("./BebasNeue.otf") format("truetype");
-}
-
-@font-face {
-    font-family: "sansation";
-    src: url("./Sansation_Regular.ttf") format("truetype");
-}
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
-
+* {
+  margin: 0;
+  padding: 0;
+}
 html, body {
   background-color: #2d2d2d!important;
   overflow-x: hidden;
@@ -143,7 +132,7 @@ button.betlist.active{
 
 .right-sidebar{
   /*min-height: 150%;*/
-  background-color: #23252b!important;
+  background-color: #1e2339!important;
   z-index: 3;
   padding: 0;
   height: 100%;
@@ -217,7 +206,6 @@ ul > li{
 .header-font
 {
     font-family:    prometheus;
-    font-size:      40px;
     font-weight: 500;
     padding: 0;
     margin: 0;
@@ -247,7 +235,6 @@ nav h3{
   font-family: bebas-neue;
   letter-spacing: 2px;
   display: inline-block;
-  font-size: 30px;
   /* transform: scaleY(0.5); */
   /* transform-origin: 0 0; */
   margin-bottom: -50%;
@@ -296,14 +283,20 @@ border-bottom: 5px solid blue;
 }
 
 .flipclock{
-    width:auto;
-    text-align: center;
-    zoom: 0.35;
-    -moz-transform: scale(0.35);
-
+    horizontal-align: center;
+    /* width:500px!important; */
+    width:500px!important;
+    /* min-width: inherit; */
+    /* margin-left: -300px; */
+    zoom: 0.5;
+    -moz-transform: scale(0.5);
+}
+.flip-clock-wrapper {
+    width: 500px !important;
+    margin-left: -25%!important;
 }
 
-.social-media{
+/* .social-media{
     width:200px;
     text-align: center;
     padding-top: 3%;
@@ -313,7 +306,7 @@ border-bottom: 5px solid blue;
 }
 .social-media a{
     margin-right: 7%!important;
-}
+} */
 
 
 .btn-link{

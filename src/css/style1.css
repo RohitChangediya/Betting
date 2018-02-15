@@ -125,7 +125,7 @@ body{
 }
 .menu-items li a:hover{
 	color: #446cb3;
-
+	
 }
 .menu-items li a .fa{
 	margin-right: 6px;
@@ -134,7 +134,7 @@ body{
 }
 .social-icons{
 	position: absolute;
-	top: 40%;
+	top: 40px;
 	right: 35px;
 	margin: 0;
 	padding: 0;

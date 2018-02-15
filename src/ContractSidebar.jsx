@@ -65,20 +65,27 @@ export default class ContractSidebar extends Component {
         //     this.state.prevActive.className = "btn btn-link";
         // }
         // if (this.state.classActive === false) {
-        //     this.setState({classActive: true});
+        //     document.getElementById(this.state.contract).classList='live_race '+document.getElementById(this.state.contract).classList;
+        //      this.setState({classActive: true});
         // }
-        console.log(event.target.className.split(' ').slice(-1)[0].startsWith("0x"))
-        console.log(event.target.name)
+
+        // console.log(event.target.className.split(' ').slice(-1)[0].startsWith("0x"))
+        // console.log(event.target.name)
         if(event.target.className.split(' ').slice(-1)[0].startsWith("0x")){
         this.setState({prevActive: event.target});
         // event.target.className = "btn btn-link btn-active";
+        if(this.state.prevActive!==null)
+            document.getElementById(this.state.prevActive).classList.remove('live_race');
         this.setState({
-            currentTime: this.state.duplicatejson[event.target.className.split(' ').slice(-1)[0]]
+            prevActive: event.target.className.split(' ').slice(-1)[0]
         });
-        this.props.onContractSubmit(event.target.className.split(' ').slice(-1)[0]);}
+        document.getElementById(event.target.className.split(' ').slice(-1)[0]).classList='live_race '+document.getElementById(event.target.className.split(' ').slice(-1)[0]).classList;
+        this.props.onContractSubmit(event.target.className.split(' ').slice(-1)[0]);
+        }
     }
 
     initiate(rSelected) {
+        this.setState({contract:rSelected});
         this.props.onContractSubmit(rSelected);
     }
 
@@ -86,7 +93,8 @@ export default class ContractSidebar extends Component {
 
         return (<div class="left-panel"><div style={{
                 height: '100%',
-                overflow: 'scroll'
+                overflow: 'scroll',
+                backgroundColor:'#1e2339'
             }}>
             <Accordion className="float-left" style={{
                     marginTop: '0'

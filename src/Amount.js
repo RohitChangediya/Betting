@@ -4,12 +4,23 @@ import {Input} from 'reactstrap';
 export default class Amount extends React.Component {
     constructor(props) {
         super(props);
+        this.state={value:0.1}
         this.handleChange = this.handleChange.bind(this);
     }
     handleChange(event) {
+        console.log(event.target.value)
+        this.setState({value:event.target.value})
         this.props.onValueSubmit(event.target.value);
     }
     render() {
-        return (<Input placeholdername="Amount" type="number" step="0.01" defaultValue="0.1" max="1" min="0.1" id={this.props.field} title="Enter the amount to bet in ether" data-toggle="tooltip" data-placement="top" onChange={this.handleChange}/>);
+        return (
+            <div>
+            <img class="header-item-img" src={require("./assets/Orion_coins.png")}/>
+              <div class="cb-title amount text-center">Amount to Bet</div>
+
+              <div class="form-inline justify-content-center">
+                  <input type="number" class="form-control amount-input mx-auto d-block text-center" id="amount" value={this.state.value} type="number" step="0.01" max="1" min="0.1" title="Enter the amount to bet in ether" onChange={this.handleChange}></input><div class="eth text-center mx-auto d-block"><img class="eth-logo" src={require("./assets/eth.png")}/> ETH</div>
+              </div>
+          </div>);
     }
 }

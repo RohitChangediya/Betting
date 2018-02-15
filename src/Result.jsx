@@ -95,10 +95,11 @@ export default class Result extends Component{
   {
     if(this.state.winner==="")
     return(
-      <span style={{position:'relative',fontSize:'30px'}} className="float-left">
-          Live&nbsp;
-        <sup ><i className="fa fa-circle" aria-hidden="true" style={{"color":"green","fontSize":"15px"}}></i></sup>
-      </span>
+        <div class="race_status header-item col-sm-4 col-md-4 col-lg-4">
+            <img class="header-item-img" src={require("./assets/Orion_flag.png")}/>
+            <div class="header-item-title text-center">Race Status</div>
+            <div class="race-status-value text-center"><i class="fa fa-circle" aria-hidden="true"></i> Live</div>
+        </div>
     );
     else {
       return(<span style={{fontSize:'25px','position':'relative'}} className="float-left">

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Accordion, Icon} from 'semantic-ui-react';
 import {Button} from 'reactstrap';
+import configjson from './config.json'
 var moment = require('moment');
 
 export default class WeekList extends Component {
@@ -14,7 +15,7 @@ export default class WeekList extends Component {
     }
     getContract() {
         let self = this;
-        let val = fetch("http://localhost:3000/contract", {
+        let val = fetch("http://"+configjson.serverIP+":"+configjson.serverPort+"/contract", {
             method: 'GET',
             headers: {
                 to: this.props.date,
@@ -25,6 +26,7 @@ export default class WeekList extends Component {
             contracts.json().then(function(value) {
                 self.setState({contract: value})
                 if (value.length > 0 && self.props.number === 0) {
+                    document.getElementById(value[0].contractid).classList='live_race '+document.getElementById(value[0].contractid).classList;
                     self.props.initiate(value[0].contractid)
                 }
             })
@@ -47,8 +49,8 @@ export default class WeekList extends Component {
 
         if (this.state.contract !== null && this.state.contract.length !== 0) {
             var contractjson = this.state.contract;
-            const Buttons = (contractjson.map(row => <div class={"race " + row.contractid} id={row.contractid} key={row.contractid} onClick={(event) => this.updateContract(event)}>
-                <ul>
+            const Buttons = (contractjson.map(row => <div class={"race " + row.contractid} id={row.contractid} key={row.contractid} onClick={(event) => this.updateContract(event)} style={{textAlign:'left'}}>
+                <ul class={row.contractid}>
                     <li class={"days_number " + row.contractid}>
                         <span class={row.contractid}>{(moment(parseInt(row.date) * 1000).format('DD')).toString()}</span>
                     </li>
@@ -58,15 +60,15 @@ export default class WeekList extends Component {
                     </li>
                 </ul>
                 <div class={"status-race-sidebar " + row.contractid}>Status
-                    <span class="status_race_value upcoming">{row.active}</span>
+                    <span class={"status_race_value upcoming " + row.contractid}>{row.active}</span>
                 </div>
             </div>))
 
             return (<div>
                 <Accordion.Title active={this.props.parentState.state.activeIndex === this.props.number} index={this.props.number} style={{
-                        color: 'white'
-                    }} onClick={this.handleClick}>
-                    <Icon name='dropdown'/> {this.props.title}
+                        color: 'white',backgroundColor:'#19b5fe'
+                    }} onClick={this.handleClick} style={{textAlign:'left'}}>
+                    <span style={{textAlign:'left'}}><Icon name='dropdown'/> {this.props.title}</span>
                 </Accordion.Title>
                 <Accordion.Content active={this.props.parentState.state.activeIndex === this.props.number} content={Buttons}/>
             </div>);

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import ethorsejson from './ETHorse.json';
 import ethorsejson from './ETHorse.json';
-// import AlertMsg from './AlertMsg'
+import configjson from './config.json'
 import './App.css';
 import ETHRadio from './ETHRadio'
 import Amount from './Amount.js'
@@ -14,13 +14,12 @@ import jQuery from 'jquery'
 import FlipClock from './FlipClock-master/compiled/flipclock.js'
 import {Jumbotron, Container, Button, InputGroup, InputGroupButton, InputGroupAddon, Input, UncontrolledTooltip, Table } from 'reactstrap'
 import { Message, Icon } from 'semantic-ui-react'
+import SelectedCoin from './SelectedCoin';
 var moment = require('moment');
 
 
 var Web3 = require('web3');
 var contract = require("truffle-contract");
-
-// var web3 = new Web3(new Web3.providers.HttpProvider("https://kovan.infura.io/fiU7lUVCRq4v4seGf8XN"));
 
 var web3 = new Web3(Web3.givenProvider);
 
@@ -55,10 +54,6 @@ class App extends Component {
                 value: null,
                 transactionid:null,
                 transactionidmsg:null,
-                d:null,
-                h:null,
-                m:null,
-                s:null,
                 coinChoice:'',
                 coinChosen:false,
                 reward:'',
@@ -77,57 +72,22 @@ class App extends Component {
                 clock:null,
                 t_bets:0,
                 nextRace:'',
-                targetNetwork:'kovan'
+                targetNetwork:'Main',
+                coinHTML:'<div/>'
                 };
     this.invokeContract=this.invokeContract.bind(this);
     this.convertMS=this.convertMS.bind(this);
     this.onDismiss = this.onDismiss.bind(this);
     this.checkRewards=this.checkRewards.bind(this);
     this.claim=this.claim.bind(this);
-    this.findTime=this.findTime.bind(this);
-    this.resetTimer=this.resetTimer.bind(this);
     this.componentLoad=this.componentLoad.bind(this);
     this.componentMounted=this.componentMounted.bind(this);
     this.startFlipClock=this.startFlipClock.bind(this);
 
     //Find betting phase
-    this.findStartTime=this.findStartTime.bind(this);
-    this.findLockTime=this.findLockTime.bind(this);
-    this.findResultTime=this.findResultTime.bind(this);
 
     }
 
-  findTime()
-    {
-    var milliseconds = (new Date()).getTime();
-    this.convertMS(this.state.stopTime-milliseconds);
-    }
-  resetTimer()
-    {
-      var milliseconds = (new Date()).getTime();
-      if(parseInt(this.state.stopTime-milliseconds,10)<=0)
-        {
-        var new_time=this.state.stopTime+86400000;
-        clearInterval(this.state.timeInterval)
-        clearInterval(this.state.clearTimeInterval)
-        this.setState({stopTime:new_time});
-        }
-    }
-  findStartTime()
-    {
-      var milliseconds = (new Date()).getTime();
-      this.convertMS(this.state.startTime-milliseconds);
-    }
-  findLockTime()
-    {
-      var milliseconds = (new Date()).getTime();
-      this.convertMS(this.state.lockTime-milliseconds);
-    }
-  findResultTime()
-    {
-      var milliseconds = (new Date()).getTime();
-      this.convertMS(this.state.resultTime-milliseconds);
-    }
   checkNetwork(){
       var self=this;
       web3.eth.net.getNetworkType((err, netId) => {
@@ -225,7 +185,8 @@ class App extends Component {
                     }
                   else if(start_time>0){
 
-                    self.setState({betPhase:'Check result to see your winnings.',duration:'Race completed'})
+                    self.setState({betPhase:'Check result to see your winnings.'})
+                    self.startFlipClock(0);
                   }
                   else{
                     self.setState({betPhase:"Currently no race in progress.",duration:'Race not active yet'})
@@ -287,10 +248,10 @@ class App extends Component {
                 if(ethAccount!==undefined){
                 web3.eth.getBalance(ethAccount).then(function(balance){
 
-                    if(web3.utils.fromWei(balance)==="0"){
-                      let faucet= document.getElementById('faucet')
-                      faucet.classList.remove("hidden");
-                    }
+                    // if(web3.utils.fromWei(balance)==="0"){
+                    //   let faucet= document.getElementById('faucet')
+                    //   faucet.classList.remove("hidden");
+                    // }
                     return web3.utils.fromWei(balance);
                 });
               }})});
@@ -404,10 +365,10 @@ class App extends Component {
   coinValue(coin)
     {
       var self=this;
-
         self.state.contractInstance.race_end().then(function(state){
           if(state===false)
           {
+          console.log(coin);
           self.setState({coin:coin,value:coin});
           }
         });
@@ -524,16 +485,16 @@ class App extends Component {
   getNextRace()
     {
     let self=this;
-    fetch("http://localhost:3000/contract/getNextRace",{
-        method:'GET',
-    }).then(function(contracts){
-
-        contracts.json().then(function(value){
-            // console.log(value.date)
-            // self.setState({contract:value})
-              self.setState({nextRace:(moment(parseInt(value.date)*1000).format('ddd, DD MMM YYYY, HH:SS')).toString()})
-        })
-    })
+    // fetch("http://"+configjson.serverIP+":"+configjson.serverPort+"/contract/getNextDayRace",{
+    //     method:'GET',
+    // }).then(function(contracts){
+    //
+    //     contracts.json().then(function(value){
+    //         // console.log(value.date)
+    //         // self.setState({contract:value})
+    //           self.setState({nextRace:(moment(parseInt(value.date)*1000).format('ddd, DD MMM YYYY, HH:SS')).toString()})
+    //     })
+    // })
     }
 
   onDismiss(err) {
@@ -552,68 +513,82 @@ class App extends Component {
   }
   render()
     {
-    if(web3.currentProvider!=null  && this.state.network==="Kovan" && this.state.contract!==null)
+    if(web3.currentProvider!=null  && this.state.network==="Main" && this.state.contract!==null)
     {
     var renderContent=(<div className="full-height">
 
     <div className="full-height" >
     <Header contract={this.state.contract}/>
     <div >
-    {/* <Jumbotron style={{ 'textAlign': 'center'}} fluid> */}
     {/* <Container fluid  style={{ 'height': '100%'}}> */}
       <div className="row" >
-      <div className="col-md-2 mx-auto left-sidebar" style={{ 'marginTop': '5vh',position:'fixed'}}>
-        {/* <Container> */}
+      <div className="col-md-2 mx-auto" style={{ 'marginTop': '5vh',position:'fixed'}}>
           <ContractSidebar onContractSubmit={this.contractUpdate.bind(this)}/>
-        {/* </Container> */}
       </div>
-      {/* <div className="col-md-2 mx-auto"></div> */}
-      <div className="col-md-7 mx-auto"  style={{ 'marginTop': '10vh'}}>
-        <div className="row">
+      <div className="col-md-2 mx-auto col-sm-1"></div>
+      <div className="col-md-10 mx-auto col-sm-11"  style={{ 'marginTop': '10vh'}}>
+        <div class="row">
+            <div class="container header-wrapper">
+			<header class="header">
+				<div class="row">
+                  <Result contract={this.state.contract}/>
+					<div class="volume header-item col-sm-4 col-md-4 col-lg-4">
+						<img class="header-item-img" src={require("./assets/Orion_storage-box.png")}/>
+						<div class="header-item-title text-center">Volume</div>
+						<div class="header-item-value text-center">{this.state.t_bets}</div>
+					</div>
+					<div class="race_duration header-item col-sm-4 col-md-4 col-lg-4">
+						<div class="center-block"><img class="header-item-img img-responsive center-block" src={require("./assets/Orion_timing.png")}/></div>
+						<div class="header-item-title text-center">Race Duration</div>
+						<div class="header-item-value text-center">{this.state.duration}</div>
+					</div>
+				</div>
+                <div class="row" style={{marginTop:'5%'}}>
 
-          <div className="col-md-10 mx-auto">
-          <h5 className="hidden" id="faucet">
-            Get some kovan ethers to try the dapp. <a href="https://faucet.metamask.io/" style={{  'color':'orange' }}>Metamask Faucet</a>
-          </h5>
-          </div>
-        </div>
-        <div className="row" >
-          {/* <div className="col-md-2 mx-auto">
-            <div className="row">
-            <Container>
-              <Result contract={this.state.contract}/>
-            </Container>
-            </div>
-          </div> */}
-          {/* <div className="col-md-10 mx-auto"> */}
-            <Container>
-              <Result contract={this.state.contract}/>
-              {/* <Contract className="contract" onContractSubmit={this.contractUpdate.bind(this)}/> */}
-            </Container>
-          {/* </div> */}
+                    <div className="col-md-4">
+                        <img class="header-item-img" src={require("./assets/Orion_stopwatch.png")}/>
+                        {/* <div className="betDetails" style={{position:'relative'}} justifyCenter> */}
+                        <div className="betDetails" style={{position:'relative'}}>
+                          {this.state.betPhase}
+                          <Container>
+                              {/* <div className="row"> */}
+                                  <div className="flipclock"/>
+                              {/* </div> */}
+                          </Container>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-lg-4">
+    					<img class="header-item-img" src={require("./assets/Orion_sales-up.png")}/>
+    					<div class="cb-title crypto-bet text-center">Crypto to Bet On</div>
+    					<SelectedCoin coin={this.state.coin}/>
+    					<div class="crypto text-center" ng-bind="cryptoName"></div>
+				    </div>
+                    <div className="col-md-4">
+                          <Amount onValueSubmit={this.onValueSubmit.bind(this)}/>
+      					<div class="btn-container text-center"><input type="button" class="btn place-bet-button center-block text-center" value="Place Bet"/></div>
+                    </div>
+                </div>
+			</header>
+		</div>
         </div>
         <div className="row">
           <div className="col-md-12 mx-auto">
           {this.state.flashmessage}
           <ETHRadio onSubmit={this.coinValue.bind(this)} name="Radio" currentContract={this.state.contract} totalBets={this.totalBets.bind(this)}/>
-          <InputGroup>
-            <InputGroupAddon>&Xi;</InputGroupAddon>
-            <Amount field="Amount" onValueSubmit={this.onValueSubmit.bind(this)} className="amount"/>
-
-            <InputGroupButton>
-            {/* <a href="#" id="PlaceBetTooltip"><Button type="button" onClick={this.invokeContract.bind(this)} color="primary" disabled={!this.state.value} size="lg">Place bet</Button></a> */}
-            <a  id="PlaceBetTooltip"><Button type="button" onClick={this.invokeContract.bind(this)} disabled={!this.state.bettingStatus} color="primary" size="lg">Place bet</Button></a>
-            <UncontrolledTooltip placement="right" target="PlaceBetTooltip">
-              Place your bet after choosing your coin. The coin can be chosen by clicking on one of the 3 options under the Select a Coin column.
-            </UncontrolledTooltip>
-            </InputGroupButton>
-          </InputGroup>
           <br/>
-          <div class="result text-center"><img class="img-responsive speaker-icon" src={require("./assets/Orion_champion.png")}/>{this.state.reward.toString()}</div>
+
+
+
+
+          <div class="text-center"><img class="img-responsive speaker-icon" src={require("./assets/Orion_champion.png")}/>{this.state.reward.toString()}</div>
+
   		  <div class="text-center">
       			<button type="button" class="btn check-result-button text-center" onClick={this.checkRewards} disabled={!this.state.claim}><img class="refresh img-responsive" src={require("./assets/Orion_restart.png")}/>Check Results</button>
       			<button type="button" class="btn claim-button" onClick={this.claim} disabled={!this.state.claim}><img class="megaphone img-responsive" src={require("./assets/Orion_megaphone.png")}/>Claim</button>
   		  </div>
+
+
           <br/>
           <br/>
           <div>
@@ -628,21 +603,11 @@ class App extends Component {
           </div>
           <br/>
           <br/>
-
-          {/* {this.state.betPhase} {this.state.d}  {this.state.h} {this.state.m}  {this.state.s} */}
-          <br/>
-          <br/>
-
-
-          <br/>
-          {/* Join <a href="https://discord.gg/vdTXRmT" rel="noopener noreferrer" target="_blank"> Discord </a> to stay tuned. */}
-          <br/>
-
         </div>
 
     </div>
     </div>
-    <div className="col-md-2 mx-auto right-sidebar" style={{ 'marginTop': '5vh',position:'fixed'}}>
+    {/* <div className="col-md-2 mx-auto right-sidebar" style={{ 'marginTop': '5vh',position:'fixed'}}>
       <Table style={{top:'10%',position:'relative'}}>
         <tbody>
           <p style={{color:'#868e96', left:0}}><h3>Status</h3></p>
@@ -653,10 +618,6 @@ class App extends Component {
           <tr>
             <th >Race Duration:</th>
             <td>{this.state.duration}</td>
-          </tr>
-          <tr>
-            <th >Network:</th>
-            <td>{this.state.network}</td>
           </tr>
           <tr>
             <th>Version:</th>
@@ -674,11 +635,8 @@ class App extends Component {
           Next Race begins at: {this.state.nextRace}
       </div>
       <div style={{bottom:'5%',position:'absolute'}}>
-    </div>
-      {/* <Container> */}
-        {/* <ContractSidebar onContractSubmit={this.contractUpdate.bind(this)}/> */}
-      {/* </Container> */}
-    </div>
+      </div>
+    </div> */}
     </div>
 
 
@@ -696,14 +654,14 @@ class App extends Component {
                   </div>
                   )
           }
-          else if(this.state.network!=="kovan")
+          else if(this.state.network!=="Main")
           {
-          return(<Jumbotron style={{ 'textAlign': 'center'}} fluid>
+          return(<Jumbotron style={{ 'textAlign': 'center' ,'backgroundColor':'#262f4a'}} fluid>
           <Container>
               <h3>Your Metamask is on {this.state.network} network.<br/>
-          Please switch to kovan Testnet as shown below.</h3>
+          Please switch to Main Testnet as shown below.</h3>
           <br/>
-          <img src="https://github.com/MetaMask/faq/raw/master/images/click-the-test-network.png" target="_blank" alt="switch to kovan"/>
+          <img src="https://github.com/MetaMask/faq/raw/master/images/click-the-test-network.png" target="_blank" alt="switch to Main"/>
         </Container>
         </Jumbotron>)
       }
@@ -712,5 +670,6 @@ class App extends Component {
       }
     }
 }
+
 
 export default App;
