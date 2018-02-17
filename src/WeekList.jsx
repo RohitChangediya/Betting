@@ -15,6 +15,7 @@ export default class WeekList extends Component {
     }
     getContract() {
         let self = this;
+        console.log("http://"+configjson.serverIP+":"+configjson.serverPort+"/contract")
         let val = fetch("http://"+configjson.serverIP+":"+configjson.serverPort+"/contract", {
             method: 'GET',
             headers: {

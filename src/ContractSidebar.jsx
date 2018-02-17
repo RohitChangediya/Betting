@@ -4,6 +4,7 @@ import ethorsejson from './ETHorse.json';
 import addressjson from './Address.json';
 import WeekList from './WeekList'
 import {Accordion} from 'semantic-ui-react'
+import UpcomingRaces from './UpcomingRaces'
 
 var moment = require('moment');
 
@@ -100,6 +101,7 @@ export default class ContractSidebar extends Component {
             <Accordion className="float-left" style={{
                     marginTop: '0'
                 }}>
+                <UpcomingRaces/>
                 <WeekList title="Last one week" number={0} date={parseInt((new Date).getTime() / 1000)} contractUpdate={(event) => this.handleChange(event)} parentState={this} initiate={this.initiate.bind(this)} currentTime={parseInt((new Date).getTime() / 1000)}/>
                 <WeekList title="One week ago" number={1} date={parseInt((new Date).getTime() / 1000) - 604800} contractUpdate={(event) => this.handleChange(event)} parentState={this} currentTime={parseInt((new Date).getTime() / 1000)}/>
                 <WeekList title="Two week ago" number={2} date={parseInt((new Date).getTime() / 1000) - 604800 * 2} contractUpdate={(event) => this.handleChange(event)} parentState={this} currentTime={parseInt((new Date).getTime() / 1000)}/>
