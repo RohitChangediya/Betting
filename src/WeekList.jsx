@@ -27,6 +27,7 @@ export default class WeekList extends Component {
                 self.setState({contract: value})
                 if (value.length > 0 && self.props.number === 0) {
                     document.getElementById(value[0].contractid).classList='live_race '+document.getElementById(value[0].contractid).classList;
+                    // console.log(value[0].contractid)
                     self.props.initiate(value[0].contractid)
                 }
             })
@@ -37,6 +38,7 @@ export default class WeekList extends Component {
         this.getContract();
     }
     handleClick = (e, titleProps) => {
+
         const {index} = titleProps
         const {activeIndex} = this.props.parentState
         const newIndex = this.props.parentState.state.activeIndex === index? -1: index
@@ -65,9 +67,7 @@ export default class WeekList extends Component {
             </div>))
 
             return (<div>
-                <Accordion.Title active={this.props.parentState.state.activeIndex === this.props.number} index={this.props.number} style={{
-                        color: 'white',backgroundColor:'#19b5fe'
-                    }} onClick={this.handleClick} style={{textAlign:'left'}}>
+                <Accordion.Title active={this.props.parentState.state.activeIndex === this.props.number} index={this.props.number}  onClick={this.handleClick} style={{textAlign:'left',backgroundColor:'#19b5fe'}}>
                     <span style={{textAlign:'left'}}><Icon name='dropdown'/> {this.props.title}</span>
                 </Accordion.Title>
                 <Accordion.Content active={this.props.parentState.state.activeIndex === this.props.number} content={Buttons}/>

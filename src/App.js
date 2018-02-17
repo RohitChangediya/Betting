@@ -15,6 +15,7 @@ import FlipClock from './FlipClock-master/compiled/flipclock.js'
 import {Jumbotron, Container, Button, InputGroup, InputGroupButton, InputGroupAddon, Input, UncontrolledTooltip, Table } from 'reactstrap'
 import { Message, Icon } from 'semantic-ui-react'
 import SelectedCoin from './SelectedCoin';
+import Timer from './Timer';
 var moment = require('moment');
 
 
@@ -73,7 +74,8 @@ class App extends Component {
                 t_bets:0,
                 nextRace:'',
                 targetNetwork:'Main',
-                coinHTML:'<div/>'
+                targetDate:''
+
                 };
     this.invokeContract=this.invokeContract.bind(this);
     this.convertMS=this.convertMS.bind(this);
@@ -99,23 +101,25 @@ class App extends Component {
   startFlipClock(time)
     {
       let self=this;
-      $(document).ready(function () {
-        console.log('ready')
-      var clock = $('.flipclock').FlipClock(time, {
-      // clockFace: 'DailyCounter',
-      countdown: true,
-      autoStart: true,
-      callbacks: {
-        start: function() {
-          // console.log('started')
-          // $('.message').html('The clock has started!');
-        }
-      }
-    });
-    self.setState({clock})
-  // $('.flipclock').addClass('twoDayDigits');
-  //   clock.start();
-    });
+      this.setState({targetDate:time})
+      console.log('Time',time)
+  //     $(document).ready(function () {
+  //       console.log('ready')
+  //     var clock = $('.flipclock').FlipClock(time, {
+  //     // clockFace: 'DailyCounter',
+  //     countdown: true,
+  //     autoStart: true,
+  //     callbacks: {
+  //       start: function() {
+  //         // console.log('started')
+  //         // $('.message').html('The clock has started!');
+  //       }
+  //     }
+  //   });
+  //   self.setState({clock})
+  // // $('.flipclock').addClass('twoDayDigits');
+  // //   clock.start();
+  //   });
   }
   componentLoad()
   {
@@ -513,7 +517,7 @@ class App extends Component {
   }
   render()
     {
-    if(web3.currentProvider!=null  && this.state.network==="Main" && this.state.contract!==null)
+    if(web3.currentProvider!=null  && this.state.network===this.state.targetNetwork && this.state.contract!==null)
     {
     var renderContent=(<div className="full-height">
 
@@ -522,9 +526,7 @@ class App extends Component {
     <div >
     {/* <Container fluid  style={{ 'height': '100%'}}> */}
       <div className="row" >
-      <div className="col-md-2 mx-auto" style={{ 'marginTop': '5vh',position:'fixed'}}>
-          <ContractSidebar onContractSubmit={this.contractUpdate.bind(this)}/>
-      </div>
+
       <div className="col-md-2 mx-auto col-sm-1"></div>
       <div className="col-md-10 mx-auto col-sm-11"  style={{ 'marginTop': '10vh'}}>
         <div class="row">
@@ -545,19 +547,7 @@ class App extends Component {
 				</div>
                 <div class="row" style={{marginTop:'5%'}}>
 
-                    <div className="col-md-4">
-                        <img class="header-item-img" src={require("./assets/Orion_stopwatch.png")}/>
-                        {/* <div className="betDetails" style={{position:'relative'}} justifyCenter> */}
-                        <div className="betDetails" style={{position:'relative'}}>
-                          {this.state.betPhase}
-                          <Container>
-                              {/* <div className="row"> */}
-                                  <div className="flipclock"/>
-                              {/* </div> */}
-                          </Container>
-                        </div>
-
-                    </div>
+                    {/* <Timer targetDate={this.state.targetDate}/> */}
                     <div class="col-sm-6 col-md-4 col-lg-4">
     					<img class="header-item-img" src={require("./assets/Orion_sales-up.png")}/>
     					<div class="cb-title crypto-bet text-center">Crypto to Bet On</div>
@@ -607,6 +597,9 @@ class App extends Component {
 
     </div>
     </div>
+    <div className="col-md-2 mx-auto" style={{ 'marginTop': '5vh',position:'fixed'}}>
+        <ContractSidebar onContractSubmit={this.contractUpdate.bind(this)}/>
+    </div>
     {/* <div className="col-md-2 mx-auto right-sidebar" style={{ 'marginTop': '5vh',position:'fixed'}}>
       <Table style={{top:'10%',position:'relative'}}>
         <tbody>
@@ -654,7 +647,7 @@ class App extends Component {
                   </div>
                   )
           }
-          else if(this.state.network!=="Main")
+          else if(this.state.network!==this.state.targetNetwork)
           {
           return(<Jumbotron style={{ 'textAlign': 'center' ,'backgroundColor':'#262f4a'}} fluid>
           <Container>

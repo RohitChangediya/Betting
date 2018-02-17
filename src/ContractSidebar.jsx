@@ -64,10 +64,11 @@ export default class ContractSidebar extends Component {
         // if (this.state.prevActive != null) {
         //     this.state.prevActive.className = "btn btn-link";
         // }
-        // if (this.state.classActive === false) {
-        //     document.getElementById(this.state.contract).classList='live_race '+document.getElementById(this.state.contract).classList;
-        //      this.setState({classActive: true});
-        // }
+        if (this.state.classActive === false) {
+            if(this.state.contract!==undefined)
+                document.getElementById(this.state.contract).classList='live_race '+document.getElementById(this.state.contract).classList;
+             this.setState({classActive: true});
+        }
 
         // console.log(event.target.className.split(' ').slice(-1)[0].startsWith("0x"))
         // console.log(event.target.name)
@@ -99,10 +100,10 @@ export default class ContractSidebar extends Component {
             <Accordion className="float-left" style={{
                     marginTop: '0'
                 }}>
-                <WeekList title="Week 1" number={0} date={parseInt((new Date).getTime() / 1000)} contractUpdate={(event) => this.handleChange(event)} parentState={this} initiate={this.initiate.bind(this)} currentTime={parseInt((new Date).getTime() / 1000)}/>
-                <WeekList title="Week 2" number={1} date={parseInt((new Date).getTime() / 1000) - 604800} contractUpdate={(event) => this.handleChange(event)} parentState={this} currentTime={parseInt((new Date).getTime() / 1000)}/>
-                <WeekList title="Week 3" number={2} date={parseInt((new Date).getTime() / 1000) - 604800 * 2} contractUpdate={(event) => this.handleChange(event)} parentState={this} currentTime={parseInt((new Date).getTime() / 1000)}/>
-                <WeekList title="Week 4" number={3} date={parseInt((new Date).getTime() / 1000) - 604800 * 3} contractUpdate={(event) => this.handleChange(event)} parentState={this} currentTime={parseInt((new Date).getTime() / 1000)}/>
+                <WeekList title="Last one week" number={0} date={parseInt((new Date).getTime() / 1000)} contractUpdate={(event) => this.handleChange(event)} parentState={this} initiate={this.initiate.bind(this)} currentTime={parseInt((new Date).getTime() / 1000)}/>
+                <WeekList title="One week ago" number={1} date={parseInt((new Date).getTime() / 1000) - 604800} contractUpdate={(event) => this.handleChange(event)} parentState={this} currentTime={parseInt((new Date).getTime() / 1000)}/>
+                <WeekList title="Two week ago" number={2} date={parseInt((new Date).getTime() / 1000) - 604800 * 2} contractUpdate={(event) => this.handleChange(event)} parentState={this} currentTime={parseInt((new Date).getTime() / 1000)}/>
+                <WeekList title="Three week ago" number={3} date={parseInt((new Date).getTime() / 1000) - 604800 * 3} contractUpdate={(event) => this.handleChange(event)} parentState={this} currentTime={parseInt((new Date).getTime() / 1000)}/>
             </Accordion>
         </div>
         </div>

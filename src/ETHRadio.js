@@ -211,11 +211,11 @@ export default class ETHRadio extends React.Component {
     render() {
 
         return (<div>
-            <div class="container crypto-container btc-container">
+            <div class="container crypto-container btc-container" onClick={() => this.handleChange("BTC")}>
                 <div class="row">
                     <div class="col-lg-2">
                         <div class="select_coin text-left">Select a Coin</div>
-                        <div class="btc-radio-button text-center" onClick={() => this.handleChange("BTC")} dangerouslySetInnerHTML={{
+                        <div class="btc-radio-button text-center"  dangerouslySetInnerHTML={{
                                 __html: this.state.btcHTML
                             }}></div>
                         <img class="img-responsive crypto-logo text-center" src={require("./assets/bitcoin.png")}/>
@@ -251,11 +251,11 @@ export default class ETHRadio extends React.Component {
                     </div>
                 </div>
             </div>
-            <div class="container crypto-container eth-container">
+            <div class="container crypto-container eth-container" onClick={() => this.handleChange("ETH")}>
                 <div class="row">
                     <div class="col-lg-2">
                         <div class="select_coin text-left">Select a Coin</div>
-                        <div class="eth-radio-button text-center" onClick={() => this.handleChange("ETH")} dangerouslySetInnerHTML={{
+                        <div class="eth-radio-button text-center"  dangerouslySetInnerHTML={{
                                 __html: this.state.ethHTML
                             }}></div>
                         <img class="img-responsive crypto-logo text-center" src={require('./assets/ethereum.png')}/>
@@ -291,11 +291,11 @@ export default class ETHRadio extends React.Component {
                     </div>
                 </div>
             </div>
-            <div class="container crypto-container ltc-container">
+            <div class="container crypto-container ltc-container" onClick={() => this.handleChange("LTC")}>
                 <div class="row">
                     <div class="col-lg-2">
                         <div class="select_coin text-left">Select a Coin</div>
-                        <div class="ltc-radio-button text-center" onClick={() => this.handleChange("LTC")} dangerouslySetInnerHTML={{
+                        <div class="ltc-radio-button text-center"  dangerouslySetInnerHTML={{
                                 __html: this.state.ltcHTML
                             }}></div>
                         <img class="img-responsive crypto-logo text-center" src={require("./assets/litecoin.png")}/>
