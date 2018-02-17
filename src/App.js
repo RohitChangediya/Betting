@@ -74,7 +74,7 @@ class App extends Component {
                 t_bets:0,
                 nextRace:'',
                 targetNetwork:'Main',
-                targetDate:''
+                targetDate:'0'
 
                 };
     this.invokeContract=this.invokeContract.bind(this);
@@ -169,7 +169,7 @@ class App extends Component {
                 // ct=setInterval(self.findLockTime,950)
 
                 self.setState({timeInterval:ct,betPhase:'Betting closes and Race starts in ',lockTime:((start_time+betting_duration)*1000)})
-                self.startFlipClock(start_time+betting_duration-new Date()/1000)
+                self.startFlipClock(start_time+betting_duration)
               }
               else{
                 instance.race_duration().then(function(race_duration){
@@ -184,7 +184,7 @@ class App extends Component {
                     // console.log('Dur ',race_duration_utc);
                     self.setState({timeInterval:ct,betPhase:'Results in ',resultTime:((start_time+race_duration)*1000)})
                     let time=parseInt(start_time)+parseInt(race_duration)-new Date()/1000
-                    console.log(time-new Date()/1000)
+                    console.log(time)
                     self.startFlipClock(time)
                     }
                   else if(start_time>0){
@@ -194,6 +194,7 @@ class App extends Component {
                   }
                   else{
                     self.setState({betPhase:"Currently no race in progress.",duration:'Race not active yet'})
+                    self.startFlipClock(0);
                   }
 
                 })
@@ -547,7 +548,7 @@ class App extends Component {
 				</div>
                 <div class="row" style={{marginTop:'5%'}}>
 
-                    {/* <Timer targetDate={this.state.targetDate}/> */}
+                    <Timer targetDate={this.state.targetDate}/>
                     <div class="col-sm-6 col-md-4 col-lg-4">
     					<img class="header-item-img" src={require("./assets/Orion_sales-up.png")}/>
     					<div class="cb-title crypto-bet text-center">Crypto to Bet On</div>

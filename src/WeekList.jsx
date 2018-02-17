@@ -63,7 +63,7 @@ export default class WeekList extends Component {
                     </li>
                 </ul>
                 <div class={"status-race-sidebar " + row.contractid}>Status
-                    <span class={"status_race_value upcoming " + row.contractid}>{row.active}</span>
+                    <span class={"status_race_value live " + row.contractid}>{row.active}</span>
                 </div>
             </div>))
 
