@@ -40,12 +40,7 @@ html{
     height: 100%;
 }
 
-body{
-  font-family: 'Open Sans','PingFangTC','Arial','Heiti TC','Microsoft Jhenghei',sans-serif;
-  letter-spacing: 1px;
-  text-align: center;
-  height: 100%;
-}
+
 
 .flip-clock-label{ display: none !important; }
 

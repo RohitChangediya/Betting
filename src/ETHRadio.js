@@ -213,37 +213,40 @@ export default class ETHRadio extends React.Component {
         return (<div>
             <div class="container crypto-container btc-container" onClick={() => this.handleChange("BTC")}>
                 <div class="row">
-                    <div class="col-lg-2">
-                        <div class="select_coin text-left">Select a Coin</div>
-                        <div class="btc-radio-button text-center"  dangerouslySetInnerHTML={{
-                                __html: this.state.btcHTML
-                            }}></div>
-                        <img class="img-responsive crypto-logo text-center" src={require("./assets/bitcoin.png")}/>
-                        <div class="crypto_name">BTC</div>
-                    </div>
-                    <div class="col-lg-10">
+                    <div class="col-lg-5 col-xl-5">
                         <div class="row">
-                            <div class="col-lg-2">
+                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 select-crypto">
+                                <div class="select_coin text-left">Select a Coin</div>
+                                <div class="btc-radio-button text-center"  dangerouslySetInnerHTML={{__html: this.state.btcHTML}}></div>
+                                <img class="img-responsive crypto-logo text-center" src={require("./assets/bitcoin.png")}/>
+                                <div class="crypto_name">BTC</div>
+                            </div>
+                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
                                 <div class="pool_total text-center">Pool Total(ETH)</div>
                                 <div class="pool_total_value text-center">{this.state.btc_pool.pool_total}</div>
                             </div>
-                            <div class="col-lg-2">
+                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
                                 <div class="odds text-center">Odds(Profits for 1 ETH)</div>
                                 <div class="odds_value text-center">{this.state.btc_pool.odds}</div>
                             </div>
-                            <div class="col-lg-2">
+                        </div>
+                        </div>
+
+                    <div class="col-lg-7 col-xl-7">
+                        <div className="row">
+                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">
                                 <div class="bets_number text-center">Number of Bets</div>
                                 <div class="bets_number_value text-center">{this.state.btc_pool.number_of_bets}</div>
                             </div>
-                            <div class="col-lg-2">
+                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">
                                 <div class="race_start_price text-center">Race Start Price</div>
                                 <div class="race_start_price_value text-center">{this.state.btc_pool.pre_price}</div>
                             </div>
-                            <div class="col-lg-2">
+                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">
                                 <div class="race_end_price text-center">Race End Price</div>
                                 <div class="race_start_price_value text-center">{this.state.btc_pool.post_price}</div>
                             </div>
-                            <div class="col-lg-2">
+                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">
                                 <div class="race_end_price text-center">Leading</div>
                                 <div class="race_start_price_value text-center">{this.state.btc_pool.percentage}</div>
                             </div>
@@ -253,37 +256,41 @@ export default class ETHRadio extends React.Component {
             </div>
             <div class="container crypto-container eth-container" onClick={() => this.handleChange("ETH")}>
                 <div class="row">
-                    <div class="col-lg-2">
-                        <div class="select_coin text-left">Select a Coin</div>
-                        <div class="eth-radio-button text-center"  dangerouslySetInnerHTML={{
-                                __html: this.state.ethHTML
-                            }}></div>
-                        <img class="img-responsive crypto-logo text-center" src={require('./assets/ethereum.png')}/>
-                        <div class="crypto_name">ETH</div>
-                    </div>
-                    <div class="col-lg-10">
+
+                    <div class="col-lg-12 col-xl-5">
                         <div class="row">
-                            <div class="col-lg-2">
+                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 select-crypto">
+                                <div class="select_coin text-left">Select a Coin</div>
+                                <div class="eth-radio-button text-center"  dangerouslySetInnerHTML={{__html: this.state.ethHTML}}></div>
+                                <img class="img-responsive crypto-logo text-center" src={require('./assets/ethereum.png')}/>
+                                <div class="crypto_name">ETH</div>
+                            </div>
+                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
                                 <div class="pool_total text-center">Pool Total(ETH)</div>
                                 <div class="pool_total_value text-center">{this.state.eth_pool.pool_total}</div>
                             </div>
-                            <div class="col-lg-2">
+                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
                                 <div class="odds text-center">Odds(Profits for 1 ETH)</div>
                                 <div class="odds_value text-center">{this.state.eth_pool.odds}</div>
                             </div>
-                            <div class="col-lg-2">
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-xl-7">
+
+	                    <div class="row">
+                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">
                                 <div class="bets_number text-center">Number of Bets</div>
                                 <div class="bets_number_value text-center">{this.state.eth_pool.number_of_bets}</div>
                             </div>
-                            <div class="col-lg-2">
+                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">
                                 <div class="race_start_price text-center">Race Start Price</div>
                                 <div class="race_start_price_value text-center">{this.state.eth_pool.pre_price}</div>
                             </div>
-                            <div class="col-lg-2">
+                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">
                                 <div class="race_end_price text-center">Race End Price</div>
                                 <div class="race_start_price_value text-center">{this.state.eth_pool.post_price}</div>
                             </div>
-                            <div class="col-lg-2">
+                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">
                                 <div class="race_end_price text-center">Leading</div>
                                 <div class="race_start_price_value text-center">{this.state.eth_pool.percentage}</div>
                             </div>
@@ -293,37 +300,40 @@ export default class ETHRadio extends React.Component {
             </div>
             <div class="container crypto-container ltc-container" onClick={() => this.handleChange("LTC")}>
                 <div class="row">
-                    <div class="col-lg-2">
-                        <div class="select_coin text-left">Select a Coin</div>
-                        <div class="ltc-radio-button text-center"  dangerouslySetInnerHTML={{
-                                __html: this.state.ltcHTML
-                            }}></div>
-                        <img class="img-responsive crypto-logo text-center" src={require("./assets/litecoin.png")}/>
-                        <div class="crypto_name">LTC</div>
-                    </div>
-                    <div class="col-lg-10">
+
+                    <div class="col-lg-12 col-xl-5">
                         <div class="row">
-                            <div class="col-lg-2">
+                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4 select-crypto">
+                                <div class="select_coin text-left">Select a Coin</div>
+                                <div class="ltc-radio-button text-center"  dangerouslySetInnerHTML={{__html: this.state.ltcHTML}}></div>
+                                <img class="img-responsive crypto-logo text-center" src={require("./assets/litecoin.png")}/>
+                                <div class="crypto_name">LTC</div>
+                            </div>
+                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
                                 <div class="pool_total text-center">Pool Total(ETH)</div>
                                 <div class="pool_total_value text-center">{this.state.ltc_pool.pool_total}</div>
                             </div>
-                            <div class="col-lg-2">
+                            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
                                 <div class="odds text-center">Odds(Profits for 1 ETH)</div>
                                 <div class="odds_value text-center">{this.state.ltc_pool.odds}</div>
                             </div>
-                            <div class="col-lg-2">
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-xl-7">
+	                   <div class="row">
+                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">
                                 <div class="bets_number text-center">Number of Bets</div>
                                 <div class="bets_number_value text-center">{this.state.ltc_pool.number_of_bets}</div>
                             </div>
-                            <div class="col-lg-2">
+                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">
                                 <div class="race_start_price text-center">Race Start Price</div>
                                 <div class="race_start_price_value text-center">{this.state.ltc_pool.pre_price}</div>
                             </div>
-                            <div class="col-lg-2">
+                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">
                                 <div class="race_end_price text-center">Race End Price</div>
                                 <div class="race_start_price_value text-center">{this.state.ltc_pool.post_price}</div>
                             </div>
-                            <div class="col-lg-2">
+                            <div class="col-sm-3 col-md-3 col-lg-3 col-xl-3">
                                 <div class="race_end_price text-center">Leading</div>
                                 <div class="race_start_price_value text-center">{this.state.ltc_pool.percentage}</div>
                             </div>

@@ -557,7 +557,7 @@ class App extends Component {
 				    </div>
                     <div className="col-md-4">
                           <Amount onValueSubmit={this.onValueSubmit.bind(this)}/>
-      					<div class="btn-container text-center"><input type="button" class="btn place-bet-button center-block text-center" value="Place Bet"/></div>
+      					<div class="btn-container text-center"><input type="button" onClick={this.invokeContract.bind(this)} class="btn place-bet-button center-block text-center" value="Place Bet"/></div>
                     </div>
                 </div>
 			</header>
