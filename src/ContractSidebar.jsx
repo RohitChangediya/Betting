@@ -30,7 +30,6 @@ export default class ContractSidebar extends Component {
             classActive: false,
             activeIndex: 0
         };
-        console.log('Constructor')
         this.handleChange = this.handleChange.bind(this);
     }
     getDate(address) {
@@ -73,7 +72,6 @@ export default class ContractSidebar extends Component {
         }
 
         // console.log(event.target.className.split(' ').slice(-1)[0].startsWith("0x"))
-        console.log(event.titleProps)
         if(event.target.className.split(' ').slice(-1)[0].startsWith("0x")){
         this.setState({prevActive: event.target});
         // event.target.className = "btn btn-link btn-active";

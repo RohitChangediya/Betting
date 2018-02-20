@@ -43,16 +43,12 @@ export default class WeekList extends Component {
         this.getContract();
     }
     handleClick = (e, titleProps) => {
-        console.log(this.props.parentState.state)
-        console.log(titleProps)
         const {index} = titleProps
         // const {activeIndex} = this.props.parentState
         const newIndex = this.props.parentState.state.activeIndex === index? -1: index
-        console.log(newIndex)
         this.props.parentState.setState({activeIndex: newIndex})
     }
-    updateContract = (contract,props)=> {
-        console.log(props)
+    updateContract = (contract)=> {
         this.props.contractUpdate(contract);
     }
     render() {

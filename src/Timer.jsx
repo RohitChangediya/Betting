@@ -27,7 +27,7 @@ export default class Timer extends React.Component{
 
             // Find the distance between now an the count down date
             var distance = parseInt(countDownDate,10) - parseInt(now,10);
-            if (distance < 0 || parseInt(this.props.targetDate,10)!==countDownDate) {
+            if (distance < 0 || parseInt(self.props.targetDate,10)!==countDownDate) {
                 clearInterval(x);
                 self.setState({ timerHTML:"Race closed for betting.",distance,compute:false});
                 self.countDownCompute();
