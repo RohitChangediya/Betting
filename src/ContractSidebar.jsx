@@ -30,6 +30,7 @@ export default class ContractSidebar extends Component {
             classActive: false,
             activeIndex: 0
         };
+        console.log('Constructor')
         this.handleChange = this.handleChange.bind(this);
     }
     getDate(address) {
@@ -72,7 +73,7 @@ export default class ContractSidebar extends Component {
         }
 
         // console.log(event.target.className.split(' ').slice(-1)[0].startsWith("0x"))
-        // console.log(event.target.name)
+        console.log(event.titleProps)
         if(event.target.className.split(' ').slice(-1)[0].startsWith("0x")){
         this.setState({prevActive: event.target});
         // event.target.className = "btn btn-link btn-active";
@@ -93,7 +94,7 @@ export default class ContractSidebar extends Component {
 
     render() {
 
-        return (<div class="left-panel"><div style={{
+        return (<div className="left-panel"><div style={{
                 height: '100%',
                 overflow: 'scroll',
                 backgroundColor:'#1e2339'
@@ -102,10 +103,10 @@ export default class ContractSidebar extends Component {
                     marginTop: '0'
                 }}>
                 <UpcomingRaces/>
-                <WeekList title="Last one week" number={0} date={parseInt((new Date).getTime() / 1000)} contractUpdate={(event) => this.handleChange(event)} parentState={this} initiate={this.initiate.bind(this)} currentTime={parseInt((new Date).getTime() / 1000)}/>
-                <WeekList title="One week ago" number={1} date={parseInt((new Date).getTime() / 1000) - 604800} contractUpdate={(event) => this.handleChange(event)} parentState={this} currentTime={parseInt((new Date).getTime() / 1000)}/>
-                <WeekList title="Two week ago" number={2} date={parseInt((new Date).getTime() / 1000) - 604800 * 2} contractUpdate={(event) => this.handleChange(event)} parentState={this} currentTime={parseInt((new Date).getTime() / 1000)}/>
-                <WeekList title="Three week ago" number={3} date={parseInt((new Date).getTime() / 1000) - 604800 * 3} contractUpdate={(event) => this.handleChange(event)} parentState={this} currentTime={parseInt((new Date).getTime() / 1000)}/>
+                <WeekList title="Last one week" number={0} date={parseInt((new Date()).getTime() / 1000,10)} contractUpdate={(event) => this.handleChange(event)} parentState={this} initiate={this.initiate.bind(this)} currentTime={parseInt((new Date()).getTime() / 1000,10)}/>
+                <WeekList title="One week ago" number={1} date={parseInt((new Date()).getTime() / 1000,10) - 604800} contractUpdate={(event) => this.handleChange(event)} parentState={this} currentTime={parseInt((new Date()).getTime() / 1000,10)}/>
+                <WeekList title="Two week ago" number={2} date={parseInt((new Date()).getTime() / 1000,10) - 604800 * 2} contractUpdate={(event) => this.handleChange(event)} parentState={this} currentTime={parseInt((new Date()).getTime() / 1000,10)}/>
+                <WeekList title="Three week ago" number={3} date={parseInt((new Date()).getTime() / 1000,10) - 604800 * 3} contractUpdate={(event) => this.handleChange(event)} parentState={this} currentTime={parseInt((new Date()).getTime() / 1000,10)}/>
             </Accordion>
         </div>
         </div>

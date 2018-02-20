@@ -3,24 +3,21 @@ import React from 'react';
 export default class Timer extends React.Component{
     constructor(props){
         super(props);
-        this.state={timerHTML:'',targetDate:this.props.targetDate}
+        this.state={timerHTML:'',targetDate:this.props.targetDate,compute:true}
         this.countDownCompute=this.countDownCompute.bind(this);
     }
     componentDidMount(){
         if(this.props.targetDate!==''){
-            console.log('Check time left')
             this.countDownCompute();
         }
     }
     componentDidUpdate(){
-        if(this.state.timerHTML==='')
+        if((this.state.targetDate!==this.props.targetDate || this.props.targetDate!=='') && this.state.compute)
             this.countDownCompute();
     }
     countDownCompute(){
-        console.log('Check time left')
-        var countDownDate = parseInt(this.props.targetDate);
+        var countDownDate = parseInt(this.props.targetDate,10);
 
-        console.log(this.props.targetDate);
         var self=this;
         // Update the count down every 1 second
         var x = setInterval(function() {
@@ -29,14 +26,11 @@ export default class Timer extends React.Component{
             var now = new Date().getTime();
 
             // Find the distance between now an the count down date
-            var distance = parseInt(countDownDate) - parseInt(now);
-            console.log('Distance',distance,countDownDate,now)
-            if (distance < 0) {
-                console.log('HTML updated');
-                clearInterval(x,function(){
-                    console.log('Cleared')
-                });
-                self.setState({ timerHTML:"Race closed for betting.",distance});
+            var distance = parseInt(countDownDate,10) - parseInt(now,10);
+            if (distance < 0 || parseInt(this.props.targetDate,10)!==countDownDate) {
+                clearInterval(x);
+                self.setState({ timerHTML:"Race closed for betting.",distance,compute:false});
+                self.countDownCompute();
             }
 
             // Time calculations for days, hours, minutes and seconds
@@ -55,13 +49,23 @@ export default class Timer extends React.Component{
 
     }
     render(){
+        if(this.props.targetDate!==''){
             return(
-                <div class="col-sm-12 col-md-8 col-lg-4">
-					<img class="header-item-img" src={require("./assets/Orion_stopwatch.png")}/>
-					<div class="cb-title remaining text-center">Remaining time before bets are closed.</div>
-					<p id="timer" class="text-center">{this.state.timerHTML}</p>
+                <div className="col-sm-12 col-md-8 col-lg-4">
+					<img alt="" className="header-item-img" src={require("./assets/Orion_stopwatch.png")}/>
+					<div className="cb-title remaining text-center">Remaining time before bets are closed.</div>
+					<p id="timer" className="text-center">{this.state.timerHTML}</p>
+				</div>
+            );}
+        else{
+            return(
+                <div className="col-sm-12 col-md-8 col-lg-4">
+					<img alt="" className="header-item-img" src={require("./assets/Orion_stopwatch.png")}/>
+					<div className="cb-title remaining text-center">Remaining time before bets are closed.</div>
+					<p id="timer" className="text-center">No race selected</p>
 				</div>
             );
+        }
 
     }
 }

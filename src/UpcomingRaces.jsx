@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Accordion, Icon} from 'semantic-ui-react';
-import {Button} from 'reactstrap';
 import configjson from './config.json'
 var moment = require('moment');
 
@@ -14,14 +13,19 @@ export default class UpcomingRaces extends Component {
 
     }
     getContract() {
-        console.log('contract')
         let self = this;
         let val = fetch("http://"+configjson.serverIP+":"+configjson.serverPort+"/contract/getNextDayRace", {
             method: 'GET'
         }).then(function(contracts) {
+            if(contracts.status===204){
+                self.setState({contract: []})
+            }
+            else{
             contracts.json().then(function(value) {
+                // console.log(value)
                 self.setState({contract: value})
             })
+            }
         })
         return val;
     }
@@ -33,19 +37,19 @@ export default class UpcomingRaces extends Component {
 
         if (this.state.contract !== null && this.state.contract.length !== 0) {
             var contractjson = this.state.contract;
-            console.log(contractjson)
-            const Buttons = (contractjson.map(row => <div class="race "id={row.raceDate} key={row.raceDate} style={{textAlign:'left'}}>
+            // console.log(contractjson)
+            const Buttons = (contractjson.map(row => <div className="race "id={row.raceDate} key={row.raceDate} style={{textAlign:'left'}}>
                 <ul>
-                    <li class="days_number ">
-                        <span>{(moment(parseInt(row.raceDate) * 1000).format('DD')).toString()}</span>
+                    <li className="days_number ">
+                        <span>{(moment(parseInt(row.raceDate,10) * 1000).format('DD')).toString()}</span>
                     </li>
-                    <li class="date">{(moment(parseInt(row.raceDate) * 1000).format('dddd, MMM YYYY')).toString()}
+                    <li className="date">{(moment(parseInt(row.raceDate,10) * 1000).format('dddd, MMM YYYY')).toString()}
                         <br/>
-                        <span class="hour">{(moment(parseInt(row.raceDate) * 1000).format('HH:SS')).toString()}</span>
+                        <span className="hour">{(moment(parseInt(row.raceDate,10) * 1000).format('HH:SS')).toString()}</span>
                     </li>
                 </ul>
-                <div class="status-race-sidebar">Status
-                    <span class="status_race_value upcoming ">{row.status}</span>
+                <div className="status-race-sidebar">Status
+                    <span className="status_race_value upcoming ">{row.status}</span>
                 </div>
             </div>))
 

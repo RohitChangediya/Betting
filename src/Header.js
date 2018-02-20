@@ -1,9 +1,4 @@
 import {
-    Navbar,
-    NavbarBrand,
-    Nav,
-    NavLink,
-    NavItem,
     Modal,
     ModalHeader,
     ModalBody,
@@ -49,27 +44,27 @@ export default class Header extends Component {
             <div className="container-fluid top-bar">
             	<ul className="menu-items text-left">
                     <li>
-                        <a href="https://www.youtube.com/watch?v=JS2uo7pSkn4" target="_blank">Demo Video</a>
+                        <a href="https://www.youtube.com/watch?v=JS2uo7pSkn4" target="_blank" rel="noopener noreferrer">Demo Video</a>
                     </li>
                     <li>
                         <a href="#" onClick={this.toggle}>Help</a>
                     </li>
             	</ul>
-            	<a className="logo" href="#"><img className="logo-img" src={require("./assets/logo.png")}/></a>
+            	<a className="logo" href="#"><img alt="" className="logo-img" src={require("./assets/logo.png")}/></a>
             	<ul className="social-icons text-right">
-            		<li><a target="_blank" rel="noopener noreferrer" href="https://telegram.me/ethorse" ><img src={require("./assets/telegram.png")}/></a></li>
-            		<li><a href="#"><img src={require("./assets/reddit.png")}/></a></li>
-            		<li><a href="https://github.com/ethorse" target="_blank" rel="noopener noreferrer" ><img src={require("./assets/github.png")}/></a></li>
+            		<li><a target="_blank" rel="noopener noreferrer" href="https://telegram.me/ethorse" ><img alt="" src={require("./assets/telegram.png")}/></a></li>
+            		<li><a href="https://www.reddit.com/r/Ethorse/" target="_blank" rel="noopener noreferrer" ><img alt="" src={require("./assets/reddit.png")}/></a></li>
+            		<li><a href="https://github.com/ethorse" target="_blank" rel="noopener noreferrer" ><img alt="" src={require("./assets/github.png")}/></a></li>
             	</ul>
             </div>
 
-            <div class="container-fluid minified-bar">
-            	<img class="close-icon" src={require("./assets/Orion_close.png")}/>
-            	<a class="minified-bar-logo" href="#"><img class="logo-img" src={require("./assets/logo.png")}/></a>
-            	<ul class="social-icons text-right">
-            		<li><a target="_blank" rel="noopener noreferrer" href="https://telegram.me/ethorse" ><img src={require("./assets/telegram.png")}/></a></li>
-            		<li><a href="#"><img src={require("./assets/reddit.png")}/></a></li>
-            		<li><a href="https://github.com/ethorse" target="_blank" rel="noopener noreferrer" ><img src={require("./assets/github.png")}/></a></li>
+            <div className="container-fluid minified-bar">
+            	<img alt="" className="close-icon" src={require("./assets/Orion_close.png")}/>
+            	<a className="minified-bar-logo" href="#"><img alt="" className="logo-img" src={require("./assets/logo.png")}/></a>
+            	<ul className="social-icons text-right">
+            		<li><a target="_blank" rel="noopener noreferrer" href="https://telegram.me/ethorse" ><img alt="" src={require("./assets/telegram.png")}/></a></li>
+            		<li><a href="https://www.reddit.com/r/Ethorse/" target="_blank" rel="noopener noreferrer" ><img alt="" src={require("./assets/reddit.png")}/></a></li>
+            		<li><a href="https://github.com/ethorse" target="_blank" rel="noopener noreferrer" ><img alt="" src={require("./assets/github.png")}/></a></li>
             	</ul>
             </div>
 

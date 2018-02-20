@@ -1,22 +1,18 @@
 import React, { Component } from 'react';
 // import ethorsejson from './ETHorse.json';
 import ethorsejson from './ETHorse.json';
-import configjson from './config.json'
+// import configjson from './config.json'
 import './App.css';
 import ETHRadio from './ETHRadio'
 import Amount from './Amount.js'
 import Header from './Header'
-import Contract from './Contract'
 import Result from './Result'
 import ContractSidebar from './ContractSidebar'
-import $ from 'jquery'
-import jQuery from 'jquery'
-import FlipClock from './FlipClock-master/compiled/flipclock.js'
-import {Jumbotron, Container, Button, InputGroup, InputGroupButton, InputGroupAddon, Input, UncontrolledTooltip, Table } from 'reactstrap'
-import { Message, Icon } from 'semantic-ui-react'
+import {Jumbotron, Container} from 'reactstrap'
+// import { Message, Icon } from 'semantic-ui-react'
 import SelectedCoin from './SelectedCoin';
 import Timer from './Timer';
-var moment = require('moment');
+
 
 
 var Web3 = require('web3');
@@ -100,9 +96,7 @@ class App extends Component {
     }
   startFlipClock(time)
     {
-      let self=this;
       this.setState({targetDate:time})
-      console.log('Time',time)
   //     $(document).ready(function () {
   //       console.log('ready')
   //     var clock = $('.flipclock').FlipClock(time, {
@@ -138,11 +132,7 @@ class App extends Component {
       this.setState({"h":null,"d":null,"m":null,"s":null})
       // console.log(this.state.contract)
     }
-    if(this.state.clock!=null)
-    {
-      this.state.clock.stop();
-      $('.flipclock').html('')
-    }
+
     if(web3.currentProvider!=null)
     {
 
@@ -183,7 +173,7 @@ class App extends Component {
                     // let race_duration_utc=new Date(race_duration)
                     // console.log('Dur ',race_duration_utc);
                     self.setState({timeInterval:ct,betPhase:'Results in ',resultTime:((start_time+race_duration)*1000)})
-                    let time=parseInt(start_time)+parseInt(race_duration)-new Date()/1000
+                    let time=parseInt(start_time,10)+parseInt(race_duration,10)-new Date()/1000
                     console.log(time)
                     self.startFlipClock(time)
                     }
@@ -243,29 +233,21 @@ class App extends Component {
   }
   componentMounted()
   {
-    if(this.state.contract!==null)
-    myContract.at(this.state.contract).then(function(instance){
-      var ethAccount='';
-      web3.eth.getAccounts(function(err, accounts){
-        ethAccount=accounts[0]
-        }).then(function()
-                {
-                if(ethAccount!==undefined){
-                web3.eth.getBalance(ethAccount).then(function(balance){
-
-                    // if(web3.utils.fromWei(balance)==="0"){
-                    //   let faucet= document.getElementById('faucet')
-                    //   faucet.classList.remove("hidden");
-                    // }
-                    return web3.utils.fromWei(balance);
-                });
-              }})});
+    // if(this.state.contract!==null)
+    // myContract.at(this.state.contract).then(function(instance){
+    //   var ethAccount='';
+    //   web3.eth.getAccounts(function(err, accounts){
+    //     ethAccount=accounts[0]
+    //     }).then(function()
+    //             {
+    //             if(ethAccount!==undefined){
+    //             // let result=web3.eth.getBalance(ethAccount).then(function(balance){
+    //             //     console.log(web3.utils.fromWei(balance));
+    //             // });
+    //           }})});
       this.checkRewards()
   }
-  componentWillMount()
-    {
-    this.getNextRace();
-    }
+
   componentDidMount(){
     if(this.state.contract!==null)
     this.componentMounted();
@@ -330,11 +312,12 @@ class App extends Component {
                               document.getElementById("loading-icon").classList.add('disable-el');
                             });
                             }).catch(function(e){
+                            document.getElementById("transaction_id").classList.add('disable-el');
                               if(e.message==="MetaMask Tx Signature: User denied transaction signature.")
                               {
 
                                 self.setState({value:null,transactionid:null})
-                                document.getElementById("transaction_id").classList.add('disable-el');
+
 
                               }
                             })})
@@ -487,20 +470,7 @@ class App extends Component {
       });
     });
   }
-  getNextRace()
-    {
-    let self=this;
-    // fetch("http://"+configjson.serverIP+":"+configjson.serverPort+"/contract/getNextDayRace",{
-    //     method:'GET',
-    // }).then(function(contracts){
-    //
-    //     contracts.json().then(function(value){
-    //         // console.log(value.date)
-    //         // self.setState({contract:value})
-    //           self.setState({nextRace:(moment(parseInt(value.date)*1000).format('ddd, DD MMM YYYY, HH:SS')).toString()})
-    //     })
-    // })
-    }
+
 
   onDismiss(err) {
       if(err==="Error")
@@ -530,34 +500,34 @@ class App extends Component {
 
       <div className="col-md-2 mx-auto col-sm-1"></div>
       <div className="col-md-10 mx-auto col-sm-11"  style={{ 'marginTop': '10vh'}}>
-        <div class="row">
-            <div class="container header-wrapper">
-			<header class="header">
-				<div class="row">
+        <div className="row">
+            <div className="container header-wrapper">
+			<header className="header">
+				<div className="row">
                   <Result contract={this.state.contract}/>
-					<div class="volume header-item col-sm-4 col-md-4 col-lg-4">
-						<img class="header-item-img" src={require("./assets/Orion_storage-box.png")}/>
-						<div class="header-item-title text-center">Volume</div>
-						<div class="header-item-value text-center">{this.state.t_bets}</div>
+					<div className="volume header-item col-sm-4 col-md-4 col-lg-4">
+						<img alt="" className="header-item-img" src={require("./assets/Orion_storage-box.png")}/>
+						<div className="header-item-title text-center">Volume</div>
+						<div className="header-item-value text-center">{this.state.t_bets}</div>
 					</div>
-					<div class="race_duration header-item col-sm-4 col-md-4 col-lg-4">
-						<div class="center-block"><img class="header-item-img img-responsive center-block" src={require("./assets/Orion_timing.png")}/></div>
-						<div class="header-item-title text-center">Race Duration</div>
-						<div class="header-item-value text-center">{this.state.duration}</div>
+					<div className="race_duration header-item col-sm-4 col-md-4 col-lg-4">
+						<div className="center-block"><img alt="" className="header-item-img img-responsive center-block" src={require("./assets/Orion_timing.png")}/></div>
+						<div className="header-item-title text-center">Race Duration</div>
+						<div className="header-item-value text-center">{this.state.duration}</div>
 					</div>
 				</div>
-                <div class="row" style={{marginTop:'5%'}}>
+                <div className="row" style={{marginTop:'5%'}}>
 
                     <Timer targetDate={this.state.targetDate}/>
-                    <div class="col-sm-6 col-md-4 col-lg-4">
-    					<img class="header-item-img" src={require("./assets/Orion_sales-up.png")}/>
-    					<div class="cb-title crypto-bet text-center">Crypto to Bet On</div>
+                    <div className="col-sm-6 col-md-4 col-lg-4">
+    					<img alt="" className="header-item-img" src={require("./assets/Orion_sales-up.png")}/>
+    					<div className="cb-title crypto-bet text-center">Crypto to Bet On</div>
     					<SelectedCoin coin={this.state.coin}/>
-    					<div class="crypto text-center" ng-bind="cryptoName"></div>
+    					<div className="crypto text-center" ng-bind="cryptoName"></div>
 				    </div>
                     <div className="col-md-4">
                           <Amount onValueSubmit={this.onValueSubmit.bind(this)}/>
-      					<div class="btn-container text-center"><input type="button" onClick={this.invokeContract.bind(this)} class="btn place-bet-button center-block text-center" value="Place Bet"/></div>
+      					<div className="btn-container text-center"><input type="button" onClick={this.invokeContract.bind(this)} className="btn place-bet-button center-block text-center" value="Place Bet"/></div>
                     </div>
                 </div>
 			</header>
@@ -572,24 +542,24 @@ class App extends Component {
 
 
 
-          <div class="text-center"><img class="img-responsive speaker-icon" src={require("./assets/Orion_champion.png")}/>{this.state.reward.toString()}</div>
+          <div className="text-center"><img alt="" className="img-responsive speaker-icon" src={require("./assets/Orion_champion.png")}/>{this.state.reward.toString()}</div>
 
-  		  <div class="text-center">
-      			<button type="button" class="btn check-result-button text-center" onClick={this.checkRewards} disabled={!this.state.claim}><img class="refresh img-responsive" src={require("./assets/Orion_restart.png")}/>Check Results</button>
-      			<button type="button" class="btn claim-button" onClick={this.claim} disabled={!this.state.claim}><img class="megaphone img-responsive" src={require("./assets/Orion_megaphone.png")}/>Claim</button>
+  		  <div className="text-center">
+      			<button type="button" className="btn check-result-button text-center" onClick={this.checkRewards} disabled={!this.state.claim}><img alt="" className="refresh img-responsive" src={require("./assets/Orion_restart.png")}/>Check Results</button>
+      			<button type="button" className="btn claim-button" onClick={this.claim} disabled={!this.state.claim}><img alt="" className="megaphone img-responsive" src={require("./assets/Orion_megaphone.png")}/>Claim</button>
   		  </div>
 
 
           <br/>
           <br/>
           <div>
-            <Message icon id="transaction_id" className="disable-el" >
+            {/* <Message icon id="transaction_id" className="disable-el" >
               <Icon name='circle notched' id="loading-icon" loading style={{'color':'black'}} />
               <Message.Content style={{'color':'black'}}>
                 <Message.Header style={{'color':'black'}}>{this.state.transactionidmsg}</Message.Header>
                 {this.state.transactionid}
               </Message.Content>
-            </Message>
+            </Message> */}
             <br/>
           </div>
           <br/>
@@ -602,25 +572,6 @@ class App extends Component {
         <ContractSidebar onContractSubmit={this.contractUpdate.bind(this)}/>
     </div>
     {/* <div className="col-md-2 mx-auto right-sidebar" style={{ 'marginTop': '5vh',position:'fixed'}}>
-      <Table style={{top:'10%',position:'relative'}}>
-        <tbody>
-          <p style={{color:'#868e96', left:0}}><h3>Status</h3></p>
-          <tr>
-            <th >Volume:</th>
-            <td>{this.state.t_bets}</td>
-          </tr>
-          <tr>
-            <th >Race Duration:</th>
-            <td>{this.state.duration}</td>
-          </tr>
-          <tr>
-            <th>Version:</th>
-            <td>0</td>
-          </tr>
-
-
-       </tbody>
-      </Table>
       <div className="betDetails" style={{top:'15%',position:'relative',textAlign:'center'}}>
         {this.state.betPhase}<br></br>
         <div className="flipclock" style={{width:'auto',display:'inline-block'}}/>

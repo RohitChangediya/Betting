@@ -1,12 +1,9 @@
 import React, { Component } from 'react';
-
 import ethorsejson from './ETHorse.json';
-
-
 
 var Web3 = require('web3');
 var contract = require("truffle-contract");
-
+var moment = require('moment');
 var web3 = new Web3(Web3.givenProvider);
 
 var myContract = contract(ethorsejson);
@@ -39,15 +36,7 @@ export default class Result extends Component{
                 });
                 instance.starting_time().then(function(start_time){
                   start_time=parseInt(start_time,10)
-                  console.log(start_time)
-                  let start_time_utc=new Date(start_time*1000);
-
-                  Date.prototype.getMonthName = function() {
-    var monthNames = [ "January", "February", "March", "April", "May", "June",
-                       "July", "August", "September", "October", "November", "December" ];
-    return monthNames[this.getMonth()];
-};                 console.log(start_time_utc.getDate())
-                  self.setState({start_time:start_time_utc.getDate()+" "+start_time_utc.getMonthName()});
+                  self.setState({start_time:(moment(parseInt(start_time,10) * 1000).format('dddd, MMM YYYY')).toString()});
                 })
               }
             });
@@ -74,13 +63,8 @@ export default class Result extends Component{
                     self.setState({winner:web3.utils.toAscii(winner).replace(/\u0000/g,'')})
                   instance.starting_time().then(function(start_time){
                     start_time=parseInt(start_time,10)
-                    let start_time_utc=new Date(start_time*1000);
-                    Date.prototype.getMonthName = function() {
-      var monthNames = [ "January", "February", "March", "April", "May", "June",
-                         "July", "August", "September", "October", "November", "December" ];
-      return monthNames[this.getMonth()];
-  };
-                    self.setState({start_time:start_time_utc.getDate()+" "+start_time_utc.getMonthName()});
+                    start_time=parseInt(start_time,10)
+                    self.setState({start_time:(moment(parseInt(start_time,10) * 1000).format('dddd, MMM YYYY')).toString()});
                   })
 
                 });
@@ -95,23 +79,23 @@ export default class Result extends Component{
   {
     if(this.state.winner==="")
     return(
-        <div class="race_status header-item col-sm-4 col-md-4 col-lg-4">
-            <img class="header-item-img" src={require("./assets/Orion_flag.png")}/>
-            <div class="header-item-title text-center">Race Status</div>
-            <div class="race-status-value text-center"><i class="fa fa-circle" aria-hidden="true"></i> Live</div>
+        <div className="race_status header-item col-sm-4 col-md-4 col-lg-4">
+            <img alt="" className="header-item-img" src={require("./assets/Orion_flag.png")}/>
+            <div className="header-item-title text-center">Race Status</div>
+            <div className="race-status-value text-center"><i className="fa fa-circle" aria-hidden="true"></i> Live</div>
         </div>
     );
     else {
-      return(<span style={{fontSize:'25px','position':'relative'}} className="float-left">
-              <span style={{"fontSize":"25px" }}>
-                {/* The winner for race on {this.state.start_time} is {this.state.winner} */}
-                {/* The winner is {this.state.winner} */}
-                <p><img src="https://png.icons8.com/ios-glyphs/40/ffffff/trophy.png"/>
-                {this.state.winner}&nbsp;&nbsp;&nbsp;&nbsp;
-                <img src="https://png.icons8.com/windows/40/ffffff/planner.png"/>
-                {this.state.start_time}</p>
-              </span>
-            </span>);
+      return(
+          <div className="race_status header-item col-sm-4 col-md-4 col-lg-4">
+              <img alt="" className="header-item-img" src={require("./assets/Orion_flag.png")}/>
+              <div className="header-item-title text-center">Race Status</div>
+              <div className="race-status-value text-center"><img alt="" src="https://png.icons8.com/ios-glyphs/40/ffffff/trophy.png"/>
+                {this.state.winner}</div>
+              <div className="race-status-value text-center"><img alt="" src="https://png.icons8.com/windows/40/ffffff/planner.png"/>
+                {this.state.start_time}</div>
+        </div>
+        );
     }
   }
 }

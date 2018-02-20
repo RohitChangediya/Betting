@@ -1,5 +1,5 @@
 import React from 'react';
-import {Input} from 'reactstrap';
+
 
 export default class Amount extends React.Component {
     constructor(props) {
@@ -15,11 +15,12 @@ export default class Amount extends React.Component {
     render() {
         return (
             <div>
-            <img class="header-item-img" src={require("./assets/Orion_coins.png")}/>
-              <div class="cb-title amount text-center">Amount to Bet</div>
+            <img alt="" className="header-item-img" src={require("./assets/Orion_coins.png")}/>
+              <div className="cb-title amount text-center">Amount to Bet</div>
 
-              <div class="form-inline justify-content-center">
-                  <input type="number" class="form-control amount-input mx-auto d-block text-center" id="amount" value={this.state.value} type="number" step="0.01" max="1" min="0.1" title="Enter the amount to bet in ether" onChange={this.handleChange}></input><div class="eth text-center mx-auto d-block"><img class="eth-logo" src={require("./assets/eth.png")}/> ETH</div>
+              <div className="form-inline justify-content-center">
+                  <input type="number" className="form-control amount-input mx-auto d-block text-center" id="amount" value={this.state.value} step="0.01" max="1" min="0.1" title="Enter the amount to bet in ether" onChange={this.handleChange}/>
+                  <div className="eth text-center mx-auto d-block"><img alt="" className="eth-logo" src={require("./assets/eth.png")}/> ETH</div>
               </div>
           </div>);
     }
