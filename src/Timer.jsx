@@ -3,34 +3,43 @@ import React from 'react';
 export default class Timer extends React.Component{
     constructor(props){
         super(props);
-        this.state={timerHTML:'',targetDate:this.props.targetDate,compute:true}
+        this.state={timerHTML:'',targetDate:this.props.targetDate,compute:false,timer:null}
         this.countDownCompute=this.countDownCompute.bind(this);
+        this.timer = 0;
+        // this.startTimer = this.startTimer.bind(this);
+        // this.countDown = this.countDown.bind(this);
     }
     componentDidMount(){
         if(this.props.targetDate!==''){
+            console.log('Mount');
             this.countDownCompute();
         }
     }
     componentDidUpdate(){
-        if((this.state.targetDate!==this.props.targetDate || this.props.targetDate!=='') && this.state.compute)
+        if((this.state.targetDate!==this.props.targetDate || this.props.targetDate==='')){
+            console.log('Invoke');
+            console.log(this.state.targetDate,this.props.targetDate)
+            this.setState({targetDate:this.props.targetDate})
             this.countDownCompute();
+        }
     }
     countDownCompute(){
-        var countDownDate = parseInt(this.props.targetDate,10);
-
+        var countDownDate = parseInt(this.props.targetDate*1000,10);
+        console.log(this.props.targetDate)
         var self=this;
+        console.log(this.state.targetDate!==this.props.targetDate || this.props.targetDate==='')
         // Update the count down every 1 second
-        var x = setInterval(function() {
+        this.timer = setInterval(function() {
 
             // Get todays date and time
             var now = new Date().getTime();
 
             // Find the distance between now an the count down date
             var distance = parseInt(countDownDate,10) - parseInt(now,10);
-            if (distance < 0 || parseInt(self.props.targetDate,10)!==countDownDate) {
-                clearInterval(x);
+            if (parseInt(distance,10) < 0) {
+                // console.log(parseInt(1519277268000,10)!==countDownDate,distance);
+                clearInterval(self.timer);
                 self.setState({ timerHTML:"Race closed for betting.",distance,compute:false});
-                self.countDownCompute();
             }
 
             // Time calculations for days, hours, minutes and seconds
@@ -41,11 +50,12 @@ export default class Timer extends React.Component{
             // Display the result in the element with id="demo"
             if(distance>=0)
                 {self.setState({ timerHTML:(hours + "h "
-            + minutes + "m " + seconds + "s ")});}
+            + minutes + "m " + seconds + "s "),compute:false});}
 
             // If the count down is finished, write some text
 
         }, 1000);
+    // this.setState({timer:x});
 
     }
     render(){

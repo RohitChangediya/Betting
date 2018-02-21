@@ -44,10 +44,10 @@ export default class Header extends Component {
             <div className="container-fluid top-bar">
             	<ul className="menu-items text-left">
                     <li>
-                        <a href="https://www.youtube.com/watch?v=JS2uo7pSkn4" target="_blank" rel="noopener noreferrer">Demo Video</a>
+                        <a href="https://www.youtube.com/watch?v=JS2uo7pSkn4" target="_blank" rel="noopener noreferrer"><i className="fa fa-film"></i>Demo Video</a>
                     </li>
                     <li>
-                        <a href="#" onClick={this.toggle}>Help</a>
+                        <a href="#" onClick={this.toggle}><i className="fa fa-slack"></i>Help</a>
                     </li>
             	</ul>
             	<a className="logo" href="#"><img alt="" className="logo-img" src={require("./assets/logo.png")}/></a>

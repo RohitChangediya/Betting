@@ -97,6 +97,7 @@ class App extends Component {
   startFlipClock(time)
     {
       this.setState({targetDate:time})
+      // console.log('Time',time);
   //     $(document).ready(function () {
   //       console.log('ready')
   //     var clock = $('.flipclock').FlipClock(time, {
@@ -174,16 +175,18 @@ class App extends Component {
                     // console.log('Dur ',race_duration_utc);
                     self.setState({timeInterval:ct,betPhase:'Results in ',resultTime:((start_time+race_duration)*1000)})
                     let time=parseInt(start_time,10)+parseInt(race_duration,10)-new Date()/1000
-                    console.log(time)
+                    // console.log(time)
                     self.startFlipClock(time)
                     }
                   else if(start_time>0){
 
                     self.setState({betPhase:'Check result to see your winnings.'})
+                    // console.log('Race over')
                     self.startFlipClock(0);
                   }
                   else{
                     self.setState({betPhase:"Currently no race in progress.",duration:'Race not active yet'})
+                    // console.log('No progress')
                     self.startFlipClock(0);
                   }
 
@@ -303,16 +306,16 @@ class App extends Component {
                           if(txo.data!==null && ethAccount!==undefined)
                             {
                             self.setState({transactionid:'Placing Bet...'},function(){
-                              document.getElementById("transaction_id").classList.remove('disable-el');
-                              document.getElementById("loading-icon").classList.remove('disable-el');
+                              // document.getElementById("transaction_id").classList.remove('disable-el');
+                              // document.getElementById("loading-icon").classList.remove('disable-el');
                             instance.placeBet(self.state.coin,txo).then(function(res,error){
 
                               self.setState({transactionid:('Transaction ID: '+res.tx+'. '),transactionidmsg:"Good luck. You can use \"Check result\" and \"Claim\" after the race is over.",value:self.state.coin},function()
                             {
-                              document.getElementById("loading-icon").classList.add('disable-el');
+                              // document.getElementById("loading-icon").classList.add('disable-el');
                             });
                             }).catch(function(e){
-                            document.getElementById("transaction_id").classList.add('disable-el');
+                            // document.getElementById("transaction_id").classList.add('disable-el');
                               if(e.message==="MetaMask Tx Signature: User denied transaction signature.")
                               {
 
