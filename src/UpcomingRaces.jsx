@@ -10,28 +10,47 @@ export default class UpcomingRaces extends Component {
             contract: null
         };
         this.getContract = this.getContract.bind(this);
+        this.convertMS = this.convertMS.bind(this);
 
     }
-    getContract() {
-        let self = this;
-        let val = fetch("http://"+configjson.serverIP+":"+configjson.serverPort+"/contract/getNextDayRace", {
-            method: 'GET'
-        }).then(function(contracts) {
-            if(contracts.status===204){
-                self.setState({contract: []})
-            }
-            else{
-            contracts.json().then(function(value) {
-                // console.log(value)
-                self.setState({contract: value})
-            })
-            }
-        })
-        return val;
-    }
+
     componentWillMount() {
         this.getContract();
     }
+    convertMS(ms){
+      var d, h, m, s;
+      s = Math.floor(ms / 1000);
+      m = Math.floor(s / 60);
+      s = s % 60;
+      h = Math.floor(m / 60);
+      m = m % 60;
+      d = Math.floor(h / 24);
+      h = h % 24;
+      h=h+' hours,'
+      m=m+' minutes,'
+      s=s+' seconds.'
+      return h+m+s;
+      }
+      getContract() {
+          let self = this;
+          let val = fetch("http://"+configjson.serverIP+":"+configjson.serverPort+"/contract/getNextRace", {
+              method: 'GET',
+              headers: {
+                  duration:this.props.duration
+              }
+          }).then(function(contracts) {
+              if(contracts.status===204){
+                  self.setState({contract: []})
+              }
+              else{
+              contracts.json().then(function(value) {
+                  // console.log(value)
+                  self.setState({contract: value})
+              })
+              }
+          })
+          return val;
+      }
 
     render() {
 
@@ -51,11 +70,12 @@ export default class UpcomingRaces extends Component {
                 <div className="status-race-sidebar">Status
                     <span className="status_race_value upcoming ">{row.status}</span>
                 </div>
+                <div class="start_countdown">Race starts in {this.convertMS(row.time_remaining)}</div>
             </div>))
 
             return (<div>
                 <Accordion.Title active={true} style={{textAlign:'left',backgroundColor:'#19b5fe'}}>
-                    <span style={{textAlign:'left'}}><Icon name='dropdown'/> Upcoming Races</span>
+                    <span style={{textAlign:'left'}}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Upcoming {this.props.duration/3600} hr Races</span>
                 </Accordion.Title>
                 <Accordion.Content active={true} content={Buttons}/>
             </div>);

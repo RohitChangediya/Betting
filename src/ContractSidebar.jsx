@@ -62,12 +62,9 @@ export default class ContractSidebar extends Component {
     }
 
     handleChange(event) {
-        // if (this.state.prevActive != null) {
-        //     this.state.prevActive.className = "btn btn-link";
-        // }
         if (this.state.classActive === false) {
             if(this.state.contract!==undefined)
-                document.getElementById(this.state.contract).classList='live_race '+document.getElementById(this.state.contract).classList;
+                document.getElementById(this.state.contract).classList.remove('live_race');
              this.setState({classActive: true});
         }
 
@@ -100,7 +97,8 @@ export default class ContractSidebar extends Component {
             <Accordion className="float-left" style={{
                     marginTop: '0'
                 }}>
-                <UpcomingRaces/>
+                <UpcomingRaces duration={3600}/>
+                <UpcomingRaces duration={86400}/>
                 <WeekList title="Last one week" number={0} date={parseInt((new Date()).getTime() / 1000,10)} contractUpdate={(event) => this.handleChange(event)} parentState={this} initiate={this.initiate.bind(this)} currentTime={parseInt((new Date()).getTime() / 1000,10)}/>
                 <WeekList title="One week ago" number={1} date={parseInt((new Date()).getTime() / 1000,10) - 604800} contractUpdate={(event) => this.handleChange(event)} parentState={this} currentTime={parseInt((new Date()).getTime() / 1000,10)}/>
                 <WeekList title="Two week ago" number={2} date={parseInt((new Date()).getTime() / 1000,10) - 604800 * 2} contractUpdate={(event) => this.handleChange(event)} parentState={this} currentTime={parseInt((new Date()).getTime() / 1000,10)}/>

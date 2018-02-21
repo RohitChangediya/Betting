@@ -11,23 +11,27 @@ export default class Timer extends React.Component{
     }
     componentDidMount(){
         if(this.props.targetDate!==''){
-            console.log('Mount');
             this.countDownCompute();
         }
     }
     componentDidUpdate(){
-        if((this.state.targetDate!==this.props.targetDate || this.props.targetDate==='')){
-            console.log('Invoke');
-            console.log(this.state.targetDate,this.props.targetDate)
-            this.setState({targetDate:this.props.targetDate})
-            this.countDownCompute();
+        let self=this;
+        if((parseInt(this.state.targetDate,10)!==parseInt(this.props.targetDate,10) || this.props.targetDate==='')){
+            // for(let i=1;i<=999;i++){
+            //
+            // }
+            clearInterval(this.timer);
+            this.setState({targetDate:this.props.targetDate},function(){
+            self.countDownCompute();
+            })
+
         }
     }
     countDownCompute(){
         var countDownDate = parseInt(this.props.targetDate*1000,10);
-        console.log(this.props.targetDate)
+        // console.log(this.props.targetDate)
         var self=this;
-        console.log(this.state.targetDate!==this.props.targetDate || this.props.targetDate==='')
+        // console.log(this.state.targetDate!==this.props.targetDate || this.props.targetDate==='')
         // Update the count down every 1 second
         this.timer = setInterval(function() {
 
@@ -37,7 +41,6 @@ export default class Timer extends React.Component{
             // Find the distance between now an the count down date
             var distance = parseInt(countDownDate,10) - parseInt(now,10);
             if (parseInt(distance,10) < 0) {
-                // console.log(parseInt(1519277268000,10)!==countDownDate,distance);
                 clearInterval(self.timer);
                 self.setState({ timerHTML:"Race closed for betting.",distance,compute:false});
             }
@@ -63,7 +66,7 @@ export default class Timer extends React.Component{
             return(
                 <div className="col-sm-12 col-md-8 col-lg-4">
 					<img alt="" className="header-item-img" src={require("./assets/Orion_stopwatch.png")}/>
-					<div className="cb-title remaining text-center">Remaining time before bets are closed.</div>
+					<div className="cb-title remaining text-center">{this.props.bet_phase}</div>
 					<p id="timer" className="text-center">{this.state.timerHTML}</p>
 				</div>
             );}

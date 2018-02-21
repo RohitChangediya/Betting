@@ -1,6 +1,6 @@
 /* Right Panel */
 .right-panel{
-	margin-top: 150px !important;
+	margin-top: 120px !important;
 	margin-left: 270px !important;
 }
 @media screen and (max-width: 1360px){
@@ -249,8 +249,7 @@
 	background: linear-gradient(to bottom, #446cb3 0%,#2989d8 0%,#7db9e8 0%,#5644b3 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#446cb3', endColorstr='#5644b3',GradientType=0 ); /* IE6-9 */
 	font-family: Ubuntu, sans-serif;
-	/* font-size: 80%; */
-	font-size: 1rem;
+	font-size: 80%;
 	color: #ffffff;
 	padding: 15px 45px 15px 45px !important;
 	border: none !important;
@@ -434,6 +433,7 @@
 	padding: 20px 5px 20px 5px;
 	background: #313d5f;
 	border-radius: 5px;
+	z-index: 50 !important;
 	transition: box-shadow 0.5s ease-out, transform 0.5s ease-out;
 }
 @media screen and (max-width: 996px){

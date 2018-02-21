@@ -16,62 +16,38 @@ if(web3.currentProvider!=null)
 export default class Result extends Component{
   constructor(props){
     super(props);
-    this.state={contract:this.props.contract,winner:"",start_time:""}
+    this.state={contract:this.props.contract,winner:"",start_time:"",coinList:ethorsejson.coinList}
   this.checkWinner=this.checkWinner.bind(this);
 
   }
-  checkWinner()
-  {
-     let self=this;
-    myContract.at(this.props.contract).then(function(instance)
-          {
-            instance.race_end().then(function(state){
-              if(state===false)
-              {
-              self.setState({winner:""})
-              }
-              else{
-                instance.winner_horse().then(function(winner){
-                    self.setState({winner:web3.utils.toAscii(winner).replace(/\u0000/g,'')})
-                });
-                instance.starting_time().then(function(start_time){
-                  start_time=parseInt(start_time,10)
-                  self.setState({start_time:(moment(parseInt(start_time,10) * 1000).format('dddd, MMM YYYY')).toString()});
-                })
-              }
-            });
-          });
-  }
+
   componentWillMount()
   {
-    this.checkWinner();
+      for(let i=0;i<ethorsejson.coinList.length;i++){
+          this.checkWinner(ethorsejson.coinList[i]);
+      }
   }
-  componentDidUpdate()
-  {
-    if(this.props.contract!==this.state.contract)
-    {
-      let self=this;
-    myContract.at(this.props.contract).then(function(instance)
-          {
-            instance.race_end().then(function(state){
-              if(state===false)
-              {
-              self.setState({winner:""})
-              }
-              else{
-                instance.winner_horse().then(function(winner){
-                    self.setState({winner:web3.utils.toAscii(winner).replace(/\u0000/g,'')})
-                  instance.starting_time().then(function(start_time){
-                    start_time=parseInt(start_time,10)
-                    start_time=parseInt(start_time,10)
-                    self.setState({start_time:(moment(parseInt(start_time,10) * 1000).format('dddd, MMM YYYY')).toString()});
-                  })
-
-                });
-              }
-            });
-
-          });
+  checkWinner(coin){
+    let self=this;
+    myContract.at(this.props.contract).then(function(instance){
+        instance.winner_horse(coin).then(function(winner){
+        let starting_time=parseInt(self.props.starting_time,10)
+        if(winner)
+            self.setState({winner:coin,start_time:(moment(parseInt(starting_time,10) * 1000).format('dddd, MMM YYYY')).toString()})
+        });
+    });
+  }
+  componentDidUpdate(){
+      // this.checkWinner();
+    if(this.props.contract!==this.state.contract){
+        if(this.props.race_end===false){
+            this.setState({winner:""})
+            }
+        else{
+            for(let i=0;i<ethorsejson.coinList.length;i++){
+                this.checkWinner(ethorsejson.coinList[i]);
+        }
+    }
     this.setState({contract:this.props.contract})
     }
   }
