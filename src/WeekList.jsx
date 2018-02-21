@@ -30,7 +30,7 @@ export default class WeekList extends Component {
             contracts.json().then(function(value) {
                 self.setState({contract: value})
                 if (value.length > 0 && self.props.number === 0) {
-                    document.getElementById(value[0].contractid).classList='live_race '+document.getElementById(value[0].contractid).classList;
+                    document.getElementById(value[0].contractid).classList='bettingOpen '+document.getElementById(value[0].contractid).classList;
                     // console.log(value[0].contractid)
                     self.props.initiate(value[0].contractid)
                 }
