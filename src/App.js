@@ -42,7 +42,6 @@ class App extends Component {
     super(props);
     this.state={contractState:null,
                 network:null,
-                nettimer:null,
                 contractJSON:ethorsejson,
                 price:null,
                 invokePrice:null,
@@ -54,11 +53,7 @@ class App extends Component {
                 coinChoice:'',
                 coinChosen:false,
                 reward:'',
-                stopTime:1509007840000,
-                startTime:null,
-                lockTime:null,
-                resultTime:null,
-                timeInterval:null,
+                starting_time:0,
                 claim:false,
                 betPhase:'',
                 contractInstance:null,
@@ -69,9 +64,9 @@ class App extends Component {
                 clock:null,
                 t_bets:0,
                 nextRace:'',
-                targetNetwork:'Main',
-                targetDate:'0'
-
+                targetNetwork:'Kovan',
+                targetDate:'0',
+                race_end:false
                 };
     this.invokeContract=this.invokeContract.bind(this);
     this.convertMS=this.convertMS.bind(this);
@@ -79,7 +74,6 @@ class App extends Component {
     this.checkRewards=this.checkRewards.bind(this);
     this.claim=this.claim.bind(this);
     this.componentLoad=this.componentLoad.bind(this);
-    this.componentMounted=this.componentMounted.bind(this);
     this.startFlipClock=this.startFlipClock.bind(this);
 
     //Find betting phase
@@ -94,167 +88,63 @@ class App extends Component {
     })
 
     }
-  startFlipClock(time)
-    {
+  startFlipClock(time){
       this.setState({targetDate:time})
-      // console.log('Time',time);
-  //     $(document).ready(function () {
-  //       console.log('ready')
-  //     var clock = $('.flipclock').FlipClock(time, {
-  //     // clockFace: 'DailyCounter',
-  //     countdown: true,
-  //     autoStart: true,
-  //     callbacks: {
-  //       start: function() {
-  //         // console.log('started')
-  //         // $('.message').html('The clock has started!');
-  //       }
-  //     }
-  //   });
-  //   self.setState({clock})
-  // // $('.flipclock').addClass('twoDayDigits');
-  // //   clock.start();
-  //   });
   }
-  componentLoad()
-  {
-    var ct = null;
+  componentLoad(){
     var currentTime = new Date()
     this.checkNetwork()
     currentTime=currentTime.getTime()
     var self=this;
-
-    if(this.state.timeInterval!=null)
-    {
-      // console.log(this.state.timeInterval)
-      for (var i = 1; i <= this.state.timeInterval; i++)
-        clearInterval(i);
-
-      this.setState({"h":null,"d":null,"m":null,"s":null})
-      // console.log(this.state.contract)
-    }
-
     if(web3.currentProvider!=null)
     {
 
     myContract.at(this.state.contract).then(function(instance){
       self.setState({contractInstance:instance})
-      instance.starting_time().then(function(start_time){
-        //Check if the bet has started
-        start_time=parseInt(start_time,10)
-        // console.log(currentTime+' , '+start_time*1000)
-          if(currentTime<(start_time*1000))
+      instance.chronus().then(function(info){
+          // console.log(info);
+          let betting_open=info[0];
+          let race_start=info[1];
+          let race_end=info[2];
+          let voided_bet=info[3];
+          let starting_time=info[4].toNumber();
+          let betting_duration=info[5].toNumber();
+          let race_duration=info[6].toNumber();
+          // console.log(betting_open,race_start,race_end,voided_bet,starting_time,betting_duration,race_duration);
+          if(currentTime<(starting_time*1000))
           {
-            // ct=setInterval(self.findStartTime,950)
-            self.setState({timeInterval:ct,betPhase:'Bet Open in ',startTime:start_time*1000})
-            self.startFlipClock(start_time-new Date()/1000)
+            self.startFlipClock(starting_time);
           }
-          else
-          {
-            //Check if the bet has locked
-            instance.betting_duration().then(function(betting_duration){
-              betting_duration=parseInt(betting_duration,10)
-              // console.log(currentTime+' , '+start_time+' ,'+((start_time+betting_duration)*1000)+' '+betting_duration)
-              if(currentTime>=(start_time*1000) && currentTime<((start_time+betting_duration)*1000))
-              {
-                // ct=setInterval(self.findLockTime,950)
-
-                self.setState({timeInterval:ct,betPhase:'Betting closes and Race starts in ',lockTime:((start_time+betting_duration)*1000)})
-                self.startFlipClock(start_time+betting_duration)
-              }
-              else{
-                instance.race_duration().then(function(race_duration){
-                  race_duration=parseInt(race_duration,10)
-                  // console.log(currentTime+' , '+start_time+' ,'+((start_time+betting_duration)*1000)+' ,'+((start_time+race_duration)*1000))
-                  //Check if the results are out.
-                  if(currentTime<((start_time+race_duration)*1000) && currentTime>=((start_time+betting_duration)*1000))
-                    {
-                    // ct=setInterval(self.findResultTime,950)
-                    // console.log(race_duration);
-                    // let race_duration_utc=new Date(race_duration)
-                    // console.log('Dur ',race_duration_utc);
-                    self.setState({timeInterval:ct,betPhase:'Results in ',resultTime:((start_time+race_duration)*1000)})
-                    let time=parseInt(start_time,10)+parseInt(race_duration,10)-new Date()/1000
-                    // console.log(time)
-                    self.startFlipClock(time)
-                    }
-                  else if(start_time>0){
-
-                    self.setState({betPhase:'Check result to see your winnings.'})
-                    // console.log('Race over')
-                    self.startFlipClock(0);
-                  }
-                  else{
-                    self.setState({betPhase:"Currently no race in progress.",duration:'Race not active yet'})
-                    // console.log('No progress')
-                    self.startFlipClock(0);
-                  }
-
-                })
-              }
-            })
+          else if(currentTime>=(starting_time*1000) && currentTime<((starting_time+betting_duration)*1000)){
+            self.startFlipClock(starting_time+betting_duration);
           }
-          instance.race_duration().then(function(race_duration){
+          else if(currentTime<((starting_time+race_duration+betting_duration)*1000) && currentTime>=((starting_time+betting_duration)*1000)){
+              let time=parseInt(starting_time,10)+parseInt(race_duration,10)+parseInt(betting_duration,10);
+              self.startFlipClock(time);
+          }
+          else if(starting_time>0){
+              self.startFlipClock(0);
+          }
+            let ms=(race_duration+betting_duration)*1000
+            let  h, m, s;
+            s = Math.floor(ms / 1000);
+            m = Math.floor(s / 60);
+            s = s % 60;
+            h = Math.floor(m / 60);
+            m = m % 60;
 
-            instance.betting_duration().then(function(betting_duration){
-              // var race_duration_final;
-              race_duration=parseInt(race_duration,10)
-              betting_duration=parseInt(betting_duration,10)
-                let race_duration_utc=new Date(race_duration-betting_duration)
-                let ms=(race_duration-betting_duration)*1000
-                let  h, m, s;
-                s = Math.floor(ms / 1000);
-                m = Math.floor(s / 60);
-                s = s % 60;
-                h = Math.floor(m / 60);
-                m = m % 60;
-                // d = Math.floor(h / 24);
-                // h = h % 24;
-
-                h=h+' hours'
-                // m=m+' minutes,'
-                // s=s+' seconds.'
-                race_duration_utc=h;
-                // console.log('race duration: ',race_duration/60);
-                self.setState({duration:race_duration_utc})
-
-            });
-
-
-          })
+            h=h+' hours'
+            var race_duration_utc=h;
+          self.setState({betting_open,race_start,race_end,voided_bet,starting_time,betting_duration,race_duration,duration:race_duration_utc,claim:race_end,bettingStatus: betting_open});
       })
+
     })
-    myContract.at(this.state.contract).then(function(instance){
-      instance.race_end().then(function(state){
-          self.setState({claim:state})
-      })
-    })
-
-
-
   }
-  }
-  componentMounted()
-  {
-    // if(this.state.contract!==null)
-    // myContract.at(this.state.contract).then(function(instance){
-    //   var ethAccount='';
-    //   web3.eth.getAccounts(function(err, accounts){
-    //     ethAccount=accounts[0]
-    //     }).then(function()
-    //             {
-    //             if(ethAccount!==undefined){
-    //             // let result=web3.eth.getBalance(ethAccount).then(function(balance){
-    //             //     console.log(web3.utils.fromWei(balance));
-    //             // });
-    //           }})});
-      this.checkRewards()
   }
 
   componentDidMount(){
     if(this.state.contract!==null)
-    this.componentMounted();
-              // $('.amount').tooltip({show: {effect:"none", delay:0}});
+        this.checkRewards();
 
   }
 
@@ -295,8 +185,8 @@ class App extends Component {
                   // console.log(web3.fromWei(web3.eth.getBalance(ethAccount)));
 
 
-                    instance.race_end().then(function(state){
-                        if(state===false)
+
+                        if(self.state.race_end===false)
                         {
                           const txo = {
                             from: ethAccount,
@@ -333,7 +223,7 @@ class App extends Component {
                               self.setState({coinChosen:true});
                             }
                         }
-                    })
+
 
                   /*instance.Deposit({}, {fromBlock: 0, toBlock: 'latest'}).get(function(error,result){
                   //console.log(result)
@@ -353,17 +243,12 @@ class App extends Component {
     }
 
 
-  coinValue(coin)
-    {
-      var self=this;
-        self.state.contractInstance.race_end().then(function(state){
-          if(state===false)
-          {
-          console.log(coin);
-          self.setState({coin:coin,value:coin});
-          }
-        });
+  coinValue(coin){
+    var self=this;
+    if(!this.state.race_end){
+        self.setState({coin:coin,value:coin});
     }
+  }
 
 
 
@@ -379,13 +264,9 @@ class App extends Component {
                 const txo = {
                   from: ethAccount
                 };
-            instance.check_reward.call(txo).then(function(reward)
-              {
-                instance.race_end.call().then(function(isRaceEnd){
-
-                    if( isRaceEnd){
-                      instance.voided_bet.call().then(function(voidedBet){
-                        if(voidedBet) {
+            instance.checkReward.call(txo).then(function(reward){
+                    if( self.state.race_end){
+                        if(self.state.voided_bet) {
                           reward='Refund amount: '+web3.utils.fromWei(reward,"ether")+' ETH';
                           self.setState({reward});
                           self.setState({claim:true});
@@ -394,16 +275,11 @@ class App extends Component {
                           reward='You have won '+web3.utils.fromWei(reward,"ether")+' ETH';
                           self.setState({reward});
                         }
-                      });
-                    } else if(!isRaceEnd){
-                      instance.starting_time.call().then(function(startTime){
-                        instance.race_duration.call().then(function(raceDuration){
-                          startTime = startTime.toNumber();
-                          raceDuration = raceDuration.toNumber();
-                          // console.log('Race End Time: ',startTime+raceDuration);
-                          // console.log('Time now: ',Math.round((new Date()).getTime() / 1000));
-                          // console.log(startTime+raceDuration < (Math.round((new Date()).getTime() / 1000)) );
-                          if(startTime+raceDuration < (Math.round((new Date()).getTime() / 1000)) ) {
+
+                    } else if(!self.state.race_end){
+                          let starting_time = self.state.starting_time;
+                          let race_duration = self.state.race_duration;
+                          if(starting_time+race_duration+self.state.betting_duration < (Math.round((new Date()).getTime() / 1000)) ) {
                             reward='Refund amount: '+web3.utils.fromWei(reward,"ether")+' ETH';
                             self.setState({reward});
                             self.setState({claim:true});
@@ -411,13 +287,12 @@ class App extends Component {
                             reward = 'Available after race ends';
                             self.setState({reward});
                           }
-                        });
-                      });
+
                     } else {
                       reward = ''
                       self.setState({reward});
                     }
-                });
+
 
               // reward='You have won '+web3.utils.fromWei(reward,"ether")+' ETH';
 
@@ -464,14 +339,8 @@ class App extends Component {
     this.setState({contract},function(){
 
       self.componentLoad();
-      self.componentMounted();
+      this.checkRewards();
     })
-
-    myContract.at(contract).then(function(instance){
-      instance.betting_open.call().then(function (status) {
-        self.setState({bettingStatus: status})
-      });
-    });
   }
 
 
@@ -507,7 +376,7 @@ class App extends Component {
             <div className="container header-wrapper">
 			<header className="header">
 				<div className="row">
-                  <Result contract={this.state.contract}/>
+                  <Result contract={this.state.contract} race_end={this.state.race_end} starting_time={this.state.starting_time}/>
 					<div className="volume header-item col-sm-4 col-md-4 col-lg-4">
 						<img alt="" className="header-item-img" src={require("./assets/Orion_storage-box.png")}/>
 						<div className="header-item-title text-center">Volume</div>

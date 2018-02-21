@@ -62,12 +62,9 @@ export default class ContractSidebar extends Component {
     }
 
     handleChange(event) {
-        // if (this.state.prevActive != null) {
-        //     this.state.prevActive.className = "btn btn-link";
-        // }
         if (this.state.classActive === false) {
             if(this.state.contract!==undefined)
-                document.getElementById(this.state.contract).classList='live_race '+document.getElementById(this.state.contract).classList;
+                document.getElementById(this.state.contract).classList.remove('live_race');
              this.setState({classActive: true});
         }
 
