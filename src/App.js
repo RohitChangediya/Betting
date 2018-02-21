@@ -69,7 +69,7 @@ class App extends Component {
                 clock:null,
                 t_bets:0,
                 nextRace:'',
-                targetNetwork:'Main',
+                targetNetwork:'Kovan',
                 targetDate:'0'
 
                 };
@@ -303,16 +303,16 @@ class App extends Component {
                           if(txo.data!==null && ethAccount!==undefined)
                             {
                             self.setState({transactionid:'Placing Bet...'},function(){
-                              document.getElementById("transaction_id").classList.remove('disable-el');
-                              document.getElementById("loading-icon").classList.remove('disable-el');
+                              // document.getElementById("transaction_id").classList.remove('disable-el');
+                              // document.getElementById("loading-icon").classList.remove('disable-el');
                             instance.placeBet(self.state.coin,txo).then(function(res,error){
 
                               self.setState({transactionid:('Transaction ID: '+res.tx+'. '),transactionidmsg:"Good luck. You can use \"Check result\" and \"Claim\" after the race is over.",value:self.state.coin},function()
                             {
-                              document.getElementById("loading-icon").classList.add('disable-el');
+                              // document.getElementById("loading-icon").classList.add('disable-el');
                             });
                             }).catch(function(e){
-                            document.getElementById("transaction_id").classList.add('disable-el');
+                            // document.getElementById("transaction_id").classList.add('disable-el');
                               if(e.message==="MetaMask Tx Signature: User denied transaction signature.")
                               {
 
