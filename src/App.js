@@ -66,7 +66,8 @@ class App extends Component {
                 nextRace:'',
                 targetNetwork:'Kovan',
                 targetDate:'0',
-                race_end:false
+                race_end:false,
+                bet_phase:""
                 };
     this.invokeContract=this.invokeContract.bind(this);
     this.convertMS=this.convertMS.bind(this);
@@ -111,19 +112,19 @@ class App extends Component {
           let betting_duration=info[5].toNumber();
           let race_duration=info[6].toNumber();
           // console.log(betting_open,race_start,race_end,voided_bet,starting_time,betting_duration,race_duration);
-          if(currentTime<(starting_time*1000))
-          {
-            self.startFlipClock(starting_time);
-          }
-          else if(currentTime>=(starting_time*1000) && currentTime<((starting_time+betting_duration)*1000)){
+          let bet_phase=""
+          if(currentTime>=(starting_time*1000) && currentTime<((starting_time+betting_duration)*1000)){
             self.startFlipClock(starting_time+betting_duration);
+            bet_phase="Remaining time before bets are closed.";
           }
           else if(currentTime<((starting_time+race_duration+betting_duration)*1000) && currentTime>=((starting_time+betting_duration)*1000)){
               let time=parseInt(starting_time,10)+parseInt(race_duration,10)+parseInt(betting_duration,10);
               self.startFlipClock(time);
+              bet_phase="Time remaining for race to end.";
           }
           else if(starting_time>0){
               self.startFlipClock(0);
+              bet_phase="Race complete";
           }
             let ms=(race_duration+betting_duration)*1000
             let  h, m, s;
@@ -135,7 +136,7 @@ class App extends Component {
 
             h=h+' hours'
             var race_duration_utc=h;
-          self.setState({betting_open,race_start,race_end,voided_bet,starting_time,betting_duration,race_duration,duration:race_duration_utc,claim:race_end,bettingStatus: betting_open});
+          self.setState({betting_open,race_start,race_end,voided_bet,starting_time,betting_duration,race_duration,duration:race_duration_utc,claim:race_end,bettingStatus: betting_open,bet_phase});
       })
 
     })
@@ -390,7 +391,7 @@ class App extends Component {
 				</div>
                 <div className="row" style={{marginTop:'5%'}}>
 
-                    <Timer targetDate={this.state.targetDate}/>
+                    <Timer targetDate={this.state.targetDate} bet_phase={this.state.bet_phase}/>
                     <div className="col-sm-6 col-md-4 col-lg-4">
     					<img alt="" className="header-item-img" src={require("./assets/Orion_sales-up.png")}/>
     					<div className="cb-title crypto-bet text-center">Crypto to Bet On</div>
@@ -399,7 +400,7 @@ class App extends Component {
 				    </div>
                     <div className="col-md-4">
                           <Amount onValueSubmit={this.onValueSubmit.bind(this)}/>
-      					<div className="btn-container text-center"><input type="button" onClick={this.invokeContract.bind(this)} className="btn place-bet-button center-block text-center" value="Place Bet"/></div>
+      					<div className="btn-container text-center"><input type="button" onClick={this.invokeContract.bind(this)} className="btn place-bet-button center-block text-center" disabled={this.state.race_start || !this.state.race_end} value="Place Bet"/></div>
                     </div>
                 </div>
 			</header>
@@ -443,17 +444,6 @@ class App extends Component {
     <div className="col-md-2 mx-auto" style={{ 'marginTop': '5vh',position:'fixed'}}>
         <ContractSidebar onContractSubmit={this.contractUpdate.bind(this)}/>
     </div>
-    {/* <div className="col-md-2 mx-auto right-sidebar" style={{ 'marginTop': '5vh',position:'fixed'}}>
-      <div className="betDetails" style={{top:'15%',position:'relative',textAlign:'center'}}>
-        {this.state.betPhase}<br></br>
-        <div className="flipclock" style={{width:'auto',display:'inline-block'}}/>
-      </div>
-      <div className="nextRace"style={{top:'15%',position:'relative',textAlign:'center'}}>
-          Next Race begins at: {this.state.nextRace}
-      </div>
-      <div style={{bottom:'5%',position:'absolute'}}>
-      </div>
-    </div> */}
     </div>
 
 

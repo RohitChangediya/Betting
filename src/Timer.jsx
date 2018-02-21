@@ -66,7 +66,7 @@ export default class Timer extends React.Component{
             return(
                 <div className="col-sm-12 col-md-8 col-lg-4">
 					<img alt="" className="header-item-img" src={require("./assets/Orion_stopwatch.png")}/>
-					<div className="cb-title remaining text-center">Remaining time before bets are closed.</div>
+					<div className="cb-title remaining text-center">{this.props.bet_phase}</div>
 					<p id="timer" className="text-center">{this.state.timerHTML}</p>
 				</div>
             );}

@@ -41,32 +41,30 @@ export default class Header extends Component {
         var address_link = "https://ropsten.etherscan.io/address/" + this.props.contract + "#code";
         return (<div>
 
-            <div className="container-fluid top-bar">
-            	<ul className="menu-items text-left">
-                    <li>
-                        <a href="https://www.youtube.com/watch?v=JS2uo7pSkn4" target="_blank" rel="noopener noreferrer"><i className="fa fa-film"></i>Demo Video</a>
-                    </li>
-                    <li>
-                        <a href="#" onClick={this.toggle}><i className="fa fa-slack"></i>Help</a>
-                    </li>
-            	</ul>
+            <div class="container-fluid top-bar">
             	<a className="logo" href="#"><img alt="" className="logo-img" src={require("./assets/logo.png")}/></a>
-            	<ul className="social-icons text-right">
-            		<li><a target="_blank" rel="noopener noreferrer" href="https://telegram.me/ethorse" ><img alt="" src={require("./assets/telegram.png")}/></a></li>
-            		<li><a href="https://www.reddit.com/r/Ethorse/" target="_blank" rel="noopener noreferrer" ><img alt="" src={require("./assets/reddit.png")}/></a></li>
-            		<li><a href="https://github.com/ethorse" target="_blank" rel="noopener noreferrer" ><img alt="" src={require("./assets/github.png")}/></a></li>
+            	<div class="topBarLeftSection">
+            		<ul class="menu-items">
+                        <li class="first-item">
+                            <a href="https://www.youtube.com/watch?v=JS2uo7pSkn4" target="_blank" rel="noopener noreferrer"><i className="fa fa-film"></i>Demo Video</a>
+                        </li>
+            			<li><a href="#" onClick={this.toggle}><i className="fa fa-slack"></i>Help</a></li>
+                        <li><a target="_blank" rel="noopener noreferrer" href="https://telegram.me/ethorse" ><img alt="" src={require("./assets/telegram.png")} class="telegram"/></a></li>
+                        <li><a href="https://www.reddit.com/r/Ethorse/" target="_blank" rel="noopener noreferrer" ><img alt="" src={require("./assets/reddit.png")} class="reddit"/></a></li>
+                        <li><a href="https://github.com/ethorse" target="_blank" rel="noopener noreferrer" ><img alt="" src={require("./assets/github.png")} class="github"/></a></li>
+            	      </ul>
+            	   </div>
+            </div>
+
+            <div class="container-fluid minified-bar">
+            	<a className="minified-bar-logo" href="#"><img alt="" className="logo-img" src={require("./assets/logo.png")}/></a>
+            	<ul class="social-icons text-right">
+                    <li><a target="_blank" rel="noopener noreferrer" href="https://telegram.me/ethorse" ><img alt="" src={require("./assets/telegram.png")}/></a></li>
+                    <li><a href="https://www.reddit.com/r/Ethorse/" target="_blank" rel="noopener noreferrer" ><img alt="" src={require("./assets/reddit.png")}/></a></li>
+                    <li><a href="https://github.com/ethorse" target="_blank" rel="noopener noreferrer" ><img alt="" src={require("./assets/github.png")}/></a></li>
             	</ul>
             </div>
 
-            <div className="container-fluid minified-bar">
-            	<img alt="" className="close-icon" src={require("./assets/Orion_close.png")}/>
-            	<a className="minified-bar-logo" href="#"><img alt="" className="logo-img" src={require("./assets/logo.png")}/></a>
-            	<ul className="social-icons text-right">
-            		<li><a target="_blank" rel="noopener noreferrer" href="https://telegram.me/ethorse" ><img alt="" src={require("./assets/telegram.png")}/></a></li>
-            		<li><a href="https://www.reddit.com/r/Ethorse/" target="_blank" rel="noopener noreferrer" ><img alt="" src={require("./assets/reddit.png")}/></a></li>
-            		<li><a href="https://github.com/ethorse" target="_blank" rel="noopener noreferrer" ><img alt="" src={require("./assets/github.png")}/></a></li>
-            	</ul>
-            </div>
 
             <Modal isOpen={this.state.modal} toggle={this.toggle} size="lg" style={{
                     textAlign: 'left'

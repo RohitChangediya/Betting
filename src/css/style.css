@@ -8,7 +8,7 @@ body{
 	position: fixed;
 	top: 0;
 	left: 0;
-	height: 100px;
+	height: 70px;
 	padding-top: 30px !important;
 	background: #28324f !important;
 	-webkit-box-shadow: 0px 6px 18px rgba(0,0,0,0.12);
@@ -62,15 +62,13 @@ body{
 	display: inline-block;
 	position: absolute;
 	top: 5px;
-	left: 50%;
-	margin-left: -90px;
+	left: 25px;
 }
 .minified-bar-logo{
 	display: inline-block;
 	position: absolute;
 	top: 0;
 	left: 50%;
-	margin-left: -100px;
 }
 @media screen and (max-width: 767px){
 	.minified-bar-logo{
@@ -87,8 +85,8 @@ body{
 }
 .logo-img{
 	display: block;
-	width: 180px;
-	height: 90px;
+	width: 120px;
+	height: 60px;
 }
 @media screen and (max-width: 767px){
 	.logo-img{
@@ -102,22 +100,34 @@ body{
 		height: 70px;
 	}
 }
+.topBarLeftSection{
+	width: 100%;
+	position: absolute;
+	left: 230px;
+	top: 25px;
+}
 .menu-items{
+	position: relative;
 	margin: 0;
-	margin-left: -15px;
-	margin-top: 7px;
 	padding: 0;
 	list-style: none;
 }
 .menu-items li{
+	position: relative;
 	display: inline;
-	margin-left: 2%;
+	margin-top: 0px;
+	margin-left: 0;
+	margin-right: 2%;
+}
+.first-item{
+	margin-left: 40px !important;
+	padding-left: 0;
 }
 .menu-items li a{
 	text-decoration: none;
-	font-family: Ubuntu, sans-serif;
-	font-weight: 300;
-	color: #ffffff;
+	font-family: Roboto, sans-serif;
+	font-weight: 400;
+	color: #6d6da8;
 	font-size: 100%;
 	border-bottom: 3px solid transparent;
 	padding-bottom: 5px;
@@ -125,16 +135,97 @@ body{
 }
 .menu-items li a:hover{
 	color: #446cb3;
-
 }
 .menu-items li a .fa{
 	margin-right: 6px;
 	opacity: 0.9;
 	color: #4183d7;
 }
+.reddit, .telegram, .github{
+	display: inline-block;
+	width: 18px;
+	height: 18px;
+}
+.reddit, .github{
+	margin-left: -15px;
+}
+.topBarRightSection{
+	position: absolute;
+	top: 18px;
+	right: 20px;
+	list-style: none;
+}
+.topBarRightSection li{
+	position: relative;
+	display: inline;
+}
+.horse-quantity{
+	font-family: Roboto, sans-serif;
+	font-weight: 100;
+	font-size: 100%;
+	color: #ffffff;
+	margin-right: 10px;
+	background: #212a42;
+	border-radius: 5px;
+	padding: 8px 17px 8px 17px;
+}
+.horse-quantity span{
+	font-family: Ubuntu, sans-serif !important;
+	font-weight: 600 !important;
+	color: #cf7f31;
+	margin-left: 10px;
+}
+.eth-gain{
+	font-family: Roboto, sans-serif;
+	font-weight: 100;
+	font-size: 100%;
+	color: #ffffff;
+	margin-right: 10px;
+	background: #212a42;
+	border-radius: 5px;
+	padding: 8px 17px 8px 17px;
+}
+.eth-gain span{
+	font-family: Ubuntu, sans-serif !important;
+	font-weight: 600 !important;
+	color: #22a7f0;
+	margin-left: 10px;
+}
+.eth-logo-topBar{
+	display: inline-block;
+	width: 15px;
+	height: 15px;
+	margin-top: -3px;
+}
+.username{
+	position: relative;
+	display: inline;
+	margin-left: 20px;
+	color: #ffffff;
+}
+.fa-chevron-down{
+	color: #446cb3 !important;
+	padding-top: 10px;
+	margin-right: 10px;
+}
+.glyphicon-menu-down{
+	color: #ffffff !important;
+}
+.logOffButton{
+	position: relative;
+	display: inline-block;
+	margin-left: 20px;
+	cursor: pointer;
+}
+.logOff{
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	margin-top: -5px;
+}
 .social-icons{
 	position: absolute;
-	top: 40%;
+	top: 40px;
 	right: 35px;
 	margin: 0;
 	padding: 0;

@@ -97,7 +97,8 @@ export default class ContractSidebar extends Component {
             <Accordion className="float-left" style={{
                     marginTop: '0'
                 }}>
-                <UpcomingRaces/>
+                <UpcomingRaces duration={3600}/>
+                <UpcomingRaces duration={86400}/>
                 <WeekList title="Last one week" number={0} date={parseInt((new Date()).getTime() / 1000,10)} contractUpdate={(event) => this.handleChange(event)} parentState={this} initiate={this.initiate.bind(this)} currentTime={parseInt((new Date()).getTime() / 1000,10)}/>
                 <WeekList title="One week ago" number={1} date={parseInt((new Date()).getTime() / 1000,10) - 604800} contractUpdate={(event) => this.handleChange(event)} parentState={this} currentTime={parseInt((new Date()).getTime() / 1000,10)}/>
                 <WeekList title="Two week ago" number={2} date={parseInt((new Date()).getTime() / 1000,10) - 604800 * 2} contractUpdate={(event) => this.handleChange(event)} parentState={this} currentTime={parseInt((new Date()).getTime() / 1000,10)}/>
