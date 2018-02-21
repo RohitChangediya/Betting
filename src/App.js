@@ -97,6 +97,7 @@ class App extends Component {
   startFlipClock(time)
     {
       this.setState({targetDate:time})
+      // console.log('Time',time);
   //     $(document).ready(function () {
   //       console.log('ready')
   //     var clock = $('.flipclock').FlipClock(time, {
@@ -174,16 +175,18 @@ class App extends Component {
                     // console.log('Dur ',race_duration_utc);
                     self.setState({timeInterval:ct,betPhase:'Results in ',resultTime:((start_time+race_duration)*1000)})
                     let time=parseInt(start_time,10)+parseInt(race_duration,10)-new Date()/1000
-                    console.log(time)
+                    // console.log(time)
                     self.startFlipClock(time)
                     }
                   else if(start_time>0){
 
                     self.setState({betPhase:'Check result to see your winnings.'})
+                    // console.log('Race over')
                     self.startFlipClock(0);
                   }
                   else{
                     self.setState({betPhase:"Currently no race in progress.",duration:'Race not active yet'})
+                    // console.log('No progress')
                     self.startFlipClock(0);
                   }
 
