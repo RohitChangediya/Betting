@@ -64,7 +64,7 @@ export default class ContractSidebar extends Component {
     handleChange(event) {
         if (this.state.classActive === false) {
             if(this.state.contract!==undefined)
-                document.getElementById(this.state.contract).classList.remove('live_race');
+                document.getElementById(this.state.contract).classList.remove('bettingOpen');
              this.setState({classActive: true});
         }
 
@@ -73,11 +73,11 @@ export default class ContractSidebar extends Component {
         this.setState({prevActive: event.target});
         // event.target.className = "btn btn-link btn-active";
         if(this.state.prevActive!==null)
-            document.getElementById(this.state.prevActive).classList.remove('live_race');
+            document.getElementById(this.state.prevActive).classList.remove('bettingOpen');
         this.setState({
             prevActive: event.target.className.split(' ').slice(-1)[0]
         });
-        document.getElementById(event.target.className.split(' ').slice(-1)[0]).classList='live_race '+document.getElementById(event.target.className.split(' ').slice(-1)[0]).classList;
+        document.getElementById(event.target.className.split(' ').slice(-1)[0]).classList='bettingOpen '+document.getElementById(event.target.className.split(' ').slice(-1)[0]).classList;
         this.props.onContractSubmit(event.target.className.split(' ').slice(-1)[0]);
         }
     }
