@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Accordion, Icon} from 'semantic-ui-react';
+import {Accordion} from 'semantic-ui-react';
 import configjson from './config.json'
 var moment = require('moment');
 
@@ -18,7 +18,7 @@ export default class UpcomingRaces extends Component {
         this.getContract();
     }
     convertMS(ms){
-      var d, h, m, s;
+      var  h, m, s;
       if(ms<0)
         ms*=-1
       s = Math.floor(ms / 1000);

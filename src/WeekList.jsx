@@ -87,6 +87,9 @@ export default class WeekList extends Component {
                 </div>
             </div>)
             }
+            else{
+                return <div/>;
+            }
         }))
 
             return (<div>
