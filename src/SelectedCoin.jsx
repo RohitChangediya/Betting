@@ -21,6 +21,6 @@ export default class SelectedCoin extends React.Component{
                         <div className="crypto text-center">Litecoin</div>
                     </div>);
         }
-        return (<div><p className="text-center selected-coin">Select coin before placing bet.</p></div>);
+        return (<div><p className="text-center selected-coin">Select a coin.</p></div>);
     }
 }

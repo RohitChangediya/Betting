@@ -38,7 +38,7 @@ export default class Header extends Component {
         this.props.contractUpdate(contract)
     }
     render() {
-        var address_link = "https://ropsten.etherscan.io/address/" + this.props.contract + "#code";
+        var address_link = "https://kovan.etherscan.io/address/" + this.props.contract + "#code";
         return (<div>
 
             <div class="container-fluid top-bar">

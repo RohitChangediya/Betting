@@ -111,14 +111,14 @@ class App extends Component {
           let starting_time=info[4].toNumber();
           let betting_duration=info[5].toNumber();
           let race_duration=info[6].toNumber();
-          // console.log(betting_open,race_start,race_end,voided_bet,starting_time,betting_duration,race_duration);
+          console.log(betting_open,race_start,race_end,voided_bet,starting_time,betting_duration,race_duration);
           let bet_phase=""
           if(currentTime>=(starting_time*1000) && currentTime<((starting_time+betting_duration)*1000)){
             self.startFlipClock(starting_time+betting_duration);
             bet_phase="Remaining time before bets are closed.";
           }
-          else if(currentTime<((starting_time+race_duration+betting_duration)*1000) && currentTime>=((starting_time+betting_duration)*1000)){
-              let time=parseInt(starting_time,10)+parseInt(race_duration,10)+parseInt(betting_duration,10);
+          else if(currentTime<((starting_time+race_duration)*1000) && currentTime>=((starting_time+betting_duration)*1000)){
+              let time=parseInt(starting_time,10)+parseInt(race_duration,10);
               self.startFlipClock(time);
               bet_phase="Time remaining for race to end.";
           }
@@ -126,7 +126,7 @@ class App extends Component {
               self.startFlipClock(0);
               bet_phase="Race complete";
           }
-            let ms=(race_duration+betting_duration)*1000
+            let ms=(race_duration-betting_duration)*1000
             let  h, m, s;
             s = Math.floor(ms / 1000);
             m = Math.floor(s / 60);

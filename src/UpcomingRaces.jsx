@@ -26,10 +26,9 @@ export default class UpcomingRaces extends Component {
       s = s % 60;
       h = Math.floor(m / 60);
       m = m % 60;
-      h=h+' hours,'
-      m=m+' minutes,'
-      s=s+' seconds.'
-      return h+m+s;
+      h=h+' hours,';
+      m=m+' minutes,';
+      return h+m;
       }
       getContract() {
           let self = this;
