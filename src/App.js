@@ -380,7 +380,7 @@ class App extends Component {
                   <Result contract={this.state.contract} race_end={this.state.race_end} starting_time={this.state.starting_time}/>
 					<div className="volume header-item col-sm-4 col-md-4 col-lg-4">
 						<img alt="" className="header-item-img" src={require("./assets/Orion_storage-box.png")}/>
-						<div className="header-item-title text-center">Volume</div>
+						<div className="header-item-title text-center">Pool</div>
 						<div className="header-item-value text-center">{this.state.t_bets}</div>
 					</div>
 					<div className="race_duration header-item col-sm-4 col-md-4 col-lg-4">
@@ -400,7 +400,7 @@ class App extends Component {
 				    </div>
                     <div className="col-md-4">
                           <Amount onValueSubmit={this.onValueSubmit.bind(this)}/>
-      					<div className="btn-container text-center"><input type="button" onClick={this.invokeContract.bind(this)} className="btn place-bet-button center-block text-center" disabled={this.state.race_start || !this.state.race_end} value="Place Bet"/></div>
+      					<div className="btn-container text-center"><input type="button" onClick={this.invokeContract.bind(this)} className="btn place-bet-button center-block text-center" disabled={!this.state.betting_open} value="Place Bet"/></div>
                     </div>
                 </div>
 			</header>
@@ -466,9 +466,9 @@ class App extends Component {
           return(<Jumbotron style={{ 'textAlign': 'center' ,'backgroundColor':'#262f4a'}} fluid>
           <Container>
               <h3>Your Metamask is on {this.state.network} network.<br/>
-          Please switch to Main Testnet as shown below.</h3>
+          Please switch to {this.state.targetNetwork} as shown below.</h3>
           <br/>
-          <img src="https://github.com/MetaMask/faq/raw/master/images/click-the-test-network.png" target="_blank" alt="switch to Main"/>
+          <img src="https://github.com/MetaMask/faq/raw/master/images/click-the-test-network.png" target="_blank" alt={"switch to "+this.state.targetNetwork}/>
         </Container>
         </Jumbotron>)
       }

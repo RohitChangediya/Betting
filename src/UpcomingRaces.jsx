@@ -19,13 +19,13 @@ export default class UpcomingRaces extends Component {
     }
     convertMS(ms){
       var d, h, m, s;
+      if(ms<0)
+        ms*=-1
       s = Math.floor(ms / 1000);
       m = Math.floor(s / 60);
       s = s % 60;
       h = Math.floor(m / 60);
       m = m % 60;
-      d = Math.floor(h / 24);
-      h = h % 24;
       h=h+' hours,'
       m=m+' minutes,'
       s=s+' seconds.'
@@ -36,7 +36,8 @@ export default class UpcomingRaces extends Component {
           let val = fetch("http://"+configjson.serverIP+":"+configjson.serverPort+"/contract/getNextRace", {
               method: 'GET',
               headers: {
-                  duration:this.props.duration
+                  duration:this.props.duration,
+                  currentTime:parseInt((new Date()).getTime() / 1000,10)
               }
           }).then(function(contracts) {
               if(contracts.status===204){

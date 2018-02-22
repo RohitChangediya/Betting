@@ -55,7 +55,8 @@ export default class WeekList extends Component {
 
         if (this.state.contract !== null && this.state.contract.length !== 0) {
             var contractjson = this.state.contract;
-            const Buttons = (contractjson.map(row => <div className={"race " + row.contractid} id={row.contractid} key={row.contractid} onClick={ this.updateContract} style={{textAlign:'left'}} number={this.props.number}>
+            const Buttons = (contractjson.map((row) => {if(row.active!=="Closed"){
+                return (<div className={"race live_race " + row.contractid} id={row.contractid} key={row.contractid} onClick={ this.updateContract} style={{textAlign:'left'}} number={this.props.number}>
                 <ul className={row.contractid} number={this.props.number}>
                     <li className={"days_number " + row.contractid} number={this.props.number}>
                         <span className={row.contractid} number={this.props.number}>{(moment(parseInt(row.date,10) * 1000).format('DD')).toString()}</span>
@@ -68,7 +69,25 @@ export default class WeekList extends Component {
                 <div className={"status-race-sidebar " + row.contractid} number={this.props.number}>Status
                     <span className={"status_race_value live " + row.contractid} number={this.props.number}>{row.active}</span>
                 </div>
-            </div>))
+            </div>)
+            }
+            else if(row.active==="Closed"){
+                return (<div className={"race closed-race " + row.contractid} id={row.contractid} key={row.contractid} onClick={ this.updateContract} style={{textAlign:'left'}} number={this.props.number}>
+                <ul className={row.contractid} number={this.props.number}>
+                    <li className={"days_number " + row.contractid} number={this.props.number}>
+                        <span className={row.contractid} number={this.props.number}>{(moment(parseInt(row.date,10) * 1000).format('DD')).toString()}</span>
+                    </li>
+                    <li className={"date " + row.contractid} number={this.props.number}>{(moment(parseInt(row.date,10) * 1000).format('dddd, MMM YYYY')).toString()}
+                        <br/>
+                        <span className={"hour  " + row.contractid} number={this.props.number}>{(moment(parseInt(row.date,10) * 1000).format('HH:SS')).toString()}</span>
+                    </li>
+                </ul>
+                <div className={"status-race-sidebar " + row.contractid} number={this.props.number}>Status
+                    <span className={"status_race_value closed " + row.contractid} number={this.props.number}>{row.active}</span>
+                </div>
+            </div>)
+            }
+        }))
 
             return (<div>
                 <Accordion.Title active={this.props.parentState.state.activeIndex === this.props.number} number={this.props.number} index={this.props.number}  onClick={this.handleClick} style={{textAlign:'left',backgroundColor:'#19b5fe'}}>
