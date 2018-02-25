@@ -63,7 +63,7 @@ export default class WeekList extends Component {
                     </li>
                     <li className={"date " + row.contractid} number={this.props.number}>{(moment(parseInt(row.date,10) * 1000).format('dddd, MMM YYYY')).toString()}
                         <br/>
-                        <span className={"hour  " + row.contractid} number={this.props.number}>{(moment(parseInt(row.date,10) * 1000).format('HH:SS')).toString()}</span>
+                        <span className={"hour  " + row.contractid} number={this.props.number}>{(moment(parseInt(row.date,10) * 1000).format('HH:mm')).toString()}</span>
                     </li>
                 </ul>
                 <div className={"status-race-sidebar " + row.contractid} number={this.props.number}>Status
@@ -80,7 +80,7 @@ export default class WeekList extends Component {
                     </li>
                     <li className={"date " + row.contractid} number={this.props.number}>{(moment(parseInt(row.date,10) * 1000).format('dddd, MMM YYYY')).toString()}
                         <br/>
-                        <span className={"hour  " + row.contractid} number={this.props.number}>{(moment(parseInt(row.date,10) * 1000).format('HH:SS')).toString()}</span>
+                        <span className={"hour  " + row.contractid} number={this.props.number}>{(moment(parseInt(row.date,10) * 1000).format('HH:mm')).toString()}</span>
                     </li>
                 </ul>
                 <div className={"status-race-sidebar " + row.contractid} number={this.props.number}>Status

@@ -224,11 +224,11 @@ export default class ETHRadio extends React.Component {
                                 <div className="crypto_name">BTC</div>
                             </div>
                             <div className="col-sm-4 col-md-4 col-lg-4 col-xl-4">
-                                <div className="pool_total text-center">Pool Total(ETH)</div>
+                                <div className="pool_total text-center">Pool Total (ETH)</div>
                                 <div className="pool_total_value text-center">{this.state.btc_pool.pool_total}</div>
                             </div>
                             <div className="col-sm-4 col-md-4 col-lg-4 col-xl-4">
-                                <div className="odds text-center">Odds(Profits for 1 ETH)</div>
+                                <div className="odds text-center">Odds (Profits for 1 ETH)</div>
                                 <div className="odds_value text-center">{this.state.btc_pool.odds}</div>
                             </div>
                         </div>
@@ -241,11 +241,11 @@ export default class ETHRadio extends React.Component {
                                 <div className="bets_number_value text-center">{this.state.btc_pool.number_of_bets}</div>
                             </div>
                             <div className="col-sm-3 col-md-3 col-lg-3 col-xl-3">
-                                <div className="race_start_price text-center">Race Start Price</div>
+                                <div className="race_start_price text-center">Start Price</div>
                                 <div className="race_start_price_value text-center">{this.state.btc_pool.pre_price}</div>
                             </div>
                             <div className="col-sm-3 col-md-3 col-lg-3 col-xl-3">
-                                <div className="race_end_price text-center">Race End Price</div>
+                                <div className="race_end_price text-center">End Price</div>
                                 <div className="race_start_price_value text-center">{this.state.btc_pool.post_price}</div>
                             </div>
                             <div className="col-sm-3 col-md-3 col-lg-3 col-xl-3">
@@ -268,11 +268,11 @@ export default class ETHRadio extends React.Component {
                                 <div className="crypto_name">ETH</div>
                             </div>
                             <div className="col-sm-4 col-md-4 col-lg-4 col-xl-4">
-                                <div className="pool_total text-center">Pool Total(ETH)</div>
+                                <div className="pool_total text-center">Pool Total (ETH)</div>
                                 <div className="pool_total_value text-center">{this.state.eth_pool.pool_total}</div>
                             </div>
                             <div className="col-sm-4 col-md-4 col-lg-4 col-xl-4">
-                                <div className="odds text-center">Odds(Profits for 1 ETH)</div>
+                                <div className="odds text-center">Odds (Profits for 1 ETH)</div>
                                 <div className="odds_value text-center">{this.state.eth_pool.odds}</div>
                             </div>
                         </div>
@@ -285,11 +285,11 @@ export default class ETHRadio extends React.Component {
                                 <div className="bets_number_value text-center">{this.state.eth_pool.number_of_bets}</div>
                             </div>
                             <div className="col-sm-3 col-md-3 col-lg-3 col-xl-3">
-                                <div className="race_start_price text-center">Race Start Price</div>
+                                <div className="race_start_price text-center">Start Price</div>
                                 <div className="race_start_price_value text-center">{this.state.eth_pool.pre_price}</div>
                             </div>
                             <div className="col-sm-3 col-md-3 col-lg-3 col-xl-3">
-                                <div className="race_end_price text-center">Race End Price</div>
+                                <div className="race_end_price text-center">End Price</div>
                                 <div className="race_start_price_value text-center">{this.state.eth_pool.post_price}</div>
                             </div>
                             <div className="col-sm-3 col-md-3 col-lg-3 col-xl-3">
@@ -312,11 +312,11 @@ export default class ETHRadio extends React.Component {
                                 <div className="crypto_name">LTC</div>
                             </div>
                             <div className="col-sm-4 col-md-4 col-lg-4 col-xl-4">
-                                <div className="pool_total text-center">Pool Total(ETH)</div>
+                                <div className="pool_total text-center">Pool Total (ETH)</div>
                                 <div className="pool_total_value text-center">{this.state.ltc_pool.pool_total}</div>
                             </div>
                             <div className="col-sm-4 col-md-4 col-lg-4 col-xl-4">
-                                <div className="odds text-center">Odds(Profits for 1 ETH)</div>
+                                <div className="odds text-center">Odds (Profits for 1 ETH)</div>
                                 <div className="odds_value text-center">{this.state.ltc_pool.odds}</div>
                             </div>
                         </div>
@@ -328,11 +328,11 @@ export default class ETHRadio extends React.Component {
                                 <div className="bets_number_value text-center">{this.state.ltc_pool.number_of_bets}</div>
                             </div>
                             <div className="col-sm-3 col-md-3 col-lg-3 col-xl-3">
-                                <div className="race_start_price text-center">Race Start Price</div>
+                                <div className="race_start_price text-center">Start Price</div>
                                 <div className="race_start_price_value text-center">{this.state.ltc_pool.pre_price}</div>
                             </div>
                             <div className="col-sm-3 col-md-3 col-lg-3 col-xl-3">
-                                <div className="race_end_price text-center">Race End Price</div>
+                                <div className="race_end_price text-center">End Price</div>
                                 <div className="race_start_price_value text-center">{this.state.ltc_pool.post_price}</div>
                             </div>
                             <div className="col-sm-3 col-md-3 col-lg-3 col-xl-3">

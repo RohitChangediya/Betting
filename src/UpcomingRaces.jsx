@@ -26,8 +26,8 @@ export default class UpcomingRaces extends Component {
       s = s % 60;
       h = Math.floor(m / 60);
       m = m % 60;
-      h=h+' hours,';
-      m=m+' minutes,';
+      h=h+' hours ';
+      m=m+' minutes ';
       return h+m;
       }
       getContract() {
@@ -64,7 +64,7 @@ export default class UpcomingRaces extends Component {
                     </li>
                     <li className="date">{(moment(parseInt(row.raceDate,10) * 1000).format('dddd, MMM YYYY')).toString()}
                         <br/>
-                        <span className="hour">{(moment(parseInt(row.raceDate,10) * 1000).format('HH:SS')).toString()}</span>
+                        <span className="hour">{(moment(parseInt(row.raceDate,10) * 1000).format('HH:mm')).toString()}</span>
                     </li>
                 </ul>
                 <div className="status-race-sidebar">Status
