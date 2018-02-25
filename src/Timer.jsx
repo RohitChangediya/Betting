@@ -42,7 +42,7 @@ export default class Timer extends React.Component{
             var distance = parseInt(countDownDate,10) - parseInt(now,10);
             if (parseInt(distance,10) < 0) {
                 clearInterval(self.timer);
-                self.setState({ timerHTML:"Race closed for betting.",distance,compute:false});
+                self.setState({ timerHTML:"<div class=\"race_details\">Race closed for betting</div>",distance,compute:false});
             }
 
             // Time calculations for days, hours, minutes and seconds
@@ -67,7 +67,7 @@ export default class Timer extends React.Component{
                 <div className="col-sm-12 col-md-8 col-lg-4">
 					<img alt="" className="header-item-img" src={require("./assets/Orion_stopwatch.png")}/>
 					<div className="cb-title remaining text-center">{this.props.bet_phase}</div>
-					<p id="timer" className="text-center">{this.state.timerHTML}</p>
+					<p id="timer" className="text-center" dangerouslySetInnerHTML={{__html: this.state.timerHTML}}></p>
 				</div>
             );}
         else{

@@ -55,7 +55,7 @@ export default class WeekList extends Component {
 
         if (this.state.contract !== null && this.state.contract.length !== 0) {
             var contractjson = this.state.contract;
-            const Buttons = (contractjson.map((row) => {if(row.active!=="Closed"){
+            const Buttons = (contractjson.map((row) => {if(row.active==="Active"){
                 return (<div className={"race live_race " + row.contractid} id={row.contractid} key={row.contractid} onClick={ this.updateContract} style={{textAlign:'left'}} number={this.props.number}>
                 <ul className={row.contractid} number={this.props.number}>
                     <li className={"days_number " + row.contractid} number={this.props.number}>
@@ -68,6 +68,23 @@ export default class WeekList extends Component {
                 </ul>
                 <div className={"status-race-sidebar " + row.contractid} number={this.props.number}>Status
                     <span className={"status_race_value live " + row.contractid} number={this.props.number}>{row.active}</span>
+                </div>
+                <div class="duration-race-sidebar"><img src={require("./assets/Orion_hour.png")} class="duration_icon_sidebar" alt=""/>Duration : <span class="duration_race_value">{row.race_duration/3600} hours</span></div>
+            </div>)
+            }
+            else if(row.active==="Betting Open"){
+                return (<div className={"race live_race " + row.contractid} id={row.contractid} key={row.contractid} onClick={ this.updateContract} style={{textAlign:'left'}} number={this.props.number}>
+                <ul className={row.contractid} number={this.props.number}>
+                    <li className={"days_number " + row.contractid} number={this.props.number}>
+                        <span className={row.contractid} number={this.props.number}>{(moment(parseInt(row.date,10) * 1000).format('DD')).toString()}</span>
+                    </li>
+                    <li className={"date " + row.contractid} number={this.props.number}>{(moment(parseInt(row.date,10) * 1000).format('dddd, MMM YYYY')).toString()}
+                        <br/>
+                        <span className={"hour  " + row.contractid} number={this.props.number}>{(moment(parseInt(row.date,10) * 1000).format('HH:mm')).toString()}</span>
+                    </li>
+                </ul>
+                <div className={"status-race-sidebar " + row.contractid} number={this.props.number}>Status
+                    <span className={"status_race_value open " + row.contractid} number={this.props.number}>{row.active}</span>
                 </div>
                 <div class="duration-race-sidebar"><img src={require("./assets/Orion_hour.png")} class="duration_icon_sidebar" alt=""/>Duration : <span class="duration_race_value">{row.race_duration/3600} hours</span></div>
             </div>)
