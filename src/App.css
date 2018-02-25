@@ -319,15 +319,15 @@ border-bottom: 5px solid blue;
 .selected-coin{
 	font-family: Ubuntu, sans-serif;
 	font-weight: 400;
-	font-size: 250%;
+	font-size: 200%;
 	color: #ffffff;
 	margin-top: 8%;
 	margin-bottom: 4%;
-    padding-top: 8%;
+    padding-top: 10%;
 }
 @media screen and (max-width: 996px){
 	.selected-coin{
-		font-size: 290%;
+		font-size: 200%;
 	}
 }
 @media screen and (max-width: 767px){
@@ -341,3 +341,8 @@ border-bottom: 5px solid blue;
 	}
 }
 ul li.active  { color: #f4ba51 ; }
+
+.race_details{
+    font-weight: 100;
+    font-size: 25px;
+}

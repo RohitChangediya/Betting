@@ -12,8 +12,8 @@
 	overflow-y: scroll;
 	background: #1d2239;
 	z-index: 0 !important;
-	-webkit-transition: left ease-out 0.5s, visibility 0.5s ease-out, opacity 0.5s ease-out;
-	transition: left ease-out 0.5s, visibility 0.5s ease-out, opacity 0.5s ease-out;
+	-webkit-transition: left ease-in 0.5s, visibility 0.5s ease-in, opacity 0.5s ease-in;
+	transition: left ease-in 0.5s, visibility 0.5s ease-in, opacity 0.5s ease-in;
 }
 @media screen and (max-width: 1360px){
 	.left-panel{
@@ -41,7 +41,6 @@
 	width: 100%;
 	margin: 0;
 	padding: 0;
-	padding-bottom: 5%;
 	border-bottom: 1px solid rgba(255,255,255,0.12);
 	clear: both;
 	cursor: pointer;
@@ -106,8 +105,8 @@
 	border: 1px solid #22a7f0;
 }
 .closed{
-	color: #f64747;
-	border: 1px solid #f64747;
+	color: #d2527f;
+	border: 1px solid #d2527f;
 }
 .live{
 	color: #446cb3;
@@ -116,6 +115,28 @@
 .open{
 	color: #03c9a9;
 	border: 1px solid #03c9a9;
+}
+.duration-race-sidebar{
+	position: relative;
+	margin-top: 5%;
+	margin-left: 10%;
+	font-family: Roboto, sans-serif;
+	font-weight: 400;
+	font-size: 90%;
+	color: #ffffff;
+}
+.duration_icon_sidebar{
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	margin-right: 5px;
+	opacity: 0.38;
+}
+.duration_race_value{
+	font-family: Ubuntu, sans-serif;
+	font-weight: 600;
+	margin-left: 5px;
+	color: #446cb3
 }
 .start_countdown{
 	font-family: Roboto, sans-serif;
@@ -148,6 +169,10 @@
 }
 .closed-race{
 	margin-top: -6px !important;
+	padding-bottom: 5%;
+}
+.live_race{
+	padding-bottom: 5%;
 }
 .non-participated{
 	margin-top: -5%;

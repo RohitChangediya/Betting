@@ -4,7 +4,7 @@ body{
 	padding: 0;
 	background: #262F4A !important;
 }
-.top-bar, .minified-bar{
+.top-bar, .alternate-bar{
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -15,24 +15,24 @@ body{
 	box-shadow: 0px 6px 18px rgba(0,0,0,0.12);
 	z-index: 99;
 }
-.minified-bar{
+.alternate-bar{
 	display: none;
 }
 @media screen and (max-width: 1360px){
 	.top-bar{
 		display: none;
 	}
-	.minified-bar{
+	.alternate-bar{
 		display: block;
 	}
 }
 .hamburger-icon, .close-icon{
-	position: relative;
+	position: absolute;
 	display: inline-block;
-	width: 32px;
-	height: 32px;
-	margin-top: -6px;
-	margin-left: 20px;
+	width: 20px;
+	height: 20px;
+	top: 25px;
+	left: 20px;
 	cursor: pointer;
 	transition: visibility 0.5s ease-in, opacity 0.5s ease-out;
 }
@@ -43,10 +43,6 @@ body{
 .close-icon{
 	visibility: hidden;
 	opacity: 0;
-	width: 52px;
-	height: 52px;
-	margin-top: -5px;
-	margin-left: -45px;
 }
 .close-icon:hover{
 	opacity: 0.54;
@@ -64,188 +60,124 @@ body{
 	top: 5px;
 	left: 25px;
 }
-.minified-bar-logo{
-	display: inline-block;
-	position: absolute;
-	top: 0;
-	left: 50%;
-}
-@media screen and (max-width: 767px){
-	.minified-bar-logo{
-		top: 10.25px;
-		margin-left: -80.5px;
-	}
-}
-@media screen and (max-width: 575px){
-	.minified-bar-logo{
-		top: 15px;
-		left: 50%;
-		margin-left: -70px;
-	}
-}
 .logo-img{
 	display: block;
 	width: 120px;
 	height: 60px;
 }
-@media screen and (max-width: 767px){
-	.logo-img{
-		width: 170px;
-		height: 80.5px;
+.versionNumber{
+	font-family: Ubuntu, sans-serif;
+	font-weight: 400;
+	font-size: 90%;
+	color: rgba(255,255,255,0.37);
+	color: #4183d7;
+	position: absolute;
+	top: 25px;
+	left: 150px;
+}
+.versionNumber-alternateBar{
+	font-family: Ubuntu, sans-serif;
+	font-weight: 400;
+	font-size: 90%;
+	color: rgba(255,255,255,0.37);
+	color: #4183d7;
+	position: absolute;
+	top: 25px;
+	left: 186px;
+}
+@media screen and (max-width: 690px){
+	.versionNumber-alternateBar{
+		display: none;
+	}
+}
+.alternate-bar-logo{
+	display: inline-block;
+	position: absolute;
+	top: 5px;
+	left: 60px;
+}
+@media screen and (max-width: 690px){
+	.alternate-bar-logo{
+		left: 50%;
+		margin-left: -60px;
+	}
+	.demo-video, .help{
+		display: none !important;
 	}
 }
 @media screen and (max-width: 575px){
-	.logo-img{
-		width: 140px;
-		height: 70px;
+	.alternate-bar-logo{
+		left: 60px;
+		margin-left: 0;
 	}
 }
-.topBarLeftSection{
-	width: 100%;
-	position: absolute;
-	left: 230px;
-	top: 25px;
+@media screen and (max-width: 420px){
+	.alternate-bar-logo{
+		left: 50%;
+		margin-left: -60px;
+	}
 }
-.menu-items{
-	position: relative;
-	margin: 0;
-	padding: 0;
-	list-style: none;
-}
-.menu-items li{
-	position: relative;
-	display: inline;
-	margin-top: 0px;
-	margin-left: 0;
-	margin-right: 2%;
-}
-.first-item{
-	margin-left: 40px !important;
-	padding-left: 0;
-}
-.menu-items li a{
-	text-decoration: none;
-	font-family: Roboto, sans-serif;
+.demo-video, .help{
+	font-family: Ubuntu, sans-serif;
 	font-weight: 400;
-	color: #6d6da8;
-	font-size: 100%;
-	border-bottom: 3px solid transparent;
-	padding-bottom: 5px;
-	display: inline-block;
-}
-.menu-items li a:hover{
-	color: #446cb3;
-}
-.menu-items li a .fa{
-	margin-right: 6px;
-	opacity: 0.9;
-	color: #4183d7;
-}
-.reddit, .telegram, .github{
-	display: inline-block;
-	width: 18px;
-	height: 18px;
-}
-.reddit, .github{
-	margin-left: -15px;
+	margin-right: 40px !important;
+	padding-left: 0;
+	color: rgba(255,255,255,0.87);
+
 }
 .topBarRightSection{
 	position: absolute;
-	top: 18px;
-	right: 20px;
+	top: 24px;
+	right: 40px;
 	list-style: none;
 }
 .topBarRightSection li{
 	position: relative;
 	display: inline;
 }
-.horse-quantity{
-	font-family: Roboto, sans-serif;
-	font-weight: 100;
-	font-size: 100%;
-	color: #ffffff;
-	margin-right: 10px;
-	background: #212a42;
-	border-radius: 5px;
-	padding: 8px 17px 8px 17px;
+.topBarRightSection li a{
+	color: rgba(255,255,255,0.7);
+	padding-bottom: 23px;
+	-webkit-transition: color 0.5s ease-out, border-bottom 0.2s ease-out;
+	transition: color 0.5s ease-out, border-bottom 0.2s ease-out;
 }
-.horse-quantity span{
-	font-family: Ubuntu, sans-serif !important;
-	font-weight: 600 !important;
-	color: #cf7f31;
-	margin-left: 10px;
+.topBarRightSection li a:hover{
+	color: #4183d7;
+	border-bottom: 4px solid #22a7f0;
 }
-.eth-gain{
-	font-family: Roboto, sans-serif;
-	font-weight: 100;
-	font-size: 100%;
-	color: #ffffff;
-	margin-right: 10px;
-	background: #212a42;
-	border-radius: 5px;
-	padding: 8px 17px 8px 17px;
+.topBarRightSection li a .fa{
+	color: #5469a5;
+	margin-right: 5px;
 }
-.eth-gain span{
-	font-family: Ubuntu, sans-serif !important;
-	font-weight: 600 !important;
-	color: #22a7f0;
-	margin-left: 10px;
-}
-.eth-logo-topBar{
+.reddit, .telegram, .discord, .github{
 	display: inline-block;
-	width: 15px;
-	height: 15px;
-	margin-top: -3px;
-}
-.username{
-	position: relative;
-	display: inline;
-	margin-left: 20px;
-	color: #ffffff;
-}
-.fa-chevron-down{
-	color: #446cb3 !important;
-	padding-top: 10px;
-	margin-right: 10px;
-}
-.glyphicon-menu-down{
-	color: #ffffff !important;
-}
-.logOffButton{
-	position: relative;
-	display: inline-block;
-	margin-left: 20px;
-	cursor: pointer;
-}
-.logOff{
-	display: inline-block;
-	width: 16px;
-	height: 16px;
-	margin-top: -5px;
-}
-.social-icons{
-	position: absolute;
-	top: 40px;
-	right: 35px;
-	margin: 0;
-	padding: 0;
-	list-style: none;
-}
-@media screen and (max-width: 620px){
-	.social-icons{
-		display: none;
-	}
-}
-.social-icons li{
-	display: inline;
-	margin-left: 15px;
-}
-.social-icons li a{
-	display: inline-block;
-	opacity: 0.87;
-}
-.social-icons li a img{
-	display: block;
 	width: 20px;
 	height: 20px;
+}
+.reddit, .github, .discord{
+	margin-left: 15px;
+}
+@media screen and (max-width: 420px){
+	.reddit, .telegram, .github, .discord{
+		display: none !important;
+	}
+}
+.fadingBackground{
+	position: fixed;
+	top: 70px;
+	left: 270px;
+	width: 100%;
+	height: 100%;
+	display: block;
+	background: rgba(0,0,0,0.4);
+	opacity: 0;
+	visibility: hidden;
+	z-index: 0;
+	-webkit-transition: opacity 0.8s ease-in, visibility 0.8s ease-in;
+	transition: opacity 0.8s ease-in, visibility 0.8s ease-in;
+}
+.fadingBackground-toggle{
+	opacity: 1;
+	visibility: visible;
+	z-index: 99;
 }

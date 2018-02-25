@@ -67,7 +67,8 @@ class App extends Component {
                 targetNetwork:'Kovan',
                 targetDate:'0',
                 race_end:false,
-                bet_phase:""
+                bet_phase:"",
+                hidePlacingBet:true
                 };
     this.invokeContract=this.invokeContract.bind(this);
     this.convertMS=this.convertMS.bind(this);
@@ -117,8 +118,8 @@ class App extends Component {
             self.startFlipClock(starting_time+betting_duration);
             bet_phase="Remaining time before bets are closed.";
           }
-          else if(currentTime<((starting_time+race_duration+betting_duration)*1000) && currentTime>=((starting_time+betting_duration)*1000)){
-              let time=parseInt(starting_time,10)+parseInt(race_duration,10)+parseInt(betting_duration,10);
+          else if(currentTime<((starting_time+race_duration)*1000) && currentTime>=((starting_time+betting_duration)*1000)){
+              let time=parseInt(starting_time,10)+parseInt(race_duration,10);
               self.startFlipClock(time);
               bet_phase="Time remaining for race to end.";
           }
@@ -126,7 +127,7 @@ class App extends Component {
               self.startFlipClock(0);
               bet_phase="Race complete";
           }
-            let ms=(race_duration+betting_duration)*1000
+            let ms=(race_duration-betting_duration)*1000
             let  h, m, s;
             s = Math.floor(ms / 1000);
             m = Math.floor(s / 60);
@@ -183,10 +184,6 @@ class App extends Component {
           ethAccount=accounts[0]
           }).then(function()
                   {
-                  // console.log(web3.fromWei(web3.eth.getBalance(ethAccount)));
-
-
-
                         if(self.state.race_end===false)
                         {
                           const txo = {
@@ -196,23 +193,15 @@ class App extends Component {
                           };
                           if(txo.data!==null && ethAccount!==undefined)
                             {
-                            self.setState({transactionid:'Placing Bet...'},function(){
-                              // document.getElementById("transaction_id").classList.remove('disable-el');
-                              // document.getElementById("loading-icon").classList.remove('disable-el');
+                            self.setState({transactionid:'Placing Bet...',hidePlacingBet:false},function(){
                             instance.placeBet(self.state.coin,txo).then(function(res,error){
 
-                              self.setState({transactionid:('Transaction ID: '+res.tx+'. '),transactionidmsg:"Good luck. You can use \"Check result\" and \"Claim\" after the race is over.",value:self.state.coin},function()
-                            {
-                              // document.getElementById("loading-icon").classList.add('disable-el');
-                            });
+                              self.setState({transactionid:('Transaction ID: '+res.tx+'. '),transactionidmsg:"Good luck. You can use \"Check result\" and \"Claim\" after the race is over.",value:self.state.coin,hidePlacingBet:true});
                             }).catch(function(e){
-                            // document.getElementById("transaction_id").classList.add('disable-el');
+                            self.setState({hidePlacingBet:true})
                               if(e.message==="MetaMask Tx Signature: User denied transaction signature.")
                               {
-
-                                self.setState({value:null,transactionid:null})
-
-
+                                self.setState({value:null,transactionid:null,hidePlacingBet:true})
                               }
                             })})
                             }
@@ -224,12 +213,6 @@ class App extends Component {
                               self.setState({coinChosen:true});
                             }
                         }
-
-
-                  /*instance.Deposit({}, {fromBlock: 0, toBlock: 'latest'}).get(function(error,result){
-                  //console.log(result)
-                });*/
-
               });
           })
     })
@@ -293,10 +276,6 @@ class App extends Component {
                       reward = ''
                       self.setState({reward});
                     }
-
-
-              // reward='You have won '+web3.utils.fromWei(reward,"ether")+' ETH';
-
               self.setState({reward});
               });
               });
@@ -368,7 +347,6 @@ class App extends Component {
     <div className="full-height" >
     <Header contract={this.state.contract}/>
     <div >
-    {/* <Container fluid  style={{ 'height': '100%'}}> */}
       <div className="row" >
 
       <div className="col-md-2 mx-auto col-sm-1"></div>
@@ -380,7 +358,7 @@ class App extends Component {
                   <Result contract={this.state.contract} race_end={this.state.race_end} starting_time={this.state.starting_time}/>
 					<div className="volume header-item col-sm-4 col-md-4 col-lg-4">
 						<img alt="" className="header-item-img" src={require("./assets/Orion_storage-box.png")}/>
-						<div className="header-item-title text-center">Volume</div>
+						<div className="header-item-title text-center">Pool</div>
 						<div className="header-item-value text-center">{this.state.t_bets}</div>
 					</div>
 					<div className="race_duration header-item col-sm-4 col-md-4 col-lg-4">
@@ -396,11 +374,11 @@ class App extends Component {
     					<img alt="" className="header-item-img" src={require("./assets/Orion_sales-up.png")}/>
     					<div className="cb-title crypto-bet text-center">Crypto to Bet On</div>
     					<SelectedCoin coin={this.state.coin}/>
-    					<div className="crypto text-center" ng-bind="cryptoName"></div>
 				    </div>
                     <div className="col-md-4">
                           <Amount onValueSubmit={this.onValueSubmit.bind(this)}/>
-      					<div className="btn-container text-center"><input type="button" onClick={this.invokeContract.bind(this)} className="btn place-bet-button center-block text-center" disabled={this.state.race_start || !this.state.race_end} value="Place Bet"/></div>
+      					<div className="btn-container text-center"><input type="button" onClick={this.invokeContract.bind(this)} className="btn place-bet-button center-block text-center" disabled={!this.state.betting_open} hidden={!this.state.hidePlacingBet} value="Place Bet"/></div>
+                        <div class="placingBet text-center" hidden={this.state.hidePlacingBet}><i class="fa fa-circle-o-notch fa-spin"></i> Placing Bet...</div>
                     </div>
                 </div>
 			</header>
@@ -426,13 +404,6 @@ class App extends Component {
           <br/>
           <br/>
           <div>
-            {/* <Message icon id="transaction_id" className="disable-el" >
-              <Icon name='circle notched' id="loading-icon" loading style={{'color':'black'}} />
-              <Message.Content style={{'color':'black'}}>
-                <Message.Header style={{'color':'black'}}>{this.state.transactionidmsg}</Message.Header>
-                {this.state.transactionid}
-              </Message.Content>
-            </Message> */}
             <br/>
           </div>
           <br/>
@@ -445,8 +416,6 @@ class App extends Component {
         <ContractSidebar onContractSubmit={this.contractUpdate.bind(this)}/>
     </div>
     </div>
-
-
     </div>
     </div>
     </div>);
@@ -466,9 +435,9 @@ class App extends Component {
           return(<Jumbotron style={{ 'textAlign': 'center' ,'backgroundColor':'#262f4a'}} fluid>
           <Container>
               <h3>Your Metamask is on {this.state.network} network.<br/>
-          Please switch to Main Testnet as shown below.</h3>
+          Please switch to {this.state.targetNetwork} as shown below.</h3>
           <br/>
-          <img src="https://github.com/MetaMask/faq/raw/master/images/click-the-test-network.png" target="_blank" alt="switch to Main"/>
+          <img src="https://github.com/MetaMask/faq/raw/master/images/click-the-test-network.png" target="_blank" alt={"switch to "+this.state.targetNetwork}/>
         </Container>
         </Jumbotron>)
       }
