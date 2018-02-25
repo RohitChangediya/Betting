@@ -70,13 +70,14 @@ export default class UpcomingRaces extends Component {
                 <div className="status-race-sidebar">Status
                     <span className="status_race_value upcoming ">{row.status}</span>
                 </div>
+                <div class="duration-race-sidebar"><img src={require("./assets/Orion_hour.png")} alt="" class="duration_icon_sidebar"/>Duration : <span class="duration_race_value">{this.props.duration/3600} hours</span></div>
                 <div class="start_countdown">Race starts in {this.convertMS(row.time_remaining)}</div>
             </div>))
 
             return (<div>
-                <Accordion.Title active={true} style={{textAlign:'left',backgroundColor:'#19b5fe'}}>
+                {/* <Accordion.Title active={true} style={{textAlign:'left',backgroundColor:'#19b5fe'}}>
                     <span style={{textAlign:'left'}}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Upcoming {this.props.duration/3600} hr Races</span>
-                </Accordion.Title>
+                </Accordion.Title> */}
                 <Accordion.Content active={true} content={Buttons}/>
             </div>);
         }

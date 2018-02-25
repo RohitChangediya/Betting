@@ -67,7 +67,8 @@ class App extends Component {
                 targetNetwork:'Kovan',
                 targetDate:'0',
                 race_end:false,
-                bet_phase:""
+                bet_phase:"",
+                hidePlacingBet:true
                 };
     this.invokeContract=this.invokeContract.bind(this);
     this.convertMS=this.convertMS.bind(this);
@@ -111,7 +112,7 @@ class App extends Component {
           let starting_time=info[4].toNumber();
           let betting_duration=info[5].toNumber();
           let race_duration=info[6].toNumber();
-          console.log(betting_open,race_start,race_end,voided_bet,starting_time,betting_duration,race_duration);
+          // console.log(betting_open,race_start,race_end,voided_bet,starting_time,betting_duration,race_duration);
           let bet_phase=""
           if(currentTime>=(starting_time*1000) && currentTime<((starting_time+betting_duration)*1000)){
             self.startFlipClock(starting_time+betting_duration);
@@ -183,10 +184,6 @@ class App extends Component {
           ethAccount=accounts[0]
           }).then(function()
                   {
-                  // console.log(web3.fromWei(web3.eth.getBalance(ethAccount)));
-
-
-
                         if(self.state.race_end===false)
                         {
                           const txo = {
@@ -196,23 +193,15 @@ class App extends Component {
                           };
                           if(txo.data!==null && ethAccount!==undefined)
                             {
-                            self.setState({transactionid:'Placing Bet...'},function(){
-                              // document.getElementById("transaction_id").classList.remove('disable-el');
-                              // document.getElementById("loading-icon").classList.remove('disable-el');
+                            self.setState({transactionid:'Placing Bet...',hidePlacingBet:false},function(){
                             instance.placeBet(self.state.coin,txo).then(function(res,error){
 
-                              self.setState({transactionid:('Transaction ID: '+res.tx+'. '),transactionidmsg:"Good luck. You can use \"Check result\" and \"Claim\" after the race is over.",value:self.state.coin},function()
-                            {
-                              // document.getElementById("loading-icon").classList.add('disable-el');
-                            });
+                              self.setState({transactionid:('Transaction ID: '+res.tx+'. '),transactionidmsg:"Good luck. You can use \"Check result\" and \"Claim\" after the race is over.",value:self.state.coin,hidePlacingBet:true});
                             }).catch(function(e){
-                            // document.getElementById("transaction_id").classList.add('disable-el');
+                            self.setState({hidePlacingBet:true})
                               if(e.message==="MetaMask Tx Signature: User denied transaction signature.")
                               {
-
-                                self.setState({value:null,transactionid:null})
-
-
+                                self.setState({value:null,transactionid:null,hidePlacingBet:true})
                               }
                             })})
                             }
@@ -224,12 +213,6 @@ class App extends Component {
                               self.setState({coinChosen:true});
                             }
                         }
-
-
-                  /*instance.Deposit({}, {fromBlock: 0, toBlock: 'latest'}).get(function(error,result){
-                  //console.log(result)
-                });*/
-
               });
           })
     })
@@ -293,10 +276,6 @@ class App extends Component {
                       reward = ''
                       self.setState({reward});
                     }
-
-
-              // reward='You have won '+web3.utils.fromWei(reward,"ether")+' ETH';
-
               self.setState({reward});
               });
               });
@@ -368,7 +347,6 @@ class App extends Component {
     <div className="full-height" >
     <Header contract={this.state.contract}/>
     <div >
-    {/* <Container fluid  style={{ 'height': '100%'}}> */}
       <div className="row" >
 
       <div className="col-md-2 mx-auto col-sm-1"></div>
@@ -396,11 +374,11 @@ class App extends Component {
     					<img alt="" className="header-item-img" src={require("./assets/Orion_sales-up.png")}/>
     					<div className="cb-title crypto-bet text-center">Crypto to Bet On</div>
     					<SelectedCoin coin={this.state.coin}/>
-    					<div className="crypto text-center" ng-bind="cryptoName"></div>
 				    </div>
                     <div className="col-md-4">
                           <Amount onValueSubmit={this.onValueSubmit.bind(this)}/>
-      					<div className="btn-container text-center"><input type="button" onClick={this.invokeContract.bind(this)} className="btn place-bet-button center-block text-center" disabled={!this.state.betting_open} value="Place Bet"/></div>
+      					<div className="btn-container text-center"><input type="button" onClick={this.invokeContract.bind(this)} className="btn place-bet-button center-block text-center" disabled={!this.state.betting_open} hidden={!this.state.hidePlacingBet} value="Place Bet"/></div>
+                        <div class="placingBet text-center" hidden={this.state.hidePlacingBet}><i class="fa fa-circle-o-notch fa-spin"></i> Placing Bet...</div>
                     </div>
                 </div>
 			</header>
@@ -426,13 +404,6 @@ class App extends Component {
           <br/>
           <br/>
           <div>
-            {/* <Message icon id="transaction_id" className="disable-el" >
-              <Icon name='circle notched' id="loading-icon" loading style={{'color':'black'}} />
-              <Message.Content style={{'color':'black'}}>
-                <Message.Header style={{'color':'black'}}>{this.state.transactionidmsg}</Message.Header>
-                {this.state.transactionid}
-              </Message.Content>
-            </Message> */}
             <br/>
           </div>
           <br/>
@@ -445,8 +416,6 @@ class App extends Component {
         <ContractSidebar onContractSubmit={this.contractUpdate.bind(this)}/>
     </div>
     </div>
-
-
     </div>
     </div>
     </div>);
