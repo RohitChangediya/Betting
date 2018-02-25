@@ -69,7 +69,7 @@ export default class WeekList extends Component {
                 <div className={"status-race-sidebar " + row.contractid} number={this.props.number}>Status
                     <span className={"status_race_value live " + row.contractid} number={this.props.number}>{row.active}</span>
                 </div>
-                <div class="duration-race-sidebar"><img src={require("./assets/Orion_hour.png")} class="duration_icon_sidebar" alt=""/>Duration : <span class="duration_race_value">{row.race_duration/3600} hours</span></div>
+                <div className="duration-race-sidebar"><img src={require("./assets/Orion_hour.png")} className="duration_icon_sidebar" alt=""/>Duration : <span className="duration_race_value">{row.race_duration/3600} hours</span></div>
             </div>)
             }
             else if(row.active==="Betting Open"){
@@ -86,7 +86,7 @@ export default class WeekList extends Component {
                 <div className={"status-race-sidebar " + row.contractid} number={this.props.number}>Status
                     <span className={"status_race_value open " + row.contractid} number={this.props.number}>{row.active}</span>
                 </div>
-                <div class="duration-race-sidebar"><img src={require("./assets/Orion_hour.png")} class="duration_icon_sidebar" alt=""/>Duration : <span class="duration_race_value">{row.race_duration/3600} hours</span></div>
+                <div className="duration-race-sidebar"><img src={require("./assets/Orion_hour.png")} className="duration_icon_sidebar" alt=""/>Duration : <span className="duration_race_value">{row.race_duration/3600} hours</span></div>
             </div>)
             }
             else if(row.active==="Closed"){
@@ -103,7 +103,7 @@ export default class WeekList extends Component {
                 <div className={"status-race-sidebar " + row.contractid} number={this.props.number}>Status
                     <span className={"status_race_value closed " + row.contractid} number={this.props.number}>{row.active}</span>
                 </div>
-                <div class="duration-race-sidebar"><img src={require("./assets/Orion_hour.png")} class="duration_icon_sidebar" alt=""/>Duration : <span class="duration_race_value">{row.race_duration/3600} hours</span></div>
+                <div className="duration-race-sidebar"><img src={require("./assets/Orion_hour.png")} className="duration_icon_sidebar" alt=""/>Duration : <span className="duration_race_value">{row.race_duration/3600} hours</span></div>
             </div>)
             }
             else{

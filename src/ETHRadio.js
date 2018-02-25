@@ -197,7 +197,9 @@ export default class ETHRadio extends React.Component {
 
     }
     contractChange(contract) {
-        this.setState({contract})
+        this.setState({contract,ethHTML: '<i class="fa fa-circle-o" aria-hidden="true"></i>',
+        btcHTML: '<i class="fa fa-circle-o" aria-hidden="true"></i>',
+        ltcHTML: '<i class="fa fa-circle-o" aria-hidden="true"></i>'})
     }
     componentDidUpdate() {
         if (this.state.contract !== this.props.currentContract) {

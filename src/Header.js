@@ -41,31 +41,31 @@ export default class Header extends Component {
         var address_link = "https://kovan.etherscan.io/address/" + this.props.contract + "#code";
         return (<div>
 
-            <div class="container-fluid top-bar">
+            <div className="container-fluid top-bar">
             	<a className="logo" href="#"><img alt="" className="logo-img" src={require("./assets/logo.png")}/></a>
-            	<div class="versionNumber">v0.12</div>
-            	<ul class="topBarRightSection">
-                    <li class="demo-video">
+            	<div className="versionNumber">v{this.props.version}</div>
+            	<ul className="topBarRightSection">
+                    <li className="demo-video">
                         <a href="https://www.youtube.com/watch?v=JS2uo7pSkn4" target="_blank" rel="noopener noreferrer"><i className="fa fa-film"></i>Demo Video</a>
                     </li>
-                    <li class="help"><a href="#" onClick={this.toggle}><i className="fa fa-slack"></i>Help</a></li>
-                    <li><a target="_blank" rel="noopener noreferrer" href="https://telegram.me/ethorse" ><img alt="" src={require("./assets/telegram.png")} class="telegram"/></a></li>
-                    <li><a href="https://discord.gg/vdTXRmT" target="_blank" rel="noopener noreferrer"><img class="discord" src={require("./assets/discord.png")} alt="Discord"/></a></li>
-                    <li><a href="https://www.reddit.com/r/Ethorse/" target="_blank" rel="noopener noreferrer" ><img alt="" src={require("./assets/reddit.png")} class="reddit"/></a></li>
-                    <li><a href="https://github.com/ethorse" target="_blank" rel="noopener noreferrer" ><img alt="" src={require("./assets/github.png")} class="github"/></a></li>
+                    <li className="help"><a href="#" onClick={this.toggle}><i className="fa fa-slack"></i>Help</a></li>
+                    <li><a target="_blank" rel="noopener noreferrer" href="https://telegram.me/ethorse" ><img alt="" src={require("./assets/telegram.png")} className="telegram"/></a></li>
+                    <li><a href="https://discord.gg/vdTXRmT" target="_blank" rel="noopener noreferrer"><img className="discord" src={require("./assets/discord.png")} alt="Discord"/></a></li>
+                    <li><a href="https://www.reddit.com/r/Ethorse/" target="_blank" rel="noopener noreferrer" ><img alt="" src={require("./assets/reddit.png")} className="reddit"/></a></li>
+                    <li><a href="https://github.com/ethorse" target="_blank" rel="noopener noreferrer" ><img alt="" src={require("./assets/github.png")} className="github"/></a></li>
             	</ul>
             </div>
 
-            <div class="container-fluid alternate-bar">
+            <div className="container-fluid alternate-bar">
             	<a className="logo" href="#"><img alt="" className="logo-img" src={require("./assets/logo.png")}/></a>
-            	<div class="versionNumber-alternateBar">v0.12</div>
-            	<ul class="topBarRightSection">
-                    <li class="demo-video">
+            	<div className="versionNumber-alternateBar">v{this.props.version}</div>
+            	<ul className="topBarRightSection">
+                    <li className="demo-video">
                         <a href="https://www.youtube.com/watch?v=JS2uo7pSkn4" target="_blank" rel="noopener noreferrer"><i className="fa fa-film"></i>Demo Video</a>
                     </li>
-                    <li class="help"><a href="#" onClick={this.toggle}><i className="fa fa-slack"></i>Help</a></li>
+                    <li className="help"><a href="#" onClick={this.toggle}><i className="fa fa-slack"></i>Help</a></li>
                     <li><a target="_blank" rel="noopener noreferrer" href="https://telegram.me/ethorse" ><img alt="Telegram" src={require("./assets/telegram.png")}/></a></li>
-                    <li><a href="https://discord.gg/vdTXRmT" target="_blank" rel="noopener noreferrer"><img class="discord" src={require("./assets/discord.png")} alt="Discord"/></a></li>
+                    <li><a href="https://discord.gg/vdTXRmT" target="_blank" rel="noopener noreferrer"><img className="discord" src={require("./assets/discord.png")} alt="Discord"/></a></li>
                     <li><a href="https://www.reddit.com/r/Ethorse/" target="_blank" rel="noopener noreferrer" ><img alt="Reddit" src={require("./assets/reddit.png")}/></a></li>
                     <li><a href="https://github.com/ethorse" target="_blank" rel="noopener noreferrer" ><img alt="Github" src={require("./assets/github.png")}/></a></li>
             	</ul>
