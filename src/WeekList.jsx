@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Accordion, Icon} from 'semantic-ui-react';
 import configjson from './config.json'
 var moment = require('moment');
-if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+if (!process.env.REACT_APP_ENVIRONMENT || process.env.REACT_APP_ENVIRONMENT === 'dev') {
     // dev code
     var ip=configjson.testingIP;
 } else {
