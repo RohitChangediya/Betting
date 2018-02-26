@@ -2,7 +2,13 @@ import React, {Component} from 'react';
 import {Accordion, Icon} from 'semantic-ui-react';
 import configjson from './config.json'
 var moment = require('moment');
-
+if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+    // dev code
+    var ip=configjson.testingIP;
+} else {
+    // production code
+    ip=configjson.productionIP;
+}
 export default class WeekList extends Component {
     constructor(props) {
         super(props);
@@ -15,7 +21,7 @@ export default class WeekList extends Component {
     getContract() {
         let self = this;
         // console.log("http://"+configjson.serverIP+":"+configjson.serverPort+"/contract")
-        let val = fetch("http://"+configjson.serverIP+configjson.serverPort+"/bridge", {
+        let val = fetch(ip+"/bridge", {
             method: 'GET',
             headers: {
                 to: this.props.date,

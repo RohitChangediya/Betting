@@ -1,4 +1,4 @@
 {
-    "serverIP":"192.168.1.102",
-    "serverPort":":3000"
+    "productionIP":"http://192.168.1.102:3000",
+    "testingIP":"http://192.168.1.102:3000"
 }

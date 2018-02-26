@@ -2,7 +2,15 @@ import React, {Component} from 'react';
 import {Accordion} from 'semantic-ui-react';
 import configjson from './config.json'
 var moment = require('moment');
-
+if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+    // dev code
+    console.log(process.env.NODE_ENV)
+    var ip=configjson.testingIP;
+} else {
+    // production code
+    console.log(process.env.NODE_ENV)
+    ip=configjson.productionIP;
+}
 export default class UpcomingRaces extends Component {
     constructor(props) {
         super(props);
@@ -32,7 +40,7 @@ export default class UpcomingRaces extends Component {
       }
       getContract() {
           let self = this;
-          let val = fetch("http://"+configjson.serverIP+configjson.serverPort+"/bridge/getNextRace", {
+          let val = fetch(ip+"/bridge/getNextRace", {
               method: 'GET',
               headers: {
                   duration:this.props.duration,
