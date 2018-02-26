@@ -57,6 +57,7 @@ class App extends Component {
             race_end: false,
             bet_phase: "",
             hidePlacingBet: true,
+            hideBetPlaced:true,
             version:""
         };
         this.invokeContract = this.invokeContract.bind(this);
@@ -98,11 +99,11 @@ class App extends Component {
                     let bet_phase = ""
                         if (currentTime >= (starting_time * 1000) && currentTime < ((starting_time + betting_duration) * 1000)) {
                             self.startFlipClock(starting_time + betting_duration);
-                            bet_phase = "Remaining time before bets are closed.";
+                            bet_phase = "Betting closes in";
                         } else if (currentTime < ((starting_time + race_duration) * 1000) && currentTime >= ((starting_time + betting_duration) * 1000)) {
                             let time = parseInt(starting_time, 10) + parseInt(race_duration, 10);
                             self.startFlipClock(time);
-                            bet_phase = "Time remaining for race to end.";
+                            bet_phase = "Race ends in";
                         } else if (starting_time > 0) {
                             self.startFlipClock(0);
                             bet_phase = "Race complete";
@@ -130,8 +131,8 @@ class App extends Component {
                 }
 
             invokeContract() {
-                if (this.state.amount < 0.1 || this.state.amount > 1) {
-                    alert('Bet minimum 0.1 ETH and a maximum of 1 ETH');
+                if (this.state.amount < 0.01 ) {
+                    alert('Bet minimum 0.01 ETH');
                     return;
                 }
                 var self = this;
@@ -259,7 +260,7 @@ class App extends Component {
             contractUpdate(contract) {
                 let self = this;
 
-                this.setState({contract,coin:""}, function() {
+                this.setState({contract,coin:null}, function() {
                     self.componentLoad();
                     self.checkRewards();
                     self.getVersion();
@@ -317,10 +318,11 @@ class App extends Component {
                                                         </div>
                                                         <div className="col-md-4">
                                                             <Amount onValueSubmit={this.onValueSubmit.bind(this)}/>
-                                                            <div className="btn-container text-center"><input type="button" onClick={this.invokeContract.bind(this)} className="btn place-bet-button center-block text-center" disabled={!this.state.betting_open} hidden={!this.state.hidePlacingBet} value="Place Bet"/></div>
+                                                            <div className="btn-container text-center"><input type="button" onClick={this.invokeContract.bind(this)} className="btn place-bet-button center-block text-center" disabled={!this.state.betting_open || this.state.coin===null} hidden={!this.state.hidePlacingBet} value="Place Bet"/></div>
                                                             <div className="placingBet text-center" hidden={this.state.hidePlacingBet}>
                                                                 <i className="fa fa-circle-o-notch fa-spin"></i>
                                                                 Placing Bet...</div>
+                                                            <div class="betPlaced text-center" hidden={this.state.hideBetPlaced}><img src={require("./assets/Orion_currency.png")}/> Bet Placed !</div>
                                                         </div>
                                                     </div>
                                                 </header>

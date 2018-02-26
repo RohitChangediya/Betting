@@ -4,11 +4,9 @@ import configjson from './config.json'
 var moment = require('moment');
 if (!process.env.REACT_APP_ENVIRONMENT || process.env.REACT_APP_ENVIRONMENT === 'dev') {
     // dev code
-    console.log(process.env.REACT_APP_ENVIRONMENT)
     var ip=configjson.testingIP;
 } else {
     // production code
-    console.log(process.env.REACT_APP_ENVIRONMENT)
     ip=configjson.productionIP;
 }
 export default class UpcomingRaces extends Component {

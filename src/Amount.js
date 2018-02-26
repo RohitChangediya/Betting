@@ -19,7 +19,7 @@ export default class Amount extends React.Component {
 
               <div className="amount-container form-inline justify-content-center mx-auto d-block">
 
-						<input type="number" className="form-control amount-input mx-auto d-block text-center" id="amount" value={this.state.value} step="0.01" max="1" min="0.1" title="Enter the amount to bet in ether" onChange={this.handleChange} required/>
+						<input type="number" className="form-control amount-input mx-auto d-block text-center" id="amount" value={this.state.value} step="0.01" min="0.01" title="Enter the amount to bet in ether" onChange={this.handleChange} required/>
 						<div className="eth text-center mx-auto d-block"><img className="eth-logo" src={require("./assets/eth.png")} alt=""/> ETH</div>
 				</div>
 

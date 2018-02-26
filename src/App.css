@@ -342,6 +342,10 @@ border-bottom: 5px solid blue;
 }
 ul li.active  { color: #f4ba51 ; }
 
+.help-text{
+    padding-left: 15px;
+    color: black!important;
+}
 .race_details{
     font-weight: 100;
     font-size: 25px;

@@ -34,7 +34,7 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "start": " REACT_APP_ENVIRONMENT=dev HOST='0.0.0.0' PORT=4000 react-scripts start ",
-    "build": "react-scripts build",
+    "build": " REACT_APP_ENVIRONMENT=prod react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
