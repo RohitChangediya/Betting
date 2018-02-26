@@ -66,6 +66,15 @@
 	},
 	{
 		"constant": false,
+		"inputs": [],
+		"name": "reward",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
 		"inputs": [
 			{
 				"name": "myid",
@@ -116,6 +125,53 @@
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [],
+		"name": "kill",
+		"outputs": [],
+		"payable": false,
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "horses",
+		"outputs": [
+			{
+				"name": "BTC_delta",
+				"type": "int256"
+			},
+			{
+				"name": "ETH_delta",
+				"type": "int256"
+			},
+			{
+				"name": "LTC_delta",
+				"type": "int256"
+			},
+			{
+				"name": "BTC",
+				"type": "bytes32"
+			},
+			{
+				"name": "ETH",
+				"type": "bytes32"
+			},
+			{
+				"name": "LTC",
+				"type": "bytes32"
+			},
+			{
+				"name": "customGasLimit",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -191,6 +247,20 @@
 		"outputs": [
 			{
 				"name": "result",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
+		"inputs": [],
+		"name": "kickStarter",
+		"outputs": [
+			{
+				"name": "",
 				"type": "uint256"
 			}
 		],

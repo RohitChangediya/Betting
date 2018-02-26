@@ -32,7 +32,7 @@ export default class UpcomingRaces extends Component {
       }
       getContract() {
           let self = this;
-          let val = fetch("http://"+configjson.serverIP+":"+configjson.serverPort+"/contract/getNextRace", {
+          let val = fetch("http://"+configjson.serverIP+configjson.serverPort+"/bridge/getNextRace", {
               method: 'GET',
               headers: {
                   duration:this.props.duration,

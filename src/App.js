@@ -366,7 +366,7 @@ class App extends Component {
                 } else if (this.state.network !== this.state.targetNetwork) {
                     return (<Jumbotron style={{'textAlign' : 'center','backgroundColor' : '#262f4a'}} fluid={true}>
                         <Container>
-                            <h3>Your Metamask is on {this.state.network}network.<br/>Please switch to {this.state.targetNetwork}as shown below.</h3>
+                            <h3>Your Metamask is on {this.state.network} network.<br/>Please switch to {this.state.targetNetwork} as shown below.</h3>
                             <br/>
                             <img src="https://github.com/MetaMask/faq/raw/master/images/click-the-test-network.png" target="_blank" alt={"switch to " + this.state.targetNetwork}/>
                         </Container>
