@@ -36,7 +36,7 @@ export default class Header extends Component {
     }
     componentWillMount() {
         var val = localStorage.getItem('accessed');
-        if (val == null) {
+        if (val == null && this.props.rendered===true) {
             localStorage.setItem('accessed', true);
             this.setState({termsModal: true})
         }
