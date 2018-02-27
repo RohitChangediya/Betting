@@ -42,28 +42,7 @@ export default class Header extends Component {
         }
 
     }
-    componentDidMount(){
-        $(".hamburger-icon").click(function(){
-        	$(".left-panel").addClass("left-panel-slide");
-            $(".fadingBackground").addClass("fadingBackground-toggle");
-        	$(this).addClass("hamburger-icon-off");
-        	$(".close-icon").addClass("close-icon-on");
-        });
 
-        $(".close-icon").click(function(){
-            $(".fadingBackground").removeClass("fadingBackground-toggle");
-        	$(".left-panel").removeClass("left-panel-slide")
-        	$(this).removeClass("close-icon-on");
-        	$(".hamburger-icon").removeClass("hamburger-icon-off");
-        });
-
-        $(".fadingBackground").click(function(){
-            $(this).removeClass("fadingBackground-toggle");
-            $(".left-panel").removeClass("left-panel-slide");
-            $(".close-icon").removeClass("close-icon-on");
-            $(".hamburger-icon").removeClass("hamburger-icon-off");
-        });
-    }
     onContractSubmit(contract) {
         this.props.contractUpdate(contract)
     }
@@ -84,9 +63,7 @@ export default class Header extends Component {
             </div>
 
             <div className="container-fluid alternate-bar">
-                <img class="hamburger-icon" alt="Burger" src={require("./assets/Orion_menu-hamburger.png")}/>
-            	<img class="close-icon" alt="Close Burger" src={require("./assets/Orion_close.png")}/>
-            	<a class="alternate-bar-logo" href="#"><img alt="" className="logo-img" src={require("./assets/logo.png")}/></a>
+            	<a className="alternate-bar-logo" href="#"><img alt="" className="logo-img" src={require("./assets/logo.png")}/></a>
             	<div className="versionNumber-alternateBar">v{this.props.version}</div>
             	<ul className="topBarRightSection">
                     <li className="help"><a href="#" onClick={this.toggle}><i className="fa fa-slack"></i>Help</a></li>
@@ -127,13 +104,13 @@ export default class Header extends Component {
                     <br/>
                     <h5>How to use</h5>
                     <ul class="help-text">
-                        <li >Choose a race from the sidebar with the status "Betting open" </li>
+                        <li >Choose a race from the sidebar with the status "Betting open"</li>
                         <li>Select a coin to bet on - BTC, ETH and LTC</li>
                         <li>Enter the amount you are willing to bet (Min 0.01 Kovan ETH)</li>
                         <li>Click “Place Bet”, verify and submit the auto-filled Metamask transaction</li>
                         <li>Betting is locked once the race starts</li>
                         <li >Track the winning coin using the % value under “Leading”</li>
-                        <li >After the race ends, users can check their bet results and claim winnings by using the “Claim” button at the bottom of the page</li>
+                        <li >After the race ends, check bet results and claim winnings using the buttons at the bottom of the page</li>
                     </ul>
                     <h5>About the race</h5>
                     <ul class="help-text">

@@ -1,6 +1,6 @@
 /* Left Panel */
 .left-panel{
-	width: 270px;
+	width: 15vw;
 	position: fixed;
 	top: 70px;
 	left: 0;
@@ -15,7 +15,7 @@
 	-webkit-transition: left ease-in 0.5s, visibility 0.5s ease-in, opacity 0.5s ease-in;
 	transition: left ease-in 0.5s, visibility 0.5s ease-in, opacity 0.5s ease-in;
 }
-@media screen and (max-width: 1360px){
+/* @media screen and (max-width: 1360px){
 	.left-panel{
 		visibility: hidden;
 		opacity: 0;
@@ -34,7 +34,7 @@
 		opacity: 1;
 		left: 0px;
 	}
-}
+} */
 .race{
 	display: block;
 	position: relative;

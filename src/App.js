@@ -287,9 +287,7 @@ class App extends Component {
                             <div >
                                 <div className="row">
                                     <div className="col-md-2 mx-auto col-sm-1"></div>
-                                    <div className="col-md-10 mx-auto col-sm-11" style={{
-                                            'marginTop' : '10vh'
-                                        }}>
+                                    <div className="col-md-10 mx-auto col-sm-11">
                                         <div className="row">
                                             <div className="container header-wrapper">
                                                 <header className="header">
