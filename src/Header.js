@@ -16,7 +16,7 @@ export default class Header extends Component {
         super(props);
         this.state = {
             modal: false,
-            termsModal:true
+            termsModal:false
         };
 
         this.toggle = this.toggle.bind(this);

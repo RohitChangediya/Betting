@@ -76,8 +76,8 @@ class App extends Component {
         })
 
     }
-    startFlipClock(time) {
-        this.setState({targetDate: time})
+    startFlipClock(time,timerStart) {
+        this.setState({targetDate: time,timerStart})
     }
     componentLoad() {
         var currentTime = new Date()
@@ -98,14 +98,14 @@ class App extends Component {
                     // console.log(betting_open,race_start,race_end,voided_bet,starting_time,betting_duration,race_duration);
                     let bet_phase = ""
                         if (currentTime >= (starting_time * 1000) && currentTime < ((starting_time + betting_duration) * 1000)) {
-                            self.startFlipClock(starting_time + betting_duration);
+                            self.startFlipClock(starting_time + betting_duration,starting_time);
                             bet_phase = "Betting closes in";
                         } else if (currentTime < ((starting_time + race_duration) * 1000) && currentTime >= ((starting_time + betting_duration) * 1000)) {
                             let time = parseInt(starting_time, 10) + parseInt(race_duration, 10);
-                            self.startFlipClock(time);
+                            self.startFlipClock(time,starting_time + betting_duration);
                             bet_phase = "Race ends in";
                         } else if (starting_time > 0) {
-                            self.startFlipClock(0);
+                            self.startFlipClock(0,0);
                             bet_phase = "Race complete";
                         }
                         let ms = (race_duration - betting_duration) * 1000
@@ -310,7 +310,7 @@ class App extends Component {
                                                             marginTop: '5%'
                                                         }}>
 
-                                                        <Timer targetDate={this.state.targetDate} bet_phase={this.state.bet_phase}/>
+                                                        <Timer targetDate={this.state.targetDate} bet_phase={this.state.bet_phase} timerStart={this.state.timerStart}/>
                                                         <div className="col-sm-6 col-md-4 col-lg-4">
                                                             <img alt="" className="header-item-img" src={require("./assets/Orion_sales-up.png")}/>
                                                             <div className="cb-title crypto-bet text-center">Crypto to Bet On</div>
@@ -322,7 +322,7 @@ class App extends Component {
                                                             <div className="placingBet text-center" hidden={this.state.hidePlacingBet}>
                                                                 <i className="fa fa-circle-o-notch fa-spin"></i>
                                                                 Placing Bet...</div>
-                                                            <div class="betPlaced text-center" hidden={this.state.hideBetPlaced}><img src={require("./assets/Orion_currency.png")}/> Bet Placed !</div>
+                                                            {/* <div className="betPlaced text-center" hidden={this.state.hideBetPlaced}><img src={require("./assets/Orion_currency.png")}/> Bet Placed !</div> */}
                                                         </div>
                                                     </div>
                                                 </header>
