@@ -6,6 +6,7 @@ import {
     Button
 } from 'reactstrap'
 import React, {Component} from 'react';
+import $ from 'jquery'
 // import './App.css';
 
 import 'bootstrap/dist/css/bootstrap.css';
@@ -41,6 +42,28 @@ export default class Header extends Component {
         }
 
     }
+    componentDidMount(){
+        $(".hamburger-icon").click(function(){
+        	$(".left-panel").addClass("left-panel-slide");
+            $(".fadingBackground").addClass("fadingBackground-toggle");
+        	$(this).addClass("hamburger-icon-off");
+        	$(".close-icon").addClass("close-icon-on");
+        });
+
+        $(".close-icon").click(function(){
+            $(".fadingBackground").removeClass("fadingBackground-toggle");
+        	$(".left-panel").removeClass("left-panel-slide")
+        	$(this).removeClass("close-icon-on");
+        	$(".hamburger-icon").removeClass("hamburger-icon-off");
+        });
+
+        $(".fadingBackground").click(function(){
+            $(this).removeClass("fadingBackground-toggle");
+            $(".left-panel").removeClass("left-panel-slide");
+            $(".close-icon").removeClass("close-icon-on");
+            $(".hamburger-icon").removeClass("hamburger-icon-off");
+        });
+    }
     onContractSubmit(contract) {
         this.props.contractUpdate(contract)
     }
@@ -61,14 +84,16 @@ export default class Header extends Component {
             </div>
 
             <div className="container-fluid alternate-bar">
-            	<a className="logo" href="#"><img alt="" className="logo-img" src={require("./assets/logo.png")}/></a>
+                <img class="hamburger-icon" alt="Burger" src={require("./assets/Orion_menu-hamburger.png")}/>
+            	<img class="close-icon" alt="Close Burger" src={require("./assets/Orion_close.png")}/>
+            	<a class="alternate-bar-logo" href="#"><img alt="" className="logo-img" src={require("./assets/logo.png")}/></a>
             	<div className="versionNumber-alternateBar">v{this.props.version}</div>
             	<ul className="topBarRightSection">
                     <li className="help"><a href="#" onClick={this.toggle}><i className="fa fa-slack"></i>Help</a></li>
-                    <li><a target="_blank" rel="noopener noreferrer" href="https://telegram.me/ethorse" ><img alt="Telegram" src={require("./assets/telegram.png")}/></a></li>
+                    <li><a target="_blank" rel="noopener noreferrer" href="https://telegram.me/ethorse" ><img alt="Telegram" className="telegram" src={require("./assets/telegram.png")}/></a></li>
                     <li><a href="https://discord.gg/vdTXRmT" target="_blank" rel="noopener noreferrer"><img className="discord" src={require("./assets/discord.png")} alt="Discord"/></a></li>
-                    <li><a href="https://www.reddit.com/r/Ethorse/" target="_blank" rel="noopener noreferrer" ><img alt="Reddit" src={require("./assets/reddit.png")}/></a></li>
-                    <li><a href="https://github.com/ethorse" target="_blank" rel="noopener noreferrer" ><img alt="Github" src={require("./assets/github.png")}/></a></li>
+                    <li><a href="https://www.reddit.com/r/Ethorse/" target="_blank" rel="noopener noreferrer" ><img alt="Reddit" className="reddit" src={require("./assets/reddit.png")}/></a></li>
+                    <li><a href="https://github.com/ethorse" target="_blank" rel="noopener noreferrer" ><img alt="Github" className="github" src={require("./assets/github.png")}/></a></li>
             	</ul>
             </div>
 
