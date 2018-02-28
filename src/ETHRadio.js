@@ -87,6 +87,7 @@ export default class ETHRadio extends React.Component {
             instance.reward_total().then(function(reward) {
                 reward = web3.utils.fromWei(reward, "ether")
                 instance.getCoinIndex("ETH").then(function(value) {
+                    console.log('ETH ',value);
                     var eth = self.getOddsDetails(value, reward);
                     if (eth.pre_price !== "TBC") {
                         fetch("https://api.coinmarketcap.com/v1/ticker/ethereum/").then(function(details) {
@@ -108,6 +109,7 @@ export default class ETHRadio extends React.Component {
                     }
                 });
                 instance.getCoinIndex("LTC").then(function(value) {
+                    console.log('LTC ',value);
                     var ltc = self.getOddsDetails(value, reward);
                     if (ltc.pre_price !== "TBC") {
                         fetch("https://api.coinmarketcap.com/v1/ticker/litecoin/").then(function(details) {
@@ -130,6 +132,7 @@ export default class ETHRadio extends React.Component {
                     }
                 });
                 instance.getCoinIndex("BTC").then(function(value) {
+                    console.log('BTC ',value);
                     var btc = self.getOddsDetails(value, reward);
                     if (btc.pre_price !== "TBC") {
                         fetch("https://api.coinmarketcap.com/v1/ticker/bitcoin/").then(function(details) {
@@ -217,7 +220,7 @@ export default class ETHRadio extends React.Component {
         return (<div>
             <div className="container crypto-container btc-container" onClick={() => this.handleChange("BTC")}>
                 <div className="row">
-                    <div className="col-lg-5 col-xl-5">
+                    <div className="col-lg-12 col-xl-5">
                         <div className="row">
                             <div className="col-sm-4 col-md-4 col-lg-4 col-xl-4 select-crypto">
                                 <div className="select_coin text-left">Select a Coin</div>
@@ -236,7 +239,7 @@ export default class ETHRadio extends React.Component {
                         </div>
                         </div>
 
-                    <div className="col-lg-7 col-xl-7">
+                    <div className="col-lg-12 col-xl-7">
                         <div className="row">
                             <div className="col-sm-3 col-md-3 col-lg-3 col-xl-3">
                                 <div className="bets_number text-center">Number of Bets</div>
