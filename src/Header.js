@@ -100,12 +100,12 @@ export default class Header extends Component {
                     <h4>Help</h4>
                 </ModalHeader>
                 <ModalBody>
-                    Bet on a cryptocurrency and win against other users based on the price performance in a given period (24hr / 1hr).
+                    Bet on a cryptocurrency and win against other users based on the price performance in a given period (24 hrs / 1 hr).
                     <br/>
                     <h5>How to use</h5>
                     <ul class="help-text">
                         <li >Choose a race from the sidebar with the status "Betting open"</li>
-                        <li>Select a coin to bet on - BTC, ETH and LTC</li>
+                        <li>Select a coin to bet on - BTC, ETH or LTC</li>
                         <li>Enter the amount you are willing to bet (Min 0.01 Kovan ETH)</li>
                         <li>Click “Place Bet”, verify and submit the auto-filled Metamask transaction</li>
                         <li>Betting is locked once the race starts</li>
@@ -114,9 +114,9 @@ export default class Header extends Component {
                     </ul>
                     <h5>About the race</h5>
                     <ul class="help-text">
-                        <li>There is an 1 hr betting period for all races</li>
-                        <li>There are two different races, differentiated by a race period of 24 hr and 1 hr</li>
-                        <li>New races are available every 6 six hours. Upcoming races are shown on the side bar</li>
+                        <li>There is a 1 hr betting period for all races</li>
+                        <li>There are two different races, differentiated by a race period of 24 hrs and 1 hr</li>
+                        <li>New races are available every 6 hours. Upcoming races are shown on the sidebar</li>
                         <li>Users must claim their winnings within 30 days after the race ends</li>
                     </ul>
                     <br/>
