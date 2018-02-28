@@ -3,11 +3,9 @@ import React from 'react';
 export default class Timer extends React.Component{
     constructor(props){
         super(props);
-        this.state={timerHTML:'',targetDate:this.props.targetDate,compute:false,timer:null}
+        this.state={timerHTML:'',targetDate:this.props.targetDate,compute:false,timer:null,progress:0}
         this.countDownCompute=this.countDownCompute.bind(this);
         this.timer = 0;
-        // this.startTimer = this.startTimer.bind(this);
-        // this.countDown = this.countDown.bind(this);
     }
     componentDidMount(){
         if(this.props.targetDate!==''){
@@ -17,9 +15,6 @@ export default class Timer extends React.Component{
     componentDidUpdate(){
         let self=this;
         if((parseInt(this.state.targetDate,10)!==parseInt(this.props.targetDate,10) || this.props.targetDate==='')){
-            // for(let i=1;i<=999;i++){
-            //
-            // }
             clearInterval(this.timer);
             this.setState({targetDate:this.props.targetDate},function(){
             self.countDownCompute();
@@ -42,18 +37,20 @@ export default class Timer extends React.Component{
             var distance = parseInt(countDownDate,10) - parseInt(now,10);
             if (parseInt(distance,10) < 0) {
                 clearInterval(self.timer);
-                self.setState({ timerHTML:"<div class=\"race_details\">Race closed for betting</div>",distance,compute:false});
+                self.setState({ timerHTML:"<div class=\"race_details\">Race closed for betting</div>",distance,compute:false,progress:100+'%'});
             }
 
             // Time calculations for days, hours, minutes and seconds
             var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
+            let progress=0
+            if((self.props.targetDate-self.props.timerStart)>0)
+                progress=(100-((distance)/((self.props.targetDate-self.props.timerStart)*1000))*100)+'%';
             // Display the result in the element with id="demo"
             if(distance>=0)
                 {self.setState({ timerHTML:(hours + "h "
-            + minutes + "m " + seconds + "s "),compute:false});}
+            + minutes + "m " + seconds + "s "),compute:false,progress});}
 
             // If the count down is finished, write some text
 
@@ -68,6 +65,9 @@ export default class Timer extends React.Component{
 					<img alt="" className="header-item-img" src={require("./assets/Orion_stopwatch.png")}/>
 					<div className="cb-title remaining text-center">{this.props.bet_phase}</div>
 					<p id="timer" className="text-center" dangerouslySetInnerHTML={{__html: this.state.timerHTML}}></p>
+                    <div className="progress">
+						<div className="progress-bar" role="progressbar" aria-valuenow={this.state.progress} aria-valuemin="0" aria-valuemax="100" style={{"width":this.state.progress}}></div>
+					</div>
 				</div>
             );}
         else{

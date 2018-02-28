@@ -2,7 +2,13 @@ import React, {Component} from 'react';
 import {Accordion, Icon} from 'semantic-ui-react';
 import configjson from './config.json'
 var moment = require('moment');
-
+if (!process.env.REACT_APP_ENVIRONMENT || process.env.REACT_APP_ENVIRONMENT === 'dev') {
+    // dev code
+    var ip=configjson.testingIP;
+} else {
+    // production code
+    ip=configjson.productionIP;
+}
 export default class WeekList extends Component {
     constructor(props) {
         super(props);
@@ -15,7 +21,7 @@ export default class WeekList extends Component {
     getContract() {
         let self = this;
         // console.log("http://"+configjson.serverIP+":"+configjson.serverPort+"/contract")
-        let val = fetch("http://"+configjson.serverIP+":"+configjson.serverPort+"/contract", {
+        let val = fetch(ip+"/bridge", {
             method: 'GET',
             headers: {
                 to: this.props.date,
@@ -69,7 +75,7 @@ export default class WeekList extends Component {
                 <div className={"status-race-sidebar " + row.contractid} number={this.props.number}>Status
                     <span className={"status_race_value live " + row.contractid} number={this.props.number}>{row.active}</span>
                 </div>
-                <div class="duration-race-sidebar"><img src={require("./assets/Orion_hour.png")} class="duration_icon_sidebar" alt=""/>Duration : <span class="duration_race_value">{row.race_duration/3600} hours</span></div>
+                <div className="duration-race-sidebar"><img src={require("./assets/Orion_hour.png")} className="duration_icon_sidebar" alt=""/>Duration : <span className="duration_race_value">{row.race_duration/3600} hours</span></div>
             </div>)
             }
             else if(row.active==="Betting Open"){
@@ -86,7 +92,7 @@ export default class WeekList extends Component {
                 <div className={"status-race-sidebar " + row.contractid} number={this.props.number}>Status
                     <span className={"status_race_value open " + row.contractid} number={this.props.number}>{row.active}</span>
                 </div>
-                <div class="duration-race-sidebar"><img src={require("./assets/Orion_hour.png")} class="duration_icon_sidebar" alt=""/>Duration : <span class="duration_race_value">{row.race_duration/3600} hours</span></div>
+                <div className="duration-race-sidebar"><img src={require("./assets/Orion_hour.png")} className="duration_icon_sidebar" alt=""/>Duration : <span className="duration_race_value">{row.race_duration/3600} hours</span></div>
             </div>)
             }
             else if(row.active==="Closed"){
@@ -103,7 +109,7 @@ export default class WeekList extends Component {
                 <div className={"status-race-sidebar " + row.contractid} number={this.props.number}>Status
                     <span className={"status_race_value closed " + row.contractid} number={this.props.number}>{row.active}</span>
                 </div>
-                <div class="duration-race-sidebar"><img src={require("./assets/Orion_hour.png")} class="duration_icon_sidebar" alt=""/>Duration : <span class="duration_race_value">{row.race_duration/3600} hours</span></div>
+                <div className="duration-race-sidebar"><img src={require("./assets/Orion_hour.png")} className="duration_icon_sidebar" alt=""/>Duration : <span className="duration_race_value">{row.race_duration/3600} hours</span></div>
             </div>)
             }
             else{

@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import 'bootstrap/dist/css/bootstrap.css';
-import './FlipClock-master/compiled/flipclock.css';
 import 'semantic-ui-css/semantic.min.css';
 import './css/left-panel.css'
 import './css/right-panel.css'

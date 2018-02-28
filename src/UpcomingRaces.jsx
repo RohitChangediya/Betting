@@ -2,7 +2,13 @@ import React, {Component} from 'react';
 import {Accordion} from 'semantic-ui-react';
 import configjson from './config.json'
 var moment = require('moment');
-
+if (!process.env.REACT_APP_ENVIRONMENT || process.env.REACT_APP_ENVIRONMENT === 'dev') {
+    // dev code
+    var ip=configjson.testingIP;
+} else {
+    // production code
+    ip=configjson.productionIP;
+}
 export default class UpcomingRaces extends Component {
     constructor(props) {
         super(props);
@@ -32,7 +38,7 @@ export default class UpcomingRaces extends Component {
       }
       getContract() {
           let self = this;
-          let val = fetch("http://"+configjson.serverIP+":"+configjson.serverPort+"/contract/getNextRace", {
+          let val = fetch(ip+"/bridge/getNextRace", {
               method: 'GET',
               headers: {
                   duration:this.props.duration,
@@ -70,8 +76,8 @@ export default class UpcomingRaces extends Component {
                 <div className="status-race-sidebar">Status
                     <span className="status_race_value upcoming ">{row.status}</span>
                 </div>
-                <div class="duration-race-sidebar"><img src={require("./assets/Orion_hour.png")} alt="" class="duration_icon_sidebar"/>Duration : <span class="duration_race_value">{this.props.duration/3600} hours</span></div>
-                <div class="start_countdown">Race starts in {this.convertMS(row.time_remaining)}</div>
+                <div className="duration-race-sidebar"><img src={require("./assets/Orion_hour.png")} alt="" className="duration_icon_sidebar"/>Duration : <span className="duration_race_value">{this.props.duration/3600} hours</span></div>
+                <div className="start_countdown">Race starts in {this.convertMS(row.time_remaining)}</div>
             </div>))
 
             return (<div>

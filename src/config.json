@@ -1,4 +1,9 @@
 {
+<<<<<<< HEAD
     "serverIP":"127.0.0.1",
     "serverPort":"3000"
+=======
+    "productionIP":"http://127.0.0.1:3000",
+    "testingIP":"http://127.0.0.1:3000"
+>>>>>>> 17a15ef1976bfdc9a904f2c61036525e870c762a
 }
