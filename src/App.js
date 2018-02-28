@@ -281,13 +281,13 @@ class App extends Component {
             }
             render() {
                 if (web3.currentProvider != null && this.state.network === this.state.targetNetwork && this.state.contract !== null) {
-                    var renderContent = (<div className="full-height">
-                        <div className="full-height">
+                    var renderContent = (<div>
+                        <div>
                             <Header contract={this.state.contract} version={this.state.version} rendered={true}/>
                             <div >
                                 <div className="row">
                                     <div className="col-md-2 mx-auto col-sm-1"></div>
-                                    <div className="col-md-10 mx-auto col-sm-11">
+                                    <div className="col-md-10 mx-auto col-sm-11" style={{ 'marginTop': '30px'}}>
                                         <div className="row">
                                             <div className="container header-wrapper">
                                                 <header className="header">
