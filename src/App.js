@@ -296,7 +296,7 @@ class App extends Component {
                                                         <div className="volume header-item col-sm-4 col-md-4 col-lg-4">
                                                             <img alt="" className="header-item-img" src={require("./assets/Orion_storage-box.png")}/>
                                                             <div className="header-item-title text-center">Pool</div>
-                                                            <div className="header-item-value text-center">{this.state.t_bets}</div>
+                                                            <div className="header-item-value text-center">{this.state.t_bets} ETH</div>
                                                         </div>
                                                         <div className="race_duration header-item col-sm-4 col-md-4 col-lg-4">
                                                             <div className="center-block"><img alt="" className="header-item-img img-responsive center-block" src={require("./assets/Orion_timing.png")}/></div>
