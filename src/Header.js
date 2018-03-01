@@ -1,87 +1,131 @@
-import {Navbar,  NavbarBrand, Nav, NavLink, NavItem, Modal, ModalHeader, ModalBody, ModalFooter, Button } from 'reactstrap'
-import React, { Component } from 'react';
-import './App.css';
+import {
+    Modal,
+    ModalHeader,
+    ModalBody,
+    ModalFooter,
+    Button
+} from 'reactstrap'
+import React, {Component} from 'react';
+import $ from 'jquery'
+// import './App.css';
 
 import 'bootstrap/dist/css/bootstrap.css';
-import ethorsejson from './ETHorse.json';
-
 
 export default class Header extends Component {
 
     constructor(props) {
-      super(props);
-      this.state = {
-        modal: false
-      };
+        super(props);
+        this.state = {
+            modal: false,
+            termsModal:false
+        };
 
-      this.toggle = this.toggle.bind(this);
+        this.toggle = this.toggle.bind(this);
+        this.termstoggle=this.termstoggle.bind(this);
     }
 
     toggle() {
-      this.setState({
-        modal: !this.state.modal
-      });
+        this.setState({
+            modal: !this.state.modal
+        });
     }
-    componentWillMount()
-    {
-      var val=localStorage.getItem('accessed');
-      if(val==null)
-      {
-      localStorage.setItem('accessed',true);
-      this.setState({modal:true})
-      }
+    termstoggle(){
+        this.setState({
+            termsModal: !this.state.termsModal
+        });
+    }
+    componentWillMount() {
+        var val = localStorage.getItem('accessed');
+        if (val == null && this.props.rendered===true) {
+            localStorage.setItem('accessed', true);
+            this.setState({termsModal: true})
+        }
 
     }
-    onContractSubmit(contract)
-    {
-      this.props.contractUpdate(contract)
+
+    onContractSubmit(contract) {
+        this.props.contractUpdate(contract)
     }
-    render()
-    {
-      var address_link="https://ropsten.etherscan.io/address/"+ethorsejson.address+"#code";
-      return(
-        <div>
-          <Navbar light expand="md">
-            <NavbarBrand href="/"><h3 className="header-font"><img width="45vh" height="auto" src={"https://ethorse.com/images/ethorse-logo.png"} alt="ETHorse icon"/>&nbsp;ethorse</h3></NavbarBrand>
-              <Nav className="ml-auto" navbar>
+    render() {
+        var address_link = "https://kovan.etherscan.io/address/" + this.props.contract + "#code";
+        return (<div>
 
-              <NavItem>
-                <NavLink href="https://ethorse.com/" target="_blank"><Button color="link" style={{textDecoration:'none', color:'black'}}><h3>Crowdsale</h3></Button></NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink><Button color="link" style={{textDecoration:'none', color:'black'}} onClick={this.toggle}><h3>Help</h3></Button></NavLink>
-              </NavItem>
+            <div className="container-fluid top-bar">
+            	<a className="logo" href="#"><img alt="" className="logo-img" src={require("./assets/logo.png")}/></a>
+            	<div className="versionNumber">v{this.props.version}</div>
+            	<ul className="topBarRightSection">
+                    <li className="help"><a href="#" onClick={this.toggle}><i className="fa fa-slack"></i>Help</a></li>
+                    <li><a target="_blank" rel="noopener noreferrer" href="https://telegram.me/ethorse" ><img alt="" src={require("./assets/telegram.png")} className="telegram"/></a></li>
+                    <li><a href="https://discord.gg/vdTXRmT" target="_blank" rel="noopener noreferrer"><img className="discord" src={require("./assets/discord.png")} alt="Discord"/></a></li>
+                    <li><a href="https://www.reddit.com/r/Ethorse/" target="_blank" rel="noopener noreferrer" ><img alt="" src={require("./assets/reddit.png")} className="reddit"/></a></li>
+                    <li><a href="https://github.com/ethorse" target="_blank" rel="noopener noreferrer" ><img alt="" src={require("./assets/github.png")} className="github"/></a></li>
+            	</ul>
+            </div>
+
+            <div className="container-fluid alternate-bar">
+            	<a className="alternate-bar-logo" href="#"><img alt="" className="logo-img" src={require("./assets/logo.png")}/></a>
+            	<div className="versionNumber-alternateBar">v{this.props.version}</div>
+            	<ul className="topBarRightSection">
+                    <li className="help"><a href="#" onClick={this.toggle}><i className="fa fa-slack"></i>Help</a></li>
+                    <li><a target="_blank" rel="noopener noreferrer" href="https://telegram.me/ethorse" ><img alt="Telegram" className="telegram" src={require("./assets/telegram.png")}/></a></li>
+                    <li><a href="https://discord.gg/vdTXRmT" target="_blank" rel="noopener noreferrer"><img className="discord" src={require("./assets/discord.png")} alt="Discord"/></a></li>
+                    <li><a href="https://www.reddit.com/r/Ethorse/" target="_blank" rel="noopener noreferrer" ><img alt="Reddit" className="reddit" src={require("./assets/reddit.png")}/></a></li>
+                    <li><a href="https://github.com/ethorse" target="_blank" rel="noopener noreferrer" ><img alt="Github" className="github" src={require("./assets/github.png")}/></a></li>
+            	</ul>
+            </div>
 
 
+            <Modal isOpen={this.state.termsModal} toggle={this.termstoggle} size="lg" style={{
+                    textAlign: 'left'
+                }}>
+                <ModalHeader toggle={this.toggle}>
+                    <h4>Terms</h4>
+                </ModalHeader>
+                <ModalBody>
+                    <p style={{
+                            fontSize: '15px',
+                            color: 'black'
+                        }}>By clicking OK or interacting with Ethorse website or application beyond these terms of use, you confirm that you are at least 18 years of age and you represent, warrant and agree to ensure that your use of the application will comply with all applicable laws, statutes and regulations. Ethorse does not intend to enable you to contravene applicable law. Ethorse is not responsible for any illegal or unauthorized use of our services by you. Ethorse is neither a game of chances nor a gambling application. It is a skill based (Cryptocurrency Trading) decentralized application that runs on the Ethereum Blockchain.</p>
 
-              </Nav>
-          </Navbar>
+                </ModalBody>
+                <ModalFooter>
+                    <Button color="primary" onClick={this.termstoggle}>OK</Button>
+                </ModalFooter>
+            </Modal>
 
-        <Modal isOpen={this.state.modal} toggle={this.toggle} size="lg" style={{textAlign:'left'}}>
-          <ModalHeader toggle={this.toggle}><h4>Help</h4></ModalHeader>
-          <ModalBody>
-              Bet on a cryptocurrency and win against other bettors with Ethorse Smart Contract
-              <ul>
-                <li>Simply choose a winner among BTC, ETH and LTC for a fixed time period.</li>
-                <li>"Place bet" after entering an amount you are willing to bet (0.1-1 Ropsten ETH) from a browser with Metamask extension, or Mist.</li>
-                <li>A deployed open source Ethereum smart contract will control the funds, calculate the best performing Cryptocurrency (with displayed bet lock and bet close prices from Coinmarketcap API) and prepare reward for the winning users to collect WITHOUT OUR INPUT or CONTROL</li>
-                <li>Parimutuel Betting: Winner takes all (HORSE holders takeout 5%)</li>
-                <li>Price pulled from <a href="https://coinmarketcap.com/api/" rel="noopener noreferrer" target="_blank">Coinmarketcap.com API</a> through <a href="http://www.oraclize.it/" rel="noopener noreferrer" target="_blank">Oraclize.it</a> at the beginning and end of the bet period</li>
-                <li>After race ends, refresh “Result” to see your winnings and “Claim” to submit a 0 ETH transaction that in turn sends your winnings.</li>
-              </ul>
-              Bet on a favorite to easily win a small payout because it only needs to beat lesser opponents. Alternatively, bet on an underdog and win a huge payout. Tip: Use the Odds.
-              Questions and feedback are welcome.
-              <br/>
-              Link to open source smart contract code: <a href={address_link} rel="noopener noreferrer" target="_blank">{ethorsejson.address}</a>
-              <br/>
-              Code Audit: <a href="https://www.reddit.com/r/ethdev/comments/7asfml/bounty_open_for_ethorse_dapp_smart_contract/"  rel="noopener noreferrer" target="_blank">Public Developer Bug Bounty</a>
-
-          </ModalBody>
-          <ModalFooter>
-            <Button color="primary" onClick={this.toggle}>Ok</Button>
-          </ModalFooter>
-        </Modal>
-        </div>
-      );
+            <Modal isOpen={this.state.modal} toggle={this.toggle} size="lg" style={{
+                    textAlign: 'left'
+                }}>
+                <ModalHeader toggle={this.toggle}>
+                    <h4>Help</h4>
+                </ModalHeader>
+                <ModalBody>
+                    Bet on a cryptocurrency and win against other users based on the price performance in a given period (24 hrs / 1 hr).
+                    <br/>
+                    <h5>How to use</h5>
+                    <ul class="help-text">
+                        <li >Choose a race from the sidebar with the status "Betting open"</li>
+                        <li>Select a coin to bet on - BTC, ETH or LTC</li>
+                        <li>Enter the amount you are willing to bet (Min 0.01 Kovan ETH)</li>
+                        <li>Click “Place Bet”, verify and submit the auto-filled Metamask transaction</li>
+                        <li>Betting is locked once the race starts</li>
+                        <li >Track the winning coin using the % value under “Leading”</li>
+                        <li >After the race ends, check bet results and claim winnings using the buttons at the bottom of the page</li>
+                    </ul>
+                    <h5>About the race</h5>
+                    <ul class="help-text">
+                        <li>There is a 1 hr betting period for all races</li>
+                        <li>There are two different races, differentiated by a race period of 24 hrs and 1 hr</li>
+                        <li>New races are available every 6 hours. Upcoming races are shown on the sidebar</li>
+                        <li>Users must claim their winnings within 30 days after the race ends</li>
+                    </ul>
+                    <br/>
+                    Contract Address:<a href={address_link} rel="noopener noreferrer" target="_blank">{this.props.contract}</a>
+                </ModalBody>
+                <ModalFooter>
+                    <Button color="primary" onClick={this.toggle}>OK</Button>
+                </ModalFooter>
+            </Modal>
+        </div>);
     }
 }

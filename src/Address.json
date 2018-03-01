@@ -1,6 +1,14 @@
 {
   "addresses":[
-    {"address": "0xa47E0981d814728782eb27818F1419c333f72e11"},
-    {"address": "0x64318483Bca15dDb9335987eb91b5a9C39AA55A5"}
+    {"address": "0x30D65B119105e5fad531288a05e8f6b00C14F96d"},
+    {"address": "0x5657994c75E20FCAdAe7C80Ed613EaE202b71700"},
+    {"address": "0xf86a584b11027f3c29d69eaff1d2234588417934"},
+    {"address": "0xdb0f8D94aBd0Af1059771ecfD5d831F49BE52bde"},
+    {"address": "0xcA2556db2F1dBDf56bea382e0fcCd2e6806Dfa3D"},
+    {"address": "0xDff1df40E3b134cA5Ec3Cd6a8FaB66af494F114f"},
+    {"address": "0x8277b005516cbf6AA31680a104E5CDFa2719515C"}
+  ],
+  "_failed":[
+    {"address": "0x4eA0b6B79d96936622785eA324325b26A56A58AF"}
   ]
 }

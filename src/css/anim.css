@@ -1,0 +1,122 @@
+.btcOuterGlow{
+	-webkit-animation-name: bitcoinGlow;
+	animation-name: bitcoinGlow;
+	-webkit-animation-duration: 2s;
+	animation-duration: 2s;
+	-webkit-animation-timing-function: ease-out;
+	animation-timing-function: ease-out;
+}
+@-webkit-keyframes bitcoinGlow{
+	from{
+		box-shadow: 0px 15px 100px rgba(213, 126, 235, 0.75);
+	}
+	to{
+		box-shadow: 0px 0px 0px rgba(0,0,0,0);
+	}
+}
+
+@keyframes bitcoinGlow{
+	from{
+		box-shadow: 0px 15px 100px rgba(213, 126, 235, 0.75);
+	}
+	to{
+		box-shadow: 0px 0px 0px rgba(0,0,0,0);
+	}
+}
+
+.ethOuterGlow{
+	-webkit-animation-name: ethereumGlow;
+	animation-name: ethereumGlow;
+	-webkit-animation-duration: 1s;
+	animation-duration: 1s;
+	-webkit-animation-timing-function: ease-in;
+	animation-timing-function: ease-in;
+}
+@-webkit-keyframes ethereumGlow{
+	from{
+		box-shadow: 0px 15px 100px rgba(34, 167, 240, 0.85);
+	}
+	to{
+		box-shadow: 0px 0px 0px rgba(0,0,0,0);
+	}
+}
+@keyframes ethereumGlow{
+	from{
+		box-shadow: 0px 15px 100px rgba(34, 167, 240, 0.85);
+	}
+	to{
+		box-shadow: 0px 0px 0px rgba(0,0,0,0);
+	}
+}
+
+.ltcOuterGlow{
+	-webkit-animation-name: litecoinGlow;
+	animation-name: litecoinGlow;
+	-webkit-animation-duration: 1s;
+	animation-duration: 1s;
+	-webkit-animation-timing-function: ease-in;
+}
+@-webkit-keyframes litecoinGlow{
+	from{
+		box-shadow: 0px 15px 100px rgba(42, 245, 152, 0.85);
+	}
+	to{
+		box-shadow: 0px 0px 0px rgba(0,0,0,0);
+	}
+}
+@keyframes litecoinGlow{
+	from{
+		box-shadow: 0px 15px 100px rgba(42, 245, 152, 0.85);
+	}
+	to{
+		box-shadow: 0px 0px 0px rgba(0,0,0,0);
+	}
+}
+
+.bchOuterGlow{
+	-webkit-animation-name: bchGlow;
+	animation-name: bchGlow;
+	-webkit-animation-duration: 1s;
+	animation-duration: 1s;
+	-webkit-animation-timing-function: ease-in;
+}
+@-webkit-keyframes bchGlow{
+	from{
+		box-shadow: 0px 15px 100px rgba(253, 96, 80, 0.85);
+	}
+	to{
+		box-shadow: 0px 0px 0px rgba(0,0,0,0);
+	}
+}
+@keyframes bchGlow{
+	from{
+		box-shadow: 0px 15px 100px rgba(253, 96, 80, 0.85);
+	}
+	to{
+		box-shadow: 0px 0px 0px rgba(0,0,0,0);
+	}
+}
+
+.xrpOuterGlow{
+	-webkit-animation-name: xrpGlow;
+	animation-name: xrpGlow;
+	-webkit-animation-duration: 1s;
+	animation-duration: 1s;
+	-webkit-animation-timing-function: ease-in;
+}
+@-webkit-keyframes xrpGlow{
+	from{
+		box-shadow: 0px 15px 100px rgba(73, 177, 254, 0.85);
+	}
+	to{
+		box-shadow: 0px 0px 0px rgba(0,0,0,0);
+	}
+}
+@keyframes xrpGlow{
+	from{
+		box-shadow: 0px 15px 100px rgba(73, 177, 254, 0.85);
+	}
+	to{
+		box-shadow: 0px 0px 0px rgba(0,0,0,0);
+	}
+}

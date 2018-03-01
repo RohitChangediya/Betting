@@ -1,20 +1,28 @@
 import React from 'react';
-import { Input } from 'reactstrap';
 
-export default class Amount extends React.Component{
-  constructor(props)
-  {
-    super(props);
-    this.handleChange = this.handleChange.bind(this);
-  }
-  handleChange(event)
-  {
-    this.props.onValueSubmit(event.target.value);
-  }
-  render()
-  {
-    return(
-        <Input placeholdername="Amount" type="number" step="0.01" defaultValue="0.1" max="1" min="0.1" id={this.props.field} title="Enter the amount to bet in ether" data-toggle="tooltip" data-placement="top" onChange={this.handleChange}/>
-    );
-  }
+export default class Amount extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state={value:0.1}
+        this.handleChange = this.handleChange.bind(this);
+    }
+    handleChange(event) {
+        console.log(event.target.value)
+        this.setState({value:event.target.value})
+        this.props.onValueSubmit(event.target.value);
+    }
+    render() {
+        return (
+            <div>
+            <img alt="" className="header-item-img" src={require("./assets/Orion_coins.png")}/>
+              <div className="cb-title amount text-center">Amount to Bet</div>
+
+              <div className="amount-container form-inline justify-content-center mx-auto d-block">
+
+						<input type="number" className="form-control amount-input mx-auto d-block text-center" id="amount" value={this.state.value} step="0.01" min="0.01" title="Enter the amount to bet in ether" onChange={this.handleChange} required/>
+						<div className="eth text-center mx-auto d-block"><img className="eth-logo" src={require("./assets/eth.png")} alt=""/> ETH</div>
+				</div>
+
+          </div>);
+    }
 }
