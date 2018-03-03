@@ -110,9 +110,7 @@ class App extends Component {
               bet_phase = "Race complete";
             }
             let ms = (race_duration - betting_duration) * 1000
-              let h,
-                m,
-                s;
+              let h,m,s;
               s = Math.floor(ms / 1000);
               m = Math.floor(s / 60);
               s = s % 60;
@@ -120,17 +118,7 @@ class App extends Component {
               m = m % 60;
               h = h + ' hours'
               var race_duration_utc = h;
-              self.setState({
-                betting_open,
-                race_start,
-                race_end,
-                voided_bet,
-                starting_time,
-                betting_duration,
-                race_duration,
-                duration: race_duration_utc,
-                claim: race_end,
-                bet_phase
+              self.setState({betting_open,race_start,race_end,voided_bet,starting_time,betting_duration,race_duration,duration: race_duration_utc,claim: race_end,bet_phase
               });
             })
 
@@ -313,7 +301,8 @@ class App extends Component {
                       <div className="container header-wrapper">
                         <header className="header">
                           <div className="row">
-                            <Result contract={this.state.contract} race_end={this.state.race_end} starting_time={this.state.starting_time} voided_bet={this.state.voided_bet}/>
+                            <Result contract={this.state.contract} race_end={this.state.race_end} starting_time={this.state.starting_time} voided_bet={this.state.voided_bet}
+                            bet_phase={this.state.bet_phase}/>
                             <div className="volume header-item col-sm-4 col-md-4 col-lg-4">
                               <img alt="" className="header-item-img" src={require("./assets/Orion_storage-box.png")}/>
                               <div className="header-item-title text-center">Pool</div>
@@ -334,7 +323,7 @@ class App extends Component {
                             <div className="col-sm-6 col-md-4 col-lg-4">
                               <img alt="" className="header-item-img" src={require("./assets/Orion_sales-up.png")}/>
                               <div className="cb-title crypto-bet text-center">Crypto to Bet On</div>
-                              <SelectedCoin coin={this.state.coin}/>
+                              <SelectedCoin coin={this.state.coin} betting_open={this.state.betting_open} voided_bet={this.state.voided_bet}/>
                             </div>
                             <div className="col-md-4">
                               <Amount onValueSubmit={this.onValueSubmit.bind(this)}/>
@@ -351,7 +340,7 @@ class App extends Component {
                     <div className="row">
                       <div className="col-md-12 mx-auto">
                         {this.state.flashmessage}
-                        <ETHRadio onSubmit={this.coinValue.bind(this)} name="Radio" currentContract={this.state.contract} totalBets={this.totalBets.bind(this)}/>
+                        <ETHRadio onSubmit={this.coinValue.bind(this)} name="Radio" currentContract={this.state.contract} totalBets={this.totalBets.bind(this)} betting_open={this.state.betting_open} voided_bet={this.state.voided_bet}/>
                         <br/>
 
                         <div className="text-center"><img alt="" className="img-responsive speaker-icon" src={require("./assets/Orion_champion.png")}/>{this.state.reward.toString()}</div>

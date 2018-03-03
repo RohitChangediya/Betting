@@ -193,10 +193,12 @@ export default class ETHRadio extends React.Component {
         return [btcHTML,ethHTML,ltcHTML];
     }
     handleChange(rSelected) {
-        let coinHTML=this.coinRadio(rSelected);
+      if(this.props.betting_open && !this.props.voided_bet){
+          let coinHTML=this.coinRadio(rSelected);
         // console.log(coinHTML);
         this.setState({rSelected, value: rSelected, btcHTML:coinHTML[0], ethHTML:coinHTML[1], ltcHTML:coinHTML[2]});
         this.props.onSubmit(rSelected);
+      }
     }
     componentWillMount() {
         var self = this;

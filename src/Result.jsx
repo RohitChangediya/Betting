@@ -63,6 +63,15 @@ export default class Result extends Component{
         </div>
         );
     }
+    else if(this.props.bet_phase==="Race ends in"){
+      return(
+          <div className="race_status header-item col-sm-4 col-md-4 col-lg-4">
+              <img alt="" className="header-item-img" src={require("./assets/Orion_flag.png")}/>
+              <div className="header-item-title text-center">Race Status</div>
+              <div className="race-status-value text-center">Betting Closed</div>
+        </div>
+        );
+    }
     else if(this.state.winner==="")
     return(
         <div className="race_status header-item col-sm-4 col-md-4 col-lg-4">
