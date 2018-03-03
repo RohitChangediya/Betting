@@ -54,7 +54,16 @@ export default class Result extends Component{
   }
   render()
   {
-    if(this.state.winner==="")
+    if(this.props.voided_bet){
+      return(
+          <div className="race_status header-item col-sm-4 col-md-4 col-lg-4">
+              <img alt="" className="header-item-img" src={require("./assets/Orion_flag.png")}/>
+              <div className="header-item-title text-center">Race Status</div>
+              <div className="race-status-value text-center">Refund Enabled</div>
+        </div>
+        );
+    }
+    else if(this.state.winner==="")
     return(
         <div className="race_status header-item col-sm-4 col-md-4 col-lg-4">
             <img alt="" className="header-item-img" src={require("./assets/Orion_flag.png")}/>

@@ -111,6 +111,7 @@ export default class Header extends Component {
                         <li>Betting is locked once the race starts</li>
                         <li >Track the winning coin using the % value under “Leading”</li>
                         <li >After the race ends, check bet results and claim winnings using the buttons at the bottom of the page</li>
+                        <li>Odds shows the potential winning for 1 ETH bet, includes the 1 ETH</li>
                     </ul>
                     <h5>About the race</h5>
                     <ul class="help-text">

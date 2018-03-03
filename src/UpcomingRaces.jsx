@@ -77,7 +77,7 @@ export default class UpcomingRaces extends Component {
                     <span className="status_race_value upcoming ">{row.status}</span>
                 </div>
                 <div className="duration-race-sidebar"><img src={require("./assets/Orion_hour.png")} alt="" className="duration_icon_sidebar"/>Duration : <span className="duration_race_value">{this.props.duration/3600} hours</span></div>
-                <div className="start_countdown">Race starts in {this.convertMS(row.time_remaining)}</div>
+                <div className="start_countdown">Betting opens in {this.convertMS(row.time_remaining)}</div>
             </div>))
 
             return (<div>
