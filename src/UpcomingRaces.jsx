@@ -32,8 +32,8 @@ export default class UpcomingRaces extends Component {
       s = s % 60;
       h = Math.floor(m / 60);
       m = m % 60;
-      h=h+' hours ';
-      m=m+' minutes ';
+      h=h+' hrs ';
+      m=m+' mins ';
       return h+m;
       }
       getContract() {
