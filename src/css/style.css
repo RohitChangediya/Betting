@@ -18,7 +18,7 @@ body{
 .alternate-bar{
 	display: none;
 }
-@media screen and (max-width: 1360px){
+@media screen and (max-width: 500px){
 	.top-bar{
 		display: none;
 	}
