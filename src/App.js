@@ -212,7 +212,7 @@ class App extends Component {
                   self.setState({reward});
                   self.setState({claim: true});
                 } else {
-                  reward = 'You have won ' + web3.utils.fromWei(reward, "ether") + ' ETH';
+                  reward = 'You have ' + web3.utils.fromWei(reward, "ether") + ' ETH to claim.';
                   self.setState({reward});
                 }
 
