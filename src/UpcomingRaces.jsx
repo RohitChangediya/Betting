@@ -36,27 +36,27 @@ export default class UpcomingRaces extends Component {
       m=m+' mins ';
       return h+m;
       }
-      getContract() {
-          let self = this;
-          let val = fetch(ip+"/bridge/getNextRace", {
-              method: 'GET',
-              headers: {
-                  duration:this.props.duration,
-                  currentTime:parseInt((new Date()).getTime() / 1000,10)
-              }
-          }).then(function(contracts) {
-              if(contracts.status===204){
-                  self.setState({contract: []})
-              }
-              else{
-              contracts.json().then(function(value) {
-                  // console.log(value)
-                  self.setState({contract: value})
-              })
-              }
-          })
-          return val;
-      }
+    getContract() {
+        let self = this;
+        let val = fetch(ip+"/bridge/getNextRace", {
+            method: 'GET',
+            headers: {
+                duration:this.props.duration,
+                currentTime:parseInt((new Date()).getTime() / 1000,10)
+            }
+        }).then(function(contracts) {
+            if(contracts.status===204){
+                self.setState({contract: []})
+            }
+            else if(contracts.status===200){
+            contracts.json().then(function(value) {
+                // console.log(value)
+                self.setState({contract: value})
+            })
+            }
+        })
+        return val;
+    }
 
     render() {
 

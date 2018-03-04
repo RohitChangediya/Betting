@@ -32,7 +32,7 @@ export default class WeekList extends Component {
             if(contracts.status===204){
                 self.setState({contract: []})
             }
-            else{
+            else if(contracts.status===200){
             contracts.json().then(function(value) {
                 self.setState({contract: value})
                 if (value.length > 0 && self.props.number === 0) {
