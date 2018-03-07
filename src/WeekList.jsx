@@ -32,11 +32,12 @@ export default class WeekList extends Component {
             if(contracts.status===204){
                 self.setState({contract: []})
             }
-            else{
+            else if(contracts.status===200){
             contracts.json().then(function(value) {
                 self.setState({contract: value})
                 if (value.length > 0 && self.props.number === 0) {
-                    document.getElementById(value[0].contractid).classList='bettingOpen '+document.getElementById(value[0].contractid).classList;
+                    if(document.getElementById(value[0].contractid)!==null && document.getElementById(value[0].contractid)!==undefined)
+                      document.getElementById(value[0].contractid).classList='bettingOpen '+document.getElementById(value[0].contractid).classList;
                     // console.log(value[0].contractid)
                     self.props.initiate(value[0].contractid)
                 }
@@ -61,7 +62,8 @@ export default class WeekList extends Component {
 
         if (this.state.contract !== null && this.state.contract.length !== 0) {
             var contractjson = this.state.contract;
-            const Buttons = (contractjson.map((row) => {if(row.active==="Active"){
+            const Buttons = (contractjson.map((row) => {
+              if(row.active==="Active"){
                 return (<div className={"race live_race " + row.contractid} id={row.contractid} key={row.contractid} onClick={ this.updateContract} style={{textAlign:'left'}} number={this.props.number}>
                 <ul className={row.contractid} number={this.props.number}>
                     <li className={"days_number " + row.contractid} number={this.props.number}>
@@ -78,7 +80,7 @@ export default class WeekList extends Component {
                 <div className="duration-race-sidebar"><img src={require("./assets/Orion_hour.png")} className="duration_icon_sidebar" alt=""/>Duration : <span className="duration_race_value">{row.race_duration/3600} hours</span></div>
             </div>)
             }
-            else if(row.active==="Betting Open"){
+            else if(row.active==="Open for bets"){
                 return (<div className={"race live_race " + row.contractid} id={row.contractid} key={row.contractid} onClick={ this.updateContract} style={{textAlign:'left'}} number={this.props.number}>
                 <ul className={row.contractid} number={this.props.number}>
                     <li className={"days_number " + row.contractid} number={this.props.number}>

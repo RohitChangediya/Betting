@@ -32,31 +32,31 @@ export default class UpcomingRaces extends Component {
       s = s % 60;
       h = Math.floor(m / 60);
       m = m % 60;
-      h=h+' hours ';
-      m=m+' minutes ';
+      h=h+' hrs ';
+      m=m+' mins ';
       return h+m;
       }
-      getContract() {
-          let self = this;
-          let val = fetch(ip+"/bridge/getNextRace", {
-              method: 'GET',
-              headers: {
-                  duration:this.props.duration,
-                  currentTime:parseInt((new Date()).getTime() / 1000,10)
-              }
-          }).then(function(contracts) {
-              if(contracts.status===204){
-                  self.setState({contract: []})
-              }
-              else{
-              contracts.json().then(function(value) {
-                  // console.log(value)
-                  self.setState({contract: value})
-              })
-              }
-          })
-          return val;
-      }
+    getContract() {
+        let self = this;
+        let val = fetch(ip+"/bridge/getNextRace", {
+            method: 'GET',
+            headers: {
+                duration:this.props.duration,
+                currentTime:parseInt((new Date()).getTime() / 1000,10)
+            }
+        }).then(function(contracts) {
+            if(contracts.status===204){
+                self.setState({contract: []})
+            }
+            else if(contracts.status===200){
+            contracts.json().then(function(value) {
+                // console.log(value)
+                self.setState({contract: value})
+            })
+            }
+        })
+        return val;
+    }
 
     render() {
 
@@ -77,7 +77,7 @@ export default class UpcomingRaces extends Component {
                     <span className="status_race_value upcoming ">{row.status}</span>
                 </div>
                 <div className="duration-race-sidebar"><img src={require("./assets/Orion_hour.png")} alt="" className="duration_icon_sidebar"/>Duration : <span className="duration_race_value">{this.props.duration/3600} hours</span></div>
-                <div className="start_countdown">Race starts in {this.convertMS(row.time_remaining)}</div>
+                <div className="start_countdown">Betting opens in {this.convertMS(row.time_remaining)}</div>
             </div>))
 
             return (<div>
