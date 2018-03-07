@@ -93,16 +93,18 @@ export default class ETHRadio extends React.Component {
                         fetch("https://api.coinmarketcap.com/v1/ticker/ethereum/").then(function(details) {
                             // console.log(details.json().then());
                             return details.json().then(function(value) {
+                                eth["pre_price"] = eth["pre_price"].toFixed(2);
                                 let inc = Math.round(((value[0].price_usd - eth.pre_price) / eth.pre_price) * 100000) / 1000;
                                 eth['percentage'] = inc + " %";
                                 if (eth["post_price"] !== "TBC") {
+                                    eth["post_price"] = eth["post_price"].toFixed(2);
                                     inc = Math.round(((eth.post_price - eth.pre_price) / eth.pre_price) * 100000) / 1000;
                                     eth['percentage'] = inc + " %";
                                     eth["post_price"] = "$ " + eth["post_price"];
                                     eth.post_price_title="End Price"
                                 }
                                 else{
-                                  eth["post_price"] = "$ " + value[0].price_usd;
+                                  eth["post_price"] = "$ " + parseFloat(value[0].price_usd).toFixed(2);
                                 }
                                 eth["pre_price"] = "$ " + eth["pre_price"];
                                 self.setState({eth_pool: eth});
@@ -111,8 +113,7 @@ export default class ETHRadio extends React.Component {
                     } else {
                       fetch("https://api.coinmarketcap.com/v1/ticker/ethereum/").then(function(details) {
                           return details.json().then(function(value) {
-                              eth["post_price"] = "$ " + value[0].price_usd;
-                              eth["pre_price"] = "$ " + eth["pre_price"];
+                              eth["post_price"] = "$ " + parseFloat(value[0].price_usd).toFixed(2);
                               self.setState({eth_pool: eth});
                           })
                       })
@@ -124,16 +125,18 @@ export default class ETHRadio extends React.Component {
                         fetch("https://api.coinmarketcap.com/v1/ticker/litecoin/").then(function(details) {
                             // console.log(details.json().then());
                             return details.json().then(function(value) {
+                                ltc["pre_price"] = ltc["pre_price"].toFixed(2);
                                 let inc = Math.round(((value[0].price_usd - ltc.pre_price) / ltc.pre_price) * 100000) / 1000;
                                 ltc['percentage'] = inc + " %";
                                 if (ltc["post_price"] !== "TBC") {
+                                    ltc["post_price"] = ltc["post_price"].toFixed(2);
                                     inc = Math.round(((ltc.post_price - ltc.pre_price) / ltc.pre_price) * 100000) / 1000;
                                     ltc['percentage'] = inc + " %";
                                     ltc["post_price"] = "$ " + ltc["post_price"];
                                     ltc.post_price_title="End Price"
                                 }
                                 else{
-                                  ltc["post_price"] = "$ " + value[0].price_usd;
+                                  ltc["post_price"] = "$ " + parseFloat(value[0].price_usd).toFixed(2);
                                 }
                                 ltc["pre_price"] = "$ " + ltc["pre_price"];
                                 // console.log(ltc)
@@ -143,8 +146,7 @@ export default class ETHRadio extends React.Component {
                     } else {
                       fetch("https://api.coinmarketcap.com/v1/ticker/litecoin/").then(function(details) {
                           return details.json().then(function(value) {
-                              ltc["post_price"] = "$ " + value[0].price_usd;
-                              ltc["pre_price"] = "$ " + ltc["pre_price"];
+                              ltc["post_price"] = "$ " + parseFloat(value[0].price_usd).toFixed(2);
                               self.setState({ltc_pool: ltc});
                           })
                       })
@@ -156,16 +158,18 @@ export default class ETHRadio extends React.Component {
                         fetch("https://api.coinmarketcap.com/v1/ticker/bitcoin/").then(function(details) {
                             // console.log(details.json().then());
                             return details.json().then(function(value) {
+                                btc["pre_price"] = btc["pre_price"].toFixed(2);
                                 let inc = Math.round(((value[0].price_usd - btc.pre_price) / btc.pre_price) * 100000) / 1000;
                                 btc['percentage'] = inc + " %";
                                 if (btc["post_price"] !== "TBC") {
+                                    btc["post_price"] = btc["post_price"].toFixed(2);
                                     inc = Math.round(((btc.post_price - btc.pre_price) / btc.pre_price) * 100000) / 1000;
                                     btc['percentage'] = inc + " %";
                                     btc["post_price"] = "$ " + btc["post_price"];
                                     btc.post_price_title="End Price"
                                 }
                                 else{
-                                  btc["post_price"] = "$ " + value[0].price_usd;
+                                  btc["post_price"] = "$ " + parseFloat(value[0].price_usd).toFixed(2);
                                 }
                                 btc["pre_price"] = "$ " + btc["pre_price"];
                                 // console.log(btc)
@@ -175,8 +179,7 @@ export default class ETHRadio extends React.Component {
                     } else {
                       fetch("https://api.coinmarketcap.com/v1/ticker/bitcoin/").then(function(details) {
                           return details.json().then(function(value) {
-                              btc["post_price"] = "$ " + value[0].price_usd;
-                              btc["pre_price"] = "$ " + btc["pre_price"];
+                              btc["post_price"] = "$ " + parseFloat(value[0].price_usd).toFixed(2);
                               self.setState({btc_pool: btc});
                           })
                       })
