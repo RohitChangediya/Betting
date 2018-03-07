@@ -383,11 +383,9 @@ class App extends Component {
               'backgroundColor' : '#262f4a'
             }} fluid={true}>
             <Container>
-              <h3>Your Metamask is on {this.state.network}
-                network.<br/>Please switch to {this.state.targetNetwork}
-                as shown below.</h3>
+              <h3>Your Metamask is on {this.state.network} network.<br/>Please switch to {this.state.targetNetwork} as shown below.</h3>
               <br/>
-              <img src={require('./assets/kovan_switch.png')} target="_blank" alt={"switch to " + this.state.targetNetwork}/>
+              <img src={require('./assets/kovan_switch.png')} target="_blank" width="30%" alt={"switch to " + this.state.targetNetwork}/>
             </Container>
           </Jumbotron>)
         } else {
