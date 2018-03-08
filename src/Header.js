@@ -140,7 +140,7 @@ export default class Header extends Component {
                     </ul>
                     <h5>About the race</h5>
                     <ul class="help-text">
-                        <li>There is a 6 hr betting period for all races</li>
+                        <li>Betting is open for 6 hrs for all the races</li>
                         <li>There are two different races, differentiated by a race period of 24 hrs and 1 hr</li>
                         <li>There are four 1hr races and two 24hr races every day. Upcoming races are shown on the sidebar</li>
                         <li>Users must claim their winnings within 30 days after the race ends</li>
