@@ -85,7 +85,7 @@ export default class Result extends Component{
           <div className="race_status header-item col-sm-4 col-md-4 col-lg-4">
               <img alt="" className="header-item-img" src={require("./assets/Orion_flag.png")}/>
               <div className="header-item-title text-center">Winner is</div>
-              <div className="race-status-value text-center"><img alt="" src="https://png.icons8.com/ios-glyphs/40/ffffff/trophy.png"/>
+              <div className="race-status-value text-center">
                 {this.state.winner}</div>
         </div>
         );

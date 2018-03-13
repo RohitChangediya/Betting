@@ -327,7 +327,7 @@ class App extends Component {
                             </div>
                             <div className="col-md-4">
                               <Amount onValueSubmit={this.onValueSubmit.bind(this)}/>
-                              <div className="btn-container text-center"><input type="button" onClick={this.invokeContract.bind(this)} className="btn place-bet-button center-block text-center" disabled={!this.state.betting_open || this.state.coin === null} hidden={!this.state.hidePlacingBet} value="Place Bet"/></div>
+                              <div className="btn-container text-center"><button type="button" onClick={this.invokeContract.bind(this)} className="btn place-bet-button center-block text-center" disabled={!this.state.betting_open || this.state.coin === null} hidden={!this.state.hidePlacingBet} value="Place Bet"><img class="place-bet-icon" src={require("./assets/Orion_online-payment.png")}/> Place Bet</button></div>
                               <div className="placingBet text-center" hidden={this.state.hidePlacingBet}>
                                 <i className="fa fa-circle-o-notch fa-spin"></i>
                                 Placing Bet...</div>

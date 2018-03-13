@@ -24,10 +24,8 @@ export default class Timer extends React.Component{
     }
     countDownCompute(){
         var countDownDate = parseInt(this.props.targetDate*1000,10);
-        // console.log(this.props.targetDate)
         var self=this;
-        // console.log(this.state.targetDate!==this.props.targetDate || this.props.targetDate==='')
-        // Update the count down every 1 second
+
         this.timer = setInterval(function() {
 
             // Get todays date and time
@@ -37,7 +35,7 @@ export default class Timer extends React.Component{
             var distance = parseInt(countDownDate,10) - parseInt(now,10);
             if (parseInt(distance,10) < 0) {
                 clearInterval(self.timer);
-                self.setState({ timerHTML:"<div class=\"race_details\">Race closed for betting</div>",distance,compute:false,progress:100+'%'});
+                self.setState({ timerHTML:"<div class=\"race_details\">Race ended</div>",distance,compute:false,progress:100+'%'});
             }
 
             // Time calculations for days, hours, minutes and seconds

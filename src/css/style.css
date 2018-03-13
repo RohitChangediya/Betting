@@ -18,7 +18,7 @@ body{
 .alternate-bar{
 	display: none;
 }
-@media screen and (max-width: 500px){
+@media screen and (max-width: 1360px){
 	.top-bar{
 		display: none;
 	}
@@ -122,8 +122,11 @@ body{
 	font-weight: 400;
 	margin-right: 40px !important;
 	padding-left: 0;
-	color: rgba(255,255,255,0.87);
-
+	color: #5644b3;
+}
+.demo-video a:hover, .help a:hover{
+	color: #ffffff;
+	border-bottom: 4px solid #22a7f0;
 }
 .topBarRightSection{
 	position: absolute;
@@ -136,14 +139,9 @@ body{
 	display: inline;
 }
 .topBarRightSection li a{
-	color: rgba(255,255,255,0.7);
 	padding-bottom: 23px;
 	-webkit-transition: color 0.5s ease-out, border-bottom 0.2s ease-out;
 	transition: color 0.5s ease-out, border-bottom 0.2s ease-out;
-}
-.topBarRightSection li a:hover{
-	color: #4183d7;
-	border-bottom: 4px solid #22a7f0;
 }
 .topBarRightSection li a .fa{
 	color: #5469a5;

@@ -72,7 +72,7 @@
 	font-family: Ubuntu, sans-serif;
 	font-weight: 400;
 	font-size: 160%;
-	color: #ffffff;
+	color: #4b99fc;
 	position: relative;
 	margin-top: 5%;
 }
@@ -95,7 +95,7 @@
 	font-family: Ubuntu, sans-serif;
 	font-weight: 400;
 	font-size: 160%;
-	color: #446cb3;
+	color: #4b99fc;
 	position: relative;
 	margin-top: 2%;
 }
@@ -263,14 +263,15 @@
 	border-radius: 30px !important;
 }
 .place-bet-button{
-	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#446cb3+0,2989d8+0,7db9e8+0,5644b3+100 */
-	background: #446cb3; /* Old browsers */
-	background: -moz-linear-gradient(top, #446cb3 0%, #2989d8 0%, #7db9e8 0%, #5644b3 100%); /* FF3.6-15 */
-	background: -webkit-linear-gradient(top, #446cb3 0%,#2989d8 0%,#7db9e8 0%,#5644b3 100%); /* Chrome10-25,Safari5.1-6 */
-	background: linear-gradient(to bottom, #446cb3 0%,#2989d8 0%,#7db9e8 0%,#5644b3 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#446cb3+0,2989d8+0,2f7ad6+0,5644b3+100 */
+	background: rgb(68,108,179); /* Old browsers */
+	background: -moz-linear-gradient(top, rgba(68,108,179,1) 0%, rgba(41,137,216,1) 0%, rgba(47,122,214,1) 0%, rgba(86,68,179,1) 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top, rgba(68,108,179,1) 0%,rgba(41,137,216,1) 0%,rgba(47,122,214,1) 0%,rgba(86,68,179,1) 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom, rgba(68,108,179,1) 0%,rgba(41,137,216,1) 0%,rgba(47,122,214,1) 0%,rgba(86,68,179,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#446cb3', endColorstr='#5644b3',GradientType=0 ); /* IE6-9 */
 	font-family: Ubuntu, sans-serif;
-	font-size: 80%;
+	font-weight: 400 !important;
+	font-size: 110% !important;
 	color: #ffffff;
 	padding: 15px 45px 15px 45px !important;
 	border: none !important;
@@ -278,19 +279,13 @@
 	margin-bottom: 0 !important;
 	display: inline-block !important;
 	margin-top: 7% !important;
-	-webkit-box-shadow: 0px 5px 18px rgba(35, 89, 160, 0.35);
-	box-shadow: 0px 5px 18px rgba(35, 89, 160, 0.35);
-	-webkit-transition: background 0.5s ease-out;
-	transition: background 0.5s ease-out;
+	-webkit-box-shadow: 0px 5px 18px rgba(31, 19, 140, 0.6);
+	box-shadow: 0px 5px 18px rgba(31, 19, 140, 0.6);
+	-webkit-transition: box-shadow 0.5s ease-out;
+	transition: box-shadow 0.5s ease-out;
 }
 .place-bet-button:hover{
-	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#446cb3+0,2989d8+0,2f7ad6+0,5644b3+100 */
-	background: rgb(68,108,179); /* Old browsers */
-	background: -moz-linear-gradient(top, rgba(68,108,179,1) 0%, rgba(41,137,216,1) 0%, rgba(47,122,214,1) 0%, rgba(86,68,179,1) 100%); /* FF3.6-15 */
-	background: -webkit-linear-gradient(top, rgba(68,108,179,1) 0%,rgba(41,137,216,1) 0%,rgba(47,122,214,1) 0%,rgba(86,68,179,1) 100%); /* Chrome10-25,Safari5.1-6 */
-	background: linear-gradient(to bottom, rgba(68,108,179,1) 0%,rgba(41,137,216,1) 0%,rgba(47,122,214,1) 0%,rgba(86,68,179,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#446cb3', endColorstr='#5644b3',GradientType=0 ); /* IE6-9 */
-	box-shadow: 0px 5px 18px rgba(0,0,0,0.2);
+	box-shadow: 0px 10px 16px rgba(0, 0, 0,0.25);
 }
 @media screen and (max-width: 996px){
 	.place-bet-button{
@@ -315,9 +310,23 @@
 		padding: 20px 95px 20px 95px !important;
 	}
 }
+.place-bet-icon{
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+	margin-right: 5px;
+}
 .amount-container{
 	position: relative;
 	display: block;
+}
+input[type='number'] {
+    -moz-appearance:textfield !important;
+}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none !important;
+    margin: 0 !important;
 }
 .amount-input{
 	width: 80% !important;
@@ -598,7 +607,7 @@
 		margin-top: 3% !important;
 	}
 }
-.btc-radio-button, .eth-radio-button, .ltc-radio-button, .bch-radio-button, .xrp-radio-button, .crypto-logo{
+.btc-radio-button, .eth-radio-button, .ltc-radio-button, .dash-radio-button, .bch-radio-button, .xrp-radio-button, .crypto-logo{
 	display: inline-block;
 	padding-left: 20px;
 	padding-right: 0;
@@ -614,6 +623,9 @@
 .ltc-radio-button .fa{
 	color: #26f598 !important;
 }
+.dash-radio-button .fa{
+	color: #21d4fd !important;
+}
 .bch-radio-button .fa{
 	color: #f1941d !important;
 }
@@ -628,7 +640,7 @@
 	display: inline-block;
 	font-family: Ubuntu, sans-serif;
 	font-weight: 400;
-	font-size: 100%;
+	font-size: 90%;
 	color: #ffffff;
 	margin-left: 3%;
 }

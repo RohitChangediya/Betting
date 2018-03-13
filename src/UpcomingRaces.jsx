@@ -63,16 +63,12 @@ export default class UpcomingRaces extends Component {
         if (this.state.contract !== null && this.state.contract.length !== 0) {
             var contractjson = this.state.contract;
             // console.log(contractjson)
-            const Buttons = (contractjson.map(row => <div className="race "id={row.raceDate} key={row.raceDate} style={{textAlign:'left'}}>
-                <ul>
-                    <li className="days_number ">
-                        <span>{(moment(parseInt(row.raceDate,10) * 1000).format('DD')).toString()}</span>
-                    </li>
-                    <li className="date">{(moment(parseInt(row.raceDate,10) * 1000).format('dddd, MMM YYYY')).toString()}
+            const Buttons = (contractjson.map(row => <div className="race upcomingRace"id={row.raceDate} key={row.raceDate} style={{textAlign:'left'}}>
+                <div class="raceId"><img class="flag-icon-sidebar" src={require("./assets/flag_icon_sidebar.png")}/>Race #122</div>
+                    <div className="date">{(moment(parseInt(row.raceDate,10) * 1000).format('dddd, DD MMM YYYY')).toString()}
                         <br/>
                         <span className="hour">{(moment(parseInt(row.raceDate,10) * 1000).format('HH:mm')).toString()}</span>
-                    </li>
-                </ul>
+                    </div>
                 <div className="status-race-sidebar">Status
                     <span className="status_race_value upcoming ">{row.status}</span>
                 </div>
