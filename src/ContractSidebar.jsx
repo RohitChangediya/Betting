@@ -5,6 +5,8 @@ import addressjson from './Address.json';
 import WeekList from './WeekList'
 import {Accordion} from 'semantic-ui-react'
 import UpcomingRaces from './UpcomingRaces'
+import NextRaceModal from './NextRaceModal'
+import $ from 'jquery';
 
 var moment = require('moment');
 
@@ -28,9 +30,11 @@ export default class ContractSidebar extends Component {
             duplicatejson: {},
             prevActive: null,
             classActive: false,
-            activeIndex: 0
+            activeIndex: 0,
+            upcomingDate:0
         };
         this.handleChange = this.handleChange.bind(this);
+        this.updateUpcoming=this.updateUpcoming.bind(this);
     }
     getDate(address) {
         let self = this;
@@ -86,7 +90,13 @@ export default class ContractSidebar extends Component {
         this.setState({contract:rSelected});
         this.props.onContractSubmit(rSelected);
     }
+    updateUpcoming(upcomingDate){
+      this.setState({upcomingDate},function(){
+        $(".modal-box-container").addClass("modal-box-container-reveal");
+        $(".modal-box").addClass("modal-box-slide");
+      });
 
+    }
     render() {
 
         return (<div className="left-panel"><div style={{
@@ -97,14 +107,15 @@ export default class ContractSidebar extends Component {
             <Accordion className="float-left" style={{
                     marginTop: '0'
                 }}>
-                <UpcomingRaces duration={3600}/>
-                <UpcomingRaces duration={86400}/>
+                <UpcomingRaces duration={3600} updateUpcoming={this.updateUpcoming}/>
+                <UpcomingRaces duration={86400} updateUpcoming={this.updateUpcoming}/>
                 <WeekList title="Recent Races" number={0} date={parseInt((new Date()).getTime() / 1000,10)} contractUpdate={(event) => this.handleChange(event)} parentState={this} initiate={this.initiate.bind(this)} currentTime={parseInt((new Date()).getTime() / 1000,10)}/>
                 <WeekList title="One week ago" number={1} date={parseInt((new Date()).getTime() / 1000,10) - 604800} contractUpdate={(event) => this.handleChange(event)} parentState={this} currentTime={parseInt((new Date()).getTime() / 1000,10)}/>
                 <WeekList title="Two week ago" number={2} date={parseInt((new Date()).getTime() / 1000,10) - 604800 * 2} contractUpdate={(event) => this.handleChange(event)} parentState={this} currentTime={parseInt((new Date()).getTime() / 1000,10)}/>
                 <WeekList title="Three week ago" number={3} date={parseInt((new Date()).getTime() / 1000,10) - 604800 * 3} contractUpdate={(event) => this.handleChange(event)} parentState={this} currentTime={parseInt((new Date()).getTime() / 1000,10)}/>
             </Accordion>
         </div>
+        <NextRaceModal epoch_time={this.state.upcomingDate}/>
         </div>
         )
 

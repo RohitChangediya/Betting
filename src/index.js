@@ -4,9 +4,11 @@ import './index.css';
 import App from './App';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'semantic-ui-css/semantic.min.css';
-import './css/left-panel.css'
-import './css/right-panel.css'
-import './css/style.css'
+import './css/left-panel.css';
+import './css/right-panel.css';
+import './css/style.css';
+import './css/modal-box.css';
+import './css/anim.css';
 
 import registerServiceWorker from './registerServiceWorker';
 import Warning from './Warning'
