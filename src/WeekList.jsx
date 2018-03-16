@@ -65,6 +65,7 @@ export default class WeekList extends Component {
             const Buttons = (contractjson.map((row) => {
               if(row.active==="Active"){
                 return (<div className={"race live_race " + row.contractid} id={row.contractid} key={row.contractid} onClick={ this.updateContract} style={{textAlign:'left'}} number={this.props.number}>
+                  <div class="raceId"><img class="flag-icon-sidebar" src={require("./assets/flag_icon_sidebar.png")} alt=""/>Race #{row.race_number}</div>
                     <div className={"date " + row.contractid} number={this.props.number}>{(moment(parseInt(row.date,10) * 1000).format('dddd, DD MMM YYYY')).toString()}
                         <br/>
                         <span className={"hour  " + row.contractid} number={this.props.number}>{(moment(parseInt(row.date,10) * 1000).format('HH:mm')).toString()}</span>
@@ -77,6 +78,7 @@ export default class WeekList extends Component {
             }
             else if(row.active==="Open for bets"){
                 return (<div className={"race live_race " + row.contractid} id={row.contractid} key={row.contractid} onClick={ this.updateContract} style={{textAlign:'left'}} number={this.props.number}>
+                  <div class="raceId"><img class="flag-icon-sidebar" src={require("./assets/flag_icon_sidebar.png")} alt=""/>Race #{row.race_number}</div>
                     <div className={"date " + row.contractid} number={this.props.number}>{(moment(parseInt(row.date,10) * 1000).format('dddd, DD MMM YYYY')).toString()}
                         <br/>
                         <span className={"hour  " + row.contractid} number={this.props.number}>{(moment(parseInt(row.date,10) * 1000).format('HH:mm')).toString()}</span>
@@ -89,7 +91,7 @@ export default class WeekList extends Component {
             }
             else if(row.active==="Closed"){
                 return (<div className={"race closed-race " + row.contractid} id={row.contractid} key={row.contractid} onClick={ this.updateContract} style={{textAlign:'left'}} number={this.props.number}>
-                  <div class="raceId"><img class="flag-icon-sidebar" src={require("./assets/flag_icon_sidebar.png")} alt=""/>Race #122</div>
+                  <div class="raceId"><img class="flag-icon-sidebar" src={require("./assets/flag_icon_sidebar.png")} alt=""/>Race #{row.race_number}</div>
                     <div className={"date " + row.contractid} number={this.props.number}>{(moment(parseInt(row.date,10) * 1000).format('dddd, DD MMM YYYY')).toString()}
                         <br/>
                         <span className={"hour  " + row.contractid} number={this.props.number}>{(moment(parseInt(row.date,10) * 1000).format('HH:mm')).toString()}</span>
