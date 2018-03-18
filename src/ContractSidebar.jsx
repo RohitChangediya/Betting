@@ -99,11 +99,12 @@ export default class ContractSidebar extends Component {
     }
     render() {
 
-        return (<div className="left-panel"><div style={{
+        return (<div className="left-panel">
+          {/* <div style={{
                 height: '100%',
                 overflow: 'scroll',
                 backgroundColor:'#1e2339'
-            }}>
+            }}> */}
             <Accordion className="float-left" style={{
                     marginTop: '0'
                 }}>
@@ -114,7 +115,7 @@ export default class ContractSidebar extends Component {
                 <WeekList title="Two week ago" number={2} date={parseInt((new Date()).getTime() / 1000,10) - 604800 * 2} contractUpdate={(event) => this.handleChange(event)} parentState={this} currentTime={parseInt((new Date()).getTime() / 1000,10)}/>
                 <WeekList title="Three week ago" number={3} date={parseInt((new Date()).getTime() / 1000,10) - 604800 * 3} contractUpdate={(event) => this.handleChange(event)} parentState={this} currentTime={parseInt((new Date()).getTime() / 1000,10)}/>
             </Accordion>
-        </div>
+        {/* </div> */}
         <NextRaceModal epoch_time={this.state.upcomingDate}/>
         </div>
         )

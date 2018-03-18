@@ -67,7 +67,7 @@ export default class UpcomingRaces extends Component {
             const Buttons = (contractjson.map((row) => {
               // self.setState({raceDate:row.raceDate});
               return (<div className="race upcomingRace" id={row.raceDate} key={row.raceDate} style={{textAlign:'left'}} onClick={()=>this.props.updateUpcoming(row.time_remaining)}>
-                    <div className="date">{(moment(parseInt(row.raceDate,10) * 1000).format('dddd, DD MMM YYYY')).toString()}
+                    <div className="date">{(moment(parseInt(row.raceDate,10) * 1000).format('DD MMM YYYY')).toString()}
                         <br/>
                         <span className="hour">{(moment(parseInt(row.raceDate,10) * 1000).format('HH:mm')).toString()}</span>
                     </div>
