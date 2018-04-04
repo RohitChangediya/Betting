@@ -111,9 +111,6 @@ export default class ContractSidebar extends Component {
                 <UpcomingRaces duration={3600} updateUpcoming={this.updateUpcoming}/>
                 <UpcomingRaces duration={86400} updateUpcoming={this.updateUpcoming}/>
                 <WeekList title="Recent Races" number={0} date={parseInt((new Date()).getTime() / 1000,10)} contractUpdate={(event) => this.handleChange(event)} parentState={this} initiate={this.initiate.bind(this)} currentTime={parseInt((new Date()).getTime() / 1000,10)}/>
-                <WeekList title="One week ago" number={1} date={parseInt((new Date()).getTime() / 1000,10) - 604800} contractUpdate={(event) => this.handleChange(event)} parentState={this} currentTime={parseInt((new Date()).getTime() / 1000,10)}/>
-                <WeekList title="Two week ago" number={2} date={parseInt((new Date()).getTime() / 1000,10) - 604800 * 2} contractUpdate={(event) => this.handleChange(event)} parentState={this} currentTime={parseInt((new Date()).getTime() / 1000,10)}/>
-                <WeekList title="Three week ago" number={3} date={parseInt((new Date()).getTime() / 1000,10) - 604800 * 3} contractUpdate={(event) => this.handleChange(event)} parentState={this} currentTime={parseInt((new Date()).getTime() / 1000,10)}/>
             </Accordion>
         {/* </div> */}
         <NextRaceModal epoch_time={this.state.upcomingDate}/>
