@@ -144,7 +144,8 @@ class App extends Component {
           myContract.at(this.state.contract).then(function(instance) {
             var ethAccount = '';
             web3.eth.getAccounts(function(err, accounts) {
-              ethAccount = accounts[0]
+              ethAccount = accounts[0];
+              
             }).then(function() {
               if (self.state.race_end === false) {
                 const txo = {

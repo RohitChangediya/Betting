@@ -51,9 +51,9 @@ export default class WeekList extends Component {
         }
         })
 
-        let ethAccount=null;
+        var ethAccount=null;
         web3.eth.getAccounts(function(err, accounts) {
-          ethAccount = accounts[0]
+          ethAccount = accounts[0].toLowerCase();
         }).then(function(){
             if(ethAccount!==null){
               //getParticipatedRaces
@@ -68,7 +68,7 @@ export default class WeekList extends Component {
                 }
                 else if(contracts.status===200){
                 contracts.json().then(function(value) {
-                    console.log('Participated '+value);
+                    console.log('Participated '+value+' '+ethAccount);
                     self.setState({participated_contracts: value})
                 })
             }
@@ -85,7 +85,7 @@ export default class WeekList extends Component {
                 }
                 else if(contracts.status===200){
                 contracts.json().then(function(value) {
-                    console.log('Non Participated '+value);
+                    console.log('Non Participated '+value+' '+ethAccount);
                     self.setState({non_participated_contracts: value})
                 })
             }
