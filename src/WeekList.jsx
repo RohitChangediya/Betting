@@ -53,6 +53,7 @@ export default class WeekList extends Component {
 
         var ethAccount=null;
         web3.eth.getAccounts(function(err, accounts) {
+          if(accounts!==null && accounts[0]!=undefined)
           ethAccount = accounts[0].toLowerCase();
         }).then(function(){
             if(ethAccount!==null){
@@ -114,7 +115,7 @@ export default class WeekList extends Component {
             const ActiveButtons = (active_contract.map((row) => {
               if(row.active==="Active"){
                 return (<div className={"race live_race " + row.contractid} id={row.contractid} key={row.contractid} onClick={ this.updateContract} style={{textAlign:'left','paddingBottom':'3%'}} number={this.props.number}>
-                  <div class="raceId"><img class="flag-icon-sidebar" src={require("./assets/flag_icon_sidebar.png")} alt=""/>Race #{row.race_number}</div>
+                  <div class={"raceId "+ row.contractid}><img class={"flag-icon-sidebar "+ row.contractid} src={require("./assets/flag_icon_sidebar.png")} alt=""/>Race #{row.race_number}</div>
                     <div className={"date " + row.contractid} number={0}>{(moment(parseInt(row.date,10) * 1000).format('DD MMM YYYY')).toString()}
                         <br/>
                         <span className={"hour  " + row.contractid} number={0}>{(moment(parseInt(row.date,10) * 1000).format('HH:mm')).toString()}</span>
@@ -127,7 +128,7 @@ export default class WeekList extends Component {
             }
             else if(row.active==="Open for bets"){
                 return (<div className={"race live_race " + row.contractid} id={row.contractid} key={row.contractid} onClick={ this.updateContract} style={{textAlign:'left','paddingBottom':'3%'}} number={0}>
-                  <div class="raceId"><img class="flag-icon-sidebar" src={require("./assets/flag_icon_sidebar.png")} alt=""/>Race #{row.race_number}</div>
+                  <div class={"raceId "+ row.contractid}><img class={"flag-icon-sidebar "+ row.contractid} src={require("./assets/flag_icon_sidebar.png")} alt=""/>Race #{row.race_number}</div>
                     <div className={"date " + row.contractid} number={0}>{(moment(parseInt(row.date,10) * 1000).format('DD MMM YYYY')).toString()}
                         <br/>
                         <span className={"hour  " + row.contractid} number={0}>{(moment(parseInt(row.date,10) * 1000).format('HH:mm')).toString()}</span>
@@ -145,7 +146,7 @@ export default class WeekList extends Component {
         const ParticipatedButtons = (participated_contracts.map((row) => {
 
             return (<div className={"race live_race " + row.contractid} id={row.contractid} key={row.contractid} onClick={ this.updateContract} style={{textAlign:'left','paddingBottom':'3%'}} number={1}>
-              <div class="raceId"><img class="flag-icon-sidebar" src={require("./assets/flag_icon_sidebar.png")} alt=""/>Race #{row.race_number}</div>
+              <div class={"raceId "+ row.contractid}><img class={"flag-icon-sidebar "+ row.contractid} src={require("./assets/flag_icon_sidebar.png")} alt=""/>Race #{row.race_number}</div>
                 <div className={"date " + row.contractid} number={1}>{(moment(parseInt(row.date,10) * 1000).format('DD MMM YYYY')).toString()}
                     <br/>
                     <span className={"hour  " + row.contractid} number={1}>{(moment(parseInt(row.date,10) * 1000).format('HH:mm')).toString()}</span>
@@ -159,7 +160,7 @@ export default class WeekList extends Component {
 
         const NonParticipatedButtons = (non_participated_contracts.map((row) => {
             return (<div className={"race live_race " + row.contractid} id={row.contractid} key={row.contractid} onClick={ this.updateContract} style={{textAlign:'left','paddingBottom':'3%'}} number={2}>
-              <div class="raceId"><img class="flag-icon-sidebar" src={require("./assets/flag_icon_sidebar.png")} alt=""/>Race #{row.race_number}</div>
+              <div class={"raceId "+ row.contractid}><img class={"flag-icon-sidebar "+ row.contractid} src={require("./assets/flag_icon_sidebar.png")} alt=""/>Race #{row.race_number}</div>
                 <div className={"date " + row.contractid} number={2}>{(moment(parseInt(row.date,10) * 1000).format('DD MMM YYYY')).toString()}
                     <br/>
                     <span className={"hour  " + row.contractid} number={2}>{(moment(parseInt(row.date,10) * 1000).format('HH:mm')).toString()}</span>
