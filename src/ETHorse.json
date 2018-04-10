@@ -43,37 +43,6 @@
 		"type": "function"
 	},
 	{
-		"constant": true,
-		"inputs": [],
-		"name": "getVoterIndex",
-		"outputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			},
-			{
-				"name": "",
-				"type": "bytes32"
-			},
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [],
-		"name": "reward",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
 		"constant": false,
 		"inputs": [
 			{
@@ -122,15 +91,6 @@
 			}
 		],
 		"name": "__callback",
-		"outputs": [],
-		"payable": false,
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"constant": false,
-		"inputs": [],
-		"name": "kill",
 		"outputs": [],
 		"payable": false,
 		"stateMutability": "nonpayable",
@@ -199,6 +159,45 @@
 	},
 	{
 		"constant": true,
+		"inputs": [
+			{
+				"name": "index",
+				"type": "bytes32"
+			},
+			{
+				"name": "candidate",
+				"type": "address"
+			}
+		],
+		"name": "getCoinIndex",
+		"outputs": [
+			{
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"name": "",
+				"type": "uint256"
+			},
+			{
+				"name": "",
+				"type": "bool"
+			},
+			{
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": true,
 		"inputs": [],
 		"name": "chronus",
 		"outputs": [
@@ -228,6 +227,10 @@
 			},
 			{
 				"name": "race_duration",
+				"type": "uint256"
+			},
+			{
+				"name": "voided_timestamp",
 				"type": "uint256"
 			}
 		],
@@ -276,41 +279,6 @@
 			{
 				"name": "",
 				"type": "address"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
-	},
-	{
-		"constant": true,
-		"inputs": [
-			{
-				"name": "index",
-				"type": "bytes32"
-			}
-		],
-		"name": "getCoinIndex",
-		"outputs": [
-			{
-				"name": "",
-				"type": "uint256"
-			},
-			{
-				"name": "",
-				"type": "uint256"
-			},
-			{
-				"name": "",
-				"type": "uint256"
-			},
-			{
-				"name": "",
-				"type": "bool"
-			},
-			{
-				"name": "",
-				"type": "uint256"
 			}
 		],
 		"payable": false,
@@ -437,6 +405,16 @@
 			{
 				"indexed": false,
 				"name": "_value",
+				"type": "uint256"
+			},
+			{
+				"indexed": false,
+				"name": "_horse",
+				"type": "bytes32"
+			},
+			{
+				"indexed": false,
+				"name": "_date",
 				"type": "uint256"
 			}
 		],

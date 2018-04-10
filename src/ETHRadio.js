@@ -19,9 +19,9 @@ export default class ETHRadio extends React.Component {
         this.checkValue = this.checkValue.bind(this);
         this.getOddsDetails = this.getOddsDetails.bind(this);
         this.coinRadio=this.coinRadio.bind(this);
-        var eth = {pool_total: null,odds: null,number_of_bets: null,pre_price: 'TBC',post_price: 'TBC',gain: 'TBC',name: 'ethereum',percentage: 'TBC',post_price_title:'Current Price'}
-        var btc = {pool_total: null,odds: null,number_of_bets: null,pre_price: 'TBC',post_price: 'TBC',gain: 'TBC',name: 'bitcoin',percentage: 'TBC',post_price_title:'Current Price'}
-        var ltc = {pool_total: null,odds: null,number_of_bets: null,pre_price: 'TBC',post_price: 'TBC',gain: 'TBC',name: 'litecoin',percentage: 'TBC',post_price_title:'Current Price'}
+        var eth = {pool_total: null,odds: null,my_bets: null,pre_price: 'TBC',post_price: 'TBC',gain: 'TBC',name: 'ethereum',percentage: 'TBC',post_price_title:'Current Price'}
+        var btc = {pool_total: null,odds: null,my_bets: null,pre_price: 'TBC',post_price: 'TBC',gain: 'TBC',name: 'bitcoin',percentage: 'TBC',post_price_title:'Current Price'}
+        var ltc = {pool_total: null,odds: null,my_bets: null,pre_price: 'TBC',post_price: 'TBC',gain: 'TBC',name: 'litecoin',percentage: 'TBC',post_price_title:'Current Price'}
         this.state = {
             rSelected: '',
             eth: 'primary',
@@ -67,7 +67,7 @@ export default class ETHRadio extends React.Component {
             pre_price: (value[1] / 100),
             post_price: (value[2] / 100),
             odds: (profit),
-            number_of_bets: value[4].toString(),
+            my_bets: parseFloat(web3.utils.fromWei(value[4].toString(), "ether")).toFixed(2),
             post_price_title:'Current Price'
         }
         coin_details.pre_price = this.checkValue(coin_details.pre_price);
@@ -87,39 +87,44 @@ export default class ETHRadio extends React.Component {
         myContract.at(this.props.currentContract).then(function(instance) {
             instance.reward_total().then(function(reward) {
                 reward = web3.utils.fromWei(reward, "ether")
-                instance.getCoinIndex("ETH").then(function(value) {
-                    var eth = self.getOddsDetails(value, reward);
-                    if (eth.pre_price !== "TBC") {
-                        fetch("https://api.coinmarketcap.com/v1/ticker/ethereum/").then(function(details) {
-                            // console.log(details.json().then());
-                            return details.json().then(function(value) {
-                                eth["pre_price"] = eth["pre_price"].toFixed(2);
-                                let inc = Math.round(((value[0].price_usd - eth.pre_price) / eth.pre_price) * 100000) / 1000;
-                                eth['percentage'] = inc + " %";
-                                if (eth["post_price"] !== "TBC") {
-                                    eth["post_price"] = eth["post_price"].toFixed(2);
-                                    inc = Math.round(((eth.post_price - eth.pre_price) / eth.pre_price) * 100000) / 1000;
-                                    eth['percentage'] = inc + " %";
-                                    eth["post_price"] = "$ " + eth["post_price"];
-                                    eth.post_price_title="End Price"
-                                }
-                                else{
-                                  eth["post_price"] = "$ " + parseFloat(value[0].price_usd).toFixed(2);
-                                }
-                                eth["pre_price"] = "$ " + eth["pre_price"];
-                                self.setState({eth_pool: eth});
+                web3.eth.getAccounts(function(err, accounts) {
+                  var ethAccount = accounts[0];
+                  }).then(function(ethAccount){
+                      console.log(ethAccount);
+                      instance.getCoinIndex("ETH",ethAccount).then(function(value) {
+                          console.log(value);
+                          var eth = self.getOddsDetails(value, reward);
+                          if (eth.pre_price !== "TBC") {
+                              fetch("https://api.coinmarketcap.com/v1/ticker/ethereum/").then(function(details) {
+                                  // console.log(details.json().then());
+                                  return details.json().then(function(value) {
+                                      eth["pre_price"] = eth["pre_price"].toFixed(2);
+                                      let inc = Math.round(((value[0].price_usd - eth.pre_price) / eth.pre_price) * 100000) / 1000;
+                                      eth['percentage'] = inc + " %";
+                                      if (eth["post_price"] !== "TBC") {
+                                          eth["post_price"] = eth["post_price"].toFixed(2);
+                                          inc = Math.round(((eth.post_price - eth.pre_price) / eth.pre_price) * 100000) / 1000;
+                                          eth['percentage'] = inc + " %";
+                                          eth["post_price"] = "$ " + eth["post_price"];
+                                          eth.post_price_title="End Price"
+                                      }
+                                      else{
+                                        eth["post_price"] = "$ " + parseFloat(value[0].price_usd).toFixed(2);
+                                      }
+                                      eth["pre_price"] = "$ " + eth["pre_price"];
+                                      self.setState({eth_pool: eth});
+                                  })
+                              })
+                          } else {
+                            fetch("https://api.coinmarketcap.com/v1/ticker/ethereum/").then(function(details) {
+                                return details.json().then(function(value) {
+                                    eth["post_price"] = "$ " + parseFloat(value[0].price_usd).toFixed(2);
+                                    self.setState({eth_pool: eth});
+                                })
                             })
-                        })
-                    } else {
-                      fetch("https://api.coinmarketcap.com/v1/ticker/ethereum/").then(function(details) {
-                          return details.json().then(function(value) {
-                              eth["post_price"] = "$ " + parseFloat(value[0].price_usd).toFixed(2);
-                              self.setState({eth_pool: eth});
-                          })
-                      })
-                    }
-                });
-                instance.getCoinIndex("LTC").then(function(value) {
+                          }
+                      });
+                instance.getCoinIndex("LTC",ethAccount).then(function(value) {
                     var ltc = self.getOddsDetails(value, reward);
                     if (ltc.pre_price !== "TBC") {
                         fetch("https://api.coinmarketcap.com/v1/ticker/litecoin/").then(function(details) {
@@ -152,7 +157,7 @@ export default class ETHRadio extends React.Component {
                       })
                     }
                 });
-                instance.getCoinIndex("BTC").then(function(value) {
+                instance.getCoinIndex("BTC",ethAccount).then(function(value) {
                     var btc = self.getOddsDetails(value, reward);
                     if (btc.pre_price !== "TBC") {
                         fetch("https://api.coinmarketcap.com/v1/ticker/bitcoin/").then(function(details) {
@@ -184,6 +189,7 @@ export default class ETHRadio extends React.Component {
                           })
                       })
                     }
+                });
                 });
             });
         });
@@ -275,8 +281,8 @@ export default class ETHRadio extends React.Component {
                     <div className="col-lg-12 col-xl-7">
                         <div className="row">
                             <div className="col-sm-3 col-md-3 col-lg-3 col-xl-3">
-                                <div className="bets_number text-center">Number of Bets</div>
-                                <div className="bets_number_value text-center">{this.state.btc_pool.number_of_bets}</div>
+                                <div className="bets_number text-center">My bets (ETH)</div>
+                                <div className="bets_number_value text-center">{this.state.btc_pool.my_bets}</div>
                             </div>
                             <div className="col-sm-3 col-md-3 col-lg-3 col-xl-3">
                                 <div className="race_start_price text-center">Start Price</div>
@@ -319,8 +325,8 @@ export default class ETHRadio extends React.Component {
 
 	                    <div className="row">
                             <div className="col-sm-3 col-md-3 col-lg-3 col-xl-3">
-                                <div className="bets_number text-center">Number of Bets</div>
-                                <div className="bets_number_value text-center">{this.state.eth_pool.number_of_bets}</div>
+                                <div className="bets_number text-center">My bets (ETH)</div>
+                                <div className="bets_number_value text-center">{this.state.eth_pool.my_bets}</div>
                             </div>
                             <div className="col-sm-3 col-md-3 col-lg-3 col-xl-3">
                                 <div className="race_start_price text-center">Start Price</div>
@@ -362,8 +368,8 @@ export default class ETHRadio extends React.Component {
                     <div className="col-lg-12 col-xl-7">
 	                   <div className="row">
                             <div className="col-sm-3 col-md-3 col-lg-3 col-xl-3">
-                                <div className="bets_number text-center">Number of Bets</div>
-                                <div className="bets_number_value text-center">{this.state.ltc_pool.number_of_bets}</div>
+                                <div className="bets_number text-center">My bets (ETH)</div>
+                                <div className="bets_number_value text-center">{this.state.ltc_pool.my_bets}</div>
                             </div>
                             <div className="col-sm-3 col-md-3 col-lg-3 col-xl-3">
                                 <div className="race_start_price text-center">Start Price</div>
