@@ -173,20 +173,20 @@ export default class WeekList extends Component {
         }))
 
             return (<div>
-                <Accordion.Title active={this.props.parentState.state.activeIndex === 0} number={0} index={0}  onClick={this.handleClick} style={{textAlign:'left',backgroundColor:'#19b5fe'}}>
-                    <span style={{textAlign:'left'}} number={0}><Icon name='dropdown'/> Active Races</span>
+                <Accordion.Title active={true} number={0} index={0}  style={{textAlign:'left',backgroundColor:'#19b5fe'}}>
+                    <span style={{textAlign:'left'}} number={0}>&nbsp;&nbsp;&nbsp;Active Races</span>
                 </Accordion.Title>
-                <Accordion.Content active={this.props.parentState.state.activeIndex === 0} number={0} content={ActiveButtons}/>
+                <Accordion.Content active={true} number={0} content={ActiveButtons}/>
+
+                <Accordion.Title active={this.props.parentState.state.activeIndex === 0} number={0} index={0}  onClick={this.handleClick} style={{textAlign:'left',backgroundColor:'#19b5fe'}}>
+                    <span style={{textAlign:'left'}} number={0}><Icon name='dropdown'/> Participated Races</span>
+                </Accordion.Title>
+                <Accordion.Content active={this.props.parentState.state.activeIndex === 0} number={0} content={ParticipatedButtons}/>
 
                 <Accordion.Title active={this.props.parentState.state.activeIndex === 1} number={1} index={1}  onClick={this.handleClick} style={{textAlign:'left',backgroundColor:'#19b5fe'}}>
-                    <span style={{textAlign:'left'}} number={1}><Icon name='dropdown'/> Participated Races</span>
+                    <span style={{textAlign:'left'}} number={1}><Icon name='dropdown'/> Non Participated Races</span>
                 </Accordion.Title>
-                <Accordion.Content active={this.props.parentState.state.activeIndex === 1} number={1} content={ParticipatedButtons}/>
-
-                <Accordion.Title active={this.props.parentState.state.activeIndex === 2} number={2} index={2}  onClick={this.handleClick} style={{textAlign:'left',backgroundColor:'#19b5fe'}}>
-                    <span style={{textAlign:'left'}} number={2}><Icon name='dropdown'/> Non Participated Races</span>
-                </Accordion.Title>
-                <Accordion.Content active={this.props.parentState.state.activeIndex === 2} number={2} content={NonParticipatedButtons}/>
+                <Accordion.Content active={this.props.parentState.state.activeIndex === 1} number={1} content={NonParticipatedButtons}/>
             </div>);
         }
         return (<div/>)
