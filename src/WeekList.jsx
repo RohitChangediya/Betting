@@ -113,7 +113,7 @@ export default class WeekList extends Component {
             let non_participated_contracts = this.state.non_participated_contracts;
 
             const ActiveButtons = (active_contract.map((row) => {
-              if(row.active==="Active"){
+              if(row.active==="Race in progress"){
                 return (<div className={"race live_race " + row.contractid} id={row.contractid} key={row.contractid} onClick={ this.updateContract} style={{textAlign:'left','paddingBottom':'3%'}} number={this.props.number}>
                   <div class={"raceId "+ row.contractid}><img class={"flag-icon-sidebar "+ row.contractid} src={require("./assets/flag_icon_sidebar.png")} alt=""/>Race #{row.race_number}</div>
                     <div className={"date " + row.contractid} number={0}>{(moment(parseInt(row.date,10) * 1000).format('DD MMM YYYY')).toString()}

@@ -34,8 +34,19 @@ export default class Timer extends React.Component{
             // Find the distance between now an the count down date
             var distance = parseInt(countDownDate,10) - parseInt(now,10);
             if (parseInt(distance,10) < 0) {
-                clearInterval(self.timer);
-                self.setState({ timerHTML:"<div class=\"race_details\">Race ended</div>",distance,compute:false,progress:100+'%'});
+                console.log(self.props.bet_phase);
+                if (self.props.bet_phase=="Betting closes in"){
+                    console.log("here");
+                    clearInterval(self.timer);
+                    self.setState({ timerHTML:"<div class=\"race_details\">Betting closed</div>",distance,compute:false,progress:100+'%'});
+                } else if (self.props.bet_phase=="Race ends in" ) {
+                    clearInterval(self.timer);
+                    self.setState({ timerHTML:"<div class=\"race_details\">Race complete</div>",distance,compute:false,progress:100+'%'});
+                } else if ( self.props.bet_phase=="Race complete") {
+                    clearInterval(self.timer);
+                    self.setState({ timerHTML:"<div class=\"race_details\">Race ended</div>",distance,compute:false,progress:100+'%'});
+                }
+
             }
 
             // Time calculations for days, hours, minutes and seconds
@@ -51,6 +62,11 @@ export default class Timer extends React.Component{
             + minutes + "m " + seconds + "s "),compute:false,progress});}
 
             // If the count down is finished, write some text
+            // console.log(progress);
+            // if ((100-((distance)/((self.props.targetDate-self.props.timerStart)*1000))*100)>=100) {
+            //     clearInterval(self.timer);
+            //     self.setState({ timerHTML:"<div class=\"race_details\">Betting closed</div>",distance,compute:false,progress:100+'%'});
+            // }
 
         }, 1000);
     // this.setState({timer:x});
@@ -72,7 +88,7 @@ export default class Timer extends React.Component{
             return(
                 <div className="col-sm-12 col-md-8 col-lg-4">
 					<img alt="" className="header-item-img" src={require("./assets/Orion_stopwatch.png")}/>
-					<div className="cb-title remaining text-center">Remaining time before bets are closed.</div>
+					<div className="cb-title remaining text-center">Remaining time before bets are closed</div>
 					<p id="timer" className="text-center">No race selected</p>
 				</div>
             );

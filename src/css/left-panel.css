@@ -106,17 +106,19 @@
 	border: 1px solid #22a7f0;
 }
 .closed{
-	color: #d2527f;
-	border: 1px solid #d2527f;
+	color: #e20050;
+	border: 1px solid #e20050;
 }
 .live{
-	color: #446cb3;
-	border: 1px solid #446cb3;
+	color: #00c737;
+	border: 1px solid #00c737;
 }
 .open{
 	color: #ffffff;
 	border: 1px solid #ffffff;
 }
+
+
 .duration-race-sidebar{
 	position: relative;
 	margin-top: 5%;

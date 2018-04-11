@@ -106,6 +106,7 @@ class App extends Component {
           let race_duration = info[6].toNumber();
           // console.log(betting_open,race_start,race_end,voided_bet,starting_time,betting_duration,race_duration);
           let bet_phase = ""
+          currentTime = Math.floor(currentTime/1000);
             if (currentTime >= (starting_time * 1000) && currentTime < ((starting_time + betting_duration) * 1000)) {
               self.startFlipClock(starting_time + betting_duration, starting_time);
               bet_phase = "Betting closes in";
