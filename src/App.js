@@ -32,6 +32,7 @@ if (web3.currentProvider != null) {
   // }
 }
 
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -59,7 +60,8 @@ class App extends Component {
       hidePlacingBet: true,
       hideBetPlaced: true,
       version: "",
-      voided_bet: false
+      voided_bet: false,
+      key:0
     };
     this.invokeContract = this.invokeContract.bind(this);
     this.checkRewards = this.checkRewards.bind(this);
@@ -81,6 +83,12 @@ class App extends Component {
     this.setState({targetDate: time, timerStart})
   }
   componentLoad() {
+    var placeBetListener = myContract.at(this.state.contract).Deposit();
+    placeBetListener.watch(function (error, result) {
+        if(!error) {
+            self.setState({key:Math.random()});
+        }
+    });
     var currentTime = new Date()
     this.checkNetwork()
     currentTime = currentTime.getTime()
@@ -145,7 +153,7 @@ class App extends Component {
             var ethAccount = '';
             web3.eth.getAccounts(function(err, accounts) {
               ethAccount = accounts[0];
-              
+
             }).then(function() {
               if (self.state.race_end === false) {
                 const txo = {
@@ -304,7 +312,7 @@ class App extends Component {
                           <div className="row">
                             <Result contract={this.state.contract} race_end={this.state.race_end} starting_time={this.state.starting_time} voided_bet={this.state.voided_bet}
                             bet_phase={this.state.bet_phase}/>
-                            <div className="volume header-item col-sm-4 col-md-4 col-lg-4">
+                            <div className="volume header-item col-sm-4 col-md-4 col-lg-4" key={this.state.key}>
                               <img alt="" className="header-item-img" src={require("./assets/Orion_storage-box.png")}/>
                               <div className="header-item-title text-center">Pool</div>
                               <div className="header-item-value text-center">{this.state.t_bets}
@@ -341,7 +349,7 @@ class App extends Component {
                     <div className="row">
                       <div className="col-md-12 mx-auto">
                         {this.state.flashmessage}
-                        <ETHRadio onSubmit={this.coinValue.bind(this)} name="Radio" currentContract={this.state.contract} totalBets={this.totalBets.bind(this)} betting_open={this.state.betting_open} voided_bet={this.state.voided_bet}/>
+                        <ETHRadio key={this.state.key} onSubmit={this.coinValue.bind(this)} name="Radio" currentContract={this.state.contract} totalBets={this.totalBets.bind(this)} betting_open={this.state.betting_open} voided_bet={this.state.voided_bet}/>
                         <br/>
 
                         <div className="text-center"><img alt="" className="img-responsive speaker-icon" src={require("./assets/Orion_champion.png")}/>{this.state.reward.toString()}</div>
