@@ -87,12 +87,15 @@ export default class ETHRadio extends React.Component {
         myContract.at(this.props.currentContract).then(function(instance) {
             instance.reward_total().then(function(reward) {
                 reward = web3.utils.fromWei(reward, "ether")
+                var ethAccount;
                 web3.eth.getAccounts(function(err, accounts) {
-                  var ethAccount = accounts[0];
-                  }).then(function(ethAccount){
-                      console.log(ethAccount);
+                  ethAccount = accounts[0];
+                  if (ethAccount === undefined) {
+                      ethAccount = "0x0000000000000000000000000000000000000000";
+                  }
+                  }).then(function(){                      
                       instance.getCoinIndex("ETH",ethAccount).then(function(value) {
-                          console.log(value);
+                          console.log("value:",value);
                           var eth = self.getOddsDetails(value, reward);
                           if (eth.pre_price !== "TBC") {
                               fetch("https://api.coinmarketcap.com/v1/ticker/ethereum/").then(function(details) {

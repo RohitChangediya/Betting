@@ -106,7 +106,6 @@ class App extends Component {
           let race_duration = info[6].toNumber();
           // console.log(betting_open,race_start,race_end,voided_bet,starting_time,betting_duration,race_duration);
           let bet_phase = ""
-          currentTime = Math.floor(currentTime/1000);
             if (currentTime >= (starting_time * 1000) && currentTime < ((starting_time + betting_duration) * 1000)) {
               self.startFlipClock(starting_time + betting_duration, starting_time);
               bet_phase = "Betting closes in";
@@ -138,13 +137,13 @@ class App extends Component {
       componentDidMount() {
         if (this.state.contract !== null)
           this.checkRewards();
-          web3.eth.getAccounts(function(err, accounts) {
-            var ethAccount = accounts[0];
-            console.log(accounts);
-            if (ethAccount === undefined) {
-                alert('Your Metamask seems to be locked. Please unlock and refresh.');
-            }
-          });
+          // web3.eth.getAccounts(function(err, accounts) {
+          //   var ethAccount = accounts[0];
+          //   console.log(accounts);
+          //   if (ethAccount === undefined) {
+          //       alert('Your Metamask seems to be locked. Please unlock and refresh.');
+          //   }
+          // });
 
         }
 
@@ -259,7 +258,7 @@ class App extends Component {
 
           var ethAccount;
           web3.eth.getAccounts(function(err, accounts) {
-            ethAccount = accounts[0]
+            ethAccount = accounts[0];
           }).then(function() {
             // console.log(ethAccount)
             if (ethAccount === undefined) {

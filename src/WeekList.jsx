@@ -55,6 +55,9 @@ export default class WeekList extends Component {
         web3.eth.getAccounts(function(err, accounts) {
           if(accounts!==null && accounts[0]!=undefined)
           ethAccount = accounts[0].toLowerCase();
+          if (accounts[0]===undefined) {
+              ethAccount = "0x0000000000000000000000000000000000000000";
+          }
         }).then(function(){
             if(ethAccount!==null){
               //getParticipatedRaces
