@@ -33,6 +33,7 @@ if (web3.currentProvider != null) {
 }
 
 
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -77,7 +78,6 @@ class App extends Component {
       netId = netId[0].toUpperCase() + netId.substring(1);
       self.setState({network: netId})
     })
-
   }
   startFlipClock(time, timerStart) {
     this.setState({targetDate: time, timerStart})
@@ -138,6 +138,13 @@ class App extends Component {
       componentDidMount() {
         if (this.state.contract !== null)
           this.checkRewards();
+          web3.eth.getAccounts(function(err, accounts) {
+            var ethAccount = accounts[0];
+            console.log(accounts);
+            if (ethAccount === undefined) {
+                alert('Your Metamask seems to be locked. Please unlock and refresh.');
+            }
+          });
 
         }
 
