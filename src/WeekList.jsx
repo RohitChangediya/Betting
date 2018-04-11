@@ -41,7 +41,7 @@ export default class WeekList extends Component {
             else if(contracts.status===200){
             contracts.json().then(function(value) {
                 self.setState({active_contract: value})
-                if (value.length > 0 && self.props.number === 0) {
+                if (value.length > 0) {
                     if(document.getElementById(value[0].contractid)!==null && document.getElementById(value[0].contractid)!==undefined)
                       document.getElementById(value[0].contractid).classList='bettingOpen '+document.getElementById(value[0].contractid).classList;
                     // console.log(value[0].contractid)
@@ -100,10 +100,24 @@ export default class WeekList extends Component {
         this.getContract();
     }
     handleClick = (e, titleProps) => {
-        const {index} = titleProps
-        // const {activeIndex} = this.props.parentState
-        const newIndex = this.props.parentState.state.activeIndex === index? -1: index
-        this.props.parentState.setState({activeIndex: newIndex})
+        // console.log("Participated e: ",e);
+        // console.log("Participated title: ",titleProps);
+        var isLocked = false;
+        if (titleProps.number == 0) {
+            web3.eth.getAccounts(function(err, accounts) {
+              if(accounts[0]===undefined){
+                  isLocked = true;
+              }
+          });
+        }
+      if (isLocked) {
+          alert('Your Metamask seems to be locked. Please unlock and refresh.');
+      } else {
+          const {index} = titleProps
+          // const {activeIndex} = this.props.parentState
+          const newIndex = this.props.parentState.state.activeIndex === index? -1: index
+          this.props.parentState.setState({activeIndex: newIndex})
+      }
     }
     updateContract = (contract)=> {
         this.props.contractUpdate(contract);
