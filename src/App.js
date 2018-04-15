@@ -17,6 +17,13 @@ import cfg from './config.json';
 var Web3 = require('web3');
 var contract = require("truffle-contract");
 
+if (!process.env.REACT_APP_ENVIRONMENT || process.env.REACT_APP_ENVIRONMENT === 'dev') {
+    // dev code
+    var ip=cfg.testingIP;
+} else {
+    // production code
+    ip=cfg.productionIP;
+}
 
 var web3 = new Web3(Web3.givenProvider);
 
@@ -38,7 +45,6 @@ if (web3.currentProvider != null) {
 
 class App extends Component {
     constructor(props) {
-        console.log(cfg.network);
         super(props);
         this.state = {
             contractState: null,
@@ -175,27 +181,30 @@ class App extends Component {
                                 transactionid: 'Placing Bet...',
                                 hidePlacingBet: false
                             }, function() {
-
-                                fetch("/bridge/detect", {
+                                fetch(ip+"/bridge/detect", {
                                     method: 'GET',
                                 }).then(function(ipinfo) {
-                                    if (ipinfo.country !== "US") {
-                                        instance.placeBet(self.state.coin, txo).then(function(res, error) {
-                                            self.setState({
-                                                transactionid: ('Transaction ID: ' + res.tx + '. '),
-                                                transactionidmsg: "Good luck. You can use \"Check result\" and \"Claim\" after the race is over.",
-                                                value: self.state.coin,
-                                                hidePlacingBet: true
-                                            });
-                                        }).catch(function(e) {
-                                            self.setState({hidePlacingBet: true})
-                                            if (e.message === "MetaMask Tx Signature: User denied transaction signature.") {
-                                                self.setState({value: null, transactionid: null, hidePlacingBet: true})
-                                            }
-                                        })
-                                    } else {
-                                        alert("Platform not available in your country");
-                                    }
+                                    ipinfo.json().then(function(ipcountry) {
+                                        if (ipcountry.country !== "US") {
+                                            instance.placeBet(self.state.coin, txo).then(function(res, error) {
+                                                self.setState({
+                                                    transactionid: ('Transaction ID: ' + res.tx + '. '),
+                                                    transactionidmsg: "Good luck. You can use \"Check result\" and \"Claim\" after the race is over.",
+                                                    value: self.state.coin,
+                                                    hidePlacingBet: true
+                                                });
+                                            }).catch(function(e) {
+                                                self.setState({hidePlacingBet: true})
+                                                if (e.message === "MetaMask Tx Signature: User denied transaction signature.") {
+                                                    self.setState({value: null, transactionid: null, hidePlacingBet: true})
+                                                }
+                                            })
+                                        } else {
+                                            self.setState({value: null, transactionid: null, hidePlacingBet: true});
+                                            alert("Platform not available in your country");
+                                        }
+                                    });
+
                                 });
 
                             })
@@ -275,13 +284,25 @@ class App extends Component {
                 if (ethAccount === undefined) {
                     alert('Your Metamask seems to be locked. Please unlock to place a bet.')
                 } else {
-                    const txo = {
-                        from: ethAccount
-                    };
-                    instance.claim_reward.estimateGas(txo).then(function(gas) {
-                        txo.gas = gas;
-                        instance.claim_reward(txo).then(function(res, error) {});
-                    })
+
+                    fetch(ip+"/bridge/detect", {
+                        method: 'GET',
+                    }).then(function(ipinfo) {
+                        ipinfo.json().then(function(ipcountry) {
+                            if (ipcountry.country !== "US") {
+                                const txo = {
+                                    from: ethAccount
+                                };
+                                instance.claim_reward.estimateGas(txo).then(function(gas) {
+                                    txo.gas = gas;
+                                    instance.claim_reward(txo).then(function(res, error) {});
+                                })
+                            } else {
+                                alert("Platform not available in your country");
+                            }
+                        });
+
+                    });
                 }
 
             });
