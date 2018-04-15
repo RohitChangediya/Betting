@@ -12,6 +12,7 @@ import {Jumbotron, Container} from 'reactstrap'
 // import { Message, Icon } from 'semantic-ui-react'
 import SelectedCoin from './SelectedCoin';
 import Timer from './Timer';
+import cfg from './config.json';
 
 var Web3 = require('web3');
 var contract = require("truffle-contract");
@@ -37,6 +38,7 @@ if (web3.currentProvider != null) {
 
 class App extends Component {
     constructor(props) {
+        console.log(cfg.network);
         super(props);
         this.state = {
             contractState: null,
@@ -55,7 +57,7 @@ class App extends Component {
             duration: "",
             t_bets: 0,
             nextRace: '',
-            targetNetwork: 'Kovan',
+            targetNetwork: cfg.network,
             targetDate: '0',
             race_end: false,
             bet_phase: "",
