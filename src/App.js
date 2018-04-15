@@ -175,20 +175,29 @@ class App extends Component {
                                 transactionid: 'Placing Bet...',
                                 hidePlacingBet: false
                             }, function() {
-                                instance.placeBet(self.state.coin, txo).then(function(res, error) {
 
-                                    self.setState({
-                                        transactionid: ('Transaction ID: ' + res.tx + '. '),
-                                        transactionidmsg: "Good luck. You can use \"Check result\" and \"Claim\" after the race is over.",
-                                        value: self.state.coin,
-                                        hidePlacingBet: true
-                                    });
-                                }).catch(function(e) {
-                                    self.setState({hidePlacingBet: true})
-                                    if (e.message === "MetaMask Tx Signature: User denied transaction signature.") {
-                                        self.setState({value: null, transactionid: null, hidePlacingBet: true})
+                                fetch("/bridge/detect", {
+                                    method: 'GET',
+                                }).then(function(ipinfo) {
+                                    if (ipinfo.country !== "US") {
+                                        instance.placeBet(self.state.coin, txo).then(function(res, error) {
+                                            self.setState({
+                                                transactionid: ('Transaction ID: ' + res.tx + '. '),
+                                                transactionidmsg: "Good luck. You can use \"Check result\" and \"Claim\" after the race is over.",
+                                                value: self.state.coin,
+                                                hidePlacingBet: true
+                                            });
+                                        }).catch(function(e) {
+                                            self.setState({hidePlacingBet: true})
+                                            if (e.message === "MetaMask Tx Signature: User denied transaction signature.") {
+                                                self.setState({value: null, transactionid: null, hidePlacingBet: true})
+                                            }
+                                        })
+                                    } else {
+                                        alert("Platform not available in your country");
                                     }
-                                })
+                                });
+
                             })
                         } else if (ethAccount === undefined) {
                             alert('Your Metamask seems to be locked. Please unlock.')
