@@ -4,13 +4,19 @@ import {
     ModalBody,
     ModalFooter,
     Button
-} from 'reactstrap'
+} from 'reactstrap';
 import React, {Component} from 'react';
-import cfg from './config.json';
-import $ from 'jquery'
+import $ from 'jquery';
 // import './App.css';
-
+import cfg from './config.json';
 import 'bootstrap/dist/css/bootstrap.css';
+
+var network = cfg.network;
+if (network !== "Main") {
+    network = network+".";
+} else {
+    network = "";
+}
 
 export default class Header extends Component {
 
@@ -70,7 +76,7 @@ export default class Header extends Component {
         this.props.contractUpdate(contract)
     }
     render() {
-        var address_link = "https://"+cfg.network+".etherscan.io/address/" + this.props.contract + "#code";
+        var address_link = "https://"+network+"etherscan.io/address/" + this.props.contract + "#code";
         return (<div>
 
             <div className="container-fluid top-bar">

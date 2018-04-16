@@ -433,7 +433,7 @@ class App extends Component {
             <Container>
                 <h3>Your Metamask is on {this.state.network} network.<br/>Please switch to {this.state.targetNetwork} as shown below.</h3>
                 <br/>
-                <img src={require('./assets/kovan_switch.png')} target="_blank" width="30%" alt={"switch to " + this.state.targetNetwork}/>
+                <img src={require('./assets/'+this.state.targetNetwork.toLowerCase()+'_switch.png')} target="_blank" width="30%" alt={"switch to " + this.state.targetNetwork}/>
             </Container>
         </Jumbotron>)
     } else {
