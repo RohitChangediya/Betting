@@ -18,7 +18,8 @@ export default class WeekList extends Component {
         this.state = {
             active_contract: [],
             participated_contracts:[],
-            non_participated_contracts:[]
+            non_participated_contracts:[],
+            activeIndex:0
         };
         this.getContract = this.getContract.bind(this);
         this.updateContract = this.updateContract.bind(this);
@@ -103,21 +104,22 @@ export default class WeekList extends Component {
             // console.log("Participated e: ",e);
             // console.log("Participated title: ",titleProps);
             if (titleProps.number == 0) {
+                var self = this;
                 web3.eth.getAccounts(function(err, accounts) {
                     if(accounts[0]===undefined){
                         alert('Your Metamask seems to be locked. Please unlock and refresh.');
                     } else {
-                        const {index} = titleProps
+                        const {index} = titleProps;
                         // const {activeIndex} = this.props.parentState
-                        const newIndex = this.props.parentState.state.activeIndex === index? -1: index
-                        this.props.parentState.setState({activeIndex: newIndex})
+                        const newIndex = self.state.activeIndex === index? -1: index;
+                        self.setState({activeIndex: newIndex});
                     }
                 });
             } else {
                 const {index} = titleProps
                 // const {activeIndex} = this.props.parentState
-                const newIndex = this.props.parentState.state.activeIndex === index? -1: index
-                this.props.parentState.setState({activeIndex: newIndex})
+                const newIndex = this.state.activeIndex === index? -1: index
+                this.setState({activeIndex: newIndex})
             }
         }
         updateContract = (contract)=> {
@@ -195,15 +197,15 @@ export default class WeekList extends Component {
                     </Accordion.Title>
                     <Accordion.Content active={true} number={0} content={ActiveButtons}/>
 
-                    <Accordion.Title active={this.props.parentState.state.activeIndex === 0} number={0} index={0}  onClick={this.handleClick} style={{textAlign:'left',backgroundColor:'#19b5fe'}}>
+                    <Accordion.Title active={this.state.activeIndex === 0} number={0} index={0}  onClick={this.handleClick} style={{textAlign:'left',backgroundColor:'#19b5fe'}}>
                         <span style={{textAlign:'left'}} number={0}><Icon name='dropdown'/> Participated Races</span>
                     </Accordion.Title>
-                    <Accordion.Content active={this.props.parentState.state.activeIndex === 0} number={0} content={ParticipatedButtons}/>
+                    <Accordion.Content active={this.state.activeIndex === 0} number={0} content={ParticipatedButtons}/>
 
-                    <Accordion.Title active={this.props.parentState.state.activeIndex === 1} number={1} index={1}  onClick={this.handleClick} style={{textAlign:'left',backgroundColor:'#19b5fe'}}>
+                    <Accordion.Title active={this.state.activeIndex === 1} number={1} index={1}  onClick={this.handleClick} style={{textAlign:'left',backgroundColor:'#19b5fe'}}>
                         <span style={{textAlign:'left'}} number={1}><Icon name='dropdown'/> Non Participated Races</span>
                     </Accordion.Title>
-                    <Accordion.Content active={this.props.parentState.state.activeIndex === 1} number={1} content={NonParticipatedButtons}/>
+                    <Accordion.Content active={this.state.activeIndex === 1} number={1} content={NonParticipatedButtons}/>
                 </div>);
             }
             return (<div/>)

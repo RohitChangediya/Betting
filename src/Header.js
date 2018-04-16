@@ -6,6 +6,7 @@ import {
     Button
 } from 'reactstrap'
 import React, {Component} from 'react';
+import cfg from './config.json';
 import $ from 'jquery'
 // import './App.css';
 
@@ -69,7 +70,7 @@ export default class Header extends Component {
         this.props.contractUpdate(contract)
     }
     render() {
-        var address_link = "https://kovan.etherscan.io/address/" + this.props.contract + "#code";
+        var address_link = "https://"+cfg.network+".etherscan.io/address/" + this.props.contract + "#code";
         return (<div>
 
             <div className="container-fluid top-bar">
@@ -131,10 +132,10 @@ export default class Header extends Component {
                     <ul class="help-text">
                         <li >Choose a race from the sidebar with the status "Betting open"</li>
                         <li>Select a coin to bet on - BTC, ETH or LTC</li>
-                        <li>Enter the amount you are willing to bet (Min 0.01 Kovan ETH)</li>
+                        <li>Enter the amount you are willing to bet (Min 0.01 ETH)</li>
                         <li>Click “Place Bet”, verify and submit the auto-filled Metamask transaction</li>
                         <li>Betting is locked once the race starts</li>
-                        <li >Track the winning coin using the % value under “Leading”</li>
+                        <li >Track the winning coin using the % value under "Price change %"</li>
                         <li >After the race ends, check bet results and claim winnings using the buttons at the bottom of the page</li>
                         <li>Odds shows the potential winning for 1 ETH bet, includes the 1 ETH</li>
                     </ul>
