@@ -144,15 +144,15 @@ export default class Header extends Component {
                         <li>Enter the amount you are willing to bet (Min 0.01 ETH)</li>
                         <li>Click “Place Bet”, verify and submit the auto-filled Metamask transaction</li>
                         <li>Betting is locked once the race starts</li>
-                        <li >Track the winning coin using the % value under "Price change %"</li>
-                        <li >After the race ends, check bet results and claim winnings using the buttons at the bottom of the page</li>
+                        <li>Track the winning coin using the % value under "Price change %"</li>
+                        <li>After the race ends, check bet results and claim winnings using the buttons at the bottom of the page</li>
                         <li>Odds shows the potential winning for 1 ETH bet, includes the 1 ETH</li>
                     </ul>
                     <h5>About the race</h5>
                     <ul class="help-text">
-                        <li>Betting is open for 6 hrs for all the races</li>
+                        <li>Betting is open for 6 hrs in 24 hr races and 4 hrs on 1 hr races</li>
                         <li>There are two different races, differentiated by a race period of 24 hrs and 1 hr</li>
-                        <li>There are four 1hr races and two 24hr races every day. Upcoming races are shown on the sidebar</li>
+                        <li>There are six 1hr races and one 24hr races every day. Upcoming races are shown on the sidebar</li>
                         <li>Users must claim their winnings within 30 days after the race ends</li>
                     </ul>
                     <span hidden={link_to_mainnet}>Bet with real ether at <a href="https://bet.ethorse.com" target="_blank" >bet.ethorse.com</a><br/></span>
