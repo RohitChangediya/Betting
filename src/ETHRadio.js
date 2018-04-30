@@ -202,7 +202,7 @@ export default class ETHRadio extends React.Component {
                                 }
                             }
                         });
-                    }
+                    });
                 });
             });
         });
