@@ -3,7 +3,7 @@ import {Accordion, Icon} from 'semantic-ui-react';
 import configjson from './config.json'
 var Web3 = require('web3');
 
-var web3 = new Web3(Web3.givenProvider);
+var web3 = new Web3(Web3.givenProvider || new Web3.providers.HttpProvider("https://mainnet.infura.io/"));
 var moment = require('moment');
 if (!process.env.REACT_APP_ENVIRONMENT || process.env.REACT_APP_ENVIRONMENT === 'dev') {
     // dev code
@@ -54,9 +54,13 @@ export default class WeekList extends Component {
 
         var ethAccount=null;
         web3.eth.getAccounts(function(err, accounts) {
-            if(accounts!==null && accounts[0]!=undefined)
-            ethAccount = accounts[0].toLowerCase();
-            if (accounts[0]===undefined) {
+            if(err){
+                ethAccount = "0x0000000000000000000000000000000000000000";
+            }
+            else if(accounts!==null && accounts[0]!=undefined){
+                ethAccount = accounts[0].toLowerCase();
+            }
+            else if (accounts[0]===undefined) {
                 ethAccount = "0x0000000000000000000000000000000000000000";
             }
         }).then(function(){
@@ -106,7 +110,9 @@ export default class WeekList extends Component {
             if (titleProps.number == 0) {
                 var self = this;
                 web3.eth.getAccounts(function(err, accounts) {
-                    if(accounts[0]===undefined){
+                    if (err) {
+                    }
+                    else if(accounts[0]===undefined){
                         alert('Your Metamask seems to be locked. Please unlock and refresh.');
                     } else {
                         const {index} = titleProps;

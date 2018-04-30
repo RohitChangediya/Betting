@@ -12,12 +12,15 @@ import cfg from './config.json';
 import 'bootstrap/dist/css/bootstrap.css';
 
 var network = cfg.network;
+var link_to_mainnet = true;
 if (network !== "Main") {
     network = network+".";
+    link_to_mainnet = false;
 } else {
     network = "";
 }
 
+console.log(link_to_mainnet);
 export default class Header extends Component {
 
     constructor(props) {
@@ -152,7 +155,7 @@ export default class Header extends Component {
                         <li>There are four 1hr races and two 24hr races every day. Upcoming races are shown on the sidebar</li>
                         <li>Users must claim their winnings within 30 days after the race ends</li>
                     </ul>
-                    <br/>
+                    <span hidden={link_to_mainnet}>Bet with real ether at <a href="https://bet.ethorse.com" target="_blank" >bet.ethorse.com</a><br/></span>
                     Contract Address:<a href={address_link} rel="noopener noreferrer" target="_blank">{this.props.contract}</a>
                 </ModalBody>
                 <ModalFooter>
