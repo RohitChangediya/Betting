@@ -94,114 +94,110 @@ export default class ETHRadio extends React.Component {
                         ethAccount = "0x0000000000000000000000000000000000000000";
                     }
                 }).then(function(){
-                    instance.chronus().then(function(info) {
-                        race_end = info[2];
-
-                        instance.getCoinIndex("ETH",ethAccount).then(function(value) {
-                            console.log("value:",value);
-                            var eth = self.getOddsDetails(value, reward);
-                            if (eth.pre_price !== "TBC") {
-                                fetch("https://api.coinmarketcap.com/v1/ticker/ethereum/").then(function(details) {
-                                    // console.log(details.json().then());
-                                    return details.json().then(function(value) {
-                                        eth["pre_price"] = eth["pre_price"].toFixed(2);
-                                        let inc = Math.round(((value[0].price_usd - eth.pre_price) / eth.pre_price) * 100000) / 1000;
+                    instance.getCoinIndex("ETH",ethAccount).then(function(value) {
+                        console.log("value:",value);
+                        var eth = self.getOddsDetails(value, reward);
+                        if (eth.pre_price !== "TBC") {
+                            fetch("https://api.coinmarketcap.com/v1/ticker/ethereum/").then(function(details) {
+                                // console.log(details.json().then());
+                                return details.json().then(function(value) {
+                                    eth["pre_price"] = eth["pre_price"].toFixed(2);
+                                    let inc = Math.round(((value[0].price_usd - eth.pre_price) / eth.pre_price) * 100000) / 1000;
+                                    eth['percentage'] = inc + " %";
+                                    if (eth["post_price"] !== "TBC") {
+                                        eth["post_price"] = eth["post_price"].toFixed(2);
+                                        inc = Math.round(((eth.post_price - eth.pre_price) / eth.pre_price) * 100000) / 1000;
                                         eth['percentage'] = inc + " %";
-                                        if (eth["post_price"] !== "TBC") {
-                                            eth["post_price"] = eth["post_price"].toFixed(2);
-                                            inc = Math.round(((eth.post_price - eth.pre_price) / eth.pre_price) * 100000) / 1000;
-                                            eth['percentage'] = inc + " %";
-                                            eth["post_price"] = "$ " + eth["post_price"];
-                                            eth.post_price_title="End Price"
-                                        }
-                                        else{
-                                            eth["post_price"] = "$ " + parseFloat(value[0].price_usd).toFixed(2);
-                                        }
-                                        eth["pre_price"] = "$ " + eth["pre_price"];
+                                        eth["post_price"] = "$ " + eth["post_price"];
+                                        eth.post_price_title="End Price"
+                                    }
+                                    else{
+                                        eth["post_price"] = "$ " + parseFloat(value[0].price_usd).toFixed(2);
+                                    }
+                                    eth["pre_price"] = "$ " + eth["pre_price"];
+                                    self.setState({eth_pool: eth});
+                                })
+                            })
+                        } else {
+                            if (!this.props.voided_bet){
+                                fetch("https://api.coinmarketcap.com/v1/ticker/ethereum/").then(function(details) {
+                                    return details.json().then(function(value) {
+                                        eth["post_price"] = "$ " + parseFloat(value[0].price_usd).toFixed(2);
                                         self.setState({eth_pool: eth});
                                     })
                                 })
-                            } else {
-                                if (!race_end){
-                                    fetch("https://api.coinmarketcap.com/v1/ticker/ethereum/").then(function(details) {
-                                        return details.json().then(function(value) {
-                                            eth["post_price"] = "$ " + parseFloat(value[0].price_usd).toFixed(2);
-                                            self.setState({eth_pool: eth});
-                                        })
-                                    })
-                                }
                             }
-                        });
-                        instance.getCoinIndex("LTC",ethAccount).then(function(value) {
-                            var ltc = self.getOddsDetails(value, reward);
-                            if (ltc.pre_price !== "TBC") {
-                                fetch("https://api.coinmarketcap.com/v1/ticker/litecoin/").then(function(details) {
-                                    // console.log(details.json().then());
-                                    return details.json().then(function(value) {
-                                        ltc["pre_price"] = ltc["pre_price"].toFixed(2);
-                                        let inc = Math.round(((value[0].price_usd - ltc.pre_price) / ltc.pre_price) * 100000) / 1000;
+                        }
+                    });
+                    instance.getCoinIndex("LTC",ethAccount).then(function(value) {
+                        var ltc = self.getOddsDetails(value, reward);
+                        if (ltc.pre_price !== "TBC") {
+                            fetch("https://api.coinmarketcap.com/v1/ticker/litecoin/").then(function(details) {
+                                // console.log(details.json().then());
+                                return details.json().then(function(value) {
+                                    ltc["pre_price"] = ltc["pre_price"].toFixed(2);
+                                    let inc = Math.round(((value[0].price_usd - ltc.pre_price) / ltc.pre_price) * 100000) / 1000;
+                                    ltc['percentage'] = inc + " %";
+                                    if (ltc["post_price"] !== "TBC") {
+                                        ltc["post_price"] = ltc["post_price"].toFixed(2);
+                                        inc = Math.round(((ltc.post_price - ltc.pre_price) / ltc.pre_price) * 100000) / 1000;
                                         ltc['percentage'] = inc + " %";
-                                        if (ltc["post_price"] !== "TBC") {
-                                            ltc["post_price"] = ltc["post_price"].toFixed(2);
-                                            inc = Math.round(((ltc.post_price - ltc.pre_price) / ltc.pre_price) * 100000) / 1000;
-                                            ltc['percentage'] = inc + " %";
-                                            ltc["post_price"] = "$ " + ltc["post_price"];
-                                            ltc.post_price_title="End Price"
-                                        }
-                                        else{
-                                            ltc["post_price"] = "$ " + parseFloat(value[0].price_usd).toFixed(2);
-                                        }
-                                        ltc["pre_price"] = "$ " + ltc["pre_price"];
-                                        // console.log(ltc)
+                                        ltc["post_price"] = "$ " + ltc["post_price"];
+                                        ltc.post_price_title="End Price"
+                                    }
+                                    else{
+                                        ltc["post_price"] = "$ " + parseFloat(value[0].price_usd).toFixed(2);
+                                    }
+                                    ltc["pre_price"] = "$ " + ltc["pre_price"];
+                                    // console.log(ltc)
+                                    self.setState({ltc_pool: ltc});
+                                })
+                            })
+                        } else {
+                            if (!this.props.voided_bet){
+                                fetch("https://api.coinmarketcap.com/v1/ticker/litecoin/").then(function(details) {
+                                    return details.json().then(function(value) {
+                                        ltc["post_price"] = "$ " + parseFloat(value[0].price_usd).toFixed(2);
                                         self.setState({ltc_pool: ltc});
                                     })
                                 })
-                            } else {
-                                if (!ace_end){
-                                    fetch("https://api.coinmarketcap.com/v1/ticker/litecoin/").then(function(details) {
-                                        return details.json().then(function(value) {
-                                            ltc["post_price"] = "$ " + parseFloat(value[0].price_usd).toFixed(2);
-                                            self.setState({ltc_pool: ltc});
-                                        })
-                                    })
-                                }
                             }
-                        });
-                        instance.getCoinIndex("BTC",ethAccount).then(function(value) {
-                            var btc = self.getOddsDetails(value, reward);
-                            if (btc.pre_price !== "TBC") {
-                                fetch("https://api.coinmarketcap.com/v1/ticker/bitcoin/").then(function(details) {
-                                    // console.log(details.json().then());
-                                    return details.json().then(function(value) {
-                                        btc["pre_price"] = btc["pre_price"].toFixed(2);
-                                        let inc = Math.round(((value[0].price_usd - btc.pre_price) / btc.pre_price) * 100000) / 1000;
+                        }
+                    });
+                    instance.getCoinIndex("BTC",ethAccount).then(function(value) {
+                        var btc = self.getOddsDetails(value, reward);
+                        if (btc.pre_price !== "TBC") {
+                            fetch("https://api.coinmarketcap.com/v1/ticker/bitcoin/").then(function(details) {
+                                // console.log(details.json().then());
+                                return details.json().then(function(value) {
+                                    btc["pre_price"] = btc["pre_price"].toFixed(2);
+                                    let inc = Math.round(((value[0].price_usd - btc.pre_price) / btc.pre_price) * 100000) / 1000;
+                                    btc['percentage'] = inc + " %";
+                                    if (btc["post_price"] !== "TBC") {
+                                        btc["post_price"] = btc["post_price"].toFixed(2);
+                                        inc = Math.round(((btc.post_price - btc.pre_price) / btc.pre_price) * 100000) / 1000;
                                         btc['percentage'] = inc + " %";
-                                        if (btc["post_price"] !== "TBC") {
-                                            btc["post_price"] = btc["post_price"].toFixed(2);
-                                            inc = Math.round(((btc.post_price - btc.pre_price) / btc.pre_price) * 100000) / 1000;
-                                            btc['percentage'] = inc + " %";
-                                            btc["post_price"] = "$ " + btc["post_price"];
-                                            btc.post_price_title="End Price"
-                                        }
-                                        else{
-                                            btc["post_price"] = "$ " + parseFloat(value[0].price_usd).toFixed(2);
-                                        }
-                                        btc["pre_price"] = "$ " + btc["pre_price"];
-                                        // console.log(btc)
+                                        btc["post_price"] = "$ " + btc["post_price"];
+                                        btc.post_price_title="End Price"
+                                    }
+                                    else{
+                                        btc["post_price"] = "$ " + parseFloat(value[0].price_usd).toFixed(2);
+                                    }
+                                    btc["pre_price"] = "$ " + btc["pre_price"];
+                                    // console.log(btc)
+                                    self.setState({btc_pool: btc});
+                                })
+                            })
+                        } else {
+                            if (!this.props.voided_bet){
+                                fetch("https://api.coinmarketcap.com/v1/ticker/bitcoin/").then(function(details) {
+                                    return details.json().then(function(value) {
+                                        btc["post_price"] = "$ " + parseFloat(value[0].price_usd).toFixed(2);
                                         self.setState({btc_pool: btc});
                                     })
                                 })
-                            } else {
-                                if (!race_end){
-                                    fetch("https://api.coinmarketcap.com/v1/ticker/bitcoin/").then(function(details) {
-                                        return details.json().then(function(value) {
-                                            btc["post_price"] = "$ " + parseFloat(value[0].price_usd).toFixed(2);
-                                            self.setState({btc_pool: btc});
-                                        })
-                                    })
-                                }
                             }
-                        });
+                        }
                     });
                 });
             });
