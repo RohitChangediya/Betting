@@ -127,8 +127,8 @@ export default class ETHRadio extends React.Component {
                                     })
                                 })
                             } else {
-                                btc["post_price"] = "TBC";
-                                btc.post_price_title="End Price";
+                                eth["post_price"] = "TBC";
+                                eth.post_price_title="End Price";
                                 self.setState({eth_pool: eth});
                             }
                         }
@@ -166,8 +166,8 @@ export default class ETHRadio extends React.Component {
                                     })
                                 })
                             } else {
-                                btc["post_price"] = "TBC";
-                                btc.post_price_title="End Price";
+                                ltc["post_price"] = "TBC";
+                                ltc.post_price_title="End Price";
                                 self.setState({ltc_pool: ltc});
                             }
                         }
