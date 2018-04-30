@@ -284,25 +284,13 @@ class App extends Component {
                 if (ethAccount === undefined) {
                     alert('Your Metamask seems to be locked. Please unlock to place a bet.')
                 } else {
-
-                    fetch(ip+"/bridge/detect", {
-                        method: 'GET',
-                    }).then(function(ipinfo) {
-                        ipinfo.json().then(function(ipcountry) {
-                            if (ipcountry.country !== "US") {
-                                const txo = {
-                                    from: ethAccount
-                                };
-                                instance.claim_reward.estimateGas(txo).then(function(gas) {
-                                    txo.gas = gas;
-                                    instance.claim_reward(txo).then(function(res, error) {});
-                                })
-                            } else {
-                                alert("Platform not available in your country");
-                            }
-                        });
-
-                    });
+                    const txo = {
+                        from: ethAccount
+                    };
+                    instance.claim_reward.estimateGas(txo).then(function(gas) {
+                        txo.gas = gas;
+                        instance.claim_reward(txo).then(function(res, error) {});
+                    })
                 }
 
             });
