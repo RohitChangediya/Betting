@@ -119,7 +119,7 @@ export default class ETHRadio extends React.Component {
                                 })
                             })
                         } else {
-                            if (!this.state.race_end){
+                            if (!self.state.race_end){
                                 fetch("https://api.coinmarketcap.com/v1/ticker/ethereum/").then(function(details) {
                                     return details.json().then(function(value) {
                                         eth["post_price"] = "$ " + parseFloat(value[0].price_usd).toFixed(2);
@@ -154,7 +154,7 @@ export default class ETHRadio extends React.Component {
                                 })
                             })
                         } else {
-                            if (!this.state.race_end){
+                            if (!self.state.race_end){
                                 fetch("https://api.coinmarketcap.com/v1/ticker/litecoin/").then(function(details) {
                                     return details.json().then(function(value) {
                                         ltc["post_price"] = "$ " + parseFloat(value[0].price_usd).toFixed(2);
@@ -189,7 +189,7 @@ export default class ETHRadio extends React.Component {
                                 })
                             })
                         } else {
-                            if (!this.state.race_end){
+                            if (!self.state.race_end){
                                 fetch("https://api.coinmarketcap.com/v1/ticker/bitcoin/").then(function(details) {
                                     return details.json().then(function(value) {
                                         btc["post_price"] = "$ " + parseFloat(value[0].price_usd).toFixed(2);
