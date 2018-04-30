@@ -61,7 +61,7 @@ export default class ETHRadio extends React.Component {
         var profit = 0
         var coin_bet = parseFloat(web3.utils.fromWei(value[0], "ether"))
         if (coin_bet > 0)
-            profit = Math.round((reward / coin_bet) * 95) / 100;
+        profit = Math.round((reward / coin_bet) * 95) / 100;
         var coin_details = {
             pool_total: parseFloat(web3.utils.fromWei(value[0].toString(), "ether")).toFixed(2),
             pre_price: (value[1] / 100),
@@ -89,110 +89,116 @@ export default class ETHRadio extends React.Component {
                 reward = web3.utils.fromWei(reward, "ether")
                 var ethAccount;
                 web3.eth.getAccounts(function(err, accounts) {
-                  ethAccount = accounts[0];
-                  if (ethAccount === undefined) {
-                      ethAccount = "0x0000000000000000000000000000000000000000";
-                  }
-                  }).then(function(){                      
-                      instance.getCoinIndex("ETH",ethAccount).then(function(value) {
-                          console.log("value:",value);
-                          var eth = self.getOddsDetails(value, reward);
-                          if (eth.pre_price !== "TBC") {
-                              fetch("https://api.coinmarketcap.com/v1/ticker/ethereum/").then(function(details) {
-                                  // console.log(details.json().then());
-                                  return details.json().then(function(value) {
-                                      eth["pre_price"] = eth["pre_price"].toFixed(2);
-                                      let inc = Math.round(((value[0].price_usd - eth.pre_price) / eth.pre_price) * 100000) / 1000;
-                                      eth['percentage'] = inc + " %";
-                                      if (eth["post_price"] !== "TBC") {
-                                          eth["post_price"] = eth["post_price"].toFixed(2);
-                                          inc = Math.round(((eth.post_price - eth.pre_price) / eth.pre_price) * 100000) / 1000;
-                                          eth['percentage'] = inc + " %";
-                                          eth["post_price"] = "$ " + eth["post_price"];
-                                          eth.post_price_title="End Price"
-                                      }
-                                      else{
-                                        eth["post_price"] = "$ " + parseFloat(value[0].price_usd).toFixed(2);
-                                      }
-                                      eth["pre_price"] = "$ " + eth["pre_price"];
-                                      self.setState({eth_pool: eth});
-                                  })
-                              })
-                          } else {
+                    ethAccount = accounts[0];
+                    if (ethAccount === undefined) {
+                        ethAccount = "0x0000000000000000000000000000000000000000";
+                    }
+                }).then(function(){
+                    instance.getCoinIndex("ETH",ethAccount).then(function(value) {
+                        console.log("value:",value);
+                        var eth = self.getOddsDetails(value, reward);
+                        if (eth.pre_price !== "TBC") {
                             fetch("https://api.coinmarketcap.com/v1/ticker/ethereum/").then(function(details) {
+                                // console.log(details.json().then());
                                 return details.json().then(function(value) {
-                                    eth["post_price"] = "$ " + parseFloat(value[0].price_usd).toFixed(2);
+                                    eth["pre_price"] = eth["pre_price"].toFixed(2);
+                                    let inc = Math.round(((value[0].price_usd - eth.pre_price) / eth.pre_price) * 100000) / 1000;
+                                    eth['percentage'] = inc + " %";
+                                    if (eth["post_price"] !== "TBC") {
+                                        eth["post_price"] = eth["post_price"].toFixed(2);
+                                        inc = Math.round(((eth.post_price - eth.pre_price) / eth.pre_price) * 100000) / 1000;
+                                        eth['percentage'] = inc + " %";
+                                        eth["post_price"] = "$ " + eth["post_price"];
+                                        eth.post_price_title="End Price"
+                                    }
+                                    else{
+                                        eth["post_price"] = "$ " + parseFloat(value[0].price_usd).toFixed(2);
+                                    }
+                                    eth["pre_price"] = "$ " + eth["pre_price"];
                                     self.setState({eth_pool: eth});
                                 })
                             })
-                          }
-                      });
-                instance.getCoinIndex("LTC",ethAccount).then(function(value) {
-                    var ltc = self.getOddsDetails(value, reward);
-                    if (ltc.pre_price !== "TBC") {
-                        fetch("https://api.coinmarketcap.com/v1/ticker/litecoin/").then(function(details) {
-                            // console.log(details.json().then());
-                            return details.json().then(function(value) {
-                                ltc["pre_price"] = ltc["pre_price"].toFixed(2);
-                                let inc = Math.round(((value[0].price_usd - ltc.pre_price) / ltc.pre_price) * 100000) / 1000;
-                                ltc['percentage'] = inc + " %";
-                                if (ltc["post_price"] !== "TBC") {
-                                    ltc["post_price"] = ltc["post_price"].toFixed(2);
-                                    inc = Math.round(((ltc.post_price - ltc.pre_price) / ltc.pre_price) * 100000) / 1000;
+                        } else {
+                            if (!this.state.race_end){
+                                fetch("https://api.coinmarketcap.com/v1/ticker/ethereum/").then(function(details) {
+                                    return details.json().then(function(value) {
+                                        eth["post_price"] = "$ " + parseFloat(value[0].price_usd).toFixed(2);
+                                        self.setState({eth_pool: eth});
+                                    })
+                                })
+                            }
+                        }
+                    });
+                    instance.getCoinIndex("LTC",ethAccount).then(function(value) {
+                        var ltc = self.getOddsDetails(value, reward);
+                        if (ltc.pre_price !== "TBC") {
+                            fetch("https://api.coinmarketcap.com/v1/ticker/litecoin/").then(function(details) {
+                                // console.log(details.json().then());
+                                return details.json().then(function(value) {
+                                    ltc["pre_price"] = ltc["pre_price"].toFixed(2);
+                                    let inc = Math.round(((value[0].price_usd - ltc.pre_price) / ltc.pre_price) * 100000) / 1000;
                                     ltc['percentage'] = inc + " %";
-                                    ltc["post_price"] = "$ " + ltc["post_price"];
-                                    ltc.post_price_title="End Price"
-                                }
-                                else{
-                                  ltc["post_price"] = "$ " + parseFloat(value[0].price_usd).toFixed(2);
-                                }
-                                ltc["pre_price"] = "$ " + ltc["pre_price"];
-                                // console.log(ltc)
-                                self.setState({ltc_pool: ltc});
+                                    if (ltc["post_price"] !== "TBC") {
+                                        ltc["post_price"] = ltc["post_price"].toFixed(2);
+                                        inc = Math.round(((ltc.post_price - ltc.pre_price) / ltc.pre_price) * 100000) / 1000;
+                                        ltc['percentage'] = inc + " %";
+                                        ltc["post_price"] = "$ " + ltc["post_price"];
+                                        ltc.post_price_title="End Price"
+                                    }
+                                    else{
+                                        ltc["post_price"] = "$ " + parseFloat(value[0].price_usd).toFixed(2);
+                                    }
+                                    ltc["pre_price"] = "$ " + ltc["pre_price"];
+                                    // console.log(ltc)
+                                    self.setState({ltc_pool: ltc});
+                                })
                             })
-                        })
-                    } else {
-                      fetch("https://api.coinmarketcap.com/v1/ticker/litecoin/").then(function(details) {
-                          return details.json().then(function(value) {
-                              ltc["post_price"] = "$ " + parseFloat(value[0].price_usd).toFixed(2);
-                              self.setState({ltc_pool: ltc});
-                          })
-                      })
-                    }
-                });
-                instance.getCoinIndex("BTC",ethAccount).then(function(value) {
-                    var btc = self.getOddsDetails(value, reward);
-                    if (btc.pre_price !== "TBC") {
-                        fetch("https://api.coinmarketcap.com/v1/ticker/bitcoin/").then(function(details) {
-                            // console.log(details.json().then());
-                            return details.json().then(function(value) {
-                                btc["pre_price"] = btc["pre_price"].toFixed(2);
-                                let inc = Math.round(((value[0].price_usd - btc.pre_price) / btc.pre_price) * 100000) / 1000;
-                                btc['percentage'] = inc + " %";
-                                if (btc["post_price"] !== "TBC") {
-                                    btc["post_price"] = btc["post_price"].toFixed(2);
-                                    inc = Math.round(((btc.post_price - btc.pre_price) / btc.pre_price) * 100000) / 1000;
+                        } else {
+                            if (!this.state.race_end){
+                                fetch("https://api.coinmarketcap.com/v1/ticker/litecoin/").then(function(details) {
+                                    return details.json().then(function(value) {
+                                        ltc["post_price"] = "$ " + parseFloat(value[0].price_usd).toFixed(2);
+                                        self.setState({ltc_pool: ltc});
+                                    })
+                                })
+                            }
+                        }
+                    });
+                    instance.getCoinIndex("BTC",ethAccount).then(function(value) {
+                        var btc = self.getOddsDetails(value, reward);
+                        if (btc.pre_price !== "TBC") {
+                            fetch("https://api.coinmarketcap.com/v1/ticker/bitcoin/").then(function(details) {
+                                // console.log(details.json().then());
+                                return details.json().then(function(value) {
+                                    btc["pre_price"] = btc["pre_price"].toFixed(2);
+                                    let inc = Math.round(((value[0].price_usd - btc.pre_price) / btc.pre_price) * 100000) / 1000;
                                     btc['percentage'] = inc + " %";
-                                    btc["post_price"] = "$ " + btc["post_price"];
-                                    btc.post_price_title="End Price"
-                                }
-                                else{
-                                  btc["post_price"] = "$ " + parseFloat(value[0].price_usd).toFixed(2);
-                                }
-                                btc["pre_price"] = "$ " + btc["pre_price"];
-                                // console.log(btc)
-                                self.setState({btc_pool: btc});
+                                    if (btc["post_price"] !== "TBC") {
+                                        btc["post_price"] = btc["post_price"].toFixed(2);
+                                        inc = Math.round(((btc.post_price - btc.pre_price) / btc.pre_price) * 100000) / 1000;
+                                        btc['percentage'] = inc + " %";
+                                        btc["post_price"] = "$ " + btc["post_price"];
+                                        btc.post_price_title="End Price"
+                                    }
+                                    else{
+                                        btc["post_price"] = "$ " + parseFloat(value[0].price_usd).toFixed(2);
+                                    }
+                                    btc["pre_price"] = "$ " + btc["pre_price"];
+                                    // console.log(btc)
+                                    self.setState({btc_pool: btc});
+                                })
                             })
-                        })
-                    } else {
-                      fetch("https://api.coinmarketcap.com/v1/ticker/bitcoin/").then(function(details) {
-                          return details.json().then(function(value) {
-                              btc["post_price"] = "$ " + parseFloat(value[0].price_usd).toFixed(2);
-                              self.setState({btc_pool: btc});
-                          })
-                      })
-                    }
-                });
+                        } else {
+                            if (!this.state.race_end){
+                                fetch("https://api.coinmarketcap.com/v1/ticker/bitcoin/").then(function(details) {
+                                    return details.json().then(function(value) {
+                                        btc["post_price"] = "$ " + parseFloat(value[0].price_usd).toFixed(2);
+                                        self.setState({btc_pool: btc});
+                                    })
+                                })
+                            }
+                        }
+                    });
                 });
             });
         });
@@ -201,31 +207,31 @@ export default class ETHRadio extends React.Component {
     }
     coinRadio(rSelected) {
         let ethHTML,
-            btcHTML,
-            ltcHTML;
+        btcHTML,
+        ltcHTML;
         ethHTML = btcHTML = ltcHTML = '<i class="fa fa-circle-o" aria-hidden="true"></i>';
         switch (rSelected) {
             case 'ETH':
-                ethHTML = '<i class="fa fa-dot-circle-o" aria-hidden="true"></i>';
-                break;
+            ethHTML = '<i class="fa fa-dot-circle-o" aria-hidden="true"></i>';
+            break;
             case 'BTC':
-                btcHTML = '<i class="fa fa-dot-circle-o" aria-hidden="true"></i>';
-                break;
+            btcHTML = '<i class="fa fa-dot-circle-o" aria-hidden="true"></i>';
+            break;
             case 'LTC':
-                ltcHTML = '<i class="fa fa-dot-circle-o" aria-hidden="true"></i>';
-                break;
+            ltcHTML = '<i class="fa fa-dot-circle-o" aria-hidden="true"></i>';
+            break;
             default:
-                break;
+            break;
         }
         return [btcHTML,ethHTML,ltcHTML];
     }
     handleChange(rSelected) {
-      if(this.props.betting_open && !this.props.voided_bet){
-          let coinHTML=this.coinRadio(rSelected);
-        // console.log(coinHTML);
-        this.setState({rSelected, value: rSelected, btcHTML:coinHTML[0], ethHTML:coinHTML[1], ltcHTML:coinHTML[2]});
-        this.props.onSubmit(rSelected);
-      }
+        if(this.props.betting_open && !this.props.voided_bet){
+            let coinHTML=this.coinRadio(rSelected);
+            // console.log(coinHTML);
+            this.setState({rSelected, value: rSelected, btcHTML:coinHTML[0], ethHTML:coinHTML[1], ltcHTML:coinHTML[2]});
+            this.props.onSubmit(rSelected);
+        }
     }
     componentWillMount() {
         var self = this;
@@ -279,7 +285,7 @@ export default class ETHRadio extends React.Component {
                                 <div className="odds_value text-center">{this.state.btc_pool.odds}</div>
                             </div>
                         </div>
-                        </div>
+                    </div>
 
                     <div className="col-lg-12 col-xl-7">
                         <div className="row">
@@ -326,7 +332,7 @@ export default class ETHRadio extends React.Component {
                     </div>
                     <div className="col-lg-12 col-xl-7">
 
-	                    <div className="row">
+                        <div className="row">
                             <div className="col-sm-3 col-md-3 col-lg-3 col-xl-3">
                                 <div className="bets_number text-center">My bets (ETH)</div>
                                 <div className="bets_number_value text-center">{this.state.eth_pool.my_bets}</div>
@@ -369,7 +375,7 @@ export default class ETHRadio extends React.Component {
                         </div>
                     </div>
                     <div className="col-lg-12 col-xl-7">
-	                   <div className="row">
+                        <div className="row">
                             <div className="col-sm-3 col-md-3 col-lg-3 col-xl-3">
                                 <div className="bets_number text-center">My bets (ETH)</div>
                                 <div className="bets_number_value text-center">{this.state.ltc_pool.my_bets}</div>

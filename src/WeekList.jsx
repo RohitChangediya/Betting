@@ -3,7 +3,7 @@ import {Accordion, Icon} from 'semantic-ui-react';
 import configjson from './config.json'
 var Web3 = require('web3');
 
-var web3 = new Web3(Web3.givenProvider || new Web3.providers.HttpProvider("https://mainnet.infura.io/"));
+var web3 = new Web3(Web3.givenProvider);
 var moment = require('moment');
 if (!process.env.REACT_APP_ENVIRONMENT || process.env.REACT_APP_ENVIRONMENT === 'dev') {
     // dev code
