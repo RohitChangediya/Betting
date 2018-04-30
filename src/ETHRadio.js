@@ -111,8 +111,13 @@ export default class ETHRadio extends React.Component {
                                         eth["post_price"] = "$ " + eth["post_price"];
                                         eth.post_price_title="End Price"
                                     }
-                                    else{
-                                        eth["post_price"] = "$ " + parseFloat(value[0].price_usd).toFixed(2);
+                                    else {
+                                        if (!self.props.voided_bet){
+                                            eth["post_price"] = "$ " + parseFloat(value[0].price_usd).toFixed(2);
+                                        } else {
+                                            eth.post_price_title="End Price";
+                                            self.setState({eth_pool: eth});
+                                        }
                                     }
                                     eth["pre_price"] = "$ " + eth["pre_price"];
                                     self.setState({eth_pool: eth});
@@ -127,10 +132,9 @@ export default class ETHRadio extends React.Component {
                                     })
                                 })
                             } else {
-                                eth["post_price"] = "TBC";
                                 eth.post_price_title="End Price";
                                 self.setState({eth_pool: eth});
-                            }
+                            }    
                         }
                     });
                     instance.getCoinIndex("LTC",ethAccount).then(function(value) {
@@ -150,7 +154,12 @@ export default class ETHRadio extends React.Component {
                                         ltc.post_price_title="End Price"
                                     }
                                     else{
-                                        ltc["post_price"] = "$ " + parseFloat(value[0].price_usd).toFixed(2);
+                                        if (!self.props.voided_bet){
+                                            ltc["post_price"] = "$ " + parseFloat(value[0].price_usd).toFixed(2);
+                                        } else {
+                                            ltc.post_price_title="End Price";
+                                            self.setState({ltc_pool: ltc});
+                                        }
                                     }
                                     ltc["pre_price"] = "$ " + ltc["pre_price"];
                                     // console.log(ltc)
@@ -166,10 +175,10 @@ export default class ETHRadio extends React.Component {
                                     })
                                 })
                             } else {
-                                ltc["post_price"] = "TBC";
                                 ltc.post_price_title="End Price";
                                 self.setState({ltc_pool: ltc});
                             }
+
                         }
                     });
                     instance.getCoinIndex("BTC",ethAccount).then(function(value) {
@@ -189,7 +198,12 @@ export default class ETHRadio extends React.Component {
                                         btc.post_price_title="End Price"
                                     }
                                     else{
-                                        btc["post_price"] = "$ " + parseFloat(value[0].price_usd).toFixed(2);
+                                        if (!self.props.voided_bet){
+                                            btc["post_price"] = "$ " + parseFloat(value[0].price_usd).toFixed(2);
+                                        } else {
+                                            btc.post_price_title="End Price";
+                                            self.setState({btc_pool: btc});
+                                        }
                                     }
                                     btc["pre_price"] = "$ " + btc["pre_price"];
                                     // console.log(btc)
@@ -205,7 +219,6 @@ export default class ETHRadio extends React.Component {
                                     })
                                 })
                             } else {
-                                btc["post_price"] = "TBC";
                                 btc.post_price_title="End Price";
                                 self.setState({btc_pool: btc});
                             }
