@@ -149,7 +149,7 @@ export default class WeekList extends Component {
                             <div className={"status-race-sidebar " + row.contractid} number={0}>Status
                                 <span className={"status_race_value live " + row.contractid} number={0}>{row.active}</span>
                             </div>
-                            <div className="duration-race-sidebar"><img src={require("./assets/Orion_hour.png")} className="duration_icon_sidebar" alt=""/>Duration : <span className="duration_race_value">{row.race_duration/3600} { row.race_duration/3600>1 ? <span>hours</span> : <span>hour</span> }</span></div>
+                            <div className="duration-race-sidebar"><img src={require("./assets/Orion_hour.png")} className="duration_icon_sidebar" alt=""/>Duration : <span className="duration_race_value">{row.race_duration/3600}{ row.race_duration/3600>1 ? <span className="duration_race_value">hours</span> : <span className="duration_race_value">hour</span> }</span></div>
                         </div>)
                     }
                     else if(row.active==="Open for bets"){
@@ -162,7 +162,7 @@ export default class WeekList extends Component {
                             <div className={"status-race-sidebar " + row.contractid} number={0}>Status
                                 <span className={"status_race_value open " + row.contractid} number={0}>{row.active}</span>
                             </div>
-                            <div className="duration-race-sidebar"><img src={require("./assets/Orion_hour.png")} className="duration_icon_sidebar" alt=""/>Duration : <span className="duration_race_value">{row.race_duration/3600} { row.race_duration/3600>1 ? <span>hours</span> : <span>hour</span> }</span></div>
+                            <div className="duration-race-sidebar"><img src={require("./assets/Orion_hour.png")} className="duration_icon_sidebar" alt=""/>Duration : <span className="duration_race_value">{row.race_duration/3600}{ row.race_duration/3600>1 ? <span className="duration_race_value">hours</span> : <span className="duration_race_value">hour</span> }</span></div>
                         </div>)
                     }
                     else{
@@ -180,7 +180,7 @@ export default class WeekList extends Component {
                         <div className={"status-race-sidebar " + row.contractid} number={1}>Status
                             <span className={"status_race_value closed " + row.contractid} number={1}>{row.active}</span>
                         </div>
-                        <div className="duration-race-sidebar"><img src={require("./assets/Orion_hour.png")} className="duration_icon_sidebar" alt=""/>Duration : <span className="duration_race_value">{row.race_duration/3600} { row.race_duration/3600>1 ? <span>hours</span> : <span>hour</span> }</span></div>
+                        <div className="duration-race-sidebar"><img src={require("./assets/Orion_hour.png")} className="duration_icon_sidebar" alt=""/>Duration : <span className="duration_race_value">{row.race_duration/3600}{ row.race_duration/3600>1 ? <span className="duration_race_value">hours</span> : <span className="duration_race_value">hour</span> }</span></div>
                     </div>)
                 }))
 
@@ -194,7 +194,7 @@ export default class WeekList extends Component {
                         <div className={"status-race-sidebar " + row.contractid} number={2}>Status
                             <span className={"status_race_value closed " + row.contractid} number={2}>{row.active}</span>
                         </div>
-                        <div className="duration-race-sidebar"><img src={require("./assets/Orion_hour.png")} className="duration_icon_sidebar" alt=""/>Duration : <span className="duration_race_value">{row.race_duration/3600} { row.race_duration/3600>1 ? <span>hours</span> : <span>hour</span> }</span></div>
+                        <div className="duration-race-sidebar"><img src={require("./assets/Orion_hour.png")} className="duration_icon_sidebar" alt=""/>Duration : <span className="duration_race_value">{row.race_duration/3600}{ row.race_duration/3600>1 ? <span className="duration_race_value">hours</span> : <span className="duration_race_value">hour</span> }</span></div>
                     </div>)
                 }))
 
