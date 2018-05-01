@@ -150,9 +150,10 @@ export default class Header extends Component {
                     </ul>
                     <h5>About the race</h5>
                     <ul class="help-text">
-                        <li>Betting is open for 6 hrs in 24 hr races and 4 hrs on 1 hr races</li>
                         <li>There are two different races, differentiated by a race period of 24 hrs and 1 hr</li>
-                        <li>There are six 1hr races and one 24hr races every day. Upcoming races are shown on the sidebar</li>
+                        <li>There are six 1hr races and one 24hr race every day. Upcoming races are shown on the sidebar</li>
+                        <li>Betting is open for 4 hours for 1 hour races and 6 hrs for 24 hour race</li>
+                        <li>If the coin start or end prices are not received on Blockchain from Oraclize, the contract can only refunds the bettor, no winners/losers will be decided</li>
                         <li>Users must claim their winnings within 30 days after the race ends</li>
                     </ul>
                     <span hidden={link_to_mainnet}>Bet with real ether at <a href="https://bet.ethorse.com" target="_blank" >bet.ethorse.com</a><br/></span>
