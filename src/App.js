@@ -140,7 +140,11 @@ class App extends Component {
                     s = s % 60;
                     h = Math.floor(m / 60);
                     m = m % 60;
-                    h = h + ' hours'
+                    if (h > 1) {
+                        h = h + ' hours';
+                    } else {
+                        h = h + ' hour';
+                    }
                     var race_duration_utc = h;
                     self.setState({betting_open,race_start,race_end,voided_bet,starting_time,betting_duration,race_duration,duration: race_duration_utc,claim: race_end,bet_phase
                     });
