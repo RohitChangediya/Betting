@@ -72,7 +72,8 @@ class App extends Component {
             version: "",
             voided_bet: false,
             raceContentUpdate:0,
-            controllerContentUpdate:0
+            controllerContentUpdate:0,
+            dappLiveStatus: false
         };
         this.invokeContract = this.invokeContract.bind(this);
         this.checkRewards = this.checkRewards.bind(this);
@@ -415,6 +416,15 @@ class App extends Component {
         } else if (this.state.contract === null) {
             return (<div>
                 <Header contractUpdate={this.contractUpdate.bind(this)}/>
+                <div className="row">
+                    <div className="col-md-2 mx-auto col-sm-1"></div>
+                    <div className="col-md-10 mx-auto col-sm-11">
+                        <h3 className="header" style={{textAlign:'center', display:'table',margin:'0 auto', marginTop:'30vh'}}>
+                            Races are currently paused due to Ethereum network congestion. Please check back later.<br/>
+                            We are releasing an upgrade soon to run races even when network is busy.
+                        </h3>
+                    </div>
+                </div>
                 <ContractSidebar onContractSubmit={this.contractUpdate.bind(this)}/>
             </div>)
         } else if (this.state.network !== this.state.targetNetwork) {

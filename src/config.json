@@ -1,5 +1,5 @@
 {
     "productionIP":"http://127.0.0.1:3000",
     "testingIP":"http://127.0.0.1:3000",
-    "network":"Kovan"
+    "network":"Main"
 }
