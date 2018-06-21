@@ -420,8 +420,7 @@ class App extends Component {
                     <div className="col-md-2 mx-auto col-sm-1"></div>
                     <div className="col-md-10 mx-auto col-sm-11">
                         <h3 className="header" style={{textAlign:'center', display:'table',margin:'0 auto', marginTop:'30vh'}}>
-                            Races are currently paused due to Ethereum network congestion. Please check back later.<br/>
-                            We are releasing an upgrade soon to run races even when network is busy.
+                            Races will be launched soon. Please check back later.
                         </h3>
                     </div>
                 </div>
