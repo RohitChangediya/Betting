@@ -162,7 +162,7 @@ export default class Header extends Component {
                         <li>A takeout of 5% from each race pool goes to the Reward pool. HORSE token holders can earn this reward pool by staking the tokens in their wallet during a fixed time.</li>
                         <li>HORSE tokens are traded on YoBit and ForkDelta</li>
                     </ul>
-                    <span>More details on <a href="https://ethorse.com" rel="noopener noreferrer" target="_blank">Ethorse.com</a></span>
+                    More details on <a href="https://ethorse.com" rel="noopener noreferrer" target="_blank">Ethorse.com</a><br/>
                     <span hidden={link_to_mainnet}>Bet with real ether at <a href="https://bet.ethorse.com" target="_blank" >bet.ethorse.com</a><br/></span>
                     Contract address of the current highlighted race:<a href={address_link} rel="noopener noreferrer" target="_blank">{this.props.contract}</a>
                 </ModalBody>
