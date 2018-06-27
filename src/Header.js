@@ -154,12 +154,12 @@ export default class Header extends Component {
                         {/* <li>There are six 1hr races and one 24hr race every day. Upcoming races are shown on the sidebar</li> */}
                         {/* <li>Betting is open for 4 hours for 1 hour races and 6 hrs for 24 hour race</li> */}
                         <li>There are five 1 hr races everyday</li>
-                        <li>If the coin start or end prices are not received on Blockchain from Oraclize in 30 minutes, the contract can only refunds the bettor, no winners/losers will be decided</li>
+                        <li>If the coin start or end prices are not received on Blockchain from Oraclize in 60 minutes, the contract can only refund the bettor, no winners/losers will be decided</li>
                         <li>Users must claim their winnings within 30 days after the race ends</li>
                     </ul>
                     <h5>About the HORSE Token</h5>
                     <ul class="help-text">
-                        <li>A takeout of 5% from each race pool goes to the Reward pool. HORSE token holders can earn this reward pool by staking the tokens in their wallet during a fixed time.</li>
+                        <li>A takeout of 5% from each race pool goes to the Reward pool. HORSE token holders can earn this reward pool by staking the tokens in their wallet during a fixed time using our dApp smart contract</li>
                         <li>HORSE tokens are traded on <a href="https://yobit.net/en/trade/HORSE/ETH" rel="noopener noreferrer" target="_blank">YoBit</a> and <a href="https://forkdelta.github.io/#!/trade/HORSE-ETH" rel="noopener noreferrer" target="_blank">ForkDelta</a></li>
                     </ul>
                     More details on <a href="https://ethorse.com" rel="noopener noreferrer" target="_blank">Ethorse.com</a><br/>
