@@ -160,7 +160,7 @@ export default class Header extends Component {
                     <h5>About the HORSE Token</h5>
                     <ul class="help-text">
                         <li>A takeout of 5% from each race pool goes to the Reward pool. HORSE token holders can earn this reward pool by staking the tokens in their wallet during a fixed time.</li>
-                        <li>HORSE tokens are traded on YoBit and ForkDelta</li>
+                        <li>HORSE tokens are traded on <a href="https://yobit.net/en/trade/HORSE/ETH" rel="noopener noreferrer" target="_blank">YoBit</a> and <a href="https://forkdelta.github.io/#!/trade/HORSE-ETH" rel="noopener noreferrer" target="_blank">ForkDelta</a></li>
                     </ul>
                     More details on <a href="https://ethorse.com" rel="noopener noreferrer" target="_blank">Ethorse.com</a><br/>
                     <span hidden={link_to_mainnet}>Bet with real ether at <a href="https://bet.ethorse.com" target="_blank" >bet.ethorse.com</a><br/></span>
