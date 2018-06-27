@@ -135,7 +135,7 @@ export default class Header extends Component {
                     <h4>Help</h4>
                 </ModalHeader>
                 <ModalBody>
-                    Bet on a cryptocurrency and win against other users based on the price performance in a given period (24 hrs / 1 hr).
+                    Bet on a cryptocurrency and win against other users based on the price performance in a given period (1 hr).
                     <br/>
                     <h5>How to use</h5>
                     <ul class="help-text">
@@ -150,14 +150,21 @@ export default class Header extends Component {
                     </ul>
                     <h5>About the race</h5>
                     <ul class="help-text">
-                        <li>There are two different races, differentiated by a race period of 24 hrs and 1 hr</li>
-                        <li>There are six 1hr races and one 24hr race every day. Upcoming races are shown on the sidebar</li>
-                        <li>Betting is open for 4 hours for 1 hour races and 6 hrs for 24 hour race</li>
+                        {/* <li>There are two different races, differentiated by a race period of 24 hrs and 1 hr</li> */}
+                        {/* <li>There are six 1hr races and one 24hr race every day. Upcoming races are shown on the sidebar</li> */}
+                        {/* <li>Betting is open for 4 hours for 1 hour races and 6 hrs for 24 hour race</li> */}
+                        <li>There are five 1 hr races everyday</li>
                         <li>If the coin start or end prices are not received on Blockchain from Oraclize in 30 minutes, the contract can only refunds the bettor, no winners/losers will be decided</li>
                         <li>Users must claim their winnings within 30 days after the race ends</li>
                     </ul>
+                    <h5>About the HORSE Token</h5>
+                    <ul class="help-text">
+                        <li>A takeout of 5% from each race pool goes to the Reward pool. HORSE token holders can earn this reward pool by staking the tokens in their wallet during a fixed time.</li>
+                        <li>HORSE tokens are traded on YoBit and ForkDelta</li>
+                    </ul>
+                    <span>More details on <a href="https://ethorse.com" rel="noopener noreferrer" target="_blank">Ethorse.com</a></span>
                     <span hidden={link_to_mainnet}>Bet with real ether at <a href="https://bet.ethorse.com" target="_blank" >bet.ethorse.com</a><br/></span>
-                    Contract Address:<a href={address_link} rel="noopener noreferrer" target="_blank">{this.props.contract}</a>
+                    Contract address of the current highlighted race:<a href={address_link} rel="noopener noreferrer" target="_blank">{this.props.contract}</a>
                 </ModalBody>
                 <ModalFooter>
                     <Button color="primary" onClick={this.toggle}>OK</Button>
