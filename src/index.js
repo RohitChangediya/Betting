@@ -16,9 +16,11 @@ import Warning from './Warning'
 var Web3 = require('web3');
 var web3 = new Web3(Web3.givenProvider);
 
-if (web3.currentProvider != null) {
-    ReactDOM.render(<App/>, document.getElementById('root'));
-} else {
-    ReactDOM.render(<Warning/>, document.getElementById('root'));
-}
+// if (web3.currentProvider != null) {
+//     ReactDOM.render(<App/>, document.getElementById('root'));
+// } else {
+//     ReactDOM.render(<Warning/>, document.getElementById('root'));
+// }
+
+ReactDOM.render(<App/>, document.getElementById('root'));
 registerServiceWorker();

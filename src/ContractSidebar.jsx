@@ -87,8 +87,10 @@ export default class ContractSidebar extends Component {
     }
 
     initiate(rSelected) {
-        this.setState({contract:rSelected});
-        this.props.onContractSubmit(rSelected);
+        if (web3.currentProvider != null){
+            this.setState({contract:rSelected});
+            this.props.onContractSubmit(rSelected);
+        }
     }
     updateUpcoming(upcomingDate){
       this.setState({upcomingDate},function(){

@@ -84,7 +84,7 @@ export default class Header extends Component {
 
             <div className="container-fluid top-bar">
             	<a className="logo" href="#"><img alt="" className="logo-img" src={require("./assets/logo.png")}/></a>
-            	<div className="versionNumber">v{this.props.version}</div>
+            	<div className="versionNumber">{this.props.version}</div>
             	<ul className="topBarRightSection">
                     <li className="help"><a href="#" onClick={this.toggle}><i className="fa fa-slack"></i>Help</a></li>
                     <li><a target="_blank" rel="noopener noreferrer" href="https://telegram.me/ethorse" ><img alt="" src={require("./assets/telegram.png")} className="telegram"/></a></li>
@@ -99,7 +99,7 @@ export default class Header extends Component {
             	<img class="close-icon" alt="Close Burger" src={require("./assets/Orion_close.png")}/>
             	<a class="alternate-bar-logo" href="#"><img alt="" className="logo-img" src={require("./assets/logo.png")}/></a>
             	<a className="alternate-bar-logo" href="#"><img alt="" className="logo-img" src={require("./assets/logo.png")}/></a>
-            	<div className="versionNumber-alternateBar">v{this.props.version}</div>
+            	<div className="versionNumber-alternateBar">{this.props.version}</div>
             	<ul className="topBarRightSection">
                     <li className="help"><a href="#" onClick={this.toggle}><i className="fa fa-slack"></i>Help</a></li>
                     <li><a target="_blank" rel="noopener noreferrer" href="https://telegram.me/ethorse" ><img alt="Telegram" className="telegram" src={require("./assets/telegram.png")}/></a></li>
@@ -139,7 +139,7 @@ export default class Header extends Component {
                     <br/>
                     <h5>How to use</h5>
                     <ul class="help-text">
-                        <li >Choose a race from the sidebar with the status "Betting open"</li>
+                        <li>Choose a race from the sidebar with the status "Betting open"</li>
                         <li>Select a coin to bet on - BTC, ETH or LTC</li>
                         <li>Enter the amount you are willing to bet (Min 0.01 ETH)</li>
                         <li>Click “Place Bet”, verify and submit the auto-filled Metamask transaction</li>
@@ -154,7 +154,9 @@ export default class Header extends Component {
                         {/* <li>There are six 1hr races and one 24hr race every day. Upcoming races are shown on the sidebar</li> */}
                         {/* <li>Betting is open for 4 hours for 1 hour races and 6 hrs for 24 hour race</li> */}
                         <li>There are five 1 hr races everyday</li>
-                        <li>If the coin start or end prices are not received on Blockchain from Oraclize in 60 minutes, the contract can only refund the bettor, no winners/losers will be decided</li>
+                        <li>If the coin start or end prices are not received on Blockchain from Oraclize in 30 minutes, Ethorse fallback Oracle kicks in to put the price (from the same start/end time) on the Blockchain.</li>
+                        <li>If there are no prices recorded for an hour hour, the contract automatically enables refund the bettor, no winners/losers will be decided.</li>
+                        <li>Our price source is Coinmarketcap API [ <a href="https://api.coinmarketcap.com/v2/ticker/?start=1&limit=10" rel="noopener noreferrer" target="_blank">https://api.coinmarketcap.com/v2/ticker/?start=1&limit=10</a> ]</li>
                         <li>Users must claim their winnings within 30 days after the race ends</li>
                     </ul>
                     <h5>About the HORSE Token</h5>
@@ -163,8 +165,8 @@ export default class Header extends Component {
                         <li>HORSE tokens are traded on <a href="https://yobit.net/en/trade/HORSE/ETH" rel="noopener noreferrer" target="_blank">YoBit</a> and <a href="https://forkdelta.github.io/#!/trade/HORSE-ETH" rel="noopener noreferrer" target="_blank">ForkDelta</a></li>
                     </ul>
                     More details on <a href="https://ethorse.com" rel="noopener noreferrer" target="_blank">Ethorse.com</a><br/>
-                    <span hidden={link_to_mainnet}>Bet with real ether at <a href="https://bet.ethorse.com" target="_blank" >bet.ethorse.com</a><br/></span>
-                    Contract address of the current highlighted race:<a href={address_link} rel="noopener noreferrer" target="_blank">{this.props.contract}</a>
+                    <span hidden={link_to_mainnet} style={{color:'black'}}>Bet with real ether at <a href="https://bet.ethorse.com" target="_blank" >bet.ethorse.com</a></span>
+                    <br/>Contract address of the current highlighted race: <a href={address_link} rel="noopener noreferrer" target="_blank">{this.props.contract}</a>
                 </ModalBody>
                 <ModalFooter>
                     <Button color="primary" onClick={this.toggle}>OK</Button>

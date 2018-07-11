@@ -100,7 +100,7 @@ class App extends Component {
                 self.setState({raceContentUpdate:Math.random()});
             }
         });
-        placeBetListener.newPriceTicker().watch(function (error, result) {
+        placeBetListener.PriceCallback().watch(function (error, result) {
             if(!error) {
                 self.setState({raceContentUpdate:Math.random()});
             }
@@ -319,7 +319,10 @@ class App extends Component {
         if (this.state.contract !== null)
         myContract.at(this.state.contract).then(function(instance) {
             instance.version().then(function(version) {
-                self.setState({version});
+                if (version !== "") {
+                    version = 'v'+version;
+                    self.setState({version});
+                }
             })
         })
     }
@@ -413,7 +416,21 @@ class App extends Component {
             </div>);
 
             return (renderContent);
-        } else if (this.state.contract === null) {
+        } else if (web3.currentProvider == null ) {
+            return (<div>
+                        <Header contractUpdate={this.contractUpdate.bind(this)}/>
+                        <div className="row">
+                            <div className="col-md-2 mx-auto col-sm-1"></div>
+                            <div className="col-md-10 mx-auto col-sm-11">
+                                <h3 className="header" style={{textAlign:'center', display:'table',margin:'0 auto', marginTop:'30vh'}}>
+                                    Ethorse runs on the Ethereum Blockchain. To view it’s awesome web page, it requires a compatible browser and plug-in. <br/>
+                                    A popular choice is installing <a href="https://metamask.io" target="_blank" rel="noopener noreferrer" >Metamask</a> plug-in on Chrome or Firefox browsers.<br/>
+                                </h3>
+                            </div>
+                        </div>
+                        <ContractSidebar />
+                    </div>)
+        }else if (this.state.contract === null) {
             return (<div>
                 <Header contractUpdate={this.contractUpdate.bind(this)}/>
                 <div className="row">
@@ -426,18 +443,28 @@ class App extends Component {
                 </div>
                 <ContractSidebar onContractSubmit={this.contractUpdate.bind(this)}/>
             </div>)
-        } else if (this.state.network !== this.state.targetNetwork) {
-            return (<Jumbotron style={{
-                'textAlign' : 'center',
-                'backgroundColor' : '#262f4a'
-            }} fluid={true}>
-            <Container>
-                <h3>Your Metamask is on {this.state.network} network.<br/>Please switch to {this.state.targetNetwork} as shown below.</h3>
-                <br/>
-                <img src={require('./assets/'+this.state.targetNetwork.toLowerCase()+'_switch.png')} target="_blank" width="30%" alt={"switch to " + this.state.targetNetwork}/>
-            </Container>
-        </Jumbotron>)
-    } else {
+        } else if (web3.currentProvider != null && this.state.network !== this.state.targetNetwork) {
+            return (
+                <div>
+                    <Header contractUpdate={this.contractUpdate.bind(this)}/>
+                    <div className="row">
+                        <div className="col-md-2 mx-auto col-sm-1"></div>
+                        <div className="col-md-10 mx-auto col-sm-11">
+                            <Jumbotron style={{
+                                        'textAlign' : 'center',
+                                        'backgroundColor' : '#262f4a'
+                                    }} fluid={true}>
+                                <Container>
+                                    <h3>Your Metamask is on {this.state.network} network.<br/>Please switch to {this.state.targetNetwork} network on Metamask as shown below.</h3>
+                                    <br/>
+                                    <img src={require('./assets/'+this.state.targetNetwork.toLowerCase()+'_switch.png')} target="_blank" width="30%" alt={"switch to " + this.state.targetNetwork}/>
+                                </Container>
+                            </Jumbotron>
+                        </div>
+                    </div>
+                    <ContractSidebar onContractSubmit={this.contractUpdate.bind(this)}/>
+                </div>)
+    }  else {
         return (<div/>);
     }
 }
