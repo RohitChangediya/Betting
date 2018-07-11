@@ -94,20 +94,18 @@ class App extends Component {
         this.setState({targetDate: time, timerStart})
     }
     componentLoad() {
-        if (this.state.contract !== ""){
-            var placeBetListener = myContract.at(this.state.contract);
-            placeBetListener.Deposit().watch(function (error, result) {
-                if(!error) {
-                    self.setState({raceContentUpdate:Math.random()});
-                }
-            });
-            placeBetListener.PriceCallback().watch(function (error, result) {
-                if(!error) {
-                    self.setState({raceContentUpdate:Math.random()});
-                }
-            });
-        }
-        
+        var placeBetListener = myContract.at(this.state.contract);
+        placeBetListener.Deposit().watch(function (error, result) {
+            if(!error) {
+                self.setState({raceContentUpdate:Math.random()});
+            }
+        });
+        placeBetListener.PriceCallback().watch(function (error, result) {
+            if(!error) {
+                self.setState({raceContentUpdate:Math.random()});
+            }
+        });
+
         var currentTime = new Date()
         this.checkNetwork()
         currentTime = currentTime.getTime()

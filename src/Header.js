@@ -95,9 +95,9 @@ export default class Header extends Component {
             </div>
 
             <div className="container-fluid alternate-bar">
-              <img class="hamburger-icon" alt="Burger" src={require("./assets/Orion_menu-hamburger.png")}/>
-            	<img class="close-icon" alt="Close Burger" src={require("./assets/Orion_close.png")}/>
-            	<a class="alternate-bar-logo" href="#"><img alt="" className="logo-img" src={require("./assets/logo.png")}/></a>
+              <img className="hamburger-icon" alt="Burger" src={require("./assets/Orion_menu-hamburger.png")}/>
+            	<img className="close-icon" alt="Close Burger" src={require("./assets/Orion_close.png")}/>
+            	<a className="alternate-bar-logo" href="#"><img alt="" className="logo-img" src={require("./assets/logo.png")}/></a>
             	<a className="alternate-bar-logo" href="#"><img alt="" className="logo-img" src={require("./assets/logo.png")}/></a>
             	<div className="versionNumber-alternateBar">{this.props.version}</div>
             	<ul className="topBarRightSection">
@@ -138,7 +138,7 @@ export default class Header extends Component {
                     Bet on a cryptocurrency and win against other users based on the price performance in a given period (1 hr).
                     <br/>
                     <h5>How to use</h5>
-                    <ul class="help-text">
+                    <ul className="help-text">
                         <li>Choose a race from the sidebar with the status "Betting open"</li>
                         <li>Select a coin to bet on - BTC, ETH or LTC</li>
                         <li>Enter the amount you are willing to bet (Min 0.01 ETH)</li>
@@ -149,7 +149,7 @@ export default class Header extends Component {
                         <li>Odds shows the potential winning for 1 ETH bet, includes the 1 ETH</li>
                     </ul>
                     <h5>About the race</h5>
-                    <ul class="help-text">
+                    <ul className="help-text">
                         {/* <li>There are two different races, differentiated by a race period of 24 hrs and 1 hr</li> */}
                         {/* <li>There are six 1hr races and one 24hr race every day. Upcoming races are shown on the sidebar</li> */}
                         {/* <li>Betting is open for 4 hours for 1 hour races and 6 hrs for 24 hour race</li> */}
@@ -160,7 +160,7 @@ export default class Header extends Component {
                         <li>Users must claim their winnings within 30 days after the race ends</li>
                     </ul>
                     <h5>About the HORSE Token</h5>
-                    <ul class="help-text">
+                    <ul className="help-text">
                         <li>A takeout of 5% from each race pool goes to the Reward pool. HORSE token holders can earn this reward pool by staking the tokens in their wallet during a fixed time using our dApp smart contract</li>
                         <li>HORSE tokens are traded on <a href="https://yobit.net/en/trade/HORSE/ETH" rel="noopener noreferrer" target="_blank">YoBit</a> and <a href="https://forkdelta.github.io/#!/trade/HORSE-ETH" rel="noopener noreferrer" target="_blank">ForkDelta</a></li>
                     </ul>
