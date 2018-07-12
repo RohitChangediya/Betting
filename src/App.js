@@ -428,7 +428,9 @@ class App extends Component {
                                 </h3>
                             </div>
                         </div>
-                        <ContractSidebar />
+                        <div style={{pointerEvents: 'none'}}>
+                            <ContractSidebar />
+                        </div>
                     </div>)
         }else if (this.state.contract === null) {
             return (<div>
