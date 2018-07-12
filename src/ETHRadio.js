@@ -113,7 +113,7 @@ export default class ETHRadio extends React.Component {
                                         eth.post_price_title="End Price"
                                     }
                                     else {
-                                        if (!self.props.voided_bet){
+                                        if (!self.props.voided_bet && !self.props.race_end){
                                             eth["post_price"] = "$ " + parseFloat(value.data.quotes.USD.price).toFixed(2);
                                         } else {
                                             eth.post_price_title="End Price";

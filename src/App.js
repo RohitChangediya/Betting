@@ -384,7 +384,7 @@ class App extends Component {
                                     <div className="row">
                                         <div className="col-md-12 mx-auto">
                                             {this.state.flashmessage}
-                                            <ETHRadio key={this.state.raceContentUpdate} onSubmit={this.coinValue.bind(this)} name="Radio" currentContract={this.state.contract} totalBets={this.totalBets.bind(this)} betting_open={this.state.betting_open} voided_bet={this.state.voided_bet}/>
+                                            <ETHRadio key={this.state.raceContentUpdate} onSubmit={this.coinValue.bind(this)} name="Radio" currentContract={this.state.contract} totalBets={this.totalBets.bind(this)} betting_open={this.state.betting_open} voided_bet={this.state.voided_bet} race_end={this.state.race_end}/>
                                             <br/>
 
                                             <div className="text-center"><img alt="" className="img-responsive speaker-icon" src={require("./assets/Orion_champion.png")}/>{this.state.reward.toString()}</div>
