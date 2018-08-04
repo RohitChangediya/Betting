@@ -72,6 +72,7 @@ class App extends Component {
             version: "",
             voided_bet: false,
             raceContentUpdate:0,
+            raceTimerUpdate:0,
             controllerContentUpdate:0,
             dappLiveStatus: false
         };
@@ -93,6 +94,10 @@ class App extends Component {
     startFlipClock(time, timerStart) {
         this.setState({targetDate: time, timerStart})
     }
+    updateRace = () => {
+        console.log("Updating race content");
+        this.setState({race_end:true,raceContentUpdate:Math.random()});
+    }
     componentLoad() {
         var placeBetListener = myContract.at(this.state.contract);
         placeBetListener.Deposit().watch(function (error, result) {
@@ -108,7 +113,7 @@ class App extends Component {
 
         var currentTime = new Date()
         this.checkNetwork()
-        currentTime = currentTime.getTime()
+        currentTime = currentTime.getTime()/1000
         var self = this;
         if (web3.currentProvider != null) {
 
@@ -116,23 +121,24 @@ class App extends Component {
                 instance.chronus().then(function(info) {
                     let betting_open = info[0];
                     let race_start = info[1];
-                    let race_end = info[2];
+                    var race_end = false;
                     let voided_bet = info[3];
                     let starting_time = info[4].toNumber();
                     let betting_duration = info[5].toNumber();
                     let race_duration = info[6].toNumber();
                     // console.log(betting_open,race_start,race_end,voided_bet,starting_time,betting_duration,race_duration);
                     let bet_phase = ""
-                    if (currentTime >= (starting_time * 1000) && currentTime < ((starting_time + betting_duration) * 1000)) {
+                    if (currentTime >= starting_time && currentTime < (starting_time + betting_duration)) {
                         self.startFlipClock(starting_time + betting_duration, starting_time);
                         bet_phase = "Betting closes in";
-                    } else if (currentTime < ((starting_time + race_duration) * 1000) && currentTime >= ((starting_time + betting_duration) * 1000)) {
+                    } else if (currentTime < (starting_time + race_duration) && currentTime >= (starting_time + betting_duration)) {
                         let time = parseInt(starting_time, 10) + parseInt(race_duration, 10);
                         self.startFlipClock(time, starting_time + betting_duration);
                         bet_phase = "Race ends in";
                     } else if (starting_time > 0) {
                         self.startFlipClock(0, 0);
                         bet_phase = "Race complete";
+                        race_end = true;
                     }
                     let ms = (race_duration - betting_duration) * 1000
                     let h,m,s;
@@ -363,7 +369,7 @@ class App extends Component {
                                                     marginTop: '5%'
                                                 }}>
 
-                                                <Timer targetDate={this.state.targetDate} bet_phase={this.state.bet_phase} timerStart={this.state.timerStart}/>
+                                                <Timer key={this.state.raceTimerUpdate} updateRace={this.updateRace} targetDate={this.state.targetDate} bet_phase={this.state.bet_phase} timerStart={this.state.timerStart}/>
                                                 <div className="col-sm-6 col-md-4 col-lg-4">
                                                     <img alt="" className="header-item-img" src={require("./assets/Orion_sales-up.png")}/>
                                                     <div className="cb-title crypto-bet text-center">Crypto to Bet On</div>

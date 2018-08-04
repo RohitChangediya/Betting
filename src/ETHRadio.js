@@ -74,6 +74,7 @@ export default class ETHRadio extends React.Component {
         if (coin_details.pre_price === 'TBC') {
             coin_details.percentage = 'TBC';
         }
+        // console.log("Race end: ",this.props.race_end);
         coin_details.post_price = this.checkValue(coin_details.post_price);
         let bets = parseFloat(this.state.totalAmountBet) + parseFloat(web3.utils.fromWei(value[0].toString(), "ether"))
         bets = Math.round(bets * 100) / 100;
@@ -96,7 +97,6 @@ export default class ETHRadio extends React.Component {
                     }
                 }).then(function(){
                     instance.getCoinIndex("ETH",ethAccount).then(function(value) {
-                        console.log("value:",value);
                         var eth = self.getOddsDetails(value, reward);
                         if (eth.pre_price !== "TBC") {
                             fetch("https://api.coinmarketcap.com/v2/ticker/1027/").then(function(details) {
@@ -105,7 +105,11 @@ export default class ETHRadio extends React.Component {
                                     eth["pre_price"] = eth["pre_price"].toFixed(2);
                                     let inc = Math.round(((value.data.quotes.USD.price - eth.pre_price) / eth.pre_price) * 100000) / 1000;
                                     eth['percentage'] = inc + " %";
-                                    if (eth["post_price"] !== "TBC") {
+                                    if (self.props.race_end) {
+                                        eth.post_price_title="End Price";
+                                        eth["post_price"] = "TBC";
+                                    }
+                                    else if (eth["post_price"] !== "TBC") {
                                         eth["post_price"] = eth["post_price"].toFixed(2);
                                         inc = Math.round(((eth.post_price - eth.pre_price) / eth.pre_price) * 100000) / 1000;
                                         eth['percentage'] = inc + " %";
@@ -113,7 +117,7 @@ export default class ETHRadio extends React.Component {
                                         eth.post_price_title="End Price"
                                     }
                                     else {
-                                        if (!self.props.voided_bet && !self.props.race_end){
+                                        if (!self.props.race_end){
                                             eth["post_price"] = "$ " + parseFloat(value.data.quotes.USD.price).toFixed(2);
                                         } else {
                                             eth.post_price_title="End Price";
@@ -125,7 +129,7 @@ export default class ETHRadio extends React.Component {
                                 })
                             })
                         } else {
-                            if (!self.props.voided_bet){
+                            if (!self.props.race_end){
                                 fetch("https://api.coinmarketcap.com/v2/ticker/1027/").then(function(details) {
                                     return details.json().then(function(value) {
 
@@ -156,7 +160,7 @@ export default class ETHRadio extends React.Component {
                                         ltc.post_price_title="End Price"
                                     }
                                     else{
-                                        if (!self.props.voided_bet){
+                                        if (!self.props.race_end){
                                             ltc["post_price"] = "$ " + parseFloat(value.data.quotes.USD.price).toFixed(2);
                                         } else {
                                             ltc.post_price_title="End Price";
@@ -169,7 +173,7 @@ export default class ETHRadio extends React.Component {
                                 })
                             })
                         } else {
-                            if (!self.props.voided_bet){
+                            if (!self.props.race_end){
                                 fetch("https://api.coinmarketcap.com/v2/ticker/2/").then(function(details) {
                                     return details.json().then(function(value) {
                                         ltc["post_price"] = "$ " + parseFloat(value.data.quotes.USD.price).toFixed(2);
@@ -200,7 +204,7 @@ export default class ETHRadio extends React.Component {
                                         btc.post_price_title="End Price"
                                     }
                                     else{
-                                        if (!self.props.voided_bet){
+                                        if (!self.props.race_end){
                                             btc["post_price"] = "$ " + parseFloat(value.data.quotes.USD.price).toFixed(2);
                                         } else {
                                             btc.post_price_title="End Price";
@@ -213,13 +217,14 @@ export default class ETHRadio extends React.Component {
                                 })
                             })
                         } else {
-                            if (!self.props.voided_bet){
-                                fetch("https://api.coinmarketcap.com/v2/ticker/1/").then(function(details) {
+                            console.log("RACE END: ",self.props.race_end);
+                            if (!self.props.race_end){
+                                setInterval(() => fetch("https://api.coinmarketcap.com/v2/ticker/1/").then(function(details) {
                                     return details.json().then(function(value) {
                                         btc["post_price"] = "$ " + parseFloat(value.data.quotes.USD.price).toFixed(2);
                                         self.setState({btc_pool: btc});
                                     })
-                                })
+                                }),1000);
                             } else {
                                 btc.post_price_title="End Price";
                                 self.setState({btc_pool: btc});

@@ -148,6 +148,7 @@ export default class Header extends Component {
                         <li>After the race ends, check bet results and claim winnings using the buttons at the bottom of the page</li>
                         <li>Odds shows the potential winning for 1 ETH bet, includes the 1 ETH</li>
                     </ul>
+                    <span style={{color:'black'}}>&rarr; Video demonstrating <a href="https://www.youtube.com/watch?v=tIJfAu-kaBU" target="_blank" >how to use Ethorse betting dApp</a></span>
                     <h5>About the race</h5>
                     <ul className="help-text">
                         {/* <li>There are two different races, differentiated by a race period of 24 hrs and 1 hr</li> */}

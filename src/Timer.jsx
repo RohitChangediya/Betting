@@ -36,7 +36,6 @@ export default class Timer extends React.Component{
             if (parseInt(distance,10) < 0) {
                 console.log(self.props.bet_phase);
                 if (self.props.bet_phase=="Betting closes in"){
-                    console.log("here");
                     clearInterval(self.timer);
                     self.setState({ timerHTML:"<div class=\"race_details\">Betting closed</div>",distance,compute:false,progress:100+'%'});
                 } else if (self.props.bet_phase=="Race ends in" ) {
@@ -46,7 +45,7 @@ export default class Timer extends React.Component{
                     clearInterval(self.timer);
                     self.setState({ timerHTML:"<div class=\"race_details\">Race ended</div>",distance,compute:false,progress:100+'%'});
                 }
-
+                self.props.updateRace();
             }
 
             // Time calculations for days, hours, minutes and seconds
