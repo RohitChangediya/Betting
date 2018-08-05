@@ -105,11 +105,7 @@ export default class ETHRadio extends React.Component {
                                     eth["pre_price"] = eth["pre_price"].toFixed(2);
                                     let inc = Math.round(((value.data.quotes.USD.price - eth.pre_price) / eth.pre_price) * 100000) / 1000;
                                     eth['percentage'] = inc + " %";
-                                    if (self.props.race_end) {
-                                        eth.post_price_title="End Price";
-                                        eth["post_price"] = "TBC";
-                                    }
-                                    else if (eth["post_price"] !== "TBC") {
+                                    if (eth["post_price"] !== "TBC") {
                                         eth["post_price"] = eth["post_price"].toFixed(2);
                                         inc = Math.round(((eth.post_price - eth.pre_price) / eth.pre_price) * 100000) / 1000;
                                         eth['percentage'] = inc + " %";
