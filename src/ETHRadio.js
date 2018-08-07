@@ -128,7 +128,6 @@ export default class ETHRadio extends React.Component {
                             if (!self.props.race_end){
                                 fetch("https://api.coinmarketcap.com/v2/ticker/1027/").then(function(details) {
                                     return details.json().then(function(value) {
-
                                         eth["post_price"] = "$ " + parseFloat(value.data.quotes.USD.price).toFixed(2);
                                         self.setState({eth_pool: eth});
                                     })
@@ -208,19 +207,17 @@ export default class ETHRadio extends React.Component {
                                         }
                                     }
                                     btc["pre_price"] = "$ " + btc["pre_price"];
-                                    // console.log(btc)
                                     self.setState({btc_pool: btc});
                                 })
                             })
                         } else {
-                            console.log("RACE END: ",self.props.race_end);
                             if (!self.props.race_end){
-                                setInterval(() => fetch("https://api.coinmarketcap.com/v2/ticker/1/").then(function(details) {
+                                fetch("https://api.coinmarketcap.com/v2/ticker/1/").then(function(details) {
                                     return details.json().then(function(value) {
                                         btc["post_price"] = "$ " + parseFloat(value.data.quotes.USD.price).toFixed(2);
                                         self.setState({btc_pool: btc});
                                     })
-                                }),1000);
+                                })
                             } else {
                                 btc.post_price_title="End Price";
                                 self.setState({btc_pool: btc});
