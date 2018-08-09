@@ -61,7 +61,7 @@ export default class ETHRadio extends React.Component {
         var profit = 0
         var coin_bet = parseFloat(web3.utils.fromWei(value[0], "ether"))
         if (coin_bet > 0)
-        profit = Math.round((reward / coin_bet) * 95) / 100;
+        profit = Math.round((reward / coin_bet) * 92.5) / 100;
         var coin_details = {
             pool_total: parseFloat(web3.utils.fromWei(value[0].toString(), "ether")).toFixed(2),
             pre_price: (value[1] / 100),
