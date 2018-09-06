@@ -87,7 +87,7 @@ export default class ETHRadio extends React.Component {
         var self = this;
         myContract.at(this.props.currentContract).then(function(instance) {
             instance.reward_total().then(function(reward) {
-                console.log("reward type: ",reward)
+                // console.log("reward type: ",reward)
                 reward = web3.utils.fromWei(reward, "ether")
                 var ethAccount;
                 web3.eth.getAccounts(function(err, accounts) {

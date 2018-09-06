@@ -95,7 +95,6 @@ class App extends Component {
         this.setState({targetDate: time, timerStart})
     }
     updateRace = () => {
-        console.log("Updating race content");
         this.setState({race_end:true,raceContentUpdate:Math.random()});
     }
     componentLoad() {
@@ -129,7 +128,7 @@ class App extends Component {
                     // console.log(betting_open,race_start,race_end,voided_bet,starting_time,betting_duration,race_duration);
                     let bet_phase = ""
                     if (currentTime >= starting_time && currentTime < (starting_time + betting_duration)) {
-                        self.startFlipClock(starting_time + betting_duration, starting_time);
+                        self.startFlipClock(starting_time + betting_duration - 90, starting_time);
                         bet_phase = "Betting closes in";
                     } else if (currentTime < (starting_time + race_duration) && currentTime >= (starting_time + betting_duration)) {
                         let time = parseInt(starting_time, 10) + parseInt(race_duration, 10);
@@ -147,12 +146,18 @@ class App extends Component {
                     s = s % 60;
                     h = Math.floor(m / 60);
                     m = m % 60;
-                    if (h > 1) {
-                        h = h + ' hours';
+
+                    var race_duration_utc;
+                    console.log("hour: ", h);
+                    if (h == 0) {
+                        race_duration_utc = (m/60).toFixed(1) + ' hour';
+                    } else if (h <= 1) {
+                        race_duration_utc = h + ' hour';
                     } else {
-                        h = h + ' hour';
+                        race_duration_utc = h + ' hours';
                     }
-                    var race_duration_utc = h;
+
+                    console.log("Race Duration: ", race_duration_utc);
                     self.setState({betting_open,race_start,race_end,voided_bet,starting_time,betting_duration,race_duration,duration: race_duration_utc,claim: race_end,bet_phase
                     });
                 })
@@ -393,7 +398,7 @@ class App extends Component {
                                             <ETHRadio key={this.state.raceContentUpdate} onSubmit={this.coinValue.bind(this)} name="Radio" currentContract={this.state.contract} totalBets={this.totalBets.bind(this)} betting_open={this.state.betting_open} voided_bet={this.state.voided_bet} race_end={this.state.race_end}/>
                                             <br/>
 
-                                            <div className="text-center"><img alt="" className="img-responsive speaker-icon" src={require("./assets/Orion_champion.png")}/>{this.state.reward.toString()}</div>
+                                            <div className="text-center"><img alt="" className="img-responsive speaker-icon" src={require("./assets/Orion_champion.png")}/><span>{this.state.reward.toString()}</span></div>
 
                                             <div className="text-center">
                                                 <button type="button" className="btn check-result-button text-center" onClick={this.checkRewards} disabled={!this.state.claim}><img alt="" className="refresh img-responsive" src={require("./assets/Orion_restart.png")}/>Check Results</button>
@@ -429,7 +434,7 @@ class App extends Component {
                             <div className="col-md-2 mx-auto col-sm-1"></div>
                             <div className="col-md-10 mx-auto col-sm-11">
                                 <h3 className="header" style={{textAlign:'center', display:'table',margin:'0 auto', marginTop:'30vh'}}>
-                                    Ethorse runs on the Ethereum Blockchain. To view it’s awesome web page, it requires a compatible browser and plug-in. <br/>
+                                    Ethorse runs on the Ethereum Blockchain. To view its awesome web page, it requires a compatible browser and plug-in. <br/>
                                     A popular choice is installing <a href="https://metamask.io" target="_blank" rel="noopener noreferrer" >Metamask</a> plug-in on Chrome or Firefox browsers.<br/>
                                 </h3>
                             </div>

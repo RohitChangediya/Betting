@@ -8,7 +8,6 @@ export default class AlertMsg extends React.Component {
   }
   onDismiss()
   {
-    console.log(this.props.visible)
     this.props.onSubmit('No_Error')
   }
   render() {

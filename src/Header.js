@@ -20,7 +20,7 @@ if (network !== "Main") {
     network = "";
 }
 
-console.log(link_to_mainnet);
+// console.log(link_to_mainnet);
 export default class Header extends Component {
 
     constructor(props) {
@@ -32,6 +32,7 @@ export default class Header extends Component {
 
         this.toggle = this.toggle.bind(this);
         this.termstoggle=this.termstoggle.bind(this);
+        this.schedule = this.schedule.bind(this);
     }
 
     toggle() {
@@ -42,6 +43,11 @@ export default class Header extends Component {
     termstoggle(){
         this.setState({
             termsModal: !this.state.termsModal
+        });
+    }
+    schedule() {
+        this.setState({
+            schedule: !this.state.schedule
         });
     }
     componentWillMount() {
@@ -87,6 +93,7 @@ export default class Header extends Component {
             	<div className="versionNumber">{this.props.version}</div>
             	<ul className="topBarRightSection">
                     <li className="help"><a href="#" onClick={this.toggle}><i className="fa fa-slack"></i>Help</a></li>
+                    <li className="help"><a href="#" onClick={this.schedule}>Schedule</a></li>
                     <li><a target="_blank" rel="noopener noreferrer" href="https://telegram.me/ethorse" ><img alt="" src={require("./assets/telegram.png")} className="telegram"/></a></li>
                     <li><a href="https://discord.gg/WKEZKvu" target="_blank" rel="noopener noreferrer"><img className="discord" src={require("./assets/discord.png")} alt="Discord"/></a></li>
                     <li><a href="https://www.reddit.com/r/Ethorse/" target="_blank" rel="noopener noreferrer" ><img alt="" src={require("./assets/reddit.png")} className="reddit"/></a></li>
@@ -125,6 +132,69 @@ export default class Header extends Component {
                 </ModalBody>
                 <ModalFooter>
                     <Button color="primary" onClick={this.termstoggle}>OK</Button>
+                </ModalFooter>
+            </Modal>
+
+            <Modal isOpen={this.state.schedule} toggle={this.schedule} size="md" style={{
+                    textAlign: 'left'
+                }}>
+                <ModalHeader toggle={this.toggle}>
+                    <h4>Schedule (GMT)</h4>
+                </ModalHeader>
+                <ModalBody>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <th>Betting open</th>
+                                    <th>Race begins</th>
+                                    <th>Race duration</th>
+                                </tr>
+                                <br/>
+                                <tr>
+                                    <td>00:00</td>
+                                    <td>04:30</td>
+                                    <td>1 hr</td>
+                                </tr>
+                                <tr>
+                                    <td>05:30</td>
+                                    <td>10:00</td>
+                                    <td>1 hr</td>
+                                </tr>
+                                <tr>
+                                    <td>11:00</td>
+                                    <td>15:00</td>
+                                    <td>1 hr</td>
+                                </tr>
+                                <tr>
+                                    <td>16:00</td>
+                                    <td>17:00</td>
+                                    <td>1 hr</td>
+                                </tr>
+                                <tr>
+                                    <td>18:00</td>
+                                    <td>19:00</td>
+                                    <td>1 hr</td>
+                                </tr>
+                                <tr>
+                                    <td>20:00</td>
+                                    <td>20:30</td>
+                                    <td>30 mins</td>
+                                </tr>
+                                <tr>
+                                    <td>21:00</td>
+                                    <td>21:30</td>
+                                    <td>30 mins</td>
+                                </tr>
+                                <tr>
+                                    <td>22:00</td>
+                                    <td>23:00</td>
+                                    <td>1 hr</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                </ModalBody>
+                <ModalFooter>
+                    <Button color="primary" onClick={this.schedule}>Close</Button>
                 </ModalFooter>
             </Modal>
 

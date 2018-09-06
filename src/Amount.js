@@ -7,7 +7,7 @@ export default class Amount extends React.Component {
         this.handleChange = this.handleChange.bind(this);
     }
     handleChange(event) {
-        console.log(event.target.value)
+        // console.log(event.target.value)
         this.setState({value:event.target.value})
         this.props.onValueSubmit(event.target.value);
     }

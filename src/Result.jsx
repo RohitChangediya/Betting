@@ -23,7 +23,7 @@ export default class Result extends Component{
     componentDidMount()
     {
         for(let i=0;i<ethorsejson.coinList.length;i++){
-            console.log("winner check ",ethorsejson.coinList[i]);
+            // console.log("winner check ",ethorsejson.coinList[i]);
             this.checkWinner(ethorsejson.coinList[i]);
         }
     }
@@ -34,10 +34,10 @@ export default class Result extends Component{
                 let starting_time=parseInt(self.props.starting_time,10)
                 if(winner){
                     if(self.state.winner===""){
-                        console.log("state winner: ",self.state.winner);
+                        // console.log("state winner: ",self.state.winner);
                         self.setState({winner:coin,start_time:(moment(parseInt(starting_time,10) * 1000).format('dddd, MMM YYYY')).toString()});
                     } else {
-                        console.log("state winner: ",self.state.winner.length);
+                        // console.log("state winner: ",self.state.winner.length);
                         if(self.state.winner !== coin){
                             self.setState({winner:self.state.winner+" & "+coin,start_time:(moment(parseInt(starting_time,10) * 1000).format('dddd, MMM YYYY')).toString()});
                         }

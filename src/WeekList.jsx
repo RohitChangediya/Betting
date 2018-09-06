@@ -77,7 +77,7 @@ export default class WeekList extends Component {
                     }
                     else if(contracts.status===200){
                         contracts.json().then(function(value) {
-                            console.log('Participated '+value+' '+ethAccount);
+                            // console.log('Participated '+value+' '+ethAccount);
                             self.setState({participated_contracts: value})
                         })
                     }
@@ -94,7 +94,7 @@ export default class WeekList extends Component {
                     }
                     else if(contracts.status===200){
                         contracts.json().then(function(value) {
-                            console.log('Non Participated '+value+' '+ethAccount);
+                            // console.log('Non Participated '+value+' '+ethAccount);
                             self.setState({non_participated_contracts: value})
                         })
                     }
