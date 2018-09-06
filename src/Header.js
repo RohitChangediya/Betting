@@ -218,12 +218,9 @@ export default class Header extends Component {
                         <li>After the race ends, check bet results and claim winnings using the buttons at the bottom of the page</li>
                         <li>Odds shows the potential winning for 1 ETH bet, includes the 1 ETH</li>
                     </ul>
-                    <span style={{color:'black'}}>&rarr; Video demonstrating <a href="https://www.youtube.com/watch?v=tIJfAu-kaBU" target="_blank" >how to use Ethorse betting dApp</a></span>
+                    <span style={{color:'black'}}>For detailed guide: <a href="https://guide.ethorse.com" target="_blank" >https://guide.ethorse.com</a></span>
                     <h5>About the race</h5>
                     <ul className="help-text">
-                        {/* <li>There are two different races, differentiated by a race period of 24 hrs and 1 hr</li> */}
-                        {/* <li>There are six 1hr races and one 24hr race every day. Upcoming races are shown on the sidebar</li> */}
-                        {/* <li>Betting is open for 4 hours for 1 hour races and 6 hrs for 24 hour race</li> */}
                         <li>There are five 1 hr races everyday</li>
                         <li>If the coin start or end prices are not received on Blockchain from Oraclize in 30 minutes, Ethorse fallback Oracle kicks in to put the price (from the same start/end time) on the Blockchain.</li>
                         <li>If there are no prices recorded for an hour hour, the contract automatically enables refund the bettor, no winners/losers will be decided.</li>
