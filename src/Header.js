@@ -142,6 +142,7 @@ export default class Header extends Component {
                     <h4>Schedule (GMT)</h4>
                 </ModalHeader>
                 <ModalBody>
+                    <p>Community Races take place every Tuesday and Thursday from 18:00 to 20:30 GMT and feature higher participation and pots.</p>
                         <table>
                             <tbody>
                                 <tr>
