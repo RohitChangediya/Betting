@@ -153,21 +153,16 @@ export default class Header extends Component {
                                 <br/>
                                 <tr>
                                     <td>00:00</td>
-                                    <td>04:30</td>
+                                    <td>05:00</td>
                                     <td>1 hr</td>
                                 </tr>
                                 <tr>
-                                    <td>05:30</td>
-                                    <td>10:00</td>
-                                    <td>1 hr</td>
-                                </tr>
-                                <tr>
+                                    <td>06:00</td>
                                     <td>11:00</td>
-                                    <td>15:00</td>
                                     <td>1 hr</td>
                                 </tr>
                                 <tr>
-                                    <td>16:00</td>
+                                    <td>12:00</td>
                                     <td>17:00</td>
                                     <td>1 hr</td>
                                 </tr>

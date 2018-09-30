@@ -793,6 +793,10 @@ input[type=number]::-webkit-outer-spin-button {
 	background: linear-gradient(to bottom, rgba(34,167,240,1) 0%,rgba(68,108,179,1) 99%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#22a7f0', endColorstr='#446cb3',GradientType=0 ); /* IE6-9 */
 }
+
+.view-race {
+    margin: 0 auto;
+}
 .refresh, .megaphone{
 	display: inline-block;
 	width: 16px;
