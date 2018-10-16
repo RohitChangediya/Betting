@@ -315,7 +315,7 @@ class App extends Component {
     }
     contractUpdate(contract) {
         let self = this;
-
+        console.log(contract);
         this.setState({
             contract,
             coin: null
@@ -374,7 +374,7 @@ class App extends Component {
                                                     marginTop: '5%'
                                                 }}>
 
-                                                <Timer key={this.state.raceTimerUpdate} updateRace={this.updateRace} targetDate={this.state.targetDate} bet_phase={this.state.bet_phase} timerStart={this.state.timerStart}/>
+                                                <Timer key={this.state.raceTimerUpdate} updateRace={this.updateRace} targetDate={this.state.targetDate} bet_phase={this.state.bet_phase} timerStart={this.state.timerStart} raceNumber={this.state.raceNumber} contract_id={this.state.contract}/>
                                                 <div className="col-sm-6 col-md-4 col-lg-4">
                                                     <img alt="" className="header-item-img" src={require("./assets/Orion_sales-up.png")}/>
                                                     <div className="cb-title crypto-bet text-center">Crypto to Bet On</div>

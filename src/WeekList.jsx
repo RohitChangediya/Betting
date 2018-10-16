@@ -129,6 +129,7 @@ export default class WeekList extends Component {
             }
         }
         updateContract = (contract)=> {
+            console.log(contract.target);
             this.props.contractUpdate(contract);
         }
         render() {

@@ -81,6 +81,14 @@ export default class Timer extends React.Component{
                     <div className="progress">
 						<div className="progress-bar" role="progressbar" aria-valuenow={this.state.progress} aria-valuemin="0" aria-valuemax="100" style={{"width":this.state.progress}}></div>
 					</div>
+                    <div className="btn-container text-center">
+                        <a href="https://mylittleethorse.com/" target="_blank">
+                            <button type="button" className="btn place-bet-button center-block text-center" value="View Race">
+                                {/* <img class="place-bet-icon" src={require("./assets/Orion_online-payment.png")}/>  */}
+                                View Race
+                            </button>
+                        </a>
+                    </div>
 				</div>
             );}
         else{
