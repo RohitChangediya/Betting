@@ -72,25 +72,34 @@ export default class ContractSidebar extends Component {
              this.setState({classActive: true});
         }
 
-        // console.log(event.target.className.split(' ').slice(-1)[0].startsWith("0x"))
-        if(event.target.className.split(' ').slice(-1)[0].startsWith("0x")){
+        console.log("updating mle link");
+        console.log("race#: ",event.target);
+        this.props.setRaceNumber(event.target.className.split('#').slice(-1)[0]);
+
+        var eventClassName =  event.target.className.split('#').slice(0)[0].split(' ').slice(-1)[0];
+        if(eventClassName.startsWith("0x")){
         this.setState({prevActive: event.target});
         // event.target.className = "btn btn-link btn-active";
         if(this.state.prevActive!==null)
             document.getElementById(this.state.prevActive).classList.remove('bettingOpen');
         this.setState({
-            prevActive: event.target.className.split(' ').slice(-1)[0]
+            prevActive: eventClassName
         });
-        document.getElementById(event.target.className.split(' ').slice(-1)[0]).classList='bettingOpen '+document.getElementById(event.target.className.split(' ').slice(-1)[0]).classList;
-        this.props.onContractSubmit(event.target.className.split(' ').slice(-1)[0]);
+        document.getElementById(eventClassName).classList='bettingOpen '+document.getElementById(eventClassName).classList;
+        this.props.onContractSubmit(eventClassName);
         }
     }
 
     initiate(rSelected) {
         if (web3.currentProvider != null){
-            this.setState({contract:rSelected});
-            this.props.onContractSubmit(rSelected);
+            this.setState({contract:rSelected.contractid});
+            this.props.onContractSubmit(rSelected.contractid);
+            // console.log("this props: ",this.props.setRaceNumber);
+            this.props.setRaceNumber(rSelected.race_number);
         }
+    }
+    componentDidMount() {
+        // document.getElementById("mle").href="https://mylittleethorse.com/#/race/"+this.state.contractDetails.race_number;
     }
     updateUpcoming(upcomingDate){
       this.setState({upcomingDate},function(){

@@ -45,8 +45,8 @@ export default class WeekList extends Component {
                     if (value.length > 0) {
                         if(document.getElementById(value[0].contractid)!==null && document.getElementById(value[0].contractid)!==undefined)
                         document.getElementById(value[0].contractid).classList='bettingOpen '+document.getElementById(value[0].contractid).classList;
-                        // console.log(value[0].contractid)
-                        self.props.initiate(value[0].contractid)
+                        console.log("value of 0: ",value[0])
+                        self.props.initiate(value[0])
                     }
                 })
             }
@@ -141,27 +141,27 @@ export default class WeekList extends Component {
                 const ActiveButtons = (active_contract.map((row) => {
 
                     if(row.active==="Race in progress"){
-                        return (<div className={"race live_race " + row.contractid} id={row.contractid} key={row.contractid} onClick={ this.updateContract} style={{textAlign:'left','paddingBottom':'3%'}} number={this.props.number}>
-                            <div class={"raceId "+ row.contractid}><img class={"flag-icon-sidebar "+ row.contractid} src={require("./assets/flag_icon_sidebar.png")} alt=""/>Race #{row.race_number}</div>
-                            <div className={"date " + row.contractid} number={0}>{(moment(parseInt(row.date,10) * 1000).format('DD MMM YYYY')).toString()}
+                        return (<div className={"race live_race " + row.contractid + '#' + row.race_number} id={row.contractid} key={row.contractid} onClick={ this.updateContract} style={{textAlign:'left','paddingBottom':'3%'}} number={this.props.number}>
+                            <div class={"raceId "+ row.contractid + '#' + row.race_number}><img class={"flag-icon-sidebar "+ row.contractid + '#' + row.race_number} src={require("./assets/flag_icon_sidebar.png")} alt=""/>Race #{row.race_number}</div>
+                            <div className={"date " + row.contractid + '#' + row.race_number} number={0}>{(moment(parseInt(row.date,10) * 1000).format('DD MMM YYYY')).toString()}
                                 <br/>
-                                <span className={"hour  " + row.contractid} number={0}>{(moment(parseInt(row.date,10) * 1000).format('HH:mm')).toString()}</span>
+                                <span className={"hour  " + row.contractid + '#' + row.race_number} number={0}>{(moment(parseInt(row.date,10) * 1000).format('HH:mm')).toString()}</span>
                             </div>
-                            <div className={"status-race-sidebar " + row.contractid} number={0}>Status
-                                <span className={"status_race_value live " + row.contractid} number={0}>{row.active}</span>
+                            <div className={"status-race-sidebar " + row.contractid + '#' + row.race_number} number={0}>Status
+                                <span className={"status_race_value live " + row.contractid + '#' + row.race_number} number={0}>{row.active}</span>
                             </div>
                             <div className="duration-race-sidebar"><img src={require("./assets/Orion_hour.png")} className="duration_icon_sidebar" alt=""/>Duration : <span className="duration_race_value">{row.race_duration/3600}{ row.race_duration/3600>1 ? <span className="duration_race_value">hours</span> : <span className="duration_race_value">hour</span> }</span></div>
                         </div>)
                     }
                     else if(row.active==="Open for bets"){
-                        return (<div className={"race live_race " + row.contractid} id={row.contractid} key={row.contractid} onClick={ this.updateContract} style={{textAlign:'left','paddingBottom':'3%'}} number={0}>
-                            <div class={"raceId "+ row.contractid}><img class={"flag-icon-sidebar "+ row.contractid} src={require("./assets/flag_icon_sidebar.png")} alt=""/>Race #{row.race_number}</div>
-                            <div className={"date " + row.contractid} number={0}>{(moment(parseInt(row.date,10) * 1000).format('DD MMM YYYY')).toString()}
+                        return (<div className={"race live_race " + row.contractid + '#' + row.race_number} id={row.contractid} key={row.contractid} onClick={ this.updateContract} style={{textAlign:'left','paddingBottom':'3%'}} number={0}>
+                            <div class={"raceId "+ row.contractid + '#' + row.race_number}><img class={"flag-icon-sidebar "+ row.contractid + '#' + row.race_number} src={require("./assets/flag_icon_sidebar.png")} alt=""/>Race #{row.race_number}</div>
+                            <div className={"date " + row.contractid + '#' + row.race_number} number={0}>{(moment(parseInt(row.date,10) * 1000).format('DD MMM YYYY')).toString()}
                                 <br/>
-                                <span className={"hour  " + row.contractid} number={0}>{(moment(parseInt(row.date,10) * 1000).format('HH:mm')).toString()}</span>
+                                <span className={"hour  " + row.contractid + '#' + row.race_number} number={0}>{(moment(parseInt(row.date,10) * 1000).format('HH:mm')).toString()}</span>
                             </div>
-                            <div className={"status-race-sidebar " + row.contractid} number={0}>Status
-                                <span className={"status_race_value open " + row.contractid} number={0}>{row.active}</span>
+                            <div className={"status-race-sidebar " + row.contractid + '#' + row.race_number} number={0}>Status
+                                <span className={"status_race_value open " + row.contractid + '#' + row.race_number} number={0}>{row.active}</span>
                             </div>
                             <div className="duration-race-sidebar"><img src={require("./assets/Orion_hour.png")} className="duration_icon_sidebar" alt=""/>Duration : <span className="duration_race_value">{row.race_duration/3600}{ row.race_duration/3600>1 ? <span className="duration_race_value">hours</span> : <span className="duration_race_value">hour</span> }</span></div>
                         </div>)
@@ -172,28 +172,28 @@ export default class WeekList extends Component {
                 }))
                 const ParticipatedButtons = (participated_contracts.map((row) => {
 
-                    return (<div className={"race live_race " + row.contractid} id={row.contractid} key={row.contractid} onClick={ this.updateContract} style={{textAlign:'left','paddingBottom':'3%'}} number={1}>
-                        <div class={"raceId "+ row.contractid}><img class={"flag-icon-sidebar "+ row.contractid} src={require("./assets/flag_icon_sidebar.png")} alt=""/>Race #{row.race_number}</div>
-                        <div className={"date " + row.contractid} number={1}>{(moment(parseInt(row.date,10) * 1000).format('DD MMM YYYY')).toString()}
+                    return (<div className={"race live_race " + row.contractid + '#' + row.race_number} id={row.contractid} key={row.contractid} onClick={ this.updateContract} style={{textAlign:'left','paddingBottom':'3%'}} number={1}>
+                        <div class={"raceId "+ row.contractid + '#' + row.race_number}><img class={"flag-icon-sidebar "+ row.contractid + '#' + row.race_number} src={require("./assets/flag_icon_sidebar.png")} alt=""/>Race #{row.race_number}</div>
+                        <div className={"date " + row.contractid + '#' + row.race_number} number={1}>{(moment(parseInt(row.date,10) * 1000).format('DD MMM YYYY')).toString()}
                             <br/>
-                            <span className={"hour  " + row.contractid} number={1}>{(moment(parseInt(row.date,10) * 1000).format('HH:mm')).toString()}</span>
+                            <span className={"hour  " + row.contractid + '#' + row.race_number} number={1}>{(moment(parseInt(row.date,10) * 1000).format('HH:mm')).toString()}</span>
                         </div>
-                        <div className={"status-race-sidebar " + row.contractid} number={1}>Status
-                            <span className={"status_race_value closed " + row.contractid} number={1}>{row.active}</span>
+                        <div className={"status-race-sidebar " + row.contractid + '#' + row.race_number} number={1}>Status
+                            <span className={"status_race_value closed " + row.contractid + '#' + row.race_number} number={1}>{row.active}</span>
                         </div>
                         <div className="duration-race-sidebar"><img src={require("./assets/Orion_hour.png")} className="duration_icon_sidebar" alt=""/>Duration : <span className="duration_race_value">{row.race_duration/3600}{ row.race_duration/3600>1 ? <span className="duration_race_value">hours</span> : <span className="duration_race_value">hour</span> }</span></div>
                     </div>)
                 }))
 
                 const NonParticipatedButtons = (non_participated_contracts.map((row) => {
-                    return (<div className={"race live_race " + row.contractid} id={row.contractid} key={row.contractid} onClick={ this.updateContract} style={{textAlign:'left','paddingBottom':'3%'}} number={2}>
-                        <div class={"raceId "+ row.contractid}><img class={"flag-icon-sidebar "+ row.contractid} src={require("./assets/flag_icon_sidebar.png")} alt=""/>Race #{row.race_number}</div>
-                        <div className={"date " + row.contractid} number={2}>{(moment(parseInt(row.date,10) * 1000).format('DD MMM YYYY')).toString()}
+                    return (<div className={"race live_race " + row.contractid + '#' + row.race_number} id={row.contractid} key={row.contractid} onClick={ this.updateContract} style={{textAlign:'left','paddingBottom':'3%'}} number={2}>
+                        <div class={"raceId "+ row.contractid + '#' + row.race_number}><img class={"flag-icon-sidebar "+ row.contractid + '#' + row.race_number} src={require("./assets/flag_icon_sidebar.png")} alt=""/>Race #{row.race_number}</div>
+                        <div className={"date " + row.contractid + '#' + row.race_number} number={2}>{(moment(parseInt(row.date,10) * 1000).format('DD MMM YYYY')).toString()}
                             <br/>
-                            <span className={"hour  " + row.contractid} number={2}>{(moment(parseInt(row.date,10) * 1000).format('HH:mm')).toString()}</span>
+                            <span className={"hour  " + row.contractid + '#' + row.race_number} number={2}>{(moment(parseInt(row.date,10) * 1000).format('HH:mm')).toString()}</span>
                         </div>
-                        <div className={"status-race-sidebar " + row.contractid} number={2}>Status
-                            <span className={"status_race_value closed " + row.contractid} number={2}>{row.active}</span>
+                        <div className={"status-race-sidebar " + row.contractid + '#' + row.race_number} number={2}>Status
+                            <span className={"status_race_value closed " + row.contractid + '#' + row.race_number} number={2}>{row.active}</span>
                         </div>
                         <div className="duration-race-sidebar"><img src={require("./assets/Orion_hour.png")} className="duration_icon_sidebar" alt=""/>Duration : <span className="duration_race_value">{row.race_duration/3600}{ row.race_duration/3600>1 ? <span className="duration_race_value">hours</span> : <span className="duration_race_value">hour</span> }</span></div>
                     </div>)

@@ -74,7 +74,8 @@ class App extends Component {
             raceContentUpdate:0,
             raceTimerUpdate:0,
             controllerContentUpdate:0,
-            dappLiveStatus: false
+            dappLiveStatus: false,
+            raceNumber:-1
         };
         this.invokeContract = this.invokeContract.bind(this);
         this.checkRewards = this.checkRewards.bind(this);
@@ -313,6 +314,10 @@ class App extends Component {
 
         });
     }
+    setRaceNumber(raceNumber) {
+        console.log("entering set race number");
+        this.setState({raceNumber});
+    }
     contractUpdate(contract) {
         let self = this;
         console.log(contract);
@@ -419,7 +424,7 @@ class App extends Component {
                                     'marginTop' : '5vh',
                                     position: 'fixed'
                                 }}>
-                                <ContractSidebar onContractSubmit={this.contractUpdate.bind(this)}/>
+                                <ContractSidebar onContractSubmit={this.contractUpdate.bind(this)} setRaceNumber={this.setRaceNumber.bind(this)} />
                             </div>
                         </div>
                     </div>
@@ -454,7 +459,7 @@ class App extends Component {
                         </h3>
                     </div>
                 </div>
-                <ContractSidebar onContractSubmit={this.contractUpdate.bind(this)}/>
+                <ContractSidebar onContractSubmit={this.contractUpdate.bind(this)} setRaceNumber={this.setRaceNumber.bind(this)}/>
             </div>)
         } else if (web3.currentProvider != null && this.state.network !== this.state.targetNetwork) {
             return (
@@ -475,7 +480,7 @@ class App extends Component {
                             </Jumbotron>
                         </div>
                     </div>
-                    <ContractSidebar onContractSubmit={this.contractUpdate.bind(this)}/>
+                    <ContractSidebar onContractSubmit={this.contractUpdate.bind(this)} setRaceNumber={this.setRaceNumber.bind(this)}/>
                 </div>)
     }  else {
         return (<div/>);
