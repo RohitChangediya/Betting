@@ -77,10 +77,16 @@ export default class Timer extends React.Component{
                 <div className="col-sm-12 col-md-8 col-lg-4">
 					<img alt="" className="header-item-img" src={require("./assets/Orion_stopwatch.png")}/>
 					<div className="cb-title remaining text-center">{this.props.bet_phase}</div>
-					<p id="timer" className="text-center" dangerouslySetInnerHTML={{__html: this.state.timerHTML}}></p>
+					<p id="timer" className="text-center" dangerouslySetInnerHTML={{__html: this.state.timerHTML}} style={{marginTop: '17px'}}></p>
                     <div className="progress">
 						<div className="progress-bar" role="progressbar" aria-valuenow={this.state.progress} aria-valuemin="0" aria-valuemax="100" style={{"width":this.state.progress}}></div>
 					</div>
+                    <div>
+                        <p className="cb-title text-center" style={{fontSize:"12px",marginTop: '10px'}}>
+                            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAEqSURBVDhPhZKxSgNBFEVX3ASbDRgsF4KNXxAhRbAWxdZvCFbW6ZNG8CdM/IXEwsJWsTE/4A+olZgi2c15Mzc7DGzwwOXtu+9ddobdpI6iKLKyLPvUK3TKc6rRblg8RlO0JFBB/41GKNNqDIMzW9J+LcwXKFfEg9FBP9qpwLtFQ7UO+ndKQ1EXfvSjAN6KckTNvRPAu9kGWyi64xZ8u2vdiV5dmOe+twIMn1EPnaBP2RV4a0pqb770Vgz+nU72JCsCv23DrvoI/GvKPvXLOwG8P8qeHbtBE92L3mijnqwI/Lm7s0Ezlu+g/6XYW7voxbsBvAtFXThDH5o56GfoHi1kOegfFAtg5sh+gJ0wn1AOFIlh0GRhgN6QfQ4LLNEcnWvtf8il6FBtDUmyAZEHd1AXrFh0AAAAAElFTkSuQmCC"/>
+                            &nbsp;Bets are matched up to 10 minutes before bets closing time.
+                        </p>
+                    </div>
                     <div className="btn-container text-center">
                         <a href={"https://mylittleethorse.com/#/race/"+this.props.raceNumber} target="_blank" id="mle">
                             <button type="button" className="btn place-bet-button center-block text-center" value="View Race">
