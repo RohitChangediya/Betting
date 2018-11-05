@@ -25,20 +25,25 @@ if (!process.env.REACT_APP_ENVIRONMENT || process.env.REACT_APP_ENVIRONMENT === 
     ip=cfg.productionIP;
 }
 
-var web3 = new Web3(Web3.givenProvider);
+// web3resolver();
+
+if (window.ethereum) {
+    var web3 = new Web3(window.ethereum);
+
+    try {
+        // Request account access if needed
+        window.ethereum.enable();
+    } catch (error) {
+        console.log(error);
+        // User denied account access...
+    }
+} else {
+    var web3 = new Web3(Web3.givenProvider);
+}
 
 var myContract = contract(ethorsejson);
 if (web3.currentProvider != null) {
     myContract.setProvider(web3.currentProvider);
-
-} else {
-    // var isChrome = !!window.chrome && !!window.chrome.webstore;
-    // console.log(isChrome)
-    // if(isChrome){
-    // alert("Compatible only with Chrome browser (with Metamask extension), Mist or Geth")
-    // }else{
-    //   alert("Compatible only with Metamask browser extension for Chrome or Mist browser from Ethereum")
-    // }
 }
 
 
