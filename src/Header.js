@@ -176,13 +176,13 @@ export default class Header extends Component {
                                     <td>20:30</td>
                                     <td>30 mins</td>
                                 </tr>
-                                <tr>
+                                {/* <tr>
                                     <td>21:00</td>
                                     <td>21:30</td>
                                     <td>30 mins</td>
-                                </tr>
+                                </tr> */}
                                 <tr>
-                                    <td>22:00</td>
+                                    <td>21:00</td>
                                     <td>23:00</td>
                                     <td>1 hr</td>
                                 </tr>
